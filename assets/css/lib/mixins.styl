@@ -1,0 +1,45 @@
+background-transparency(color, alpha = 1)
+   ms-color = argb(color, alpha)
+   background rgb(color)
+   background rgba(color, alpha)
+   .lt-ie8 &
+      zoom 1
+   .lt-ie9 &
+      background transparent
+      filter s('progid:DXImageTransform.Microsoft.gradient(startColorstr=%s,endColorstr=%s)', ms-color, ms-color)
+      &:nth-child(n)
+         filter none
+
+hex(decimal)
+   hex-value = ('0') ('1') ('2') ('3') ('4') ('5') ('6') ('7') ('8') ('9') ('A') ('B') ('C') ('D') ('E') ('F')
+   unquote(hex-value[floor(decimal / 16)] + hex-value[floor(decimal % 16)])
+
+background-gradient(startColor = #555, endColor = #333)
+   background-color: mix(startColor, endColor, 60%)
+   background-image: -moz-linear-gradient(top, startColor, endColor) // FF 3.6+
+   background-image: -ms-linear-gradient(top, startColor, endColor) // IE10
+   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(startColor), to(endColor)) // Safari 4+, Chrome 2+
+   background-image: -webkit-linear-gradient(top, startColor, endColor) // Safari 5.1+, Chrome 10+
+   background-image: -o-linear-gradient(top, startColor, endColor) // Opera 11.10
+   background-image: linear-gradient(top, startColor, endColor) // The standard
+   background-repeat: repeat-x
+   filter s('progid:DXImageTransform.Microsoft.gradient(startColorstr=%s,endColorstr=%s)', argb(startColor), argb(endColor))
+
+background-gloss()
+   background: -moz-linear-gradient(top, rgba(255,255,255,0) 1%, rgba(255,255,255,0.16) 50%, rgba(255,255,255,0) 56%, rgba(255,255,255,0) 100%) /* FF3.6+ */
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(255,255,255,0)), color-stop(50%,rgba(255,255,255,0.16)), color-stop(56%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0))) /* Chrome,Safari4+ */
+   background: -webkit-linear-gradient(top, rgba(255,255,255,0) 1%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 56%,rgba(255,255,255,0) 100%) /* Chrome10+,Safari5.1+ */
+   background: -o-linear-gradient(top, rgba(255,255,255,0) 1%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 56%,rgba(255,255,255,0) 100%) /* Opera 11.10+ */
+   background: -ms-linear-gradient(top, rgba(255,255,255,0) 1%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 56%,rgba(255,255,255,0) 100%) /* IE10+ */
+   background: linear-gradient(to bottom, rgba(255,255,255,0) 1%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 56%,rgba(255,255,255,0) 100%) /* W3C */
+   // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=0 ) /* IE6-9 */
+
+dropshadow()
+   -moz-box-shadow: arguments
+   -webkit-box-shadow: arguments
+   box-shadow: arguments
+
+border-radius(radius)
+   -webkit-border-radius: radius
+   -moz-border-radius: radius
+   border-radius: radius

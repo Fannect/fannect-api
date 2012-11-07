@@ -1,0 +1,80 @@
+@import "../lib/mixins"
+@import "../lib/variables"
+
+body.profile
+   .nav li.nav-item.missions
+      background-gradient: #2f2f2f #525252
+
+   .secondary-nav
+      .inner
+         display: block
+         height: secondary-nav-height
+         position: relative
+         font-weight: bold
+         border-bottom: 1px solid #3e3e3e
+
+      li.nav-item.name
+         position: absolute
+         height: secondary-nav-height
+         width: auto
+         top: 0
+         right: header-height
+         bottom: 0
+         left: 0
+         background-gradient: medium-dark-gray dark-gray
+
+         .title
+            line-height: secondary-nav-height
+            padding-left: 25px
+
+      li.nav-item.search
+         display: inline-block
+         float: right
+         height: secondary-nav-height      
+         width: header-height
+
+         &:hover, &:active
+            background-gradient: medium-dark-gray dark-gray
+            dropshadow: inset 0 1px 5px #262626
+
+         .inner
+            text-align: center
+            border-left: 1px solid #262626
+
+         .title
+            position: absolute
+            display: block
+            bottom: 4px
+            width: 100%
+            font-size: .9em
+
+         .icon.search
+            position: absolute
+            top: 7px
+            left: 12px
+   #profile
+      &>.inner
+         padding: normal-margin thin-margin
+
+      .image-wrap
+         position: relative
+         height: auto
+         
+         .inset-large
+            bottom: 2px
+         img
+            width: 100%
+
+      .information
+         padding-top: normal-margin
+
+         .bio
+            font-size: .7em
+            line-height: 1.1em
+            margin-right: 100px
+
+         .button
+            float: right
+
+      .selection-wrap
+         margin:  normal-margin thin-margin
