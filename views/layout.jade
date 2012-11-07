@@ -11,22 +11,31 @@ html
          != css("skin")
          link(rel="stylesheet", href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
 
-      block scripts
-         != js("lib/jquery-1.8.2")
-         != js("lib/jquerymobile-1.2.0.js")
-         != js("lib/knockout")
+
+      script(src="/lib/jquery-1.8.2.js")
+      != js("ext/nav-handler")
+      != js("pages/preferences")
+      block custom-scripts
+      script(src="/lib/jquerymobile-1.2.0.js")
+      // != js("lib/knockout")
 
    - var viewDir = locals.root
    - var view = locals.filename.replace(viewDir, "").replace(".jade", "").replace(/^[\\\/]/g, "");
    - var viewClass = view.replace(/[\\\/]/g, "-");
-   body(class=viewClass)
+   body
       div(class=viewClass, data-role="page")
 
-         div(data-role="header")
+         #header(data-role="header")
             block header
 
-         div(data-role="content")
+         #content(data-role="content")
             block content
 
-         div(data-role="footer")
-            block footer
+         #footer(data-role="footer", data-id="footer", data-position="fixed")
+            div(data-role="navbar")
+               ul
+                  li: a#profile-menu(href="/profile", data-icon="grid") Profile
+                  li: a#points-menu(href="/points", data-icon="grid") Points
+                  li: a#leaderboard-menu(href="/leaderboard", data-icon="grid") Leaderboard
+                  li: a#connect-menu(href="/connect", data-icon="grid") Connect
+                  li: a#preferences-menu(href="/preferences", data-icon="grid", data-prefetch="true") Preferences

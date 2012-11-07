@@ -24,7 +24,7 @@ app.use express.bodyParser()
 app.use express.cookieParser process.env.COOKIE_SECRET or "super duper secret"
 app.use require("connect-assets")()
 app.use express.static path.join __dirname, "../public"
-# app.use require("../middleware/utils").root
+app.use require("../middleware/utils").root
 
 #Session
 # redis_client = redis.connect(process.env.REDISTOGO_URL or "redisurlhere")
@@ -38,3 +38,4 @@ app.use express.static path.join __dirname, "../public"
 
 # Controllers
 app.use require "./points"
+app.use require "./preferences"
