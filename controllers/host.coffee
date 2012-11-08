@@ -37,5 +37,8 @@ app.use require("../middleware/utils").root
 #    store: sessionStore
 
 # Controllers
+app.use require "./profile"
 app.use require "./points"
+app.use require "./leaderboard"
+app.use require "./connect"
 app.use require "./preferences"
