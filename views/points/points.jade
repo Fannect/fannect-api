@@ -1,6 +1,11 @@
-extends ../layout
+extend ../layout
 
-//- block append scripts
-   // != js("pages/missions")
+block header
+   h1 Points
 
 block content
+   ul(data-role="listview")
+      li: a(href="/points/guessTheScore") Guess The Score
+      li: a(href="/points/attendanceStreak") Attendance Streak
+      li: a(href="/points/gameFace") Game Face
+      li: a(href="/points/suggestGame") Suggest A Game

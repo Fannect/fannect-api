@@ -5,6 +5,6 @@ block header
    h1 Add Team
 
 block content
-   ul(data-role="listview", filter="true")
+   ul(data-role="listview", data-filter="true")
       each team in teams
          li: a(href="/profile?team=#{team}") #{prettyCamel(team)}
