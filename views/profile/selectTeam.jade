@@ -1,0 +1,10 @@
+extend ../layout
+
+block header
+   a(href="/profile/selectLeague", data-icon="back", data-rel="back") Back
+   h1 Add Team
+
+block content
+   ul(data-role="listview", filter="true")
+      each team in teams
+         li: a(href="/profile?team=#{team}") #{prettyCamel(team)}
