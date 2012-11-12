@@ -3,7 +3,8 @@
    "name": "Fannect",
    "version": "0.0.1",
    "engines": {
-      "node": ">= 0.8.x"
+      "node": ">= 0.8.x",
+      "npm": "1.1.x"
    },
    "private": true,
    "dependencies": {
@@ -16,8 +17,5 @@
       "connect-redis": "1.4.4",
       "redis-url": "0.1.0",
       "pretty-camel": "0.0.8"
-   },
-   "scripts": {
-      "test": "mocha --compilers coffee:coffee-script --reporter spec --recursive"
    }
 }

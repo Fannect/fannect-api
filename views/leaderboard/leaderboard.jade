@@ -1,0 +1,14 @@
+extend ../layout
+
+block header
+   h1 Leaderboard
+
+block content
+   
+   //- div(data-role="fieldcontain")
+   fieldset(data-role="controlgroup", data-type="horizontal", data-mini="true")
+      input(type="radio", name="board-picker", id="board-overall-picker", value="overall", checked="true")
+      label(for="board-overall-picker") Overall
+      input(type="radio", name="board-picker", id="board-roster-picker", value="roster")
+      label(for="board-roster-picker") Roster
+         

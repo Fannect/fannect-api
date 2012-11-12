@@ -5,7 +5,23 @@ block header
 
 block content
    ul(data-role="listview")
-      li: a(href="/points/guessTheScore") Guess The Score
-      li: a(href="/points/attendanceStreak") Attendance Streak
-      li: a(href="/points/gameFace") Game Face
+      li
+         a(href="/points/guessTheScore")
+            .icon.gamecell.guess-the-score
+            .text
+               .inner
+                  span.game-name Guess The Score
+      li
+         a(href="/points/attendanceStreak")
+            .icon.gamecell.attendance-streak
+            .text
+               .inner
+                  span.game-name Attendance Streak
+      li
+
+         a(href="/points/gameFace")
+            .icon.gamecell.game-face
+            .text
+               .inner
+                  span.game-name Gameface
       li: a(href="/points/suggestGame") Suggest A Game

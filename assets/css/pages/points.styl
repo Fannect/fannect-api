@@ -1,0 +1,104 @@
+@import "../lib/mixins"
+@import "../lib/variables"
+
+.points-points
+   .ui-content
+      padding-left: 8px
+
+   .icon
+      float: left
+
+   .text
+      position: relative
+      margin-left: 82px
+      height: 1px
+
+   .inner
+      display: table
+      position: absolute
+      top: 0px
+      left: 0px
+      height: 72px
+
+   .game-name
+      display: table-cell
+      vertical-align: middle
+      text-align: left
+      text-transform: uppercase
+      white-space: normal
+      font-size: 1.3em
+
+.points-attendanceStreak
+   .ui-content
+      padding: 0
+
+      .info
+         height: 121px
+         background: url(/images/games/attendance-streak/Overlay_Marquee_iPhone@2x.png) repeat-x 50% -1px
+         background-size: 320px 121px
+         position: relative
+         overflow: hidden
+         text-align: center
+
+         .left-cap
+            position: absolute
+            left: 0
+            top: -6px
+            width: 13px
+            height: 110px
+            background: url(/images/games/attendance-streak/Overlay_MarqueeCap_Left_iPhone@2x.png) 50% 0%
+            background-size: 13px 110px
+         .right-cap
+            position: absolute
+            right: 0
+            top: -6px
+            width: 13px
+            height: 110px
+            background: url(/images/games/attendance-streak/Overlay_MarqueeCap_Right_iPhone@2x.png) 50% 0%
+            background-size: 13px 110px
+
+         .stadium-info
+            padding-top: 8px
+
+            .stadium
+               font-size: 1.6em
+               text-shadow: 0.1em 0.1em #000
+               margin-bottom: 3px
+
+            .location
+               font-size: .7em
+               color: color-light-gray
+               text-shadow: 0.1em 0.1em #000
+
+         .game-info
+            margin-top: 6px
+            font-size: .7em
+
+            .team
+               text-overflow: ellipsis
+               white-space: nowrap;
+
+            .record
+               margin-top: 5px
+               color: color-light-gray
+               text-overflow: ellipsis
+               white-space: nowrap;
+
+            .home-info
+               float: left
+               width: 40%
+               .inner
+                  margin-left: 15px
+            .vs
+               float: left
+               width: 20% 
+               height: 36px
+               background: url(/images/games/attendance-streak/Overlay_VsButton@2x.png) no-repeat 50% 0%
+               background-size: 36px 36px
+
+            .visitor-info
+               float: left
+               width: 40%
+               .inner
+                  margin-right: 15px
+

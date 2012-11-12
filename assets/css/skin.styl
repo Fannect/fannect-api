@@ -1,2 +1,88 @@
 @import "lib/variables"
 @import "lib/mixins"
+
+// Layout
+
+#header
+   h1
+      text-transform: uppercase
+
+#footer
+   .ui-btn-inner
+      padding-top: 38px
+   .ui-btn-text
+      font-size: .7em
+      top: 2px
+   .ui-icon
+      width: 48px
+      height: 32px
+      background: url(/images/icons-tab.png) no-repeat;
+      background-size: 260px 32px
+      margin-left: -24px
+   #profile-menu .ui-icon
+      background-position: -159px 0
+   #points-menu .ui-icon
+      background-position: -106px 0
+   #leaderboard-menu .ui-icon
+      background-position: -53px 0
+   #connect-menu .ui-icon
+      background-position: 0 0
+   #preferences-menu .ui-icon
+      background-position: -212px 0
+
+// Icons
+.icon
+   &.tab
+      
+      background: url(/images/icons-tab.png) no-repeat;
+      background-size: 260px 32px
+
+      &.connect
+         background-position: 0 0
+      &.leaderboard
+         background-position: -53px 0
+      &.points
+         background-position: -106px 0
+      &.profile
+         background-position: -159px 0
+      &.preferences
+         background-position: -212px 0
+
+   &.settings
+      width: 29px
+      height: 29px
+      background: url(/images/icons-settings.png) no-repeat;
+      background-size: 301px 29px
+
+      &.client
+         background-position: 0 0
+      &.rade-eecles
+         background-position: -34px 0
+      &.this-app
+         background-position: -64px 0
+      &.account
+         background-position: -102px 0
+      &.more-apps
+         background-position: -136px 0
+      &.privacy
+         background-position: -170px 0
+      &.rate-it
+         background-position: -204px 0
+      &.technical-support
+         background-position: -238px 0
+      &.tell-friend
+         background-position: -204px 0
+
+   &.gamecell
+      width: 72px
+      height: 72px
+      background: url(/images/icons-gamecell.png) no-repeat;
+      background-size: 226px 72px
+            
+      &.attendence-streak
+         background-position: 0 0
+      &.game-face
+         background-position: -77px 0
+      &.guess-the-score
+         background-position: -154px 0
+      
