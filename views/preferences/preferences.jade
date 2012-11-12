@@ -4,15 +4,27 @@ block header
    h1 Preferences
    
 block content
-   ul(data-role="listview", data-inset="true")
-      li: a(href="/preferences/account", data-transition="slide") My Account
-      li: a(href="/preferences/support", data-transition="slide") Technical Support
+   ul.selections(data-role="listview", data-inset="true")
+      li
+         .icon.settings.account
+         a(href="/preferences/account", data-transition="slide") My Account
+      li
+         .icon.settings.technical-support
+         a(href="/preferences/support", data-transition="slide") Technical Support
 
-   ul(data-role="listview", data-inset="true")
-      li: a(href="/preferences/aboutFannect", data-transition="slide") About Fannect
-      li: a(href="/preferences/aboutFullTiltVentures", data-transition="slide") About Full Tilt Ventures
-      li: a(href="/preferences/aboutRadeEccles", data-transition="slide") About Rade | Eccles
+   ul.selections(data-role="listview", data-inset="true")
+      li
+         .icon.settings.fannect
+         a(href="/preferences/aboutFannect", data-transition="slide") About Fannect
+      li
+         .icon.settings.full-tilt-ventures
+         a(href="/preferences/aboutFullTiltVentures", data-transition="slide") About Full Tilt Ventures
+      li
+         .icon.settings.rade-eecles
+         a(href="/preferences/aboutRadeEccles", data-transition="slide") About Rade | Eccles
 
-   ul(data-role="listview", data-inset="true")   
-      li: a(href="/preferences/privacy", data-transition="slide") Privacy
+   ul.selections(data-role="listview", data-inset="true")   
+      li
+         .icon.settings.privacy
+         a(href="/preferences/privacy", data-transition="slide") Privacy
       

@@ -7,14 +7,22 @@ app.get "/points", (req, res, next) ->
    res.render "points/points"
 
 app.get "/points/guessTheScore", (req, res, next) ->
-   res.render "points/guessTheScore/pick"
+   gameInfo =
+      home:
+         name: "Kansas Jayhawks"
+         record: "(31-3, 14-2)"
+      away:
+         name: "Missouri Tigers"
+         record: "(31-3, 14-2)"
+
+   res.render "points/guessTheScore/pick", gameInfo
 
 app.get "/points/attendanceStreak", (req, res, next) ->
    gameInfo = 
       home:
          name: "Kansas Jayhawks"
          record: "(31-3, 14-2)"
-      visitor:
+      away:
          name: "Missouri Tigers"
          record: "(31-3, 14-2)"
       stadium:

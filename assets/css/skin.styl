@@ -10,7 +10,14 @@
    font-family: JerseyM54
    src: url(/fonts/JerseyM54.ttf)
 
+.clear
+   clear: both
+   height: 1px
+
 .header
+   position: relative
+   dropshadow: 0 2px 3px rgba(0,0,0,.5)
+   z-index: 500
    .ui-btn-left
    .ui-btn-right
       top: 5px
@@ -21,11 +28,25 @@
       font-size: 1.2em
       text-transform: uppercase
 
+.scrollable-content
+   position: absolute
+   top: header-height - 1
+   left: 0
+   right: 0
+   bottom: footer-height + 1
+   overflow-y: auto
+   overflow-x: hidden
+   -webkit-overflow-scrolling: touch
+
+.ui-page
+   background: url(/images/Background_PerforatedMetal@2x.png) 50% 0
+   background-size: 320px 480px
+
 .footer
    .ui-navbar
       position: relative
       dropshadow: 0 -2px 3px rgba(0,0,0,.6)
-      z-index: 100
+      z-index: 500
    .ui-btn-inner
       padding-top: 38px
    .ui-btn-text
@@ -48,6 +69,23 @@
    .preferences-menu .ui-icon
       background-position: -212px 0
 
+// Elements
+.team-glass
+   font-size: .7em
+   background: url(/images/games/Overlay_TeamGlass_iPhone@2x.png)
+   background-size: 134px 43px
+   width: 110px
+   height: 25px
+   padding: 8px 12px 10px 12px
+   text-align: center
+
+   .team
+      margin-bottom: 2px
+
+   .record
+      color: color-light-gray
+      font-size: .9em
+
 // Icons
 .icon
    &.settings
@@ -56,12 +94,12 @@
       background: url(/images/icons/icons-settings.png) no-repeat;
       background-size: 301px 29px
 
-      &.client
+      &.full-tilt-ventures
          background-position: 0 0
       &.rade-eecles
          background-position: -34px 0
-      &.this-app
-         background-position: -64px 0
+      &.fannect
+         background-position: -68px 0
       &.account
          background-position: -102px 0
       &.more-apps

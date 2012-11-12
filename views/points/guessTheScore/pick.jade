@@ -5,3 +5,26 @@ block header
    h1 Games
 
 block content
+   form.scrollable-content(action="/points/guessTheScore", method="post")
+      .input
+         .home.guess-block
+            label(for="home_guess") Home
+            input(type="number", name="home_guess", id="home_guess", pattern="[0-9]*", value="", placeholder="0")
+         .away.guess-block
+            label(for="away_guess") Away
+            input(type="number", name="away_guess", id="away_guess", pattern="[0-9]*", value="", placeholder="0")
+         .clear
+
+
+      .team-info
+         .home.team-glass
+            .team= home.name
+            .record= home.record
+         .vs
+         .away.team-glass
+            .team= away.name
+            .record= away.record
+         .clear
+
+      .submit-wrap
+         button(type="submit", value="Submit")
