@@ -2,17 +2,122 @@
 @import "../lib/variables"
 
 .profile-profile
-   background: url(/images/Background_PerforatedMetal@2x.png)
+   background: url(/images/Background_PerforatedMetal@2x.png) 50% 0
    background-size: 320px 480px
    
    .ui-content
       padding: 0 0 inherit 0
    
+   .profile
+      position: absolute
+      top: header-height
+      left: 0
+      right: 0
+      bottom: footer-height
+      overflow-y: auto
+      overflow-x: hidden
+      -webkit-overflow-scrolling: touch
+
+   .profile-images
+      position: relative
+      height: 250px
+      width: 320px
+      margin: 0 auto
+
+      .team-wrap
+         position: absolute
+         right: 0
+         top: 0
+         width: 210px
+         height: 120px
+
+         .cover
+            position: absolute
+            top: 0
+            left: 0
+            z-index: 200
+            width: 210px
+            height: 210px
+            background: url(/images/profile/Overlay_TeamPictureFrame@2x.png) 
+            background-size:162px 162px
+
+         img
+            width: 210px
+            height: 210px
+            border-radius: 10px
+
+      .user-wrap
+         z-index: 300
+         position: absolute
+         bottom: 0
+         left: 0
+         width: 162px
+         height: 162px
+         
+         .cover
+            position: absolute
+            z-index: 400
+            width: 162px
+            height: 162px
+            background: url(/images/profile/Overlay_ProfilePictureFrame@2x.png) 
+            background-size:162px 162px
+
+         img
+            position: absolute
+            top: 7px
+            left: 11px
+            width: 140px
+            height: 140px
+            border-radius: 10px
+
    .name
       font-size: 1.8em
       font-weight: bold
       text-align: center
 
+   .team-name-wrap
+      width: 302px 
+      height: 66px
+      margin: 8px auto
+      background: url(/images/profile/Profile_GlassMarquee@2x.png) 
+      background-size:302px 66px
+      text-transform: uppercase
+      
+      .team
+         width: 266px
+         margin: 0 auto
+         font-size: 1.05em
+         color: color-light-gray
+         text-align: center
+         line-height: 66px
+         white-space: nowrap
+         overflow: hidden
+         text-overflow: ellipsis
+
+   .score-wrap
+      position: relative
+      width: 302px
+      height: 36px
+      margin: 8px auto
+      background: url(/images/profile/Profile_ScoreDisplay-iPhone@2x.png) 
+      background-size:302px 36px
+      .score
+         position: absolute
+         top: 11px
+         width: 78px
+         font-size: .7em
+         font-family: JerseyM54, Helvetica, Arial, sans-serif
+         .label
+            text-transform: uppercase
+            float: left
+         .value
+            float: right
+         &.roster
+            left: 20px
+         &.points
+            left: 113px
+         &.rank
+            left: 206px
 
    .separator
       width: 320px
@@ -20,6 +125,11 @@
       background: url(/images/profile/ProfileSeperators.png) no-repeat
       background-size: 965px 26px
       margin: 20px auto 5px auto
+   .text
+      width: 290px
+      margin: 0 auto
+      font-size: .8em
+      line-height: 1.4em
 
    .bio
       .separator

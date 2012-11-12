@@ -2,17 +2,34 @@ extend ../layout
 
 block header
    h1 Profile
-   a(href="/profile/selectSport", data-role="button") Add Team
+   a.ui-btn-right(href="/profile/selectSport", data-role="button") Add Team
 
 block content
    .profile
       .profile-images
          .team-wrap
             img(src="#{team_image}")
+            .cover
          .user-wrap
             img(src="#{user_image}")
+            .cover
 
       .name= name
+
+      .team-name-wrap
+         .team= team
+         .icon
+
+      .score-wrap
+         .score.roster
+            .label Roster
+            .value= score.roster
+         .score.points
+            .label Points
+            .value= score.points
+         .score.rank
+            .label Rank
+            .value= score.rank
 
       .bio
          .separator
