@@ -6,22 +6,27 @@ block header
 block content
    ul(data-role="listview")
       li
-         a(href="/points/guessTheScore")
+         a(href="/points/guessTheScore", data-transition="slide")
             .icon.gamecell.guess-the-score
             .text
                .inner
                   span.game-name Guess The Score
       li
-         a(href="/points/attendanceStreak")
+         a(href="/points/attendanceStreak", data-transition="slide")
             .icon.gamecell.attendance-streak
             .text
                .inner
                   span.game-name Attendance Streak
       li
 
-         a(href="/points/gameFace")
+         a(href="/points/gameFace", data-transition="slide")
             .icon.gamecell.game-face
             .text
                .inner
                   span.game-name Gameface
-      li: a(href="/points/suggestGame") Suggest A Game
+      li
+         a(href="/points/suggestGame")
+            .icon.gamecell.attendance-streak
+            .text
+               .inner
+                  span.game-name Suggest A Game

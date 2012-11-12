@@ -33,6 +33,8 @@
       padding: 0
 
       .info
+         margin: 0 auto
+         max-width: 600px
          height: 121px
          background: url(/images/games/attendance-streak/Overlay_Marquee_iPhone@2x.png) repeat-x 50% -1px
          background-size: 320px 121px
@@ -46,7 +48,7 @@
             top: -6px
             width: 13px
             height: 110px
-            background: url(/images/games/attendance-streak/Overlay_MarqueeCap_Left_iPhone@2x.png) 50% 0%
+            background: url(/images/games/attendance-streak/Overlay_MarqueeCap_Left_iPhone@2x.png)
             background-size: 13px 110px
          .right-cap
             position: absolute
@@ -54,7 +56,7 @@
             top: -6px
             width: 13px
             height: 110px
-            background: url(/images/games/attendance-streak/Overlay_MarqueeCap_Right_iPhone@2x.png) 50% 0%
+            background: url(/images/games/attendance-streak/Overlay_MarqueeCap_Right_iPhone@2x.png)
             background-size: 13px 110px
 
          .stadium-info
@@ -71,7 +73,7 @@
                text-shadow: 0.1em 0.1em #000
 
          .game-info
-            margin-top: 6px
+            margin-top: 10px
             font-size: .7em
 
             .team
@@ -101,4 +103,20 @@
                width: 40%
                .inner
                   margin-right: 15px
+      // .map
+
+      .bottom
+         position: absolute
+         width: 100%
+         height: 96px
+         bottom: footer-height
+         background: url(/images/games/attendance-streak/Overlay_ButtonHolder_iPhone@2x.png) 50% 0%
+         background-size: 320px 96px
+
+         .inner
+            max-width: 280px
+            padding: 0 12px
+            margin: 32px auto 
+
+
 

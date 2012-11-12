@@ -28,17 +28,17 @@ html
    body
       div(class=viewClass, data-role="page", data-theme="a")
 
-         #header(data-role="header")
+         .header(data-role="header")
             block header
 
-         #content(data-role="content")
+         .content(data-role="content")
             block content
 
-         #footer(data-role="footer", data-id="footer", data-position="fixed")
+         .footer(data-role="footer", data-id="footer", data-position="fixed")
             div(data-role="navbar")
                ul
-                  li: a#profile-menu(href="/profile", data-icon="custom") Profile
-                  li: a#points-menu(href="/points", data-icon="custom") Points
-                  li: a#leaderboard-menu(href="/leaderboard", data-icon="custom") Leaderboard
-                  li: a#connect-menu(href="/connect", data-icon="custom") Connect
-                  li: a#preferences-menu(href="/preferences", data-icon="custom", data-prefetch="true") Preferences
+                  li: a.profile-menu(href="/profile", data-icon="custom") Profile
+                  li: a.points-menu(href="/points", data-icon="custom") Points
+                  li: a.leaderboard-menu(href="/leaderboard", data-icon="custom") Leaderboard
+                  li: a.connect-menu(href="/connect", data-icon="custom") Connect
+                  li: a.preferences-menu(href="/preferences", data-icon="custom", data-prefetch="true") Preferences

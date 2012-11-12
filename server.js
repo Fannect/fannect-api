@@ -11,5 +11,5 @@ http = require("http");
 port = process.env.PORT || 1000;
 
 http.createServer(app).listen(port, function () {
-   console.log("Snapture Web listening on " + port);
+   console.log("Fannect Web App listening on " + port);
 });

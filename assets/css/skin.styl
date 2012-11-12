@@ -3,55 +3,54 @@
 
 // Layout
 
-#header
-   h1
+// .ui-page
+//    background: url(/images/Background_PerforatedMetal@2x.png)
+
+@font-face
+   font-family: JerseyM54
+   src: url(/fonts/JerseyM54.ttf)
+
+.header
+   .ui-title
+      margin-top: .5em
+      margin-bottom: .6em
+      font-family: JerseyM54, Helvetica, Arial, sans-serif
+      font-size: 1.2em
       text-transform: uppercase
 
-#footer
+.footer
+   .ui-navbar
+      position: relative
+      dropshadow: 0 -2px 3px rgba(0,0,0,.6)
+      z-index: 100
    .ui-btn-inner
       padding-top: 38px
    .ui-btn-text
       font-size: .7em
-      top: 2px
-   .ui-icon
+      top: 5px
+   .ui-icon.ui-icon-custom
       width: 48px
       height: 32px
-      background: url(/images/icons-tab.png) no-repeat;
+      background: url(/images/icons/icons-tab.png) no-repeat;
       background-size: 260px 32px
       margin-left: -24px
-   #profile-menu .ui-icon
+   .profile-menu .ui-icon
       background-position: -159px 0
-   #points-menu .ui-icon
+   .points-menu .ui-icon
       background-position: -106px 0
-   #leaderboard-menu .ui-icon
+   .leaderboard-menu .ui-icon
       background-position: -53px 0
-   #connect-menu .ui-icon
+   .connect-menu .ui-icon
       background-position: 0 0
-   #preferences-menu .ui-icon
+   .preferences-menu .ui-icon
       background-position: -212px 0
 
 // Icons
 .icon
-   &.tab
-      
-      background: url(/images/icons-tab.png) no-repeat;
-      background-size: 260px 32px
-
-      &.connect
-         background-position: 0 0
-      &.leaderboard
-         background-position: -53px 0
-      &.points
-         background-position: -106px 0
-      &.profile
-         background-position: -159px 0
-      &.preferences
-         background-position: -212px 0
-
    &.settings
       width: 29px
       height: 29px
-      background: url(/images/icons-settings.png) no-repeat;
+      background: url(/images/icons/icons-settings.png) no-repeat;
       background-size: 301px 29px
 
       &.client
@@ -76,7 +75,7 @@
    &.gamecell
       width: 72px
       height: 72px
-      background: url(/images/icons-gamecell.png) no-repeat;
+      background: url(/images/icons/icons-gamecell.png) no-repeat;
       background-size: 226px 72px
             
       &.attendence-streak

@@ -23,6 +23,8 @@ app.get "/points/attendanceStreak", (req, res, next) ->
 
    res.render "points/attendanceStreak", gameInfo
 
+app.post "/points/attendanceStreak"
+
 app.get "/points/gameFace", (req, res, next) ->
    res.render "points/gameFace"
 
