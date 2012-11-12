@@ -2,6 +2,27 @@ extend ../layout
 
 block header
    h1 Profile
+   a(href="/profile/selectSport", data-role="button") Add Team
 
 block content
-   a(href="/profile/selectSport", data-role="button") Add Team
+   .profile
+      .profile-images
+         .team-wrap
+            img(src="#{team_image}")
+         .user-wrap
+            img(src="#{user_image}")
+
+      .name= name
+
+      .bio
+         .separator
+         .text= personal.bio
+
+      .game-day-spot
+         .separator
+         .text= personal.game_day_spot 
+      
+      .bragging-rights
+         .separator
+         .text= personal.bragging_rights
+

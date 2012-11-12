@@ -4,7 +4,20 @@ rest = require "request"
 app = module.exports = express()
 
 app.get "/profile", (req, res, next) ->
-   res.render "profile/profile"
+   profileInfo = 
+      user_image: ""
+      team_image: ""
+      data:
+         roster: 0
+         points: 0
+         rank: 0
+      name: "Jeremy Eccles"
+      personal: 
+         bio: "lots of stuff"
+         game_day_spot: "more stuff"
+         bragging_rights: "other stuff"
+
+   res.render "profile/profile", profileInfo
 
 app.get "/profile/selectSport", (req, res, next) ->
    sports = [ "basketball", "football" ]
