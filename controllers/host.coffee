@@ -1,8 +1,7 @@
 express = require "express"
-MongoStore = require("connect-mongo")(express)
 path = require "path"
-RedisStore = require("connect-redis")(express)
-redis = require("redis-url")
+# RedisStore = require("connect-redis")(express)
+# redis = require("redis-url")
 
 app = module.exports = express()
 
