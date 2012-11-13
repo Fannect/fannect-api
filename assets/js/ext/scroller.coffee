@@ -10,9 +10,11 @@ Scroller =
 
       currentElem.css { "left": this.options.start_offset}
       nextElem.css "left", this.options.start_offset + currentElem.width() + this.options.space_offset
+      console.log "next: ", this.options.start_offset + currentElem.width() + this.options.space_offset
 
       this._startScroll currentElem, nextElem
       this._startScroll nextElem, currentElem
+
 
    _startScroll: (current, next) ->
       self = this
@@ -20,8 +22,10 @@ Scroller =
       offset = current.position().left
 
       current.animate { left: -1*width }, (width+offset)*self.options.rate, "linear", () ->
-         current.css("left", next.position().left+next.width()+self.options.space_offset);
-         self._startScroll(current, next);
+         current.css("left", next.position().left+next.width()+self.options.space_offset)
+         setInterval ()-> 
+            self._startScroll(current, next)
+         , -1
          
    options:
       start_offset: 10

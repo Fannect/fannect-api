@@ -1,11 +1,26 @@
-extend ../layout
+extend ../../layout
 
 block header
    a(href="/points", data-icon="back", data-rel="back") Back
    h1 Games
 
 block content
+
+   .game-face
+
+   .team-info
+      .home.team-glass
+         .label Home
+         .team= home.name
+         .record= home.record
+      .vs
+      .away.team-glass
+         .label Away
+         .team= away.name
+         .record= away.record
+      .clear
    
-   select(id="gameFaceSwitch", data-role="slider")
-      option(value="off") Off
-      option(value="on") On
+   .switch-wrap
+      select(id="gameFaceSwitch", data-role="slider")
+         option(value="off") Off
+         option(value="on") On

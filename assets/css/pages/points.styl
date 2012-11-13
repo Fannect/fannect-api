@@ -147,6 +147,7 @@
 
 .points-guessTheScore-pick
 .points-guessTheScore-picked
+.points-gameFace-gameDay
    .team-info
       width: 304px
       margin: 4px auto 0
@@ -196,3 +197,30 @@
       .title
          text-align: center
          color: color-light-gray
+
+.points-gameFace-noGame
+.points-gameFace-gameDay
+   .game-face
+      background: url(/images/games/game-face/GameFace_Sprite.png)
+      background-size: 370.5px 184px
+      width: 184px
+      height: 184px
+      margin 0 auto 28px
+      background-position: 0 0
+      &.on
+         background-position: -186px -185px
+.points-gameFace-gameDay
+   .team-info
+      .team-glass
+         position: relative
+      .label
+         position: absolute
+         top: -18px
+         left: 0
+         width: 100%
+         text-align: center
+         font-size: 1.4em
+         color: color-light-gray
+   .switch-wrap
+      margin-top: 10px
+      text-align: center
