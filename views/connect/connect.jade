@@ -4,12 +4,25 @@ block header
    h1 Roster
 
 block content
-   
-   ul(data-role="listview")
-      li
-         a
-            span stuff
-      li
-         a
-            span stuff
+   .scrollable-content
+      ul.pattern-bg(data-role="listview").fans
+         each fan, index in fans
+            li.fan
+               a(href="#{fan.profile_url}") 
+                  .image-wrap
+                     img(src="#{fan.profile_image}", alt="#{fan.name}")
+                     .cover
+                  .fan-info
+                     .name= fan.name
+                     .team= fan.team
+                  .data-wrap
+                     span.data
+                        span.label Roster:
+                        span.value= fan.data.roster
+                     span.data
+                        span.label Points:
+                        span.value= fan.data.points
+                     span.data
+                        span.label Rank:
+                        span.value= fan.data.rank
          

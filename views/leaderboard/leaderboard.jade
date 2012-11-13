@@ -13,8 +13,7 @@ block content
    .scrollable-content
       ul.pattern-bg(data-role="listview").fans
          each fan, index in fans
-            li.fan
-               .highlight
+            li.fan(data-icon="false")
                a(href="#{fan.profile_url}") 
                   .image-wrap
                      img(src="#{fan.profile_image}", alt="#{fan.name}")
