@@ -123,7 +123,6 @@
       margin: 10px auto 0
       width: 320px
 
-
       .guess-block
          float: left
          width: 50%
@@ -142,13 +141,17 @@
             text-align: center 
             border-radius: 10px
 
+   .submit-wrap
+      width: 250px
+      margin: 12px auto 0
+
+.points-guessTheScore-pick
+.points-guessTheScore-picked
    .team-info
       width: 304px
       margin: 4px auto 0
-
       .team-glass
          float: left
-
       .vs
          float: left
          width: 36px 
@@ -156,7 +159,28 @@
          margin-top: 2px
          background: url(/images/games/Overlay_VsButton@2x.png) no-repeat 50% 0%
          background-size: 36px 36px
-   
-   .submit-wrap
-      width: 250px
-      margin: 12px auto 0
+
+.points-guessTheScore-picked
+   .picked
+      margin: 10px auto 0
+      width: 320px
+
+      .guessed
+         float: left
+         width: 50%
+         text-align: center
+         color: color-light-gray
+         text-shadow: 0 0.13em  #000
+         .score
+            font-family: JerseyM54, Helvetica, Arial, sans-serif
+            font-size: 5.0em
+            margin: 8px 0 0 0
+            background: url(/images/games/guess-the-score/Overlay_PickSetBox@2x.png)
+            background-size: 129px 107px
+            width: 129px
+            height: 107px
+            line-height: 107px
+         &.home .score
+            margin-left: 10px
+         &.away .score
+            margin-left: 21px

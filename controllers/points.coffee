@@ -17,6 +17,22 @@ app.get "/points/guessTheScore", (req, res, next) ->
 
    res.render "points/guessTheScore/pick", gameInfo
 
+app.post "/points/guessTheScore", (req, res, next) ->
+   res.redirect "/points/guessTheScore/guessed"
+
+app.get "/points/guessTheScore/guessed", (req, res, next) ->
+   gameInfo =
+      home:
+         guess: 137
+         name: "Kansas Jayhawks"
+         record: "(31-3, 14-2)"
+      away:
+         guess: 68
+         name: "Missouri Tigers"
+         record: "(31-3, 14-2)"
+
+   res.render "points/guessTheScore/picked", gameInfo
+
 app.get "/points/attendanceStreak", (req, res, next) ->
    gameInfo = 
       home:

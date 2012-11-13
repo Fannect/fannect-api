@@ -5,3 +5,31 @@ block header
    h1 Games
 
 block content
+   .scrollable-content
+      .picked
+         .home.guessed
+            .label Home
+            .score= home.guess
+         .away.guessed
+            .label Away
+            .score= away.guess
+         .clear
+
+      .team-info
+         .home.team-glass
+            .team= home.name
+            .record= home.record
+         .vs
+         .away.team-glass
+            .team= away.name
+            .record= away.record
+         .clear
+
+      .scrolling-text Your pick is set! Check back after the game to view results!
+
+
+      //- .scrolling-text
+      //-    .text-wrap
+      //-       .text After the game to view results!
+      //-       .text
+      //-    .cover

@@ -86,6 +86,36 @@
       color: color-light-gray
       font-size: .9em
 
+.scrolling-text
+   position: relative
+   width: 280px
+   height: 24px
+   margin: 4px auto
+   background: url(/images/Overlay_ScrollBarBase@2x.png) repeat-x 0% 50%
+   background-size: 2px 20px
+   .text-wrap
+      position: absolute
+      left: 18px
+      right: -2px
+      height: 24px
+      overflow: hidden
+      .text
+         font-size: .75em
+         text-transform: uppercase
+         line-height: 24px
+         position: absolute;
+         white-space: nowrap
+   .cover
+      position: absolute
+      left: -5px
+      width: 290px
+      height: 24px
+      background: url(/images/Overlay_ScrollBarFrame_iPhone@2x.png)
+      background-size: 290px 24px
+      dropshadow: 0 2px 4px rgba(0,0,0,0.8)
+      border-radius: 5px
+      z-index: 50
+
 // Icons
 .icon
    &.settings
