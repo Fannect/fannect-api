@@ -116,6 +116,58 @@
       border-radius: 5px
       z-index: 50
 
+.pattern-bg .ui-li
+   background: url(/images/Pattern_FabricKnit@2x.png)
+   background-size: 4px 4px
+   position: relative
+   dropshadow: inset 0 10px 15px rgba(255,255,255, .4), inset 0 -10px 15px rgba(200,200,200,.4)
+   // .highlight
+   //    position: absolute
+   //    top: 0
+   //    bottom: 0
+   //    left: 0
+   //    right: 0
+   //    background-gradient: rgba(241,241,241, 0.5) rgba(255,255,255,0) 
+   //    z-index: -1
+
+.fans
+   .fan
+      .image-wrap
+         position: relative
+         width: 43px
+         height: 43px
+         float: left
+         border-radius: 5px
+         img
+            width: 43px
+            height: 43px
+            border-radius: 5px
+         .cover
+            position: absolute
+            top: 0
+            left: 0
+            width: 43px
+            height: 43px
+            border-radius: 5px
+            dropshadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(0, 0, 0, 0.8)
+      .fan-info
+         margin: -2px 0 0 60px
+         .name
+            font-size: 1.5em
+            font-weight: bold
+         .team
+            font-size: .9em
+            font-weight: lighter
+            margin: 3px 0 4px 0
+            color: color-dark-red
+      .data-wrap
+         font-size: .8em
+         padding-top: 4px
+         .data
+            margin-right: 28px
+            .label
+               color: color-dark-gray
+               margin-right: 4px
 // Icons
 .icon
    &.settings

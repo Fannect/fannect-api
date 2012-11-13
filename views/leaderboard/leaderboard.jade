@@ -4,11 +4,34 @@ block header
    h1 Leaderboard
 
 block content
-   
-   //- div(data-role="fieldcontain")
-   fieldset(data-role="controlgroup", data-type="horizontal", data-mini="true")
-      input(type="radio", name="board-picker", id="board-overall-picker", value="overall", checked="true")
-      label(for="board-overall-picker") Overall
-      input(type="radio", name="board-picker", id="board-roster-picker", value="roster")
-      label(for="board-roster-picker") Roster
-         
+   .ui-bar-a.switcher
+      fieldset(data-role="controlgroup", data-type="horizontal", data-mini="true")
+         input(type="radio", name="board-picker", id="board-overall-picker", value="overall", checked="true")
+         label(for="board-overall-picker") Overall
+         input(type="radio", name="board-picker", id="board-roster-picker", value="roster")
+         label(for="board-roster-picker") Roster
+   .scrollable-content
+      ul.pattern-bg(data-role="listview").fans
+         each fan, index in fans
+            li.fan
+               .highlight
+               a(href="#{fan.profile_url}") 
+                  .image-wrap
+                     img(src="#{fan.profile_image}", alt="#{fan.name}")
+                     .cover
+                  .fan-info
+                     .name= fan.name
+                     .team= fan.team
+                  .data-wrap
+                     span.data
+                        span.label Roster:
+                        span.value= fan.data.roster
+                     span.data
+                        span.label Points:
+                        span.value= fan.data.points
+                     span.data
+                        span.label Rank:
+                        span.value= fan.data.rank
+                  .rank= index + 1
+
+            
