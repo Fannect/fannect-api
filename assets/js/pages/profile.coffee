@@ -1,5 +1,5 @@
 showMenu = () ->
-   fannect.setActiveMenu("profile")
+   window.fannect.setActiveMenu("profile")
 
 $(document).bind "mobileinit", () ->
    $(".profile-profile").live "pagebeforeshow", showMenu
