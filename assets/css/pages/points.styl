@@ -33,7 +33,6 @@
 .points-attendanceStreak
    .ui-content
       padding: 0
-
       .info
          margin: 0 auto
          max-width: 600px
@@ -43,32 +42,26 @@
          position: relative
          overflow: hidden
          text-align: center
-
+         .right-cap
          .left-cap
             position: absolute
-            left: 0
             top: -6px
             width: 13px
             height: 110px
+         .left-cap
+            left: 0
             background: url(/images/games/attendance-streak/Overlay_MarqueeCap_Left_iPhone@2x.png)
             background-size: 13px 110px
          .right-cap
-            position: absolute
             right: 0
-            top: -6px
-            width: 13px
-            height: 110px
             background: url(/images/games/attendance-streak/Overlay_MarqueeCap_Right_iPhone@2x.png)
             background-size: 13px 110px
-
          .stadium-info
             padding-top: 8px
-
             .stadium
                font-size: 1.6em
                text-shadow: 0.1em 0.1em #000
                margin-bottom: 3px
-
             .location
                font-size: .7em
                color: color-light-gray
@@ -77,17 +70,14 @@
          .game-info
             margin-top: 10px
             font-size: .7em
-
             .team
                text-overflow: ellipsis
                white-space: nowrap;
-
             .record
                margin-top: 5px
                color: color-light-gray
                text-overflow: ellipsis
                white-space: nowrap;
-
             .home-info
                float: left
                width: 40%
@@ -99,14 +89,12 @@
                height: 36px
                background: url(/images/games/Overlay_VsButton@2x.png) no-repeat 50% 0%
                background-size: 36px 36px
-
             .away-info
                float: left
                width: 40%
                .inner
                   margin-right: 15px
       // .map
-
       .bottom
          position: absolute
          width: 100%
@@ -114,38 +102,68 @@
          bottom: footer-height
          background: url(/images/games/attendance-streak/Overlay_ButtonHolder_iPhone@2x.png) 50% 0%
          background-size: 320px 96px
-
          .inner
             max-width: 280px
             padding: 0 12px
             margin: 32px auto 
 
 .points-guessTheScore-pick
-   .input
+   .score
       margin: 10px auto 0
       width: 320px
-
       .guess-block
          float: left
          width: 50%
          text-align: center
-
          label
             color: color-light-gray
+         .guess-wrap
+            background: url(/images/games/guess-the-score/Overlay_PickSetBox@2x.png) 0 50% no-repeat
+            background-size: 129px 107px
+            position: relative
+            width: 129px
+            height: 107px
+            .value
+            input[type=number]
+               font-family: JerseyM54, Helvetica, Arial, sans-serif
+               font-size: 5em
+               width: 129px
+               height: 107px
+               border: none
+               border-radius: 0
+               dropshadow: none
+               margin: 0
+               padding: 0
+               text-align: center 
+               background: transparent
+               line-height: 107px
+            .value
+               display: none
+               position: absolute
+               left: 0
+               top: 0
+               color: color-light-gray
 
-         input[type=number]
-            font-family: JerseyM54, Helvetica, Arial, sans-serif
-            font-size: 5.0em
-            padding:  5px 10px
-            width: 140px
-            height: 200px
-            margin: 0 auto
-            text-align: center 
-            border-radius: 10px
-
-   .submit-wrap
+         &.home .guess-wrap
+            margin-left: 10px
+         &.away .guess-wrap
+            margin-left: 20px
+   .picking
       width: 250px
       margin: 12px auto 0
+   .picked
+      display: none
+      .game-preview
+         background: url(/images/games/guess-the-score/Overlay_SubtleShadow@2x.png) 50% -24px no-repeat
+         background-size: 290px 60px
+         width: 290px
+         min-height: 36px
+         margin 0 auto
+         padding-top: 7px
+      .title
+         text-align: center
+         color: color-light-gray
+
 
 .points-guessTheScore-pick
 .points-guessTheScore-picked
