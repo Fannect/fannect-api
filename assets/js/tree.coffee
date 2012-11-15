@@ -3,3 +3,10 @@
 #= require_tree "pages"
 #= require "lib/jquerymobile-1.2.0.js"
 #= require_tree "ext"
+
+do ($ = window.jQuery) ->
+   $(".ui-page").live "pagebeforeshow", () ->
+      menu = $(this).children(".header").first().children("h1").attr("data-menu-root")
+      if menu
+         $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
+         $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")

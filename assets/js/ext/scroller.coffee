@@ -24,8 +24,6 @@ Scroller =
       width = current.width()
       offset = current.position().left
 
-      console.log "START SCROLLING"
-
       unless @element.is ":visible"
          return @_hiddenLoop()
 
@@ -41,19 +39,15 @@ Scroller =
 
    _hiddenLoop: () ->
       unless @options._hidden_timeout_id
-         console.log "SET TIMEOUT"
          @options._hidden_timeout_id = setTimeout (() => @_checkForVisible.call @), 600
 
    _checkForVisible: () ->
       @options._hidden_timeout_id = null
       
-      console.log "HIDDEN"
-
       if @element.is ":visible"
          @start()
       else
          @_hiddenLoop()
-         
 
    options:
       _first: null

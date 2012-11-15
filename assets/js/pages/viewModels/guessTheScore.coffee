@@ -16,6 +16,5 @@ do ($ = jQuery, ko = window.ko) ->
 
       setPick: () ->
          if @input_valid()
-            console.log "HIT"
             @pick_set true
             # send ajax call to set picked
