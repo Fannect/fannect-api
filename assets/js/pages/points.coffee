@@ -5,10 +5,10 @@ do ($ = window.jQuery, ko = window.ko) ->
    setupGuessTheScore = () ->
       $(".points-guessTheScore-pick").live "pagebeforeshow", () ->
          showMenu()
-         $(".points-guessTheScore-pick .scrolling-text").scroller()
+         scroller = $(".points-guessTheScore-pick .scrolling-text").scroller()
          viewModel = new window.fannect.viewModels.guessTheScore()
          ko.applyBindings viewModel, this
-
+         scroller.scroller("start")
       
       # $(".points-guessTheScore-pick .submit-guess").live "click", () ->
          # homeInput = $(".points-guessTheScore-pick .home input")
