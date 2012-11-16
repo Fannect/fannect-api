@@ -125,14 +125,15 @@
       border-radius: 5px
       z-index: 50
 
-.pattern-bg .ui-li
-   background: url(/images/Pattern_FabricKnit@2x.png)
-   background-size: 4px 4px
-   position: relative
-   dropshadow: inset 0 10px 15px rgba(255,255,255, .4), inset 0 -10px 15px rgba(200,200,200,.4)
-
-   .ui-btn-active
-      dropshadow: inset 0 -10px 15px rgba(255,255,255, .4), inset 0 10px 15px rgba(200,200,200,.4)
+.pattern-bg 
+   li.ui-li
+      background: url(/images/Pattern_FabricKnit@2x.png)
+      background-size: 4px 4px
+      position: relative
+      dropshadow: inset 0 10px 15px rgba(255,255,255, .4), inset 0 -10px 15px rgba(200,200,200,.4)
+      &.ui-btn-active
+         border-color: #CCC
+         dropshadow: inset 0 75px 85px rgba(150,150,150, .4), inset 0 10px 20px rgba(100,100,100, .5), inset 0 -10px 15px rgba(200,200,200,.4)
 
 .fans
    .fan
