@@ -1,10 +1,6 @@
 do ($ = window.jQuery, ko = window.ko) ->
-   showMenu = () ->
-      window.fannect.setActiveMenu("points")
-
    setupGuessTheScore = () ->
       $(".points-guessTheScore-pick").live "pagebeforeshow", () ->
-         showMenu()
          scroller = $(".points-guessTheScore-pick .scrolling-text").scroller()
          viewModel = new window.fannect.viewModels.guessTheScore()
          ko.applyBindings viewModel, this
@@ -14,7 +10,15 @@ do ($ = window.jQuery, ko = window.ko) ->
          $(".points-guessTheScore-pick .scrolling-text").scroller()
 
    setupGameFace = () ->
-      $()
+      $(".points-gameFace-gameDay").live "pagebeforeshow", () ->
+         viewModel = new window.fannect.viewModels.gameFace()
+         ko.applyBindings viewModel, this
+      $(".points-gameFace-noGame").live("pagebeforeshow", () ->
+         $(".points-gameFace-noGame .scrolling-text").scroller()
+      ).live("pageshow", () ->
+         $(".points-gameFace-noGame .scrolling-text").scroller("start")
+      ).live "pagebeforehide", () ->
+         $(".points-gameFace-noGame .scrolling-text").scroller("stop")
 
    $(document).bind "mobileinit", () ->
       setupGuessTheScore()
@@ -29,12 +33,5 @@ do ($ = window.jQuery, ko = window.ko) ->
       #       else
       #          $(".points-gameFace-gameDay .game-face").removeClass("on")
 
-      # $(".points-gameFace-noGame").live("pagebeforeshow", () ->
-      #    showMenu()
-      #    $(".points-gameFace-noGame .scrolling-text").scroller()
-      # ).live("pageshow", () ->
-      #    $(".points-gameFace-noGame .scrolling-text").scroller("start")
-      # ).live "pagebeforehide", () ->
-      #    $(".points-gameFace-noGame .scrolling-text").scroller("stop")
-
+      
       

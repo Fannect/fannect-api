@@ -6,7 +6,7 @@ block header
 
 block content
 
-   .game-face
+   .game-face(data-bind="toggleClass: { 'on': face_on() }")
 
    .team-info
       .home.team-glass
@@ -21,6 +21,6 @@ block content
       .clear
    
    .switch-wrap
-      select(id="gameFaceSwitch", data-role="slider")
+      select(id="gameFaceSwitch", data-role="slider", data-bind="value: face_value, disableSlider: face_on")
          option(value="off") Off
          option(value="on") On

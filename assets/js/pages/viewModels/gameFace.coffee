@@ -4,10 +4,14 @@ do ($ = jQuery, ko = window.ko) ->
 
    viewModels = window.fannect.viewModels
 
-   class viewModels.guessTheScore
+   class viewModels.gameFace
       constructor: (data) ->
-         @on = ko.observable data?.on
+         @face_value = ko.observable("off")
+         @face_on = ko.computed () =>
+            return @face_value()?.toLowerCase() == "on"
+         
+         if data?.face_on
+            @face_value("on")
 
-      switched: () ->
-         @on !@on()
-         # send ajax call to set picked
+         @face_on.subscribe (newValue) ->
+            console.log "SUB: ", newValue
