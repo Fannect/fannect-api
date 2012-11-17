@@ -33,3 +33,7 @@ do ($ = jQuery) ->
          if valueUnwrapped
             for key, value of valueUnwrapped
                if value then $el.addClass key else $el.removeClass key
+
+   ko.bindingHandlers.listviewUpdate =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         $(element).listview "refresh"
