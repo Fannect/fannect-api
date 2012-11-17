@@ -4,7 +4,6 @@
 .profile-profile
    .ui-content
       padding: 0 0 inherit 0
-   
    .profile-images
       position: relative
       height: 250px
@@ -23,7 +22,7 @@
             z-index: 200
             width: 210px
             height: 210px
-            background: url(/images/profile/Overlay_TeamPictureFrame@2x.png) 
+            background: url(/images/profile/Overlay_TeamPictureFrame.png) 
             background-size:162px 162px
          img
             width: 210px
@@ -41,9 +40,8 @@
             z-index: 400
             width: 162px
             height: 162px
-            background: url(/images/profile/Overlay_ProfilePictureFrame@2x.png) 
+            background: url(/images/profile/Overlay_ProfilePictureFrame.png) 
             background-size:162px 162px
-
          img
             position: absolute
             top: 7px
@@ -51,20 +49,17 @@
             width: 140px
             height: 140px
             border-radius: 10px
-
    .name
       font-size: 1.8em
       font-weight: bold
       text-align: center
-
    .team-name-wrap
       width: 302px 
       height: 66px
       margin: 8px auto
-      background: url(/images/profile/Profile_GlassMarquee@2x.png) 
+      background: url(/images/profile/Profile_GlassMarquee.png) 
       background-size:302px 66px
       text-transform: uppercase
-      
       .team
          width: 266px
          margin: 0 auto
@@ -75,13 +70,12 @@
          white-space: nowrap
          overflow: hidden
          text-overflow: ellipsis
-
    .score-wrap
       position: relative
       width: 302px
       height: 36px
       margin: 8px auto
-      background: url(/images/profile/Profile_ScoreDisplay-iPhone@2x.png) 
+      background: url(/images/profile/Profile_ScoreDisplay-iPhone.png) 
       background-size:302px 36px
       .score
          position: absolute
@@ -100,7 +94,6 @@
             left: 113px
          &.rank
             left: 206px
-
    .separator
       width: 320px
       height: 32px
@@ -112,15 +105,25 @@
       margin: 0 auto
       font-size: .8em
       line-height: 1.4em
-
    .bio
       .separator
          background-position: 0 0 
-
    .game-day-spot
       .separator
          background-position: -322.5px 0 
-
    .bragging-rights
       .separator
          background-position: -645px 0 
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   .profile-images 
+      .team-wrap .cover
+         background-image: url(/images/profile/Overlay_TeamPictureFrame@2x.png)
+      .user-wrap .cover
+          background-image: url(/images/profile/Overlay_ProfilePictureFrame@2x.png) 
+      .team-name-wrap
+         background-image: url(/images/profile/Profile_GlassMarquee@2x.png) 
+      .score-wrap
+         background-image: url(/images/profile/Profile_ScoreDisplay-iPhone@2x.png) 
+      .separator
+         background-image: url(/images/profile/ProfileSeperators@2x.png)

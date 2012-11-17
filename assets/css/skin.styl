@@ -39,7 +39,7 @@
    -webkit-overflow-scrolling: touch
 
 .ui-page
-   background: url(/images/Tilable-Background@2x.png) 50% 0
+   background: url(/images/Tilable-Background.png) 50% 0
    background-size: 50px 50px
 
 .background-highlight
@@ -47,7 +47,7 @@
    top: 0
    width: 100%
    height: 100%
-   background: url(/images/Lighting-Background@2x.png) 50% 0 no-repeat
+   background: url(/images/Lighting-Background.png) 50% 0 no-repeat
    background-size: 320px 480px
 
 .footer
@@ -63,7 +63,7 @@
    .ui-icon.ui-icon-custom
       width: 48px
       height: 32px
-      background: url(/images/icons/icons-tab.png) no-repeat;
+      background: url(/images/icons/icons-tab.png) no-repeat
       background-size: 260px 32px
       margin-left: -24px
    .profile-menu .ui-icon
@@ -80,7 +80,7 @@
 // Elements
 .team-glass
    font-size: .7em
-   background: url(/images/games/Overlay_TeamGlass_iPhone@2x.png)
+   background: url(/images/games/Overlay_TeamGlass_iPhone.png)
    background-size: 134px 43px
    width: 110px
    height: 25px
@@ -97,7 +97,7 @@
    width: 280px
    height: 24px
    margin: 4px auto
-   background: url(/images/Overlay_ScrollBarBase@2x.png) repeat-x 0% 50%
+   background: url(/images/Overlay_ScrollBarBase.png) repeat-x 0% 50%
    background-size: 2px 20px
    .text-wrap
       position: absolute
@@ -117,7 +117,7 @@
       left: -5px
       width: 290px
       height: 24px
-      background: url(/images/Overlay_ScrollBarFrame_iPhone@2x.png)
+      background: url(/images/Overlay_ScrollBarFrame_iPhone.png)
       background-size: 290px 24px
       dropshadow: 0 2px 4px rgba(0,0,0,0.8)
       border-radius: 5px
@@ -125,7 +125,7 @@
 
 .pattern-bg 
    li.ui-li
-      background: url(/images/Pattern_FabricKnit@2x.png)
+      background: url(/images/Pattern_FabricKnit.png)
       background-size: 4px 4px
       position: relative
       dropshadow: inset 0 10px 15px rgba(255,255,255, .4), inset 0 -10px 15px rgba(200,200,200,.4)
@@ -202,7 +202,7 @@
    &.gamecell
       width: 72px
       height: 72px
-      background: url(/images/icons/icons-gamecell.png) no-repeat;
+      background: url(/images/icons/icons-gamecell.png) no-repeat
       background-size: 226px 72px
             
       &.attendence-streak
@@ -212,6 +212,25 @@
       &.guess-the-score
          background-position: -154px 0
       
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   .ui-page
+      background-image: url(/images/Tilable-Background@2x.png)
+   .background-highlight
+      background-image: url(/images/Lighting-Background@2x.png)
+   .team-glass
+      background-image: url(/images/games/Overlay_TeamGlass_iPhone@2x.png)
+   .footer .ui-icon.ui-icon-custom
+      background-image: url(/images/icons/icons-tab@2x.png)
+   .scrolling-text
+      background-image: url(/images/Overlay_ScrollBarBase@2x.png)
+      .cover
+         background-image: url(/images/Overlay_ScrollBarFrame_iPhone@2x.png)
+   .pattern-bg li.ui-li
+      background-image: url(/images/Pattern_FabricKnit@2x.png)
+
+   .icon.gamecell
+      background: url(/images/icons/icons-gamecell@2x.png)
+
 @import "pages/profile"
 @import "pages/points"
 @import "pages/leaderboard"

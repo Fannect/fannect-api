@@ -2,9 +2,7 @@ do ($ = jQuery, ko = window.ko) ->
    unless window.fannect then window.fannect = {}
    unless window.fannect.viewModels then window.fannect.viewModels = {}
 
-   viewModels = window.fannect.viewModels
-
-   class viewModels.guessTheScore
+   class window.fannect.viewModels.GuessTheScore
       constructor: (data) ->
          @picked_at_load = ko.observable data?.pick_set
          @pick_set = ko.observable data?.pick_set

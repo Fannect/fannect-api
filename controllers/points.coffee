@@ -44,6 +44,9 @@ app.get "/points/attendanceStreak", (req, res, next) ->
       stadium:
          name: "Allen Fieldhouse"
          location: "Lawrence, Kansas"
+      checked_in: false
+      no_game: true
+      next_game: "January 27, 2013"
 
    res.render "points/attendanceStreak", gameInfo
 

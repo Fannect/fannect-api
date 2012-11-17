@@ -2,9 +2,7 @@ do ($ = jQuery, ko = window.ko) ->
    unless window.fannect then window.fannect = {}
    unless window.fannect.viewModels then window.fannect.viewModels = {}
 
-   viewModels = window.fannect.viewModels
-
-   class viewModels.gameFace
+   class window.fannect.viewModels.GameFace
       constructor: (data) ->
          @face_value = ko.observable("off")
          @face_on = ko.computed () =>
@@ -14,4 +12,4 @@ do ($ = jQuery, ko = window.ko) ->
             @face_value("on")
 
          @face_on.subscribe (newValue) ->
-            console.log "SUB: ", newValue
+            #ajax call
