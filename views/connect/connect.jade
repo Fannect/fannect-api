@@ -4,25 +4,29 @@ block header
    h1(data-menu-root="connect") Roster
 
 block content
+
+   script(type="text/javascript")
+      window.fannect.connect = !{JSON.stringify(fans)};
+
    .scrollable-content
-      ul.pattern-bg(data-role="listview").fans
-         each fan, index in fans
-            li.fan
-               a(href="#{fan.profile_url}") 
-                  .image-wrap
-                     img(src="#{fan.profile_image}", alt="#{fan.name}")
-                     .cover
-                  .fan-info
-                     .name= fan.name
-                     .team= fan.team
-                  .data-wrap
-                     span.data
-                        span.label Roster:
-                        span.value= fan.data.roster
-                     span.data
-                        span.label Points:
-                        span.value= fan.data.points
-                     span.data
-                        span.label Rank:
-                        span.value= fan.data.rank
-         
+      ul.pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans").fans
+
+   script(id="connect-fan-template", type="text/html")
+      li.fan
+         a(data-bind="attr: { 'href': profile_url }")
+            .image-wrap
+               img(data-bind="attr: { 'src': profile_image_url }")
+               .cover
+            .fan-info
+               .name(data-bind="text: name")
+               .team(data-bind="text: team")
+            .data-wrap
+               span.data
+                  span.label Roster:
+                  span.value(data-bind="text: roster")
+               span.data
+                  span.label Points:
+                  span.value(data-bind="text: points")
+               span.data
+                  span.label Rank:
+                  span.value(data-bind="text: rank")

@@ -12,7 +12,6 @@ block content
          label(for="board-roster-picker") Roster
 
    script(type="text/javascript")
-      if (!window.fannect.content) window.fannect.content = {}
       window.fannect.leaderboard = {
          overall_fans: !{JSON.stringify(overall_fans)},
          roster_fans: !{JSON.stringify(roster_fans)}
@@ -21,27 +20,6 @@ block content
    .scrollable-content
       ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: overall_fans }, listviewUpdate: overall_fans, visible: is_overall_selected")
       ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans, visible: !is_overall_selected()")
-      //- ul.pattern-bg(data-role="listview").fans
-      //-    each fan, index in fans
-      //-       li.fan(data-icon="false")
-      //-          a(href="#{fan.profile_url}") 
-      //-             .image-wrap
-      //-                img(src="#{fan.profile_image}", alt="#{fan.name}")
-      //-                .cover
-      //-             .fan-info
-      //-                .name= fan.name
-      //-                .team= fan.team
-      //-             .data-wrap
-      //-                span.data
-      //-                   span.label Roster:
-      //-                   span.value= fan.data.roster
-      //-                span.data
-      //-                   span.label Points:
-      //-                   span.value= fan.data.points
-      //-                span.data
-      //-                   span.label Rank:
-      //-                   span.value= fan.data.rank
-      //-             .rank= index + 1
 
    script(id="leaderboard-fan-template", type="text/html")
       li.fan(data-icon="false")
