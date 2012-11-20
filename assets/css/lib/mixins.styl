@@ -25,14 +25,23 @@ background-gradient(startColor = #555, endColor = #333)
    background-repeat: repeat-x
    filter s('progid:DXImageTransform.Microsoft.gradient(startColorstr=%s,endColorstr=%s)', argb(startColor), argb(endColor))
 
-background-gloss()
-   background: -moz-linear-gradient(top, rgba(255,255,255,0) 1%, rgba(255,255,255,0.16) 50%, rgba(255,255,255,0) 56%, rgba(255,255,255,0) 100%) /* FF3.6+ */
-   background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(255,255,255,0)), color-stop(50%,rgba(255,255,255,0.16)), color-stop(56%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,0))) /* Chrome,Safari4+ */
-   background: -webkit-linear-gradient(top, rgba(255,255,255,0) 1%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 56%,rgba(255,255,255,0) 100%) /* Chrome10+,Safari5.1+ */
-   background: -o-linear-gradient(top, rgba(255,255,255,0) 1%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 56%,rgba(255,255,255,0) 100%) /* Opera 11.10+ */
-   background: -ms-linear-gradient(top, rgba(255,255,255,0) 1%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 56%,rgba(255,255,255,0) 100%) /* IE10+ */
-   background: linear-gradient(to bottom, rgba(255,255,255,0) 1%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 56%,rgba(255,255,255,0) 100%) /* W3C */
-   // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=0 ) /* IE6-9 */
+background-highlight()
+   background: -moz-linear-gradient(top, rgba(255,242,242,0.4) 0%, rgba(242,232,232,0) 24%, rgba(221,216,216,0) 62%, rgba(200,200,200,0.4) 100%)
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,242,242,0.4)), color-stop(24%,rgba(242,232,232,0)), color-stop(62%,rgba(221,216,216,0)), color-stop(100%,rgba(200,200,200,0.4)))
+   background: -webkit-linear-gradient(top, rgba(255,242,242,0.4) 0%,rgba(242,232,232,0) 24%,rgba(221,216,216,0) 62%,rgba(200,200,200,0.4) 100%)
+   background: -o-linear-gradient(top, rgba(255,242,242,0.4) 0%,rgba(242,232,232,0) 24%,rgba(221,216,216,0) 62%,rgba(200,200,200,0.4) 100%)
+   background: -ms-linear-gradient(top, rgba(255,242,242,0.4) 0%,rgba(242,232,232,0) 24%,rgba(221,216,216,0) 62%,rgba(200,200,200,0.4) 100%)
+   background: linear-gradient(to bottom, rgba(255,242,242,0.4) 0%,rgba(242,232,232,0) 24%,rgba(221,216,216,0) 62%,rgba(200,200,200,0.4) 100%)
+   filter: s('progid:DXImageTransform.Microsoft.gradient( startColorstr=%s, endColorstr=%s,GradientType=0)', #66fff2f2, #66c8c8c8)
+
+background-lowlight()
+   background: -moz-linear-gradient(top, rgba(100,100,100,0.4) 0%, rgba(150,150,150,0.37) 25%, rgba(182,182,182,0.3) 73%, rgba(200,200,200,0.4) 100%)
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(100,100,100,0.4)), color-stop(25%,rgba(150,150,150,0.37)), color-stop(73%,rgba(182,182,182,0.3)), color-stop(100%,rgba(200,200,200,0.4)))
+   background: -webkit-linear-gradient(top, rgba(100,100,100,0.4) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.3) 73%,rgba(200,200,200,0.4) 100%)
+   background: -o-linear-gradient(top, rgba(100,100,100,0.4) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.3) 73%,rgba(200,200,200,0.4) 100%)
+   background: -ms-linear-gradient(top, rgba(100,100,100,0.4) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.3) 73%,rgba(200,200,200,0.4) 100%)
+   background: linear-gradient(to bottom, rgba(100,100,100,0.4) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.3) 73%,rgba(200,200,200,0.4) 100%)
+   filter: s('progid:DXImageTransform.Microsoft.gradient( startColorstr=%s, endColorstr=%s,GradientType=0)', #66646464, #66c8c8c8)
 
 dropshadow()
    -moz-box-shadow: arguments
