@@ -6,40 +6,41 @@ block header
 
 block content
    .scrollable-content
-      .profile-images
-         .team-wrap
-            img(src="#{team_image}")
-            .cover
-         .user-wrap
-            img(src="#{user_image}")
-            .cover
+      .iscroll-container
+         .profile-images
+            .team-wrap
+               img(src="#{team_image}")
+               .cover
+            .user-wrap
+               img(src="#{user_image}")
+               .cover
 
-      .name= name
+         .name= name
 
-      .team-name-wrap
-         .team= team
-         .icon
+         .team-name-wrap
+            .team= team
+            .icon
 
-      .score-wrap
-         .score.roster
-            .label Roster
-            .value= score.roster
-         .score.points
-            .label Points
-            .value= score.points
-         .score.rank
-            .label Rank
-            .value= score.rank
+         .score-wrap
+            .score.roster
+               .label Roster
+               .value= score.roster
+            .score.points
+               .label Points
+               .value= score.points
+            .score.rank
+               .label Rank
+               .value= score.rank
 
-      .bio
-         .separator
-         .text= personal.bio
+         .bio
+            .separator
+            .text= personal.bio
 
-      .game-day-spot
-         .separator
-         .text= personal.game_day_spot 
-      
-      .bragging-rights
-         .separator
-         .text= personal.bragging_rights
+         .game-day-spot
+            .separator
+            .text= personal.game_day_spot 
+         
+         .bragging-rights
+            .separator
+            .text= personal.bragging_rights
 
