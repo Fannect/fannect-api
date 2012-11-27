@@ -15,7 +15,8 @@ app.get "/profile", (req, res, next) ->
          points: 0
          rank: 0
       name: "Jeremy Eccles"
-      team: "Sporting Kansas City"
+      teams:
+         [ "Sporting Kansas City", "Kansas State University" ]
       personal: 
          bio: "Jeremy is the CEO and Vice President of Design of Rade | Eecles, one of the world's finest iOS application development companies. He is a fan of Sporting KC and the Ninja Dragons."
          game_day_spot: "Midfield in a folding chair at pitch number 6 in Tiffany Springs Park."

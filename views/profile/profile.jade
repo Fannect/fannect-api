@@ -17,9 +17,13 @@ block content
 
          .name= name
 
-         .team-name-wrap
-            .team= team
-            .icon
+         .teams-wrap
+            .view-port
+               ul.teams
+                  for team in teams
+                     li.team= team
+            .button.next: .icon
+            .button.prev: .icon
 
          .score-wrap
             .score.roster

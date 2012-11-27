@@ -53,23 +53,48 @@
       font-size: 1.8em
       font-weight: bold
       text-align: center
-   .team-name-wrap
+   .teams-wrap
+      position: relative
       width: 302px 
       height: 66px
       margin: 8px auto
       background: url(/images/profile/Profile_GlassMarquee.png) 
       background-size:302px 66px
       text-transform: uppercase
-      .team
-         width: 266px
-         margin: 0 auto
-         font-size: 1.05em
-         color: color-light-gray
-         text-align: center
-         line-height: 66px
-         white-space: nowrap
-         overflow: hidden
-         text-overflow: ellipsis
+      .view-port
+         padding: 4px 0 14px 0
+         margin: 0 10px
+         overflow-y: hidden
+         overflow-x: auto
+         .teams
+            height: 52px
+            white-space: nowrap
+            float: left
+            list-style: none
+            .team
+               display: block
+               float: left
+               width: 242px
+               height: 52px
+               color: color-light-gray
+               text-align: center
+               line-height: 55px
+               white-space: nowrap
+               overflow: hidden
+               padding: 0 20px
+               text-overflow: ellipsis
+      .button
+         position: absolute
+         top: 6px
+         width: 30px
+         height: 50px
+         background: #fff
+         .icon
+         &.next
+            right: 5px
+         &.prev
+            left: 5px
+
    .score-wrap
       position: relative
       width: 302px

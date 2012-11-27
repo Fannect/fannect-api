@@ -8,7 +8,7 @@ Environmental variables
 require("coffee-script");
 app = require("./controllers/host.coffee");
 http = require("http");
-port = process.env.PORT || 1000;
+port = process.env.PORT || 2100;
 
 http.createServer(app).listen(port, function () {
    console.log("Fannect Web App listening on " + port);
