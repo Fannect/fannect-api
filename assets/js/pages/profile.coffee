@@ -17,6 +17,9 @@ do ($ = window.jQuery, ko = window.ko) ->
             snap: true
             momentum: false
             hScrollbar: false
+            onScrollStart: () ->
+               nextBtn.hide()
+               prevBtn.hide()
             onScrollEnd: setTeamButtonVisiblity
                
          nextBtn.click () ->

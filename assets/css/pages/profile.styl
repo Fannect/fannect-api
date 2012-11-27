@@ -88,12 +88,23 @@
          top: 6px
          width: 30px
          height: 50px
-         background: #fff
+         cursor: pointer
          .icon
+            position: absolute
+            top: 17px
+            width: 13px
+            height: 15px
+            background: url(/images/profile/Profile_TeamArrows.png) no-repeat
+            background-size: 31px 15px 
          &.next
-            right: 5px
+            right: 8px
+            .icon
+               left: 10px
          &.prev
-            left: 5px
+            left: 8px
+            .icon
+               right: 10px
+               background-position: -18px 0
 
    .score-wrap
       position: relative
