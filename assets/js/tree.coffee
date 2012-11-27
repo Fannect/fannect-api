@@ -8,7 +8,6 @@
 
 do ($ = window.jQuery) ->
    scrollbars = []
-
    $(".ui-page").live("pagebeforeshow", () ->
       menu = $(this).children(".header").first().children("h1").attr("data-menu-root")
       if menu
