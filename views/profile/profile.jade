@@ -5,46 +5,44 @@ block header
    a.ui-btn-right(href="/profile/selectSport", data-role="button") Add Team
 
 block content
-   .scrollable-content
-      .iscroll-container
-         .profile-images
-            .team-wrap
-               img(src="#{team_image}")
-               .cover
-            .user-wrap
-               img(src="#{user_image}")
-               .cover
+   .profile-images
+      .team-wrap
+         img(src="#{team_image}")
+         .cover
+      .user-wrap
+         img(src="#{user_image}")
+         .cover
 
-         .name= name
+   .name= name
 
-         .teams-wrap
-            .view-port
-               ul.teams
-                  for team in teams
-                     li.team= team
-            .button.next: .icon
-            .button.prev: .icon
+   .teams-wrap
+      .view-port
+         ul.teams
+            for team in teams
+               li.team= team
+      .button.next: .icon
+      .button.prev: .icon
 
-         .score-wrap
-            .score.roster
-               .label Roster
-               .value= score.roster
-            .score.points
-               .label Points
-               .value= score.points
-            .score.rank
-               .label Rank
-               .value= score.rank
+   .score-wrap
+      .score.roster
+         .label Roster
+         .value= score.roster
+      .score.points
+         .label Points
+         .value= score.points
+      .score.rank
+         .label Rank
+         .value= score.rank
 
-         .bio
-            .separator
-            .text= personal.bio
+   .bio
+      .separator
+      .text= personal.bio
 
-         .game-day-spot
-            .separator
-            .text= personal.game_day_spot 
-         
-         .bragging-rights
-            .separator
-            .text= personal.bragging_rights
+   .game-day-spot
+      .separator
+      .text= personal.game_day_spot 
+   
+   .bragging-rights
+      .separator
+      .text= personal.bragging_rights
 

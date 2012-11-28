@@ -14,11 +14,11 @@ do ($ = window.jQuery) ->
          $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
          $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
    ).live("pageshow", () ->
-      if $.support.touch and not $.support.touchOverflow
-         $("body").addClass("speed-up")
-         $(".scrollable-content").each (i) ->
-            scrollbars.push new iScroll this, momentum: false
+      # if $.support.touch and not $.support.touchOverflow
+      #    $("body").addClass("speed-up")
+      #    $(".scrollable-content").each (i) ->
+      #       scrollbars.push new iScroll this, momentum: false
    ).live "pagebeforehide", () ->
-         for bar in scrollbars
-            bar.destroy()
-         scrollbars.length = 0
+         # for bar in scrollbars
+         #    bar.destroy()
+         # scrollbars.length = 0
