@@ -11,9 +11,9 @@ app.get "/profile", (req, res, next) ->
       user_image: "/dev/Pic_Player@2x.png"
       team_image: "/dev/Pic_Team@2x.png"
       score:
-         roster: 0
-         points: 0
-         rank: 0
+         roster: 23
+         points: 342
+         rank: 12
       name: "Jeremy Eccles"
       teams:
          [ "Sporting Kansas City", "Kansas State University" ]
