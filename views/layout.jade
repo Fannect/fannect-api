@@ -6,14 +6,19 @@ html
       meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no")
       meta(name="apple-mobile-web-app-capable", content="yes")
 
-      != css("lib/normalize")
-      link(rel="stylesheet", href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
-      != css("lib/fannect")
-      != css("skin")
 
-      != js("tree")
+      if (css)
+         != css("lib/normalize")
+         link(rel="stylesheet", href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
+         != css("lib/fannect")
+         != css("skin")
 
-   - var viewDir = locals.root
+      else
+         link(rel="stylesheet", href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
+
+   != js("tree")
+
+   - var viewDir = locals.settings.views;
    - var view = locals.filename.replace(viewDir, "").replace(".jade", "").replace(/^[\\\/]/g, "");
    - var viewClass = view.replace(/[\\\/]/g, "-");
    body
