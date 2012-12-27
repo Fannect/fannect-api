@@ -1,50 +1,49 @@
-extend ../layout
+extend layout
 
 block header
    h1(data-menu-root="profile") Profile
-   a.ui-btn-right(href="/profile/selectSport", data-role="button") Add Team
+   a.ui-btn-right(href="profile-selectSport", data-role="button") Add Team
 
 block content
    .scrollable-content
       .iscroll-container
          .profile-images
             .team-wrap
-               img(src="#{team_image}")
+               img(data-bind="attr:{src:team_image}")
                .cover
             .user-wrap
-               img(src="#{user_image}")
+               img(data-bind="attr:{src:user_image}")
                .cover
 
-         .name= name
+         .name(data-bind="text: name")
 
          .teams-wrap
             .view-port
-               ul.teams
-                  for team in teams
-                     li.team= team
+               ul.teams(data-bind="foreach: teams")
+                  li.team(data-bind="text: name")
             .button.next: .icon
             .button.prev: .icon
 
          .score-wrap
             .score.roster
                .label Roster
-               .value= score.roster
+               .value(data-bind="text: roster")
             .score.points
                .label Points
-               .value= score.points
+               .value(data-bind="text: points")
             .score.rank
                .label Rank
-               .value= score.rank
+               .value(data-bind="text: rank")
 
          .bio
             .separator
-            .text= personal.bio
+            .text(data-bind="text: bio")
 
          .game-day-spot
             .separator
-            .text= personal.game_day_spot 
+            .text(data-bind="text: game_day_spot") 
          
          .bragging-rights
             .separator
-            .text= personal.bragging_rights
+            .text(data-bind="text: bragging_rights")
 

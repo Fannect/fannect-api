@@ -22,7 +22,7 @@ app.get "/profile", (req, res, next) ->
          game_day_spot: "Midfield in a folding chair at pitch number 6 in Tiffany Springs Park."
          bragging_rights: "His son's soccer team, the Ninja Dragons, won their division last season and are undefeated this season."
 
-   res.render "profile/profile", profileInfo
+   res.json profileInfo
 
 app.get "/profile/selectSport", (req, res, next) ->
    sports = [ "basketball", "football" ]

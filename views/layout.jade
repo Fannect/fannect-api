@@ -6,7 +6,6 @@ html
       meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no")
       meta(name="apple-mobile-web-app-capable", content="yes")
 
-
       if (css)
          != css("lib/normalize")
          link(rel="stylesheet", href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
@@ -14,9 +13,13 @@ html
          != css("skin")
 
       else
+         link(rel="stylesheet", href="css/normalize.css")
          link(rel="stylesheet", href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
+         link(rel="stylesheet", href="css/fannect.css")
+         link(rel="stylesheet", href="css/skin.css")
 
-   != js("tree")
+      if (js)
+         != js("tree")
 
    - var viewDir = locals.settings.views;
    - var view = locals.filename.replace(viewDir, "").replace(".jade", "").replace(/^[\\\/]/g, "");
@@ -33,7 +36,7 @@ html
          .footer(data-role="footer", data-id="footer", data-position="fixed")
             div(data-role="navbar")
                ul
-                  li: a.profile-menu(href="/profile", data-icon="custom") Profile
+                  li: a.profile-menu(href="profile.html", data-icon="custom") Profile
                   li: a.points-menu(href="/points", data-icon="custom") Points
                   li: a.leaderboard-menu(href="/leaderboard", data-icon="custom") Leaderboard
                   li: a.connect-menu(href="/connect", data-icon="custom") Connect

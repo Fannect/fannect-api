@@ -3,10 +3,11 @@ fs = require "fs"
 
 cachedPaths = {}
 hasCached = false
+baseDir = path.resolve(__dirname, "../views")
 
 module.exports = (req, res, next) ->
    unless hasCached
-      cacheViews path.resolve(__dirname, "../views")
+      cacheViews baseDir
       hasCached = true
 
    if cachedPaths[req.url]
@@ -24,7 +25,8 @@ cacheViews = (dir, done) ->
       if stat and stat.isDirectory()
          cacheViews filePath
       else
-         cachedPaths["/" + file.replace("jade", "html")] = filePath
+         filename = filePath.replace(baseDir, "").replace("jade", "html").replace(/^[\\\/]/g, "").replace(/[\\\/]/g, "-")
+         cachedPaths["/" + filename] = filePath
 
 
 

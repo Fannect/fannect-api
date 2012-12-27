@@ -4,16 +4,21 @@ do ($ = window.jQuery, ko = window.ko) ->
    prevBtn = null
 
    $(document).bind "mobileinit", () ->
-      $(".profile-profile").live("pagebeforeshow", () ->
+      $(".profile").live("pagebeforeshow", () ->
          scroller = $(".points-guessTheScore-pick .scrolling-text").scroller()
-         ko.applyBindings new window.fannect.viewModels.GuessTheScore(), this
-         scroller.scroller("start")
+         $.mobile.loading "show"
+         
+         vm = new window.fannect.viewModels.Profile () =>
+            console.log "VM", vm
+            ko.applyBindings vm, @
+            $.mobile.loading "hide"
+            scroller.scroller("start")
       
       ).live("pageshow", () ->    
-         nextBtn = $(".profile-profile .teams-wrap .button.next");
-         prevBtn = $(".profile-profile .teams-wrap .button.prev");
+         nextBtn = $(".profile .teams-wrap .button.next");
+         prevBtn = $(".profile .teams-wrap .button.prev");
 
-         teamScrollbar = new iScroll $(".profile-profile .teams-wrap .view-port").get(0),
+         teamScrollbar = new iScroll $(".profile .teams-wrap .view-port").get(0),
             snap: true
             momentum: false
             hScrollbar: false
@@ -35,6 +40,5 @@ do ($ = window.jQuery, ko = window.ko) ->
          if teamScrollbar then teamScrollbar.destroy()
 
    setTeamButtonVisiblity = () ->
-      console.log teamScrollbar
       if teamScrollbar.currPageX == 0 then prevBtn.hide() else prevBtn.show()
       if teamScrollbar.currPageX == teamScrollbar.pagesX.length - 1 then nextBtn.hide() else nextBtn.show()
