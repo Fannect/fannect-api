@@ -1,14 +1,14 @@
 extend ../layout
 
 block header
-   a(href="/points", data-icon="back", data-rel="back") Back
-   h1(data-menu-root="points") Games
+   a(href="games", data-icon="back", data-rel="back") Back
+   h1(data-menu-root="games") Games
 
 block content
 
-   .game-face(data-bind="toggleClass: { 'on': face_on() }")
+   .game-face(data-bind="css: { on: face_on() }")
 
-   .team-info
+   .team-info(data-bind="visible: available")
       .home.team-glass
          .label Home
          .team(data-bind="text: home_team")
@@ -19,10 +19,10 @@ block content
          .team(data-bind="text: away_team")
          .record(data-bind="text: away_record")
       .clear
-   
+      
+   .unavailable.scrolling-text(data-bind="visible: !available()", style="display:none;") GameFace can only be activated on game days!
+
    .switch-wrap
-      select(id="gameFaceSwitch", data-role="slider", data-bind="value: face_value, disableSlider: face_on")
+      select(id="gameFaceSwitch", data-role="slider", data-bind="value: face_value, disableSlider: face_on() || !available(), sliderUpdate: face_on")
          option(value="off") Off
          option(value="on") On
-
-   .scrolling-text GameFace can only be activated on game days!

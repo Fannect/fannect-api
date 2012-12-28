@@ -54,8 +54,8 @@ app.post "/points/attendanceStreak"
 
 app.get "/games/gameFace", (req, res, next) ->
    gameInfo = 
-      available: true
-      on: false
+      available: false
+      face_value: "off"
       home:
          name: "Kansas Jayhawks"
          record: "(31-3, 14-2)"

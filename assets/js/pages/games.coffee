@@ -10,15 +10,15 @@ do ($ = window.jQuery, ko = window.ko) ->
          $(".games-guessTheScore-pick .scrolling-text").scroller()
 
    setupGameFace = () ->
-      $(".games-gameFace-gameDay").live "pagebeforeshow", () ->
-         viewModel = new window.fannect.viewModels.GameFace()
-         ko.applyBindings viewModel, this
-      $(".games-gameFace-noGame").live("pagebeforeshow", () ->
-         $(".games-gameFace-noGame .scrolling-text").scroller()
+      $(".games-gameFace").live "pagebeforeshow", () ->
+         vm = new window.fannect.viewModels.GameFace () =>
+            ko.applyBindings vm, @
+      $(".games-gameFace").live("pagebeforeshow", () ->
+         $(".games-gameFace .scrolling-text").scroller()
       ).live("pageshow", () ->
-         $(".games-gameFace-noGame .scrolling-text").scroller("start")
+         $(".games-gameFace .scrolling-text").scroller("start")
       ).live "pagebeforehide", () ->
-         $(".games-gameFace-noGame .scrolling-text").scroller("stop")
+         $(".games-gameFace .scrolling-text").scroller("stop")
 
    setupAttendanceStreak = () ->
       $(".games-attendanceStreak").live("pagebeforeshow", () ->

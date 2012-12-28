@@ -8,4 +8,4 @@ window.fannect.isPhoneGap = () ->
    return document.URL.indexOf("http://") == -1 and document.URL.indexOf("https://") == -1
 
 window.fannect.getResourceURL = () ->
-   if window.fannect.isPhoneGap() then "http://fannect.me" else ""
+   if window.fannect.isPhoneGap() then "http://fannect.herokuapp.com" else ""

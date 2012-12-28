@@ -12,7 +12,8 @@ do ($ = jQuery) ->
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
          if valueUnwrapped
-            setTimeout (() -> $(element).slider "disable"), 300
+            $(element).slider "disable"
+            # setTimeout (() -> $(element).slider "disable"), 300
          else
             $(element).slider "enable"
 
@@ -24,15 +25,10 @@ do ($ = jQuery) ->
          else
             $(element).button "enable"
 
-   ko.bindingHandlers.toggleClass =
-      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
-         valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
-         $el = $(element)
-         
-         if valueUnwrapped
-            for key, value of valueUnwrapped
-               if value then $el.addClass key else $el.removeClass key
-
    ko.bindingHandlers.listviewUpdate =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          $(element).listview "refresh"
+
+   ko.bindingHandlers.sliderUpdate =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         $(element).slider "refresh"
