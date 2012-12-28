@@ -8,14 +8,14 @@ html
 
       if (global.css)
          != css("lib/normalize")
-         link(rel="stylesheet", href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
+         != css("lib/jquerymobile.css")
          != css("lib/fannect")
          != css("skin")
 
       else
-         link(rel="stylesheet", href="css/normalize.css")
-         link(rel="stylesheet", href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
-         link(rel="stylesheet", href="css/fannect.css")
+         link(rel="stylesheet", href="css/lib/normalize.css")
+         link(rel="stylesheet", href="css/lib/jquerymobile")
+         link(rel="stylesheet", href="css/lib/fannect.css")
          link(rel="stylesheet", href="css/skin.css")
 
       if (global.js)

@@ -1,0 +1,51 @@
+{
+   "output": "../fannect-phonegap",
+   "assets": [
+      {
+         "from":"config.xml",
+         "to":"{out}/config.xml",
+         "compile": "none"
+      },
+      {
+         "from":"assets/js/tree.coffee",
+         "to":"{out}/js/tree.js",
+         "compile":"coffee"
+      },
+      {
+         "from":"assets/css/skin.styl",
+         "to":"{out}/css/skin.css",
+         "compile":"stylus"
+      },
+      {
+         "from":"assets/css/lib/fannect.css",
+         "to":"{out}/css/lib/fannect.css",
+         "compile": "none"
+      },
+      {
+         "from":"assets/css/lib/jquerymobile.css",
+         "to":"{out}/css/lib/jquerymobile.css",
+         "compile": "none"
+      },
+      {
+         "from":"assets/css/lib/normalize.css",
+         "to":"{out}/css/lib/normalize.css",
+         "compile": "none"
+      },
+      {
+         "from":"public/images",
+         "to":"{out}/images",
+         "compile": "none",
+         "is_directory": true
+      },
+      {
+         "from":"public/fonts",
+         "to":"{out}/fonts",
+         "compile": "none",
+         "is_directory": true
+      }
+   ],
+   "views": {
+      "directory":"views",
+      "ignore":["layout.jade"]
+   }
+}
