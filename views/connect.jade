@@ -1,12 +1,9 @@
-extend ../layout
+extend layout
 
 block header
    h1(data-menu-root="connect") Roster
 
 block content
-
-   script(type="text/javascript")
-      window.fannect.connect = !{JSON.stringify(fans)};
 
    .scrollable-content
       ul.pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans").fans

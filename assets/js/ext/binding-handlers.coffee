@@ -11,7 +11,6 @@ do ($ = jQuery) ->
    ko.bindingHandlers.disableSlider = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
-         console.log "disableSlider: ", valueUnwrapped
          if valueUnwrapped
             setTimeout (() -> $(element).slider "disable"), 300
          else
@@ -36,4 +35,5 @@ do ($ = jQuery) ->
 
    ko.bindingHandlers.listviewUpdate =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         console.log element, ko.utils.unwrapObservable valueAccessor()
          $(element).listview "refresh"

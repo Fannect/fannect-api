@@ -6,12 +6,9 @@ do ($ = window.jQuery, ko = window.ko) ->
    $(document).bind "mobileinit", () ->
       $(".profile").live("pagebeforeshow", () ->
          scroller = $(".points-guessTheScore-pick .scrolling-text").scroller()
-         $.mobile.loading "show"
          
          vm = new window.fannect.viewModels.Profile () =>
-            console.log "VM", vm
             ko.applyBindings vm, @
-            $.mobile.loading "hide"
             scroller.scroller("start")
       
       ).live("pageshow", () ->    

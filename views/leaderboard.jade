@@ -1,4 +1,4 @@
-extend ../layout
+extend layout
 
 block header
    h1(data-menu-root="leaderboard") Leaderboard
@@ -11,15 +11,9 @@ block content
          input(type="radio", name="board-picker", id="board-roster-picker", value="roster", data-bind="checked: selected_view")
          label(for="board-roster-picker") Roster
 
-   script(type="text/javascript")
-      window.fannect.leaderboard = {
-         overall_fans: !{JSON.stringify(overall_fans)},
-         roster_fans: !{JSON.stringify(roster_fans)}
-      };
-
    .scrollable-content
-      ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: overall_fans }, listviewUpdate: overall_fans, visible: is_overall_selected")
-      ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans, visible: !is_overall_selected()")
+      ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: overall_fans }, visible: is_overall_selected, listviewUpdate: overall_loaded")
+      ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: roster_fans }, visible: !is_overall_selected(), listviewUpdate: roster_loaded")
 
    script(id="leaderboard-fan-template", type="text/html")
       li.fan(data-icon="false")

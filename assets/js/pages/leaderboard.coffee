@@ -1,3 +1,4 @@
 $(document).bind "mobileinit", () ->
-   $(".leaderboard-leaderboard").live "pagebeforeshow", () ->
-      ko.applyBindings new window.fannect.viewModels.Leaderboard(window.fannect.leaderboard), this
+   $(".leaderboard").live "pagebeforeshow", () ->
+      vm = new window.fannect.viewModels.Leaderboard () =>
+         ko.applyBindings vm, @

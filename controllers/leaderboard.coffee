@@ -4,7 +4,6 @@ rest = require "request"
 app = module.exports = express()
 
 app.get "/leaderboard", (req, res, next) ->
-
    overall_fans = roster_fans = 
       [
          {
@@ -72,6 +71,5 @@ app.get "/leaderboard", (req, res, next) ->
          }
       ]
 
-   res.render "leaderboard/leaderboard", 
-      overall_fans: overall_fans
-      roster_fans: roster_fans
+   if req.query.type == "overall" then return res.json fans: overall_fans
+   else res.json fans: roster_fans

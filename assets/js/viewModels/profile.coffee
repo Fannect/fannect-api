@@ -20,5 +20,7 @@ do ($ = jQuery, ko = window.ko) ->
             done()
 
       load: (done) ->
+         $.mobile.loading "show"
          $.get "#{fc.getResourceURL()}/profile", (data, status) ->
+            $.mobile.loading "hide"
             done null, data
