@@ -1,4 +1,4 @@
-extend ../../layout
+extend ../layout
 
 block header
    a(href="/points", data-icon="back", data-rel="back") Back
@@ -11,16 +11,18 @@ block content
    .team-info
       .home.team-glass
          .label Home
-         .team= home.name
-         .record= home.record
+         .team(data-bind="text: home_team")
+         .record(data-bind="text: home_record")
       .vs
       .away.team-glass
          .label Away
-         .team= away.name
-         .record= away.record
+         .team(data-bind="text: away_team")
+         .record(data-bind="text: away_record")
       .clear
    
    .switch-wrap
       select(id="gameFaceSwitch", data-role="slider", data-bind="value: face_value, disableSlider: face_on")
          option(value="off") Off
          option(value="on") On
+
+   .scrolling-text GameFace can only be activated on game days!

@@ -52,25 +52,17 @@ app.get "/points/attendanceStreak", (req, res, next) ->
 
 app.post "/points/attendanceStreak"
 
-app.get "/points/gameFace", (req, res, next) ->
+app.get "/games/gameFace", (req, res, next) ->
    gameInfo = 
+      available: true
+      on: false
       home:
          name: "Kansas Jayhawks"
          record: "(31-3, 14-2)"
       away:
          name: "Missouri Tigers"
          record: "(31-3, 14-2)"
-   res.render "points/gameFace/gameDay", gameInfo
-
-app.get "/points/gameFace/noGame", (req, res, next) ->
-   gameInfo = 
-      home:
-         name: "Kansas Jayhawks"
-         record: "(31-3, 14-2)"
-      away:
-         name: "Missouri Tigers"
-         record: "(31-3, 14-2)"
-   res.render "points/gameFace/noGame", gameInfo
+   res.json gameInfo
 
 app.get "/points/suggestGame", (req, res, next) ->
    res.render "points/suggestGame"

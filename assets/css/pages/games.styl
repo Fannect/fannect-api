@@ -1,7 +1,7 @@
 @import "../lib/mixins"
 @import "../lib/variables"
 
-.points.ui-page
+.games.ui-page
    background: url(../images/Pattern_FabricKnit.png)
    background-size: 4px 4px
    .ui-content
@@ -26,7 +26,7 @@
       white-space: normal
       font-size: 1.3em
 
-.points-attendanceStreak
+.games-attendanceStreak
    .ui-content
       padding: 0
       .info
@@ -120,7 +120,7 @@
                color: color-light-gray
                margin-right: 4px
 
-.points-guessTheScore-pick
+.games-guessTheScore
    .score
       margin: 10px auto 0
       width: 320px
@@ -178,9 +178,9 @@
          color: color-light-gray
 
 
-.points-guessTheScore-pick
-.points-guessTheScore-picked
-.points-gameFace-gameDay
+.games-guessTheScore
+.games-guessTheScore
+.games-gameFace
    .ui-content
       padding: 0 0 inherit 0
    .team-info
@@ -196,7 +196,7 @@
          background: url(../images/games/Overlay_VsButton.png) no-repeat 50% 0%
          background-size: 36px 36px
 
-.points-guessTheScore-picked
+.games-guessTheScore
    .picked
       margin: 10px auto 0
       width: 320px
@@ -233,8 +233,7 @@
          text-align: center
          color: color-light-gray
 
-.points-gameFace-noGame
-.points-gameFace-gameDay
+.games-gameFace
    .game-face
       background: url(../images/games/gameFace/Gameface_Sprite.png)
       background-size: 370.5px 184px
@@ -244,7 +243,6 @@
       background-position: 0 0
       &.on
          background-position: -186px -185px
-.points-gameFace-gameDay
    .team-info
       .team-glass
          position: relative
@@ -263,40 +261,38 @@
          margin: 0
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
-   .points-points
+   .games
       background-image: url(../images/Pattern_FabricKnit@2x.png)
-   .points-attendanceStreak .info
+   .games-attendanceStreak .info
       background-image: url(../images/games/attendanceStreak/Overlay_Marquee_iPhone@2x.png)
       .left-cap
          background-image: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Left_iPhone@2x.png)
       .right-cap
          background-image: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone@2x.png)
 
-   .points-attendanceStreak .bottom
+   .games-attendanceStreak .bottom
       background-image: url(../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone@2x.png)
       .checked-in
          background-image: url(../images/games/attendanceStreak/Overlay_checkbox@2x.png)
 
-   .points-guessTheScore-pick
+   .games-guessTheScore
       .guess-wrap
          background-image: url(../images/games/guessTheScore/Overlay_PickSetBox@2x.png)
       .game-preview
          background-image: url(../images/games/guessTheScore/Overlay_SubtleShadow@2x.png)
 
-   .points-attendanceStreak
-   .points-guessTheScore-pick
-   .points-guessTheScore-picked
-   .points-gameFace-gameDay
+   .games-attendanceStreak
+   .games-guessTheScore
+   .games-gameFace
          .vs
             background-image: url(../images/games/Overlay_VsButton@2x.png)
 
-   .points-guessTheScore-picked
+   .games-guessTheScore
       .score
          background-image: url(../images/games/guessTheScore/Overlay_PickSetBox@2x.png)
       .game-preview
          background-image: url(../images/games/guessTheScore/Overlay_SubtleShadow@2x.png)
 
-   .points-gameFace-noGame
-   .points-gameFace-gameDay
+   .games-gameFace
       .game-face
          background-image: url(../images/games/gameFace/Gameface_Sprite@2x.png) 

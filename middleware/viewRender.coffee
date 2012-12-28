@@ -10,8 +10,10 @@ module.exports = (req, res, next) ->
       cacheViews baseDir
       hasCached = true
 
-   if cachedPaths[req.url]
-      res.render cachedPaths[req.url]
+   url = req.url.toLowerCase()
+
+   if cachedPaths[url]
+      res.render cachedPaths[url]
    else
       next() 
    
@@ -25,7 +27,7 @@ cacheViews = (dir, done) ->
       if stat and stat.isDirectory()
          cacheViews filePath
       else
-         filename = filePath.replace(baseDir, "").replace("jade", "html").replace(/^[\\\/]/g, "").replace(/[\\\/]/g, "-")
+         filename = filePath.replace(baseDir, "").replace("jade", "html").replace(/^[\\\/]/g, "").replace(/[\\\/]/g, "-").toLowerCase()
          cachedPaths["/" + filename] = filePath
 
 

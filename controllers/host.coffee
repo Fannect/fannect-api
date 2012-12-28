@@ -18,12 +18,12 @@ app.configure "production", () ->
    app.use express.errorHandler()
 
 # Middleware
+app.use require("../middleware/viewRender")
 app.use express.query()
 app.use express.bodyParser()
 app.use express.cookieParser process.env.COOKIE_SECRET or "super duper secret"
 app.use require("connect-assets")()
 app.use express.static path.join __dirname, "../public"
-app.use require("../middleware/viewRender")
 
 #Session
 # redis_client = redis.connect(process.env.REDISTOGO_URL or "redis://heroku.bad942ab42933a1bd148:d83a3ae81b3c7e67314831b9c167459e@clingfish.redistogo.com:9480/")
@@ -34,7 +34,7 @@ app.use require("../middleware/viewRender")
 
 # Controllers
 app.use require "./profile"
-app.use require "./points"
+app.use require "./games"
 app.use require "./leaderboard"
 app.use require "./connect"
 app.use require "./preferences"
