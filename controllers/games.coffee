@@ -35,7 +35,7 @@ app.get "/games/guessTheScore", (req, res, next) ->
 
 #    res.render "points/guessTheScore/picked", gameInfo
 
-app.get "/points/attendanceStreak", (req, res, next) ->
+app.get "/games/attendanceStreak", (req, res, next) ->
    gameInfo = 
       home:
          name: "Kansas Jayhawks"
@@ -47,10 +47,10 @@ app.get "/points/attendanceStreak", (req, res, next) ->
          name: "Allen Fieldhouse"
          location: "Lawrence, Kansas"
       checked_in: false
-      no_game: true
+      no_game: false
       next_game: "January 27, 2013"
 
-   res.render "points/attendanceStreak", gameInfo
+   res.json gameInfo
 
 # app.post "/points/attendanceStreak"
 

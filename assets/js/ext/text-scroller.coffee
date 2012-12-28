@@ -58,5 +58,4 @@ Scroller =
       space_offset: 25
       rate: 30
 
-
 $.widget "ui.scroller", Scroller

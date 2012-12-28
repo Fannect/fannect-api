@@ -6,31 +6,24 @@ block header
 
 block content
    
-   script(type="text/javascript")
-      window.fannect.attendance_streak = {
-         checked_in: !{JSON.stringify(checked_in)},
-         no_game: !{JSON.stringify(no_game)},
-         next_game: !{JSON.stringify(next_game)}
-      };
-
    .info
       .left-cap
       .right-cap
 
       .stadium-info
-         .stadium= stadium.name
-         .location= stadium.location
+         .stadium(data-bind="text: stadium_name")
+         .location(data-bind="text: stadium_location")
 
       .game-info
          .home-info
             .inner
-               .team= home.name
-               .record= home.record
+               .team(data-bind="text: home_team")
+               .record(data-bind="text: home_record")
          .vs
          .away-info
             .inner
-               .team= away.name
-               .record= away.record
+               .team(data-bind="text: away_team")
+               .record(data-bind="text: away_record")
 
    .bottom
       .inner

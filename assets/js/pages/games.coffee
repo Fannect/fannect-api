@@ -21,28 +21,19 @@ do ($ = window.jQuery, ko = window.ko) ->
          $(".games-gameFace .scrolling-text").scroller("stop")
 
    setupAttendanceStreak = () ->
+      vm = null
       $(".games-attendanceStreak").live("pagebeforeshow", () ->
-         attend = window.fannect.attendance_streak
-         if attend.no_game
-            scroller = $(".games-attendanceStreak .scrolling-text").scroller()
-         vm = new window.fannect.viewModels.AttendanceStreak attend
-         ko.applyBindings vm, this 
-      ).live "pageshow", () ->
-         if window.fannect.attendance_streak.no_game
-            $(".games-attendanceStreak .scrolling-text").scroller("start")
+         vm = new window.fannect.viewModels.AttendanceStreak () =>
+            if vm.no_game
+               scroller = $(".games-attendanceStreak .scrolling-text").scroller()
+               scroller.scroller("start")
+            ko.applyBindings vm, @ 
+      ).live("pageshow", () ->
+         # if vm.no_game() then $(".games-attendanceStreak .scrolling-text").scroller("start")
+      ).live "pagebeforehide", () ->
+         $(".games-attendanceStreak .scrolling-text").scroller("stop")
 
    $(document).bind "mobileinit", () ->
       setupGuessTheScore()
       setupGameFace()
       setupAttendanceStreak()
-
-      # $(".games-gameFace-gameDay").live "pageinit", () ->
-      #    $(".games-gameFace-gameDay #gameFaceSwitch").live "change", () ->
-      #       $el = $(this)
-      #       if  $el.val() == "on"
-      #          $(".games-gameFace-gameDay .game-face").addClass("on")
-      #       else
-      #          $(".games-gameFace-gameDay .game-face").removeClass("on")
-
-      
-      
