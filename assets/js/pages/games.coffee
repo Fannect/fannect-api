@@ -1,13 +1,13 @@
 do ($ = window.jQuery, ko = window.ko) ->
    setupGuessTheScore = () ->
-      $(".games-guessTheScore-pick").live "pagebeforeshow", () ->
-         scroller = $(".games-guessTheScore-pick .scrolling-text").scroller()
-         viewModel = new window.fannect.viewModels.GuessTheScore()
-         ko.applyBindings viewModel, this
-         scroller.scroller("start")
+      $(".games-guessTheScore").live "pagebeforeshow", () ->
+         scroller = $(".games-guessTheScore .scrolling-text").scroller()
+         vm = new window.fannect.viewModels.GuessTheScore () =>
+            ko.applyBindings vm, @
+            scroller.scroller("start")
       
-      $(".games-guessTheScore-pick").live "pagebeforehide", () ->
-         $(".games-guessTheScore-pick .scrolling-text").scroller()
+      $(".games-guessTheScore").live "pagebeforehide", () ->
+         $(".games-guessTheScore .scrolling-text").scroller()
 
    setupGameFace = () ->
       $(".games-gameFace").live "pagebeforeshow", () ->

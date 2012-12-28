@@ -1,4 +1,4 @@
-extend ../../layout
+extend ../layout
 
 block header
    a(href="games", data-icon="back", data-rel="back") Back
@@ -21,12 +21,12 @@ block content
 
       .team-info
          .home.team-glass
-            .team= home.name
-            .record= home.record
+            .team(data-bind="text: home_team")
+            .record(data-bind="text: home_record")
          .vs
          .away.team-glass
-            .team= away.name
-            .record= away.record
+            .team(data-bind="text: away_team")
+            .record(data-bind="text: away_record")
          .clear
 
       .picking(data-bind="visible: !pick_set()")
@@ -36,3 +36,4 @@ block content
          .scrolling-text Your pick is set! Check back after the game to view results!
          .game-preview
             .title Game Preview
+            .text(data-bind="text:game_preview")

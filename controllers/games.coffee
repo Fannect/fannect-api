@@ -3,35 +3,37 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/points", (req, res, next) ->
-   res.render "points/points"
-
-app.get "/points/guessTheScore", (req, res, next) ->
+app.get "/games/guessTheScore", (req, res, next) ->
    gameInfo =
+      available: true
+      picked: true
       home:
+         picked_score: 34
          name: "Kansas Jayhawks"
          record: "(31-3, 14-2)"
       away:
+         picked_score: 43
          name: "Missouri Tigers"
          record: "(31-3, 14-2)"
+      game_preview: "Here is where the game preview would go."
 
-   res.render "points/guessTheScore/pick", gameInfo
+   res.json gameInfo
 
-app.post "/points/guessTheScore", (req, res, next) ->
-   res.redirect "/points/guessTheScore/guessed"
+# app.post "/points/guessTheScore", (req, res, next) ->
+#    res.redirect "/points/guessTheScore/guessed"
 
-app.get "/points/guessTheScore/guessed", (req, res, next) ->
-   gameInfo =
-      home:
-         guess: 137
-         name: "Kansas Jayhawks"
-         record: "(31-3, 14-2)"
-      away:
-         guess: 68
-         name: "Missouri Tigers"
-         record: "(31-3, 14-2)"
+# app.get "/points/guessTheScore/guessed", (req, res, next) ->
+#    gameInfo =
+#       home:
+#          guess: 137
+#          name: "Kansas Jayhawks"
+#          record: "(31-3, 14-2)"
+#       away:
+#          guess: 68
+#          name: "Missouri Tigers"
+#          record: "(31-3, 14-2)"
 
-   res.render "points/guessTheScore/picked", gameInfo
+#    res.render "points/guessTheScore/picked", gameInfo
 
 app.get "/points/attendanceStreak", (req, res, next) ->
    gameInfo = 
@@ -50,7 +52,7 @@ app.get "/points/attendanceStreak", (req, res, next) ->
 
    res.render "points/attendanceStreak", gameInfo
 
-app.post "/points/attendanceStreak"
+# app.post "/points/attendanceStreak"
 
 app.get "/games/gameFace", (req, res, next) ->
    gameInfo = 
@@ -64,6 +66,6 @@ app.get "/games/gameFace", (req, res, next) ->
          record: "(31-3, 14-2)"
    res.json gameInfo
 
-app.get "/points/suggestGame", (req, res, next) ->
-   res.render "points/suggestGame"
+# app.get "/points/suggestGame", (req, res, next) ->
+#    res.render "points/suggestGame"
 
