@@ -35,5 +35,4 @@ do ($ = jQuery) ->
 
    ko.bindingHandlers.listviewUpdate =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
-         console.log element, ko.utils.unwrapObservable valueAccessor()
          $(element).listview "refresh"

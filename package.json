@@ -15,7 +15,6 @@
       "request": "2.11.4",
       "connect-assets": "2.3.3",
       "connect-redis": "1.4.4",
-      "redis-url": "0.1.0",
-      "pretty-camel": "0.0.8"
+      "redis-url": "0.1.0"
    }
 }

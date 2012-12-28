@@ -1,3 +1,4 @@
 $(document).bind "mobileinit", () ->
-   $(".connect").live "pagebeforeshow", () ->
-      ko.applyBindings new window.fannect.viewModels.Connect(window.fannect.connect), this
+   $(".connect.ui-page").live "pagebeforeshow", () ->
+      vm = new window.fannect.viewModels.Connect () =>
+         ko.applyBindings vm, @

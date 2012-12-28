@@ -71,4 +71,4 @@ app.get "/connect", (req, res, next) ->
          }
       ]
 
-   res.render "connect/connect", fans: roster_fans
+   res.json fans: roster_fans
