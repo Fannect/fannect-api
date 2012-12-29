@@ -10,6 +10,6 @@ do ($ = window.jQuery) ->
       if menu
          $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
          $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
-   ).live("pageshow", () ->
+   ).live "pageshow", () ->
       if $.support.touch and not $.support.touchOverflow
          $("body").addClass("speed-up")
