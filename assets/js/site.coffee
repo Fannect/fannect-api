@@ -3,7 +3,6 @@ do ($ = window.jQuery) ->
       $.mobile.allowCrossDomainPages = true
       $.mobile.pushStateEnabled = false if window.fannect.isPhoneGap()
 
-   scrollbars = []
    $(".index.ui-page").live "pageshow", () ->
       $.mobile.changePage("profile.html")
    $(".ui-page").live("pagebeforeshow", () ->
@@ -14,9 +13,3 @@ do ($ = window.jQuery) ->
    ).live("pageshow", () ->
       if $.support.touch and not $.support.touchOverflow
          $("body").addClass("speed-up")
-         $(".scrollable-content").each (i) ->
-            scrollbars.push new iScroll this, momentum: false
-   ).live "pagebeforehide", () ->
-         for bar in scrollbars
-            bar.destroy()
-         scrollbars.length = 0
