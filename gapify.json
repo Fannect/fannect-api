@@ -3,45 +3,35 @@
    "assets": [
       {
          "from":"config.xml",
-         "to":"{out}/config.xml",
-         "compile": "none"
+         "to":"{out}/config.xml"
       },
       {
          "from":"assets/js/tree.coffee",
-         "to":"{out}/js/tree.js",
-         "compile":"coffee"
+         "to":"{out}/js/tree.js"
       },
       {
          "from":"assets/css/skin.styl",
-         "to":"{out}/css/skin.css",
-         "compile":"stylus"
+         "to":"{out}/css/skin.css"
       },
       {
          "from":"assets/css/lib/fannect.css",
-         "to":"{out}/css/lib/fannect.css",
-         "compile": "none"
+         "to":"{out}/css/lib/fannect.css"
       },
       {
          "from":"assets/css/lib/jquerymobile.css",
-         "to":"{out}/css/lib/jquerymobile.css",
-         "compile": "none"
+         "to":"{out}/css/lib/jquerymobile.css"
       },
       {
          "from":"assets/css/lib/normalize.css",
-         "to":"{out}/css/lib/normalize.css",
-         "compile": "none"
+         "to":"{out}/css/lib/normalize.css"
       },
       {
          "from":"public/images",
-         "to":"{out}/images",
-         "compile": "none",
-         "is_directory": true
+         "to":"{out}/images"
       },
       {
          "from":"public/fonts",
-         "to":"{out}/fonts",
-         "compile": "none",
-         "is_directory": true
+         "to":"{out}/fonts"
       }
    ],
    "views": {
