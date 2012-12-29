@@ -3,9 +3,6 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/", (req, res, next) ->
-   res.redirect "/profile"
-
 app.get "/profile", (req, res, next) ->
    profileInfo = 
       user_image: "/dev/Pic_Player@2x.png"
