@@ -5,8 +5,7 @@ block header
 
 block content
 
-   .scrollable-content
-      ul.pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans").fans
+   ul.pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans").fans
 
    script(id="connect-fan-template", type="text/html")
       li.fan

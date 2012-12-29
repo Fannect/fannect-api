@@ -11,7 +11,7 @@ block content
          input(type="radio", name="board-picker", id="board-roster-picker", value="roster", data-bind="checked: selected_view")
          label(for="board-roster-picker") Roster
 
-   .scrollable-content
+   .fans-lists
       ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: overall_fans }, visible: is_overall_selected, listviewUpdate: overall_loaded")
       ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: roster_fans }, visible: !is_overall_selected(), listviewUpdate: roster_loaded")
 

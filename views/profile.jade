@@ -5,45 +5,43 @@ block header
    a.ui-btn-right(href="profile-selectSport", data-role="button") Add Team
 
 block content
-   .scrollable-content
-      .iscroll-container
-         .profile-images
-            .team-wrap
-               img(data-bind="attr:{src:team_image}")
-               .cover
-            .user-wrap
-               img(data-bind="attr:{src:user_image}")
-               .cover
+   .profile-images
+      .team-wrap
+         img(data-bind="attr:{src:team_image}")
+         .cover
+      .user-wrap
+         img(data-bind="attr:{src:user_image}")
+         .cover
 
-         .name(data-bind="text: name")
+   .name(data-bind="text: name")
 
-         .teams-wrap
-            .view-port
-               ul.teams(data-bind="foreach: teams")
-                  li.team(data-bind="text: name")
-            .button.next: .icon
-            .button.prev: .icon
+   .teams-wrap
+      .view-port
+         ul.teams(data-bind="foreach: teams")
+            li.team(data-bind="text: name")
+      .button.next: .icon
+      .button.prev: .icon
 
-         .score-wrap
-            .score.roster
-               .label Roster
-               .value(data-bind="text: roster")
-            .score.points
-               .label Points
-               .value(data-bind="text: points")
-            .score.rank
-               .label Rank
-               .value(data-bind="text: rank")
+   .score-wrap
+      .score.roster
+         .label Roster
+         .value(data-bind="text: roster")
+      .score.points
+         .label Points
+         .value(data-bind="text: points")
+      .score.rank
+         .label Rank
+         .value(data-bind="text: rank")
 
-         .bio
-            .separator
-            .text(data-bind="text: bio")
+   .bio
+      .separator
+      .text(data-bind="text: bio")
 
-         .game-day-spot
-            .separator
-            .text(data-bind="text: game_day_spot") 
-         
-         .bragging-rights
-            .separator
-            .text(data-bind="text: bragging_rights")
+   .game-day-spot
+      .separator
+      .text(data-bind="text: game_day_spot") 
+   
+   .bragging-rights
+      .separator
+      .text(data-bind="text: bragging_rights")
 
