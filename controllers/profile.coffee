@@ -5,8 +5,8 @@ app = module.exports = express()
 
 app.get "/profile", (req, res, next) ->
    profileInfo = 
-      user_image: "/dev/Pic_Player@2x.png"
-      team_image: "/dev/Pic_Team@2x.png"
+      user_image: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+      team_image: "http://fannect.herokuapp.com/dev/Pic_Team@2x.png"
       score:
          roster: 23
          points: 342

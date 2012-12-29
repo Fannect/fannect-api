@@ -1,4 +1,4 @@
-unless window.fannect then window.fannect = {}
+window.fannect = window.fannect or {}
 
 window.fannect.setActiveMenu = (menu) ->
    $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
@@ -9,3 +9,4 @@ window.fannect.isPhoneGap = () ->
 
 window.fannect.getResourceURL = () ->
    if window.fannect.isPhoneGap() then "http://fannect.herokuapp.com" else ""
+
