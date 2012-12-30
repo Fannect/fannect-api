@@ -1,3 +1,6 @@
 .DS_Store
 bin
 builtAssets
+
+node_modules
+!node_modules/connect-assets
