@@ -36,4 +36,3 @@ do ($ = jQuery, ko = window.ko) ->
             @roster_loaded true
             $.mobile.loading "hide"
             if done then done null, data
-
