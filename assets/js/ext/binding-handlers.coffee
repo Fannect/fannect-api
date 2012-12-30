@@ -27,8 +27,10 @@ do ($ = jQuery) ->
 
    ko.bindingHandlers.listviewUpdate =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         ko.utils.unwrapObservable valueAccessor()
          $(element).listview "refresh"
 
    ko.bindingHandlers.sliderUpdate =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         ko.utils.unwrapObservable valueAccessor()
          $(element).slider "refresh"
