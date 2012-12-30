@@ -1,22 +1,35 @@
 require "mocha"
 should = require "should"
-Browser = require "zombie"
 http = require "http"
+path = require "path"
+checkForErrors = require "./checkForErrors"
+viewRender = require "../middleware/viewRender"
 
-# process.env.NODE_ENV = "production"
+process.env.NODE_ENV = "production"
 app = require "../controllers/host"
 
-describe "check for page errors", () ->
+describe "Fannect Mobile Web", () ->
+   # host = null
+
    before (done) ->
-      context = this
+      context = @
       server = http.createServer(app).listen 0, () ->
-         context.port = this.address().port;
-         context.host = "http://localhost:#{context.port}" 
+         context.host = "http://localhost:#{this.address().port}" 
          done()
 
-   it "should not break", (done) ->
-      Browser.visit "#{@host}/games.html", { debug: true, runScripts: true }, (e, browser) ->
-         # console.log browser.errors
-         # browser.errors.length.should.equal(0)
-         # if (browser.error )
-         console.log("Errors reported:", browser.errors.length);
+   describe "page errors", () ->
+      views = viewRender.findViews path.resolve(__dirname, "../views")
+      for page, path of views
+         it "should not exist for: #{page}", (done) ->
+            checkForErrors page, "#{@host}#{page}", done
+   
+
+   # checkForErrors "profile.html"
+   # checkForErrors "games.html"
+   # checkForErrors "games-attendanceStreak.html"
+   # checkForErrors "games-gameFace.html"
+   # checkForErrors "games-guessTheScore.html"
+   # checkForErrors "preferences.html"
+   # checkForErrors "preferences-aboutFannect.html"
+   # checkForErrors "preferences-aboutFullTiltVentures.html"
+   # checkForErrors "profile.html"

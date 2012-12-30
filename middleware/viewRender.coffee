@@ -3,11 +3,10 @@ fs = require "fs"
 
 cachedPaths = {}
 hasCached = false
-baseDir = path.resolve(__dirname, "../views")
 
 module.exports = (req, res, next) ->
    unless hasCached
-      cacheViews baseDir
+      cachedPaths = module.exports.findViews path.resolve(__dirname, "../views")
       hasCached = true
 
    url = req.url.toLowerCase()
@@ -17,18 +16,24 @@ module.exports = (req, res, next) ->
    else
       next() 
    
-cacheViews = (dir, done) ->
-   list = fs.readdirSync dir
+module.exports.findViews = (baseDir) ->
+   views = {}
 
-   for file in list
-      filePath = path.resolve dir, file
-      stat = fs.statSync filePath
-      
-      if stat and stat.isDirectory()
-         cacheViews filePath
-      else
-         filename = filePath.replace(baseDir, "").replace("jade", "html").replace(/^[\\\/]/g, "").replace(/[\\\/]/g, "-").toLowerCase()
-         cachedPaths["/" + filename] = filePath
+   findViewFromDir = (dir) ->
+      list = fs.readdirSync dir
+
+      for file in list
+         filePath = path.resolve dir, file
+         stat = fs.statSync filePath
+         
+         if stat and stat.isDirectory()
+            findViewFromDir filePath
+         else
+            filename = filePath.replace(baseDir, "").replace("jade", "html").replace(/^[\\\/]/g, "").replace(/[\\\/]/g, "-").toLowerCase()
+            views["/" + filename] = filePath
+
+   findViewFromDir baseDir
+   return views
 
 
 

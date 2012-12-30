@@ -1,0 +1,172 @@
+@font-face{font-family:JerseyM54;src:url("../fonts/JerseyM54.ttf")}
+.clear{clear:both;height:1px}
+.header{position:fixed;width:100%;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.50);-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.50);box-shadow:0 2px 3px rgba(0,0,0,0.50);z-index:500;}
+.header .ui-btn-left,.header .ui-btn-right{top:5px}
+.header .ui-title{margin-top:.5em;margin-bottom:.5em;font-family:JerseyM54,Helvetica,Arial,sans-serif;font-size:1.2em;text-transform:uppercase}
+.ui-page{background:url("../images/Tilable-Background.png") 50% 0;background-size:50px 50px;overflow:hidden}
+.ui-content{overflow:hidden;-webkit-overflow-scrolling:touch;padding-top:57px !important}
+.background-highlight{position:absolute;top:0;width:100%;height:100%;background:url("../images/Lighting-Background.png") 50% 0 no-repeat;background-size:320px 480px}
+.footer .ui-navbar{position:relative;-moz-box-shadow:0 -2px 3px rgba(0,0,0,0.60);-webkit-box-shadow:0 -2px 3px rgba(0,0,0,0.60);box-shadow:0 -2px 3px rgba(0,0,0,0.60);z-index:500}
+.footer .ui-btn-inner{padding-top:38px}
+.footer .ui-btn-text{font-size:.7em;top:7px}
+.footer .ui-icon.ui-icon-custom{width:48px;height:32px;background:url("../images/icons/icons-tab.png") no-repeat;background-size:260px 32px;margin-left:-24px}
+.footer .profile-menu .ui-icon{background-position:-159px 0}
+.footer .games-menu .ui-icon{background-position:-106px 0}
+.footer .leaderboard-menu .ui-icon{background-position:-53px 0}
+.footer .connect-menu .ui-icon{background-position:0 0}
+.footer .preferences-menu .ui-icon{background-position:-212px 0}
+.team-glass{font-size:.7em;background:url("../images/games/Overlay_TeamGlass_iPhone.png");background-size:134px 43px;width:110px;height:25px;padding:8px 12px 10px 12px;text-align:center;}
+.team-glass .team{margin-bottom:2px}
+.team-glass .record{color:#c0c0c0;font-size:.9em}
+.scrolling-text{position:relative;width:280px;height:24px;margin:4px auto;background:url("../images/Overlay_ScrollBarBase.png") repeat-x 0% 50%;background-size:2px 20px;}
+.scrolling-text .text-wrap{position:absolute;left:18px;right:-2px;height:24px;overflow:hidden;}
+.scrolling-text .text-wrap .text{position:absolute;left:10px;font-size:.75em;text-transform:uppercase;line-height:24px;white-space:nowrap}
+.scrolling-text .cover{position:absolute;left:-5px;width:290px;height:24px;background:url("../images/Overlay_ScrollBarFrame_iPhone.png");background-size:290px 24px;-moz-box-shadow:0 2px 4px rgba(0,0,0,0.80);-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.80);box-shadow:0 2px 4px rgba(0,0,0,0.80);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;z-index:50}
+.pattern-bg li.ui-li{background:url("../images/Pattern_FabricKnit.png");background-size:4px 4px;position:relative;}
+.pattern-bg li.ui-li .ui-btn-inner{background:-moz-linear-gradient(top,rgba(255,242,242,0.40) 0%,rgba(242,232,232,0.00) 24%,rgba(221,216,216,0.00) 62%,rgba(200,200,200,0.40) 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,242,242,0.40)),color-stop(24%,rgba(242,232,232,0.00)),color-stop(62%,rgba(221,216,216,0.00)),color-stop(100%,rgba(200,200,200,0.40)));background:-webkit-linear-gradient(top,rgba(255,242,242,0.40) 0%,rgba(242,232,232,0.00) 24%,rgba(221,216,216,0.00) 62%,rgba(200,200,200,0.40) 100%);background:-o-linear-gradient(top,rgba(255,242,242,0.40) 0%,rgba(242,232,232,0.00) 24%,rgba(221,216,216,0.00) 62%,rgba(200,200,200,0.40) 100%);background:-ms-linear-gradient(top,rgba(255,242,242,0.40) 0%,rgba(242,232,232,0.00) 24%,rgba(221,216,216,0.00) 62%,rgba(200,200,200,0.40) 100%);background:linear-gradient(to bottom,rgba(255,242,242,0.40) 0%,rgba(242,232,232,0.00) 24%,rgba(221,216,216,0.00) 62%,rgba(200,200,200,0.40) 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr=rgba(102,255,242,0.95), endColorstr=rgba(102,200,200,0.78),GradientType=0)}
+.pattern-bg li.ui-li.ui-btn-active{border-color:#ccc;}
+.pattern-bg li.ui-li.ui-btn-active .ui-btn-inner{background:-moz-linear-gradient(top,rgba(100,100,100,0.40) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.30) 73%,rgba(200,200,200,0.40) 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(100,100,100,0.40)),color-stop(25%,rgba(150,150,150,0.37)),color-stop(73%,rgba(182,182,182,0.30)),color-stop(100%,rgba(200,200,200,0.40)));background:-webkit-linear-gradient(top,rgba(100,100,100,0.40) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.30) 73%,rgba(200,200,200,0.40) 100%);background:-o-linear-gradient(top,rgba(100,100,100,0.40) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.30) 73%,rgba(200,200,200,0.40) 100%);background:-ms-linear-gradient(top,rgba(100,100,100,0.40) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.30) 73%,rgba(200,200,200,0.40) 100%);background:linear-gradient(to bottom,rgba(100,100,100,0.40) 0%,rgba(150,150,150,0.37) 25%,rgba(182,182,182,0.30) 73%,rgba(200,200,200,0.40) 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr=rgba(102,100,100,0.39), endColorstr=rgba(102,200,200,0.78),GradientType=0)}
+.fans .fan .image-wrap{position:relative;width:43px;height:43px;float:left;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+.fans .fan .image-wrap img{width:43px;height:43px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
+.fans .fan .image-wrap .cover{position:absolute;top:0;left:0;width:43px;height:43px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-moz-box-shadow:inset 1px 2px 3px rgba(0,0,0,0.60),0 1px 2px rgba(255,255,255,0.80),0 -1px 1px rgba(0,0,0,0.80);-webkit-box-shadow:inset 1px 2px 3px rgba(0,0,0,0.60),0 1px 2px rgba(255,255,255,0.80),0 -1px 1px rgba(0,0,0,0.80);box-shadow:inset 1px 2px 3px rgba(0,0,0,0.60),0 1px 2px rgba(255,255,255,0.80),0 -1px 1px rgba(0,0,0,0.80)}
+.fans .fan .fan-info{margin:-2px 0 0 60px;}
+.fans .fan .fan-info .name{font-size:1.5em;font-weight:bold}
+.fans .fan .fan-info .team{font-size:.9em;font-weight:lighter;margin:3px 0 4px 0;color:#c5171e}
+.fans .fan .data-wrap{font-size:.8em;padding-top:4px;margin-bottom:-6px;}
+.fans .fan .data-wrap .data{margin-right:28px;}
+.fans .fan .data-wrap .data .label{color:#6b6b6b;margin-right:4px}
+.icon.settings{width:29px;height:29px;background:url("../images/icons/icons-settings.png") no-repeat;background-size:301px 29px;}
+.icon.settings.full-tilt-ventures{background-position:0 0}
+.icon.settings.rade-eecles{background-position:-34px 0}
+.icon.settings.fannect{background-position:-68px 0}
+.icon.settings.account{background-position:-102px 0}
+.icon.settings.more-apps{background-position:-136px 0}
+.icon.settings.privacy{background-position:-170px 0}
+.icon.settings.rate-it{background-position:-204px 0}
+.icon.settings.technical-support{background-position:-238px 0}
+.icon.settings.tell-friend{background-position:-204px 0}
+.icon.gamecell{width:72px;height:72px;background:url("../images/icons/icons-gamecell.png") no-repeat;background-size:226px 72px;}
+.icon.gamecell.attendence-streak{background-position:0 0}
+.icon.gamecell.game-face{background-position:-77px 0}
+.icon.gamecell.guess-the-score{background-position:-154px 0}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5){.ui-page{background-image:url("../images/Tilable-Background@2x.png")}
+.background-highlight{background-image:url("../images/Lighting-Background@2x.png")}
+.team-glass{background-image:url("../images/games/Overlay_TeamGlass_iPhone@2x.png")}
+.footer .ui-icon.ui-icon-custom{background-image:url("../images/icons/icons-tab@2x.png")}
+.scrolling-text{background-image:url("../images/Overlay_ScrollBarBase@2x.png");}
+.scrolling-text .cover{background-image:url("../images/Overlay_ScrollBarFrame_iPhone@2x.png")}
+.pattern-bg li.ui-li{background-image:url("../images/Pattern_FabricKnit@2x.png")}
+.icon.gamecell{background-image:url("../images/icons/icons-gamecell@2x.png")}
+}.profile.ui-page .ui-content{padding:0 0 inherit 0}
+.profile.ui-page .profile-images{position:relative;height:250px;width:320px;margin:0 auto;}
+.profile.ui-page .profile-images .team-wrap{position:absolute;right:0;top:0;width:210px;height:120px;}
+.profile.ui-page .profile-images .team-wrap .cover{position:absolute;top:0;left:0;z-index:200;width:210px;height:210px;background:url("../images/profile/Overlay_TeamPictureFrame.png");background-size:162px 162px}
+.profile.ui-page .profile-images .team-wrap img{width:210px;height:210px;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}
+.profile.ui-page .profile-images .user-wrap{z-index:300;position:absolute;bottom:0;left:0;width:162px;height:162px;}
+.profile.ui-page .profile-images .user-wrap .cover{position:absolute;z-index:400;width:162px;height:162px;background:url("../images/profile/Overlay_ProfilePictureFrame.png");background-size:162px 162px}
+.profile.ui-page .profile-images .user-wrap img{position:absolute;top:7px;left:11px;width:140px;height:140px;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}
+.profile.ui-page .name{font-size:1.8em;font-weight:bold;text-align:center}
+.profile.ui-page .teams-wrap{position:relative;width:302px;height:66px;margin:8px auto;background:url("../images/profile/Profile_GlassMarquee.png");background-size:302px 66px;text-transform:uppercase;}
+.profile.ui-page .teams-wrap .view-port{padding:4px 0 14px 0;margin:0 10px;overflow-y:hidden;overflow-x:auto;}
+.profile.ui-page .teams-wrap .view-port .teams{height:52px;white-space:nowrap;float:left;list-style:none;}
+.profile.ui-page .teams-wrap .view-port .teams .team{display:block;float:left;width:242px;height:52px;color:#c0c0c0;text-align:center;line-height:55px;white-space:nowrap;overflow:hidden;padding:0 20px;text-overflow:ellipsis}
+.profile.ui-page .teams-wrap .button{position:absolute;top:6px;width:30px;height:50px;cursor:pointer;}
+.profile.ui-page .teams-wrap .button .icon{position:absolute;top:17px;width:13px;height:15px;background:url("../images/profile/Profile_TeamArrows.png") no-repeat;background-size:31px 15px}
+.profile.ui-page .teams-wrap .button.next{right:8px;}
+.profile.ui-page .teams-wrap .button.next .icon{left:10px}
+.profile.ui-page .teams-wrap .button.prev{left:8px;}
+.profile.ui-page .teams-wrap .button.prev .icon{right:10px;background-position:-18px 0}
+.profile.ui-page .score-wrap{position:relative;width:302px;height:36px;margin:8px auto;background:url("../images/profile/Profile_ScoreDisplay-iPhone.png");background-size:302px 36px;}
+.profile.ui-page .score-wrap .score{position:absolute;top:11px;width:78px;font-size:.7em;font-family:JerseyM54,Helvetica,Arial,sans-serif;}
+.profile.ui-page .score-wrap .score .label{text-transform:uppercase;float:left}
+.profile.ui-page .score-wrap .score .value{float:right}
+.profile.ui-page .score-wrap .score.roster{left:20px}
+.profile.ui-page .score-wrap .score.points{left:113px}
+.profile.ui-page .score-wrap .score.rank{left:206px}
+.profile.ui-page .separator{width:320px;height:32px;background:url("../images/profile/ProfileSeperators.png") no-repeat;background-size:965px 26px;margin:20px auto 5px auto}
+.profile.ui-page .text{width:290px;margin:0 auto;font-size:.8em;line-height:1.4em}
+.profile.ui-page .bio .separator{background-position:0 0}
+.profile.ui-page .game-day-spot .separator{background-position:-322.5px 0}
+.profile.ui-page .bragging-rights .separator{background-position:-645px 0}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5){.profile-images .team-wrap .cover{background-image:url("../images/profile/Overlay_TeamPictureFrame@2x.png")}
+.profile-images .user-wrap .cover{background-image:url("../images/profile/Overlay_ProfilePictureFrame@2x.png")}
+.profile-images .team-name-wrap{background-image:url("../images/profile/Profile_GlassMarquee@2x.png")}
+.profile-images .score-wrap{background-image:url("../images/profile/Profile_ScoreDisplay-iPhone@2x.png")}
+.profile-images .separator{background-image:url("../images/profile/ProfileSeperators@2x.png")}
+}.games.ui-page{background:url("../images/Pattern_FabricKnit.png");background-size:4px 4px;}
+.games.ui-page .ui-content{padding-left:8px}
+.games.ui-page .icon{float:left}
+.games.ui-page .text{position:relative;margin-left:82px;height:1px}
+.games.ui-page .inner{display:table;position:absolute;top:0;left:0;height:72px}
+.games.ui-page .game-name{display:table-cell;vertical-align:middle;text-align:left;text-transform:uppercase;white-space:normal;font-size:1.3em}
+.games-attendanceStreak .ui-content{padding:0;margin-top:-15px;}
+.games-attendanceStreak .ui-content .info{margin:0 auto;max-width:600px;height:121px;background:url("../images/games/attendanceStreak/Overlay_Marquee_iPhone.png") repeat-x 50% -1px;background-size:320px 121px;position:relative;overflow:hidden;text-align:center;}
+.games-attendanceStreak .ui-content .info .right-cap,.games-attendanceStreak .ui-content .info .left-cap{position:absolute;top:-6px;width:13px;height:110px}
+.games-attendanceStreak .ui-content .info .left-cap{left:0;background:url("../images/games/attendanceStreak/Overlay_MarqueeCap_Left_iPhone.png");background-size:13px 110px}
+.games-attendanceStreak .ui-content .info .right-cap{right:0;background:url("../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone.png");background-size:13px 110px}
+.games-attendanceStreak .ui-content .info .stadium-info{padding-top:8px;}
+.games-attendanceStreak .ui-content .info .stadium-info .stadium{font-size:1.6em;text-shadow:.1em .1em #000;margin-bottom:3px}
+.games-attendanceStreak .ui-content .info .stadium-info .location{font-size:.7em;color:#c0c0c0;text-shadow:.1em .1em #000}
+.games-attendanceStreak .ui-content .info .game-info{margin-top:10px;font-size:.7em;}
+.games-attendanceStreak .ui-content .info .game-info .team{text-overflow:ellipsis;white-space:nowrap}
+.games-attendanceStreak .ui-content .info .game-info .record{margin-top:5px;color:#c0c0c0;text-overflow:ellipsis;white-space:nowrap}
+.games-attendanceStreak .ui-content .info .game-info .home-info{float:left;width:40%;}
+.games-attendanceStreak .ui-content .info .game-info .home-info .inner{margin-left:15px}
+.games-attendanceStreak .ui-content .info .game-info .vs{float:left;width:20%;height:36px;background:url("../images/games/Overlay_VsButton.png") no-repeat 50% 0%;background-size:36px 36px}
+.games-attendanceStreak .ui-content .info .game-info .away-info{float:left;width:40%;}
+.games-attendanceStreak .ui-content .info .game-info .away-info .inner{margin-right:15px}
+.games-attendanceStreak .ui-content .bottom{position:absolute;width:100%;height:96px;bottom:56px;background:url("../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone.png") 50% 0%;background-size:320px 96px;}
+.games-attendanceStreak .ui-content .bottom .inner{max-width:280px;padding:0 12px;margin:32px auto;text-align:center}
+.games-attendanceStreak .ui-content .bottom .checked-in{background:url("../images/games/attendanceStreak/Overlay_checkbox.png") 0% 50% no-repeat;background-size:39px 39px;display:inline-block;height:39px;padding-left:46px;line-height:39px;margin:0 auto;font-size:1.4em;font-weight:bold}
+.games-attendanceStreak .ui-content .bottom .next-game{font-size:.8em;padding-top:4px;}
+.games-attendanceStreak .ui-content .bottom .next-game .label{color:#c0c0c0;margin-right:4px}
+.games-guessTheScore .score{margin:10px auto 0;width:320px;}
+.games-guessTheScore .score .guess-block{float:left;width:50%;text-align:center;}
+.games-guessTheScore .score .guess-block label{color:#c0c0c0}
+.games-guessTheScore .score .guess-block .guess-wrap{background:url("../images/games/guessTheScore/Overlay_PickSetBox.png") 0 50% no-repeat;background-size:129px 107px;position:relative;width:129px;height:107px;}
+.games-guessTheScore .score .guess-block .guess-wrap .value,.games-guessTheScore .score .guess-block .guess-wrap input[type=number]{font-family:JerseyM54,Helvetica,Arial,sans-serif;font-size:5em;width:129px;height:107px;border:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;margin:0;padding:0;text-align:center;background:transparent;line-height:107px}
+.games-guessTheScore .score .guess-block .guess-wrap .value{display:none;position:absolute;left:0;top:0;color:#c0c0c0}
+.games-guessTheScore .score .guess-block.home .guess-wrap{margin-left:10px}
+.games-guessTheScore .score .guess-block.away .guess-wrap{margin-left:20px}
+.games-guessTheScore .picking{width:250px;margin:12px auto 0}
+.games-guessTheScore .picked{display:none;}
+.games-guessTheScore .picked .game-preview{background:url("../images/games/guessTheScore/Overlay_SubtleShadow.png") 50% -24px no-repeat;background-size:290px 60px;width:290px;min-height:36px;margin:0 auto;padding-top:7px;}
+.games-guessTheScore .picked .game-preview .title{text-align:center;color:#c0c0c0}
+.games-guessTheScore .picked .game-preview .text{margin-top:24px;font-size:.8em}
+.games-guessTheScore .ui-content,.games-gameFace .ui-content{padding:0 0 inherit 0}
+.games-guessTheScore .team-info,.games-gameFace .team-info{width:304px;margin:4px auto 0;}
+.games-guessTheScore .team-info .team-glass,.games-gameFace .team-info .team-glass{float:left}
+.games-guessTheScore .team-info .vs,.games-gameFace .team-info .vs{float:left;width:36px;height:36px;margin-top:2px;background:url("../images/games/Overlay_VsButton.png") no-repeat 50% 0%;background-size:36px 36px}
+.games-gameFace .game-face{background:url("../images/games/gameFace/Gameface_Sprite.png");background-size:370.5px 184px;width:184px;height:184px;margin:15px auto 28px;background-position:0 0;}
+.games-gameFace .game-face.on{background-position:-186px -185px}
+.games-gameFace .team-info .team-glass{position:relative}
+.games-gameFace .team-info .label{position:absolute;top:-18px;left:0;width:100%;text-align:center;font-size:1.4em;color:#c0c0c0}
+.games-gameFace .unavailable.scrolling-text{margin-bottom:20px}
+.games-gameFace .switch-wrap{margin-top:10px;text-align:center;}
+.games-gameFace .switch-wrap .ui-slider{margin:0}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5){.games{background-image:url("../images/Pattern_FabricKnit@2x.png")}
+.games-attendanceStreak .info{background-image:url("../images/games/attendanceStreak/Overlay_Marquee_iPhone@2x.png");}
+.games-attendanceStreak .info .left-cap{background-image:url("../images/games/attendanceStreak/Overlay_MarqueeCap_Left_iPhone@2x.png")}
+.games-attendanceStreak .info .right-cap{background-image:url("../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone@2x.png")}
+.games-attendanceStreak .bottom{background-image:url("../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone@2x.png") !important;}
+.games-attendanceStreak .bottom .checked-in{background-image:url("../images/games/attendanceStreak/Overlay_checkbox@2x.png") !important}
+.games-guessTheScore .guess-wrap{background-image:url("../images/games/guessTheScore/Overlay_PickSetBox@2x.png") !important}
+.games-guessTheScore .game-preview{background-image:url("../images/games/guessTheScore/Overlay_SubtleShadow@2x.png") !important}
+.games-attendanceStreak .vs,.games-guessTheScore .vs,.games-gameFace .vs{background-image:url("../images/games/Overlay_VsButton@2x.png")}
+.games-gameFace .game-face{background-image:url("../images/games/gameFace/Gameface_Sprite@2x.png")}
+}.leaderboard.ui-page{background:url("../images/Pattern_FabricKnit.png");background-size:4px 4px;}
+.leaderboard.ui-page .ui-content{padding:0}
+.leaderboard.ui-page .scrollable-content{top:84px}
+.leaderboard.ui-page .switcher{position:fixed;text-align:center;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.50);-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.50);box-shadow:0 2px 3px rgba(0,0,0,0.50);z-index:200;width:100%;margin-top:-15px}
+.leaderboard.ui-page .fans-lists{padding-top:27px;}
+.leaderboard.ui-page .fans-lists .fans{margin:0;}
+.leaderboard.ui-page .fans-lists .fans .rank{position:absolute;right:8px;top:26px;background:url("../images/leaderboard/Overlay_LeaderboardRank.png");background-size:27px 28px;width:27px;height:28px;font-family:JerseyM54,Helvetica,Arial,sans-serif;text-align:center;font-size:1.2em;line-height:28px;color:#971418}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5){.leaderboard-leaderboard{background-image:url("../images/Pattern_FabricKnit@2x.png")}
+.fans .rank{background-image:url("../images/leaderboard/Overlay_LeaderboardRank@2x.png")}
+}.connect.ui-page{background:url("../images/Pattern_FabricKnit.png");background-size:4px 4px;}
+.connect.ui-page .ui-content{padding:0}
+.connect.ui-page .fans{margin:-15px 0 0 0}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5){.connect{background-image:url("../images/Pattern_FabricKnit@2x.png")}
+}.preferences.ui-page .selections .icon{position:relative;float:left;top:4px;left:5px}
+.preferences.ui-page .selections a{margin-left:28px}
+.speed-up .ui-shadow,.speed-up .ui-btn-up-a,.speed-up .ui-btn-hover-a,.speed-up .ui-btn-down-a,.speed-up .ui-body-b,.speed-up .ui-btn-up-b,.speed-up .ui-btn-hover-b,.speed-up .ui-btn-down-b,.speed-up .ui-bar-c,.speed-up .ui-body-c,.speed-up .ui-btn-up-c,.speed-up .ui-btn-hover-c,.speed-up .ui-btn-down-c,.speed-up .ui-bar-c,.speed-up .ui-body-d,.speed-up .ui-btn-up-d,.speed-up .ui-btn-hover-d,.speed-up .ui-btn-down-d,.speed-up .ui-bar-d,.speed-up .ui-body-e,.speed-up .ui-btn-up-e,.speed-up .ui-btn-hover-e,.speed-up .ui-btn-down-e,.speed-up .ui-bar-e,.speed-up .ui-overlay-shadow,.speed-up .ui-shadow,.speed-up .ui-btn-active,.speed-up .ui-body-a,.speed-up .ui-bar-a,.speed-up .cover,.speed-up .shadow{text-shadow:none !important;box-shadow:none !important;-webkit-box-shadow:none !important}
