@@ -49,7 +49,7 @@
       },
       {
          "command": "git commit -m \"Auto update by Gapify.\"",
-         "on_error": "stop"
+         "on_error": "continue"
       },
       {
          "command": "git push origin master",
