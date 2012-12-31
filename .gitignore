@@ -2,5 +2,5 @@
 bin
 builtAssets
 
-node_modules
-!node_modules/connect-assets
+/node_modules/*
+!/node_modules/connect-assets*
