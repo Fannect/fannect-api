@@ -11,18 +11,8 @@ block content
       li.fan
          a(data-bind="attr: { 'href': profile_url }")
             .image-wrap
-               img(data-bind="attr: { 'src': profile_image_url }")
+               img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                .cover
             .fan-info
                .name(data-bind="text: name")
                .team(data-bind="text: team")
-            .data-wrap
-               span.data
-                  span.label Roster:
-                  span.value(data-bind="text: roster")
-               span.data
-                  span.label Points:
-                  span.value(data-bind="text: points")
-               span.data
-                  span.label Rank:
-                  span.value(data-bind="text: rank")

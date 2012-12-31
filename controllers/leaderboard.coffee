@@ -10,63 +10,49 @@ app.get "/leaderboard", (req, res, next) ->
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
             profile_url: ""
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          },
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
             profile_url: ""
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          },
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
             profile_url: ""
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          },
          {
              name: "Jeremy Eccles"
             team: "Sporting Kansas City"
             profile_url: ""
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          },
          {
              name: "Jeremy Eccles"
             team: "Sporting Kansas City"
             profile_url: ""
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          },
          {
              name: "Jeremy Eccles"
             team: "Sporting Kansas City"
             profile_url: ""
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          },
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
             profile_url: ""
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          }
       ]

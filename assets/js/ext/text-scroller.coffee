@@ -55,7 +55,7 @@ do ($ = jQuery) ->
          _hidden_timeout_id: null
          start_offset: 10
          space_offset: 25
-         rate: 30
+         rate: 15
 
    $(document).on "mobileinit", () ->
       $.widget "ui.scroller", Scroller
