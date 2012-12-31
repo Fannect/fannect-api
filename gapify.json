@@ -41,5 +41,10 @@
    "views": {
       "directory":"views",
       "ignore":["layout.jade"]
-   }
+   },
+   "on_success": [
+      "git add . -A",
+      "git commit -m \"Auto update by Gapify.\"",
+      "git push origin master"
+   ]
 }
