@@ -15,7 +15,7 @@
       "request": "2.11.4",
       "connect-redis": "1.4.4",
       "redis-url": "0.1.0",
-      "connect-assets": "2.3.3-patched"
+      "connect-assets": "2.3.3"
    },
    "devDependencies": {
       "zombie": "1.4.1",
