@@ -1,6 +1,6 @@
 express = require "express"
 path = require "path"
-RedisStore = require("connect-redis")(express)
+# RedisStore = require("connect-redis")(express)
 redis = require("redis-url")
 
 app = module.exports = express()
@@ -22,7 +22,7 @@ app.use require("../middleware/viewRender")
 app.use express.query()
 app.use express.bodyParser()
 app.use express.cookieParser process.env.COOKIE_SECRET or "super duper secret"
-app.use require("connect-assets")()
+app.use require("../middleware/connect-assets")()
 app.use express.static path.join __dirname, "../public"
 
 #Session
