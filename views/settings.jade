@@ -1,0 +1,30 @@
+extend layout
+
+block header
+   h1(data-menu-root="settings") Settings
+   
+block content
+   ul.selections(data-role="listview", data-inset="true")
+      li
+         .icon.settings.account
+         a(href="settings-account.html", data-transition="slide") My Account
+      li
+         .icon.settings.technical-support
+         a(href="settings-support.html", data-transition="slide") Technical Support
+
+   ul.selections(data-role="listview", data-inset="true")
+      li
+         .icon.settings.fannect
+         a(href="settings-aboutFannect.html", data-transition="slide") About Fannect
+      li
+         .icon.settings.full-tilt-ventures
+         a(href="settings-aboutFullTiltVentures.html", data-transition="slide") About Full Tilt Ventures
+      li
+         .icon.settings.rade-eecles
+         a(href="settings-aboutRadeEccles.html", data-transition="slide") About Rade | Eccles
+
+   ul.selections(data-role="listview", data-inset="true")   
+      li
+         .icon.settings.privacy
+         a(href="settings-privacy.html", data-transition="slide") Privacy
+      

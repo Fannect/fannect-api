@@ -46,6 +46,10 @@ handle = (req, res, next) ->
 cacheHtml = (baseDir, done) ->
    views = viewRender.findViews baseDir
 
+   unless process.env.NODE_ENV == "production"
+      fs.watch baseDir, (e, filename) ->
+         console.log "e", e, "filename", filename
+
    makeFn = (filePath) ->
       return (next) ->
          compileJade(filePath, next)
