@@ -1,22 +1,24 @@
 path = require "path"
 fs = require "fs"
+jade = require "jade"
+async = require "async"
 
-cachedPaths = {}
+cachedHtml = {}
 hasCached = false
 
-module.exports = (req, res, next) ->
+viewRender = module.exports = (req, res, next) ->
    unless hasCached
-      cachedPaths = module.exports.findViews path.resolve(__dirname, "../views")
-      hasCached = true
 
-   url = req.url.toLowerCase()
-
-   if cachedPaths[url]
-      res.render cachedPaths[url]
-   else
-      next() 
+      cachedPaths = viewRender.findViews path.resolve(__dirname, "../views")
+      cacheHtml cachedPaths, (err, result) ->
+         throw err if err
+         cachedHtml = result 
+         hasCached = true
+         handle req, res, next
+   else 
+      handle req, res, next
    
-module.exports.findViews = (baseDir) ->
+viewRender.findViews = (baseDir) ->
    views = {}
 
    findViewFromDir = (dir) ->
@@ -35,9 +37,37 @@ module.exports.findViews = (baseDir) ->
    findViewFromDir baseDir
    return views
 
+handle = (req, res, next) ->
+   url = req.url.toLowerCase()
 
+   if cachedHtml[url]
+      res.send cachedHtml[url]
+   else
+      next() 
 
+cacheHtml = (views, done) ->
+   debug = process.env.NODE_ENV == "production"
 
+   makeFn = (filePath) ->
+      return (next) ->
+         compileJade(filePath, next)
+
+   compileJade = (filePath, next) ->
+      fs.readFile filePath, (err, contents) ->
+         if err then next err 
+         html = jade.compile(contents,
+            debug: false
+            filename: filePath
+         )({settings: {views:path.dirname(filePath)}, filename: filePath})
+
+         next null, html
+
+   parallel = {}
+   for name, filePath of views
+         parallel[name] = makeFn filePath
+
+   async.parallel parallel, (err, compiled) ->
+      done err, compiled
 
 
 

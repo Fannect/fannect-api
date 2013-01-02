@@ -5,6 +5,7 @@ path = require "path"
 checkForErrors = require "./checkForErrors"
 viewRender = require "../middleware/viewRender"
 fs = require "fs-extra"
+Browser = require "zombie"
 
 process.env.NODE_ENV = "production"
 app = require "../controllers/host"
@@ -14,7 +15,7 @@ describe "Fannect Mobile Web", () ->
       context = @
       server = http.createServer(app).listen 0, () ->
          context.host = "http://localhost:#{this.address().port}" 
-         done()
+         Browser.visit context.host, done # Hit page to cache all Jade templates
 
    after () ->
       # Clean up connect-assets folder created because we are running in production
