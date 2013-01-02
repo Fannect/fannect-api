@@ -8,9 +8,7 @@ hasCached = false
 
 viewRender = module.exports = (req, res, next) ->
    unless hasCached
-
-      cachedPaths = viewRender.findViews path.resolve(__dirname, "../views")
-      cacheHtml cachedPaths, (err, result) ->
+      cacheHtml path.resolve(__dirname, "../views"), (err, result) ->
          throw err if err
          cachedHtml = result 
          hasCached = true
@@ -45,8 +43,8 @@ handle = (req, res, next) ->
    else
       next() 
 
-cacheHtml = (views, done) ->
-   debug = process.env.NODE_ENV == "production"
+cacheHtml = (baseDir, done) ->
+   views = viewRender.findViews baseDir
 
    makeFn = (filePath) ->
       return (next) ->
@@ -58,7 +56,7 @@ cacheHtml = (views, done) ->
          html = jade.compile(contents,
             debug: false
             filename: filePath
-         )({settings: {views:path.dirname(filePath)}, filename: filePath})
+         )({settings: {views:baseDir}, filename: filePath})
 
          next null, html
 
