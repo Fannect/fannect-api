@@ -21,7 +21,7 @@ do ($ = window.jQuery, fc = window.fannect) ->
       else
          return page.children(".header").first().children("h1").attr("data-menu-root")
 
-   custom_menu_setter =
-      "profile-page": () ->
-         params = fc.getParams() 
-         if params.user then "connect" else "profile" 
+   custom_menu_setter = {}
+      # "profile-page": () ->
+      #    params = fc.getParams() 
+      #    if params.user then "connect" else "profile" 

@@ -2,7 +2,7 @@ extend layout
 
 block header
    h1(data-menu-root="connect") Connect
-   a.ui-btn-right(href="connect-addToRoster.html", data-role="button", data-icon="plus") Add
+   a.ui-btn-right(href="connect-addToRoster.html", data-role="button", data-icon="plus", data-transition="slide") Add
 
 block content
 
@@ -12,13 +12,3 @@ block content
       .text Tap the "Add" button to add more of your team's fans to your roster.
 
    ul.pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans, visible: roster_fans().length > 0").fans
-
-   script(id="connect-fan-template", type="text/html")
-      li.fan
-         a(data-bind="attr: { 'href': profile_url }")
-            .image-wrap
-               img.profile-image(data-bind="attr: { 'src': profile_image_url }")
-               .cover
-            .fan-info
-               .name(data-bind="text: name")
-               .team(data-bind="text: team")

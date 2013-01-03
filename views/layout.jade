@@ -48,3 +48,24 @@ html
                   li: a.leaderboard-menu(href="leaderboard.html", data-icon="custom") Leaderboard
                   li: a.connect-menu(href="connect.html", data-icon="custom") Connect
                   li: a.settings-menu(href="settings.html", data-icon="custom") Settings
+
+      script(id="connect-fan-template", type="text/html")
+         li.fan
+            a(data-bind="attr: { 'href': profile_url }", data-transition="slide")
+               .image-wrap
+                  img.profile-image(data-bind="attr: { 'src': profile_image_url }")
+                  .cover
+               .fan-info
+                  .name(data-bind="text: name")
+                  .team(data-bind="text: team")
+
+      script(id="leaderboard-fan-template", type="text/html")
+         li.fan(data-icon="false")
+            a(data-bind="attr: { 'href': profile_url }")
+               .image-wrap
+                  img.profile-image(data-bind="attr: { 'src': profile_image_url }")
+                  .cover
+               .fan-info
+                  .name(data-bind="text: name")
+                  .team(data-bind="text: team")
+               .rank(data-bind="text: rank")
