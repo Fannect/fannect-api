@@ -1,8 +1,4 @@
-do ($ = jQuery, ko = window.ko) ->
-   unless window.fannect then window.fannect = {}
-   unless window.fannect.viewModels then window.fannect.viewModels = {}
-
-   fc = window.fannect
+do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.AttendanceStreak
       constructor: (done) ->
