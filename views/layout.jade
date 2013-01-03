@@ -29,10 +29,11 @@ html
 
    - var viewDir = locals.settings.views;
    - var view = locals.filename.replace(viewDir, "").replace(".jade", "").replace(/^[\\\/]/g, "");
-   - var viewClass = view.replace(/[\\\/]/g, "-");
+   - var pageId = view.replace(/[\\\/]/g, "-") + "-page";
+
    body
-      div(class=viewClass, data-role="page", data-theme="a")
-         .background-highlight
+      div(id=pageId, data-role="page", data-theme="a")
+         //- .background-highlight
          .header(data-role="header", data-position="fixed")
             block header
 

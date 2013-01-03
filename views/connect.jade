@@ -1,11 +1,17 @@
 extend layout
 
 block header
-   h1(data-menu-root="connect") Roster
+   h1(data-menu-root="connect") Connect
+   a.ui-btn-right(href="#", data-role="button", data-icon="plus") Add
 
 block content
 
-   ul.pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans").fans
+   .build-your-team
+      .gray-connect-icon
+      .title Build your team!
+      .text Tap the "Add" button to add more of your team's fans to your roster.
+
+   ul.pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans, visible: roster_fans().length > 0").fans
 
    script(id="connect-fan-template", type="text/html")
       li.fan

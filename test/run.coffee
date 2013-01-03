@@ -15,7 +15,7 @@ describe "Fannect Mobile Web", () ->
       context = @
       server = http.createServer(app).listen 0, () ->
          context.host = "http://localhost:#{this.address().port}" 
-         Browser.visit context.host, done # Hit page to cache all Jade templates
+         done()
 
    after () ->
       # Clean up connect-assets folder created because we are running in production
@@ -26,3 +26,9 @@ describe "Fannect Mobile Web", () ->
       for page, filename of views
          it "should not exist for: #{page}", (done) ->
             checkForErrors page, "#{@host}#{page}", done
+
+   # describe "page caching", () ->
+   #    views = viewRender.findViews path.resolve(__dirname, "../views")
+   #    for page, filename of views
+   #       it "should be faster: #{page}", (done) ->
+   #          checkForErrors page, "#{@host}#{page}", done

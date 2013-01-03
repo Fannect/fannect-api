@@ -18,8 +18,8 @@ app.configure "production", () ->
    app.use express.errorHandler()
 
 # Middleware
-app.use require("../middleware/viewRender")
 app.use express.query()
+app.use require("../middleware/viewRender")
 app.use express.bodyParser()
 app.use express.cookieParser process.env.COOKIE_SECRET or "super duper secret"
 app.use require("../middleware/connect-assets")()

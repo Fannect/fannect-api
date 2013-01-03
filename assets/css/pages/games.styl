@@ -1,7 +1,7 @@
 @import "../lib/mixins"
 @import "../lib/variables"
 
-.games.ui-page
+#games-page
    background: url(../images/Pattern_FabricKnit.png)
    background-size: 4px 4px
    .ui-content
@@ -31,7 +31,7 @@
       white-space: normal
       font-size: 1.3em
 
-.games-attendanceStreak
+#games-attendanceStreak-page
    .ui-content
       padding: 0
       .info
@@ -125,7 +125,7 @@
                color: color-light-gray
                margin-right: 4px
 
-.games-guessTheScore
+#games-guessTheScore-page
    .score
       margin: 10px auto 0
       width: 320px
@@ -185,8 +185,8 @@
             margin-top: 24px
             font-size: .8em
 
-.games-guessTheScore
-.games-gameFace
+#games-guessTheScore-page
+#games-gameFace-page
    .ui-content
       padding: 0 0 inherit 0
    .team-info
@@ -227,7 +227,7 @@
 //          &.away .score
 //             margin-left: 21px
 
-.games-gameFace
+#games-gameFace-page
    .game-face
       background: url(../images/games/gameFace/Gameface_Sprite.png)
       background-size: 370.5px 184px
@@ -257,32 +257,32 @@
          margin: 0
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
-   .games
+   #games-page
       background-image: url(../images/Pattern_FabricKnit@2x.png)
-   .games-attendanceStreak .info
+   #games-attendanceStreak-page .info
       background-image: url(../images/games/attendanceStreak/Overlay_Marquee_iPhone@2x.png)
       .left-cap
          background-image: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Left_iPhone@2x.png)
       .right-cap
          background-image: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone@2x.png)
 
-   .games-attendanceStreak .bottom
+   #games-attendanceStreak-page .bottom
       background-image: url(../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone@2x.png)!important
       .checked-in
          background-image: url(../images/games/attendanceStreak/Overlay_checkbox@2x.png)!important
 
-   .games-guessTheScore
+   #games-guessTheScore-page
       .guess-wrap
          background-image: url(../images/games/guessTheScore/Overlay_PickSetBox@2x.png)!important
       .game-preview
          background-image: url(../images/games/guessTheScore/Overlay_SubtleShadow@2x.png)!important
 
-   .games-attendanceStreak
-   .games-guessTheScore
-   .games-gameFace
-         .vs
-            background-image: url(../images/games/Overlay_VsButton@2x.png)
+   #games-attendanceStreak-page
+   #games-guessTheScore-page
+   #games-gameFace-page
+      .vs
+         background-image: url(../images/games/Overlay_VsButton@2x.png)
 
-   .games-gameFace
+   #games-gameFace-page
       .game-face
          background-image: url(../images/games/gameFace/Gameface_Sprite@2x.png) 

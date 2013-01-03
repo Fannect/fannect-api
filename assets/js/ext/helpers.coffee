@@ -10,3 +10,9 @@ window.fannect.isPhoneGap = () ->
 window.fannect.getResourceURL = () ->
    if window.fannect.isPhoneGap() then "http://fannect.herokuapp.com" else ""
 
+window.fannect.getParams = () ->
+   if window.fannect.isPhoneGap()
+      return $.url($.url().fsegment(1)).param()
+   else
+      return $.url().param() 
+
