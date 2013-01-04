@@ -4,8 +4,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: (done) ->
          @load (err, data) =>
             @name = ko.observable name
-            @team_image = ko.observable data.team_image
-            @user_image = ko.observable data.user_image
+            @team_image = ko.observable data.team_image or ""
+            @user_image = ko.observable data.user_image or ""
             @teams = ko.observableArray data.teams
             @roster = ko.observable data.score.roster
             @points = ko.observable data.score.points
@@ -20,3 +20,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          $.get "#{fc.getResourceURL()}/profile", (data, status) ->
             $.mobile.loading "hide"
             done null, data
+
+      changeUserImage: () ->
+         alert "USER"
+      changeTeamImage: () -> 
+         alert "TEAM"

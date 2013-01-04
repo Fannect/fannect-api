@@ -14,6 +14,7 @@
          top: 0
          width: 210px
          height: 120px
+         cursor: pointer
          .cover
             position: absolute
             top: 0
@@ -34,6 +35,7 @@
          left: 0
          width: 162px
          height: 162px
+         cursor: pointer
          .cover
             position: absolute
             z-index: 400
@@ -48,11 +50,27 @@
             width: 140px
             height: 140px
             border-radius: 10px
+      .team-hint
+         position: absolute
+         width: 194px
+         height: 186px
+         top: 10px
+         left: 10px
+         background: url(../images/profile/Profile_tapToAddTeamPhoto.png)
+         background-size: 194px 186px
+      .user-hint
+         position: absolute
+         width: 136px
+         height: 136px
+         top: 9px
+         left: 13px
+         background: url(../images/profile/Profile_tapToAddProfilePhoto.png)
+         background-size: 136px 136px
    .name
       font-size: 1.8em
       font-weight: bold
       text-align: center
-   .teams-wrap
+   .team-name-wrap
       position: relative
       width: 302px 
       height: 66px
@@ -60,50 +78,26 @@
       background: url(../images/profile/Profile_GlassMarquee.png) 
       background-size:302px 66px
       text-transform: uppercase
-      .view-port
-         padding: 4px 0 14px 0
-         margin: 0 10px
-         overflow-y: hidden
-         overflow-x: hidden
-         .teams
-            height: 52px
-            white-space: nowrap
-            float: left
-            list-style: none
-            .team
-               display: block
-               float: left
-               width: 242px
-               height: 52px
-               color: color-light-gray
-               text-align: center
-               line-height: 55px
-               white-space: nowrap
-               overflow: hidden
-               padding: 0 20px
-               text-overflow: ellipsis
-      .button
+      cursor: pointer
+      .team
+         display: block
+         width: 222px
+         height: 55px
+         color: color-light-gray
+         text-align: center
+         line-height: 55px
+         white-space: nowrap
+         overflow: hidden
+         padding: 5px 40px 0
+         text-overflow: ellipsis
+      .icon
          position: absolute
-         top: 6px
-         width: 30px
-         height: 50px
-         cursor: pointer
-         .icon
-            position: absolute
-            top: 17px
-            width: 13px
-            height: 15px
-            background: url(../images/profile/Profile_TeamArrows.png) no-repeat
-            background-size: 31px 15px 
-         &.next
-            right: 8px
-            .icon
-               left: 10px
-         &.prev
-            left: 8px
-            .icon
-               right: 10px
-               background-position: -18px 0
+         top: 24px
+         right: 18px
+         width: 13px
+         height: 15px
+         background: url(../images/profile/Profile_TeamArrows.png) no-repeat
+         background-size: 31px 15px 
 
    .score-wrap
       position: relative
@@ -151,14 +145,19 @@
          background-position: -645px 0 
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
-   .profile-images 
+   #profile-page
+   #connect-profile-page
       .team-wrap .cover
-         background-image: url(../images/profile/Overlay_TeamPictureFrame@2x.png)
+         background-image: url(../images/profile/Overlay_TeamPictureFrame@2x.png)!important
       .user-wrap .cover
-          background-image: url(../images/profile/Overlay_ProfilePictureFrame@2x.png) 
+          background-image: url(../images/profile/Overlay_ProfilePictureFrame@2x.png)!important
+      .user-hint
+         background-image: url(../images/profile/Profile_tapToAddProfilePhoto@2x.png)!important
+      .team-hint
+         background-image: url(../images/profile/Profile_tapToAddTeamPhoto@2x.png)!important
       .team-name-wrap
-         background-image: url(../images/profile/Profile_GlassMarquee@2x.png) 
+         background-image: url(../images/profile/Profile_GlassMarquee@2x.png)!important
       .score-wrap
-         background-image: url(../images/profile/Profile_ScoreDisplay-iPhone@2x.png) 
+         background-image: url(../images/profile/Profile_ScoreDisplay-iPhone@2x.png)!important
       .separator
-         background-image: url(../images/profile/ProfileSeperators@2x.png)
+         background-image: url(../images/profile/ProfileSeperators@2x.png)!important

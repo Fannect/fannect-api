@@ -6,21 +6,20 @@ block header
 
 block content
    .profile-images
-      .team-wrap
-         img(data-bind="attr:{src:team_image}")
+      .team-wrap(data-bind="click: changeTeamImage")
+         img(data-bind="attr: {src:team_image}, visible: team_image().length > 0")
+         .team-hint.ui-corner-all
          .cover
-      .user-wrap
-         img(data-bind="attr:{src:user_image}")
+      .user-wrap(data-bind="click: changeUserImage")
+         img(data-bind="attr: {src:user_image}, visible: user_image().length > 0")
+         .user-hint.ui-corner-all
          .cover
 
    .name(data-bind="text: name")
 
-   .teams-wrap
-      .view-port
-         ul.teams(data-bind="foreach: teams")
-            li.team(data-bind="text: name")
-      .button.next: .icon
-      .button.prev: .icon
+   .team-name-wrap
+      .team Sporting Kansas City
+      .icon
 
    .score-wrap
       .score.roster
