@@ -1,13 +1,6 @@
-do ($ = window.jQuery, ko = window.ko) ->
-   # teamScrollbar = null
-   # nextBtn = null
-   # prevBtn = null
-
+do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    $(document).bind "mobileinit", () ->
-      $("#profile-page").live("pagebeforeshow", () ->
-         scroller = $(".scrolling-text", @).scroller()
-         
+      $("#profile-page").live("pagecreate", () ->
          vm = new window.fannect.viewModels.Profile () =>
             ko.applyBindings vm, @
-            scroller.scroller("start")
       )

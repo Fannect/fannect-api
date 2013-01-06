@@ -16,10 +16,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             done()
 
       load: (done) ->
-         $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/profile", (data, status) ->
-            $.mobile.loading "hide"
-            done null, data
+         fc.getUser (err, data) ->
+            done err, data
 
       changeUserImage: () ->
          alert "USER"

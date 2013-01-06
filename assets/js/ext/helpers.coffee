@@ -1,4 +1,6 @@
-do ($ = jQuery) ->
+do ($ = window.jQuery, ko = window.ko) ->
+   currentUser = null
+
    fc = window.fannect = 
       viewModels: {}
 
@@ -17,3 +19,18 @@ do ($ = jQuery) ->
          return $.url($.url().fsegment(1)).param()
       else
          return $.url().param() 
+
+   fc.clearBindings = (context) ->
+      ko.cleanNode context
+
+   fc.getUser = (done) ->
+      if currentUser 
+         done null, currentUser
+      else
+         $.mobile.loading "show"
+         $.get "#{fc.getResourceURL()}/profile", (data, status) ->
+            $.mobile.loading "hide"
+            currentUser = data
+            done null, data
+
+   # fc.saveUser = (done) ->
