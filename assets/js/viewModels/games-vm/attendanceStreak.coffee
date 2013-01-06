@@ -1,8 +1,9 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
+   fc.viewModels.Games = {}
 
-   class fc.viewModels.AttendanceStreak
+   class fc.viewModels.Games.AttendanceStreak
       constructor: (done) ->
-         @load (error, data) =>
+         @load (err, data) =>
             @checked_in = ko.observable data.checked_in
             
             @no_game = data.no_game or true
@@ -14,8 +15,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @away_team = data.away.name
             @away_record = data.away.record
             @game_preview = data.game_preview
-
-            if done then done()
+            done err, @
 
       checkIn: (data) ->
          @checked_in true

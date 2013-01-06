@@ -12,8 +12,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @force_overall_list_update = ko.observable 0
          @force_roster_list_update = ko.observable 0
 
-         @loadOverall done
          @selected_view.subscribe @viewToggled
+         @loadOverall (err, data) =>
+            done err, @
 
       viewToggled: () =>
          if @selected_view() == "roster" and not @roster_loaded then @loadRoster()

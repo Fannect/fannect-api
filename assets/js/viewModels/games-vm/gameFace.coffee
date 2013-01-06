@@ -1,13 +1,12 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.GameFace
+   class fc.viewModels.Games.GameFace
       constructor: (done) ->
          
          @load (err, data) =>            
             @face_value = ko.observable("off")
             @face_on = ko.computed () => @face_value()?.toLowerCase() == "on"
             @available = ko.observable false
-            console.log data
             if data.available
                @available true
                @face_value data?.face_value
@@ -23,7 +22,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @face_on.subscribe (newValue) ->
                #ajax call
 
-            if done then done()
+            done err, @
 
       load: (done) ->
          $.mobile.loading "show"

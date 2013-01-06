@@ -4,7 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: (done) ->
          @load (err, data) =>
             @roster_fans = ko.observableArray data.fans
-            if done then done()
+            done err, @
 
       load: (done) ->
          $.mobile.loading "show"

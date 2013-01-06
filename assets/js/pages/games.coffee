@@ -2,7 +2,7 @@ do ($ = window.jQuery, ko = window.ko) ->
    setupGuessTheScore = () ->
       $("#games-guessTheScore-page").live("pagecreate", () ->
          scroller = $(".scrolling-text", @).scroller()
-         vm = new window.fannect.viewModels.GuessTheScore () =>
+         new window.fannect.viewModels.Games.GuessTheScore (err, vm) =>
             ko.applyBindings vm, @
       ).live("pageshow", () ->
          $(".scrolling-text", @).scroller("start")
@@ -12,7 +12,7 @@ do ($ = window.jQuery, ko = window.ko) ->
    setupGameFace = () ->
       $("#games-gameFace-page").live("pagecreate", () ->
          $(".scrolling-text", @).scroller()
-         vm = new window.fannect.viewModels.GameFace () =>
+         new window.fannect.viewModels.Games.GameFace (err, vm) =>
             ko.applyBindings vm, @
       ).live("pageshow", () ->
          $(".scrolling-text", @).scroller("start")
@@ -20,16 +20,17 @@ do ($ = window.jQuery, ko = window.ko) ->
          $(".scrolling-text", @).scroller("stop")
 
    setupAttendanceStreak = () ->
-      vm = null
+      viewModel = null
       scroller = null
       $("#games-attendanceStreak-page").live("pagecreate", () ->
          scroller = $(".scrolling-text", @).scroller()
-         vm = new window.fannect.viewModels.AttendanceStreak () =>
+         new window.fannect.viewModels.Games.AttendanceStreak (err, vm) =>
+            viewModel = vm
             if vm.no_game
                scroller.scroller("start")
             ko.applyBindings vm, @
       ).live("pageshow", () ->
-         if vm?.no_game then scroller.scroller("start")
+         if viewModel?.no_game then scroller.scroller("start")
       ).live "pagebeforehide", () ->
          scroller.scroller("stop")
 

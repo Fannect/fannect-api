@@ -1,10 +1,10 @@
 $(document).bind "mobileinit", () ->
    $("#connect-page").live "pagecreate", () ->
-      vm = new window.fannect.viewModels.Connect () =>
+      new window.fannect.viewModels.Connect (err, vm) =>
          ko.applyBindings vm, @
    $("#connect-addToRoster-page").live "pagecreate", () ->
-      vm = new window.fannect.viewModels.Connect.AddToRoster () =>
+      new window.fannect.viewModels.Connect.AddToRoster (err, vm) =>
          ko.applyBindings vm, @
    $("#connect-profile-page").live "pagecreate", () ->
-      vm = new window.fannect.viewModels.Connect.Profile () =>
+      new window.fannect.viewModels.Connect.Profile (err, vm) =>
          ko.applyBindings vm, @

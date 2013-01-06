@@ -1,6 +1,6 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.GuessTheScore
+   class fc.viewModels.Games.GuessTheScore
       constructor: (done) ->
          @load (err, data) =>
             @picked_at_load = ko.observable data.picked
@@ -17,7 +17,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @input_valid = ko.computed () =>
                return @home_score() >= 0 and @away_score() >= 0
 
-            if done then done()
+            done err, @
 
       setPick: () ->
          if @input_valid()

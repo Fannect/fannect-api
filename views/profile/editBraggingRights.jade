@@ -1,0 +1,10 @@
+extend ../layout
+
+block header
+   h1(data-menu-root="profile") Edit Profile
+   a(href="profile.html", data-icon="back", data-rel="back") Back
+   a.ui-btn-right(href="profile.html", data-role="button", data-role="click: updateProfile", data-transition="slideup") Done
+
+block content
+   .image-title
+   textarea.text-edit(type="text", data-bind="value: bragging_rights", data-theme="b")

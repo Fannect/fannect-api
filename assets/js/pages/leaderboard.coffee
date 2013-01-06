@@ -1,4 +1,4 @@
 $(document).bind "mobileinit", () ->
    $("#leaderboard-page").live "pagecreate", () ->
-      vm = new window.fannect.viewModels.Leaderboard () =>
+      new window.fannect.viewModels.Leaderboard (err, vm) =>
          ko.applyBindings vm, @

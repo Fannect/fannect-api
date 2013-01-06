@@ -23,14 +23,23 @@ do ($ = window.jQuery, ko = window.ko) ->
    fc.clearBindings = (context) ->
       ko.cleanNode context
 
-   fc.getUser = (done) ->
-      if currentUser 
-         done null, currentUser
-      else
-         $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/profile", (data, status) ->
-            $.mobile.loading "hide"
-            currentUser = data
-            done null, data
+   fc.user =
+      get: (done) ->
+         if currentUser 
+            done null, currentUser
+         else
+            $.mobile.loading "show"
+            $.get "#{fc.getResourceURL()}/profile", (data, status) ->
+               $.mobile.loading "hide"
+               currentUser = data
+               done null, data
+
+      update: (user) ->
+         $.extend true, currentUser, user
+
+      save: (user) ->
+         if user then fc.user.update user
+         # implement saving
+
 
    # fc.saveUser = (done) ->
