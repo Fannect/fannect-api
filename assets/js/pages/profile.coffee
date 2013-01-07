@@ -5,6 +5,16 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             ko.applyBindings vm, @
       )
 
+      $("#profile-invitations-page").live("pagecreate", () ->
+         new window.fannect.viewModels.Profile.Invitations (err, vm) =>
+            ko.applyBindings vm, @
+      )      
+
+      $("#profile-invitationProfile-page").live("pagecreate", () ->
+         new window.fannect.viewModels.Profile.InvitationProfile (err, vm) =>
+            ko.applyBindings vm, @
+      )      
+
       $("#profile-editBio-page").live("pagecreate", () ->
          new window.fannect.viewModels.Profile.EditBio (err, vm) =>
             ko.applyBindings vm, @

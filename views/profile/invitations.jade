@@ -1,0 +1,8 @@
+extend ../layout
+
+block header
+   h1(data-menu-root="profile") PENDING INVITATIONS
+   a(href="profile.html", data-icon="back", data-rel="back") Back
+   
+block content
+   ul.pattern-bg(data-role="listview", data-theme="a", data-bind="template: { name:'invitation-fan-template', foreach: invitations }, listviewUpdate: invitations, visible: invitations().length > 0").fans

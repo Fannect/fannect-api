@@ -2,10 +2,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Profile.EditBio
       constructor: (done) ->
-         @bio = ko.observable()
-
          fc.user.get (err, data) =>
-            @bio data.bio
+            @bio = ko.observable data.bio
             done err, @
 
       next: () ->

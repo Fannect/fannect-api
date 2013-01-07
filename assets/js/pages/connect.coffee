@@ -5,6 +5,6 @@ $(document).bind "mobileinit", () ->
    $("#connect-addToRoster-page").live "pagecreate", () ->
       new window.fannect.viewModels.Connect.AddToRoster (err, vm) =>
          ko.applyBindings vm, @
-   $("#connect-profile-page").live "pagecreate", () ->
-      new window.fannect.viewModels.Connect.Profile (err, vm) =>
+   $("#connect-addToRosterProfile-page").live "pagecreate", () ->
+      new window.fannect.viewModels.Connect.AddToRosterProfile (err, vm) =>
          ko.applyBindings vm, @

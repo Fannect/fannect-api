@@ -21,6 +21,103 @@ app.get "/profile", (req, res, next) ->
 
    res.json profileInfo
 
+app.get "/invitations", (req, res, next) ->
+   roster_fans = 
+      [
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "profile-invitationProfile.html?user=jeccles"
+            profile_image_url: "/dev/Pic_Player@2x.png"
+            roster: 100
+            points: 100
+            rank: 1
+         }
+      ]
+
+   res.json invitations: roster_fans
+
 app.get "/profile/selectSport", (req, res, next) ->
    sports = [ "basketball", "football" ]
    res.render "profile/selectSport", sports: sports

@@ -16,6 +16,7 @@ do ($ = window.jQuery, fc = window.fannect) ->
          $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
          $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
    ).live("pageshow", () ->
+      # $.mobile.fixedToolbars.setTouchToggleEnabled(false)
       tutorial_pages = [ "profile-page", "games-attendanceStreak-page", "games-gameFace-page", "games-guessTheScore-page" ]
       currentId = $($.mobile.activePage).attr("id")
       cookie = fc.cookie.get()

@@ -79,7 +79,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -88,7 +88,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -97,7 +97,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -106,7 +106,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -115,7 +115,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -124,7 +124,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -133,7 +133,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -142,7 +142,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -151,7 +151,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100
@@ -160,25 +160,7 @@ app.get "/connect/addToRoster", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "connect-profile.html?user=jeccles"
+            profile_url: "connect-addToRosterProfile.html?user=jeccles"
             profile_image_url: "/dev/Pic_Player@2x.png"
             roster: 100
             points: 100

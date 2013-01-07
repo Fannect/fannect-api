@@ -18,7 +18,7 @@ app.get "/leaderboard", (req, res, next) ->
             team: "Sporting Kansas City"
             profile_url: ""
             profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
+            rank: 12
          },
          {
             name: "Jeremy Eccles"

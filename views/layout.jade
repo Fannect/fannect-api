@@ -34,7 +34,7 @@ html
    body
       div(id=pageId, data-role="page", data-theme="a")
          //- .background-highlight
-         .header(data-role="header", data-position="fixed")
+         .header(data-role="header", data-position="fixed", data-tap-toggle="false")
             block header
 
          .content(data-role="content")
@@ -43,7 +43,7 @@ html
          .tutorial
             block tutorial
 
-         .footer(data-role="footer", data-id="footer", data-position="fixed")
+         .footer(data-role="footer", data-id="footer", data-position="fixed", data-tap-toggle="false")
             div(data-role="navbar")
                ul
                   li: a.profile-menu(href="profile.html", data-icon="custom") Profile
@@ -62,6 +62,18 @@ html
                   .name(data-bind="text: name")
                   .team(data-bind="text: team")
 
+      script(id="invitation-fan-template", type="text/html")
+         li.fan(data-icon="false")
+            a(data-bind="attr: { 'href': profile_url }", data-transition="slide")
+               .left-icon.cancel
+               .image-wrap
+                  img.profile-image(data-bind="attr: { 'src': profile_image_url }")
+                  .cover
+               .fan-info
+                  .name(data-bind="text: name")
+                  .team(data-bind="text: team")
+               .right-icon.accept
+
       script(id="leaderboard-fan-template", type="text/html")
          li.fan(data-icon="false")
             a(data-bind="attr: { 'href': profile_url }")
@@ -71,4 +83,4 @@ html
                .fan-info
                   .name(data-bind="text: name")
                   .team(data-bind="text: team")
-               .rank(data-bind="text: rank")
+               .right-icon.rank(data-bind="text: rank")
