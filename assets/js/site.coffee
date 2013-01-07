@@ -15,6 +15,17 @@ do ($ = window.jQuery, fc = window.fannect) ->
       if menu
          $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
          $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
+   ).live("pageshow", () ->
+      tutorial_pages = [ "profile-page", "games-attendanceStreak-page", "games-gameFace-page", "games-guessTheScore-page" ]
+      currentId = $($.mobile.activePage).attr("id")
+      cookie = fc.cookie.get()
+      cookie.tutorialShown = cookie.tutorialShown or []
+
+      if currentId in tutorial_pages and not (currentId in cookie.tutorialShown)
+         cookie.tutorialShown.push currentId
+         fc.showTutorial()
+         fc.cookie.save cookie
+
    ).live "pageremove", () ->
       fc.clearBindings @
 

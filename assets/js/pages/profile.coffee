@@ -3,8 +3,6 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
       $("#profile-page").live("pagecreate", () ->
          new window.fannect.viewModels.Profile (err, vm) =>
             ko.applyBindings vm, @
-      ).live("pageshow", () ->
-         fc.showTutorial()
       )
 
       $("#profile-editBio-page").live("pagecreate", () ->

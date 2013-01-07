@@ -1,5 +1,7 @@
 do ($ = window.jQuery, ko = window.ko) ->
+   $.cookie.json = true
    currentUser = null
+   currentCookie = null
 
    fc = window.fannect = 
       viewModels: {}
@@ -65,5 +67,19 @@ do ($ = window.jQuery, ko = window.ko) ->
          if user then fc.user.update user
          # implement saving
 
+   fc.cookie = 
+      get: () ->
+         unless currentCookie
+            currentCookie = $.cookie("fannect_cached")
+         return currentCookie or {}
+      update: (data) ->
+         $.extend true, currentCookie, data
+         return currentCookie
+      save: (data) ->
+         if data 
+            fc.cookie.update data
+         cookieData = fc.cookie.get()
+         $.cookie("fannect_cached", cookieData, { expires: 365, path: '/' });
+         return cookieData
 
    # fc.saveUser = (done) ->
