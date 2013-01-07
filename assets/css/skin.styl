@@ -163,6 +163,111 @@
 
 .tutorial
    font-family: Journal, Helvetica, Arial, sans-serif
+   position: fixed
+   padding-top: 60px
+   top: 0
+   width: 100%
+   height: 100%
+   z-index: 450
+   background: rgba(0,0,0,.5)
+   display: none
+   .tutorial-slider
+      height: 344px
+      &.one
+         width: 100%
+         .tutorial-item
+            width: 100%
+      &.two
+         width: 200%
+         .tutorial-item
+            width: 50%
+      &.three
+         width: 300%
+         .tutorial-item
+            width: 33.33333333%
+      &.four
+         width: 400%
+         .tutorial-item
+            width: 25%
+      &.five
+         width: 500%
+         .tutorial-item
+            width: 20%
+   .tutorial-item
+      float: left
+      height: 100%
+      background: url(../images/tutorial/Tutorial_chalkboard.png) 50% 0 no-repeat
+      background-size: 304px 344px
+      font-size: 1.3em
+      line-height: 1.1em
+      text-align: center
+   .tutorial-content
+      position: relative
+      margin: 0 auto
+      padding: 22px 16px 22px
+      width: 258px
+      height: 307px
+   .tutorial-close
+      position: absolute
+      background: url(../images/tutorial/Tutorial_exitButton.png) 50% 50% no-repeat
+      background-size: 27px 31px
+      top: 4px
+      right: 6px
+      width: 36px
+      height: 36px
+      cursor: pointer
+      &:active
+         background-image: url(../images/tutorial/tutorial_redX.png)
+   .tutorial-title
+      font-size: 1.6em
+      text-align: center
+   .tutorial-next
+   .tutorial-prev
+      position: absolute
+      bottom: 25px
+      width: 30px
+      height: 21px
+      background-size: 30px 21px
+      cursor: pointer
+   .tutorial-next
+      right: 10px
+      background-image: url(../images/tutorial/Tutorial_nextArrow.png)
+   .tutorial-prev
+      left: 10px
+      background-image: url(../images/tutorial/Tutorial_backArrow.png)
+   .tutorial-pos-indicator
+      position: absolute
+      bottom: 0
+      left: 50%
+      width: 96px
+      height: 67px
+      margin-left: -52.5px 
+      background: url(../images/tutorial/Tutorial_dotShelf.png) 0 0 no-repeat
+      background-size: 105px 67px
+      .dot
+         display: inline-block
+         position: relative
+         top: 15px
+         width: 12px
+         height: 12px
+         background: url(../images/tutorial/Tutorial_openPageIndicator.png) 50% 50% no-repeat
+         background-size: 12px 12px
+         &.active
+            background-image: url(../images/tutorial/Tutorial_currentPageIndicator.png)
+            background-size: 9px 9px
+   p.medium
+      font-size: 1.2em
+      line-height: 1.1em
+      margin-bottom: 2px
+   p.large
+      font-size: 1.4em
+      line-height: 1.3em
+      margin-bottom: 4px
+   ol
+      position:relative
+      left: 30px
+      list-style: decimal outside
+      text-align: left
 
 // Icons
 .icon
@@ -224,6 +329,24 @@
 
    .icon.gamecell
       background-image: url(../images/icons/icons-gamecell@2x.png)
+
+   .tutorial-item
+      background-image: url(../images/tutorial/Tutorial_chalkboard@2x.png)!important
+   .tutorial-close
+      background-image: url(../images/tutorial/Tutorial_exitButton@2x.png)!important
+      &:active
+         background-image: url(../images/tutorial/tutorial_redX@2x.png)!important
+   .tutorial-next
+         background-image: url(../images/tutorial/Tutorial_nextArrow@2x.png)!important
+   .tutorial-prev
+         background-image: url(../images/tutorial/Tutorial_backArrow@2x.png)!important
+   .tutorial-pos-indicator
+      background-image: url(../images/tutorial/Tutorial_dotShelf@2x.png)!important
+      .dot
+         background-image: url(../images/tutorial/Tutorial_openPageIndicator@2x.png)!important
+         &.active
+            background-image: url(../images/tutorial/Tutorial_currentPageIndicator@2x.png)!important
+
 
 @import "pages/profile"
 @import "pages/games"

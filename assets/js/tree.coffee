@@ -1,7 +1,7 @@
 #= require "lib/jquery-1.8.2.js"
 #= require "lib/knockout.js"
 #= require "lib/purl.js"
-#= require "lib/touchslider.js"
+#= require "lib/swipe.js"
 #= require "ext/helpers.coffee"
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"
