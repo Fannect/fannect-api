@@ -1,7 +1,7 @@
 extend ../layout
 
 block header
-   h1(data-menu-root="games") Games
+   h1(data-menu-root="games") GUESS THE SCORE
    a(href="games", data-icon="back", data-rel="back") Back
    a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
 
@@ -38,3 +38,13 @@ block content
          .game-preview
             .title Game Preview
             .text(data-bind="text:game_preview")
+
+block tutorial
+   .tutorial-slider.one
+      .tutorial-item
+         .tutorial-content
+            .tutorial-close
+            .tutorial-title GUESS THE SCORE
+            .tutorial-score-picker
+            p Use these selectors to submit your score prediction before the game begins!
+            .tutorial-submit-button

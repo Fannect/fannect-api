@@ -1,7 +1,7 @@
 extend ../layout
 
 block header
-   h1(data-menu-root="games") Games
+   h1(data-menu-root="games") GAMEFACE
    a(href="games", data-icon="back", data-rel="back") Back
    a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
    
@@ -27,3 +27,14 @@ block content
       select(id="gameFaceSwitch", data-role="slider", data-bind="value: face_value, disableSlider: face_on() || !available(), sliderUpdate: face_on")
          option(value="off") Off
          option(value="on") On
+
+block tutorial
+   .tutorial-slider.one
+      .tutorial-item
+         .tutorial-content
+            .tutorial-close
+            .tutorial-title GAMEFACE
+            .tutorial-gameface-sketch
+            p Turn on your gameface on gamedays and earn points for keeping your head in the game!
+            .tutorial-switch
+
