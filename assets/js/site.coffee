@@ -8,6 +8,7 @@ do ($ = window.jQuery, fc = window.fannect) ->
 
    $(".index.ui-page").live "pageshow", () ->
       $.mobile.changePage("profile.html")
+   
    $(".ui-page").live("pagebeforeshow", () ->
       $el = $(@)
       menu = getMenu($el)
@@ -16,6 +17,11 @@ do ($ = window.jQuery, fc = window.fannect) ->
          $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
    ).live "pageremove", () ->
       fc.clearBindings @
+
+   $(".tutorial-link").live "click", (e) ->
+      e.stopPropagation()
+      fc.showTutorial()
+      return false
       
    getMenu = (page) ->
       if menuFn = custom_menu_setter[page.attr("id")]

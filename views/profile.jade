@@ -6,11 +6,11 @@ block header
 
 block content
    .profile-images
-      .team-wrap(data-bind="click: changeTeamImage")
+      .team-wrap(data-bind="click: changeTeamImage, clickBubble: false")
          img(data-bind="attr: {src:team_image}, visible: team_image().length > 0")
          .team-hint.ui-corner-all
          .cover
-      .user-wrap(data-bind="click: changeUserImage")
+      .user-wrap(data-bind="click: changeUserImage, clickBubble: false")
          img(data-bind="attr: {src:user_image}, visible: user_image().length > 0")
          .user-hint.ui-corner-all
          .cover
@@ -35,11 +35,9 @@ block content
    .bio
       .separator
       .text(data-bind="text: bio")
-
    .bragging-rights
       .separator
       .text(data-bind="text: bragging_rights")
-
    .game-day-spot
       .separator
       .text(data-bind="text: game_day_spot") 

@@ -1,11 +1,11 @@
 extend ../layout
 
 block header
-   a(href="games", data-icon="back", data-rel="back") Back
    h1(data-menu-root="games") Games
+   a(href="games", data-icon="back", data-rel="back") Back
+   a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
 
 block content
-   
    .info
       .left-cap
       .right-cap
@@ -35,3 +35,12 @@ block content
                span.label Next Gameday:
                span.text(data-bind="text: next_game")
 
+block tutorial
+   .tutorial-slider.one
+      .tutorial-item
+         .tutorial-content
+            .tutorial-close
+            .tutorial-title ATTENDANCE
+            .tutorial-map
+            p Check in on gamedays when you're at the stadium or tailgate to earn points!
+            .tutorial-submit-button

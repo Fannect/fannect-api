@@ -4,11 +4,6 @@
 #games-page
    background: url(../images/Pattern_FabricKnit.png)
    background-size: 4px 4px
-   .locked
-      // .ui-btn-inner.ui-li
-      //    background-lowlight()
-      // .chain
-      //    holder: true
    .icon-gamecell
       float: left
    .text
@@ -123,6 +118,17 @@
                color: color-light-gray
                margin-right: 4px
 
+   .tutorial-map
+      height: 146px
+      background: url(../images/tutorial/Tutorial_map.png) 50% 0 no-repeat
+      background-size: 219px 146px
+      margin: 8px 0
+   .tutorial-submit-button
+      height: 55px
+      background: url(../images/tutorial/Tutorial_submitButton.png) 50% 0 no-repeat
+      background-size: 225px 55px
+      margin-top: 8px
+
 #games-guessTheScore-page
    .score
       margin: 10px auto 0
@@ -230,17 +236,21 @@
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #games-page
       background-image: url(../images/Pattern_FabricKnit@2x.png)
-   #games-attendanceStreak-page .info
-      background-image: url(../images/games/attendanceStreak/Overlay_Marquee_iPhone@2x.png)
-      .left-cap
-         background-image: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Left_iPhone@2x.png)
-      .right-cap
-         background-image: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone@2x.png)
-
-   #games-attendanceStreak-page .bottom
-      background-image: url(../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone@2x.png)!important
-      .checked-in
-         background-image: url(../images/games/attendanceStreak/Overlay_checkbox@2x.png)!important
+   #games-attendanceStreak-page
+      .info
+         background-image: url(../images/games/attendanceStreak/Overlay_Marquee_iPhone@2x.png)
+         .left-cap
+            background-image: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Left_iPhone@2x.png)
+         .right-cap
+            background-image: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone@2x.png)
+      .bottom
+         background-image: url(../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone@2x.png)!important
+         .checked-in
+            background-image: url(../images/games/attendanceStreak/Overlay_checkbox@2x.png)!important
+      .tutorial-map
+         background-image: url(../images/tutorial/Tutorial_map@2x.png)
+      .tutorial-submit-button
+         background-image: url(../images/tutorial/Tutorial_submitButton@2x.png)
 
    #games-guessTheScore-page
       .guess-wrap

@@ -1,8 +1,9 @@
 extend ../layout
 
 block header
-   a(href="games", data-icon="back", data-rel="back") Back
    h1(data-menu-root="games") Games
+   a(href="games", data-icon="back", data-rel="back") Back
+   a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
 
 block content
    form.scrollable-content(action="/points/guessTheScore", method="post")

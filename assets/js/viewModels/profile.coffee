@@ -15,7 +15,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @bragging_rights = ko.observable data.bragging_rights
             done err, @
 
-      changeUserImage: () ->
+      changeUserImage: (data, e) ->
          alert "USER"
-      changeTeamImage: () -> 
+      changeTeamImage: (data, e) -> 
          alert "TEAM"
