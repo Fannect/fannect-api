@@ -15,16 +15,14 @@ app.post "/login", (req, res, next) ->
    password = req.query.password
 
    if not email or not password
-      return next("Email and Password required")
-
-   # Browser.visit "http://localhost:2100/test.html", (err, browser) ->
-   #    # console.log browser.evaluate "document.login"
-   #    console.log "OUTPUT:", browser.window.console.output
-   #    res.send "HI"
+      return res.json
+         status: "fail"
+         error_message: "Email and Password are required."
 
    Browser.visit login_base_url, runScripts: false, loadCSS: false, (err, browser) ->
       browser.evaluate browser.query("script").innerHTML
       browser.wait () ->
+         # Submit login information
          browser.evaluate "document.getElementsByName('username')[0].value = '#{email}';"
          browser.evaluate "document.getElementsByName('pw')[0].value = '#{password}';"
          browser.evaluate "document.getElementsByName('un')[0].value = '#{email}';"
@@ -33,22 +31,23 @@ app.post "/login", (req, res, next) ->
          browser.evaluate "handleLogin = function(){ return true; };"
          browser.evaluate "document.getElementsByClassName('loginButton')[0].click();"
          browser.wait () ->
+            # Check for login failure
+            if browser.evaluate "document.getElementsByClassName('loginError').length > 0"
+               message = browser.evaluate "document.getElementsByClassName('loginError')[0].innerHTML"
+               return res.json
+                  status: "fail"
+                  error_message: message
+                    
             browser.evaluate browser.query("script").innerHTML
             browser.wait () ->
+               # Approve for the user
                browser.evaluate "document.getElementById('oaapprove').click();"
                browser.wait () ->
                   browser.evaluate browser.query("script").innerHTML
                   browser.wait () ->
+                     # Parse successful response
                      query = qs.parse(url.parse(browser.location.href).hash.replace("#", ""))
-                     
                      res.json
+                        status: "success"
                         access_token: query.access_token
                         refresh_token: query.refresh_token
-
-                     return res.send browser.html()
-
-      # console.log "event:", e
-      # console.log "location:", browser.location.href
-      # browser.fill("username", "zombie@underworld.dead").
-      #    pressButton("Sign me Up", function() {
-      #   });
