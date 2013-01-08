@@ -33,8 +33,9 @@ app.use express.static path.join __dirname, "../public"
 #    store: new RedisStore(client: redis_client)
 
 # Controllers
+app.use require "./login"
 app.use require "./profile"
 app.use require "./games"
 app.use require "./leaderboard"
 app.use require "./connect"
-app.use require "./preferences"
+app.use require "./settings"
