@@ -11,8 +11,8 @@ redirect_uri = "https://login.salesforce.com/services/oauth2/success"
 login_base_url = "https://login.salesforce.com/services/oauth2/authorize?response_type=token&client_id=#{escape(client_id)}&redirect_uri=#{escape(redirect_uri)}"
 
 app.post "/login", (req, res, next) ->
-   email = req.query.email
-   password = req.query.password
+   email = req.body.email
+   password = req.body.password
 
    if not email or not password
       return res.json

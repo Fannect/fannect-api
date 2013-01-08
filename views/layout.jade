@@ -44,13 +44,14 @@ html
             block tutorial
 
          .footer(data-role="footer", data-id="footer", data-position="fixed", data-tap-toggle="false")
-            div(data-role="navbar")
-               ul
-                  li: a.profile-menu(href="profile.html", data-icon="custom") Profile
-                  li: a.games-menu(href="games.html", data-icon="custom") Games
-                  li: a.leaderboard-menu(href="leaderboard.html", data-icon="custom") Leaderboard
-                  li: a.connect-menu(href="connect.html", data-icon="custom") Connect
-                  li: a.settings-menu(href="settings.html", data-icon="custom") Settings
+            block footer
+               div(data-role="navbar")
+                  ul
+                     li: a.profile-menu(href="profile.html", data-icon="custom") Profile
+                     li: a.games-menu(href="games.html", data-icon="custom") Games
+                     li: a.leaderboard-menu(href="leaderboard.html", data-icon="custom") Leaderboard
+                     li: a.connect-menu(href="connect.html", data-icon="custom") Connect
+                     li: a.settings-menu(href="settings.html", data-icon="custom") Settings
 
       script(id="connect-fan-template", type="text/html")
          li.fan

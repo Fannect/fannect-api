@@ -45,7 +45,6 @@ do ($ = window.jQuery, ko = window.ko) ->
             e.stopPropagation()
             fc.hideTutorial()
 
-
    fc.hideTutorial = () ->
       $(".tutorial", $.mobile.activePage).fadeOut(400)
 
@@ -82,4 +81,23 @@ do ($ = window.jQuery, ko = window.ko) ->
          $.cookie("fannect_cached", cookieData, { expires: 365, path: '/' });
          return cookieData
 
-   # fc.saveUser = (done) ->
+   fc.auth =
+      login: (email, pw, done) ->
+         query = { email: email, password: pw }
+         $.mobile.loading "show"
+         $.post "#{fc.getResourceURL()}/login", query, (data, status) ->
+            $.mobile.loading "hide"
+            if data.status == "success"
+               delete data.status 
+               fc.cookie.save(data)
+               done null, data 
+            else
+               done data.error_message
+      isLoggedIn: () ->
+         return fc.cookie.get().refresh_token?
+      checkLogin: () ->
+         noAuth = ["index-page", "createAccount-page"]
+         if not fc.auth.isLoggedIn() and not ($.mobile.activePage.id in noAuth)
+            $.mobile.changePage "index.html", transition: "slidedown"
+            return false
+         return true
