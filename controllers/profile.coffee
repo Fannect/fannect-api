@@ -11,7 +11,6 @@ app.get "/api/profile", (req, res, next) ->
    # client = new ForceTK(req.session.auth)
    # console.log req.session.auth
 
-   console.log "INSTANCEURL ", req.session.auth.refresh_token
 
    # conn = new sf.Connection
    #    oauth2:

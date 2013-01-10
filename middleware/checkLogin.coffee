@@ -10,5 +10,6 @@ module.exports = (req, res, next) ->
 
    req.conn = conn = new sf.Connection()
    conn.login "frankenstein@fannect.com", "testing", (err, userInfo) ->
+      req.session = {} unless req.session
       req.session.user_id = userInfo.id
       next()
