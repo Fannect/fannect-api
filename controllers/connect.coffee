@@ -3,77 +3,21 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/connect", (req, res, next) ->
-   roster_fans = 
-      [
-         # {
-         #    name: "Jeremy Eccles"
-         #    team: "Sporting Kansas City"
-         #    profile_url: ""
-         #    profile_image_url: "/dev/Pic_Player@2x.png"
-         #    roster: 100
-         #    points: 100
-         #    rank: 1
-         # },
-         # {
-         #    name: "Jeremy Eccles"
-         #    team: "Sporting Kansas City"
-         #    profile_url: ""
-         #    profile_image_url: "/dev/Pic_Player@2x.png"
-         #    roster: 100
-         #    points: 100
-         #    rank: 1
-         # },
-         # {
-         #    name: "Jeremy Eccles"
-         #    team: "Sporting Kansas City"
-         #    profile_url: ""
-         #    profile_image_url: "/dev/Pic_Player@2x.png"
-         #    roster: 100
-         #    points: 100
-         #    rank: 1
-         # },
-         # {
-         #     name: "Jeremy Eccles"
-         #    team: "Sporting Kansas City"
-         #    profile_url: ""
-         #    profile_image_url: "/dev/Pic_Player@2x.png"
-         #    roster: 100
-         #    points: 100
-         #    rank: 1
-         # },
-         # {
-         #     name: "Jeremy Eccles"
-         #    team: "Sporting Kansas City"
-         #    profile_url: ""
-         #    profile_image_url: "/dev/Pic_Player@2x.png"
-         #    roster: 100
-         #    points: 100
-         #    rank: 1
-         # },
-         # {
-         #     name: "Jeremy Eccles"
-         #    team: "Sporting Kansas City"
-         #    profile_url: ""
-         #    profile_image_url: "/dev/Pic_Player@2x.png"
-         #    roster: 100
-         #    points: 100
-         #    rank: 1
-         # },
-         # {
-         #    name: "Jeremy Eccles"
-         #    team: "Sporting Kansas City"
-         #    profile_url: ""
-         #    profile_image_url: "/dev/Pic_Player@2x.png"
-         #    roster: 100
-         #    points: 100
-         #    rank: 1
-         # }
-      ]
+app.get "/api/connect", (req, res, next) ->
+   conn = req.conn
+   # conn.query "SELECT Id FROM User WHERE Id = 005E0000001jeZ4IAI", (err, data) ->
+   #    return res.json data
+   conn.sobject("Roster__c")
+      .find({
+         "FanName__c": req.session.user_id
+      }, {
+         "Teammate__r.Name": 1
+      })
+      .execute (err, roster) ->
+         if err then res.json err else res.json roster
 
-   res.json fans: roster_fans
 
-app.get "/connect/addToRoster", (req, res, next) ->
+app.get "/api/connect/addToRoster", (req, res, next) ->
    roster_fans = 
       [
          {

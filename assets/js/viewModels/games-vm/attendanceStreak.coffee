@@ -23,6 +23,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: (done) ->
          $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/games/attendanceStreak", (data, status) ->
+         $.get "#{fc.getResourceURL()}/api/games/attendanceStreak", (data, status) ->
             $.mobile.loading "hide"
             done null, data

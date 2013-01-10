@@ -8,6 +8,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: (done) ->
          $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/connect/addToRoster", (data, status) =>
+         $.get "#{fc.getResourceURL()}/api/connect/addToRoster", (data, status) =>
             $.mobile.loading "hide"
             if done then done null, data

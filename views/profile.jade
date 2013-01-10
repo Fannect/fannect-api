@@ -5,6 +5,25 @@ block header
    a.ui-btn-left(href="profile-invitations.html", data-role="button") Invitations
    a.ui-btn-right(href="profile-editBio.html", data-role="button", data-transition="slide") Edit
 
+   #changeProfileImagePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
+      .ui-corner-top(data-role="header", data-theme="b")
+         h1 Change Profile Picture
+      .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
+         a(href="#", data-role="button", data-bind="click: takeImage, visible: window.fannect.isPhoneGap()") Take Picture
+         a(href="#", data-role="button", data-bind="click: chooseImage, visible: window.fannect.isPhoneGap()") Choose from Library
+         a(href="#", data-role="button") Choose from Web
+         a(href="#", data-role="button", data-rel="back", data-theme="c", data-bind="click: cancelImagePicking") Cancel
+
+   #changeTeamImagePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
+      .ui-corner-top(data-role="header", data-theme="b")
+         h1 Change Team Picture
+      .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
+         a(href="#", data-role="button", data-bind="click: takeImage, visible: window.fannect.isPhoneGap()") Take Picture
+         a(href="#", data-role="button", data-bind="click: chooseImage, visible: window.fannect.isPhoneGap()") Choose from Library
+         a(href="#", data-role="button", data-bind="click: chooseWebImage") Choose from Web
+         a(href="#", data-role="button", data-rel="back", data-theme="c", data-bind="click: cancelImagePicking") Cancel
+
+
 block content
    .profile-images
       .team-wrap(data-bind="click: changeTeamImage, clickBubble: false")
@@ -12,14 +31,14 @@ block content
          .team-hint.ui-corner-all
          .cover
       .user-wrap(data-bind="click: changeUserImage, clickBubble: false")
-         img(data-bind="attr: {src:user_image}, visible: user_image().length > 0")
+         img(data-bind="attr: {src:profile_image}, visible: profile_image().length > 0")
          .user-hint.ui-corner-all
          .cover
 
    .name(data-bind="text: name")
 
    .team-name-wrap
-      .team Sporting Kansas City
+      .team(data-bind="text: favorite_team")
       .icon
 
    .score-wrap

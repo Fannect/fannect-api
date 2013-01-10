@@ -8,7 +8,7 @@ do ($ = window.jQuery, fc = window.fannect) ->
 
    $(".ui-page").live("pagebeforeshow", () ->
       # check if logged in
-      unless fc.auth.checkLogin() then return
+      # unless fc.auth.checkLogin() then return
       
       # set menu
       $el = $(@)

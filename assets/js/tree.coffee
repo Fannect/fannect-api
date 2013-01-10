@@ -3,6 +3,7 @@
 #= require "lib/purl.js"
 #= require "lib/swipe.js"
 #= require "lib/jquery.cookie.js"
+#= require "lib/forcetk-mod.js"
 #= require "ext/helpers.coffee"
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"

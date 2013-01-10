@@ -22,7 +22,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       loadOverall: (done) ->
          $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/leaderboard?type=overall", (data, status) =>
+         $.get "#{fc.getResourceURL()}/api/leaderboard?type=overall", (data, status) =>
             @overall_fans.push fan for fan in data.fans
             @overall_loaded = true
             $.mobile.loading "hide"
@@ -31,7 +31,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       loadRoster: (done) ->
          $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/leaderboard?type=roster", (data, status) =>
+         $.get "#{fc.getResourceURL()}/api/leaderboard?type=roster", (data, status) =>
             @roster_fans.push fan for fan in data.fans
             @roster_loaded = true
             $.mobile.loading "hide"

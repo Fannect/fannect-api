@@ -3,7 +3,7 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/games/guessTheScore", (req, res, next) ->
+app.get "/api/games/guessTheScore", (req, res, next) ->
    gameInfo =
       available: true
       picked: true
