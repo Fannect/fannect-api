@@ -57,7 +57,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       cancelImagePicking: () ->
          @editingImage "none"
 
-      phoneGapImageError: () ->
+      phoneGapImageError: (message) ->
+         alert("ERROR: " + message);
+
          $("#imageFailedPopup").popup "open", 
             transition: "pop"
             positionTo: "window"
