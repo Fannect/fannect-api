@@ -25,7 +25,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             # send ajax call to set picked
 
       load: (done) ->
-         $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/api/games/guessTheScore", (data, status) ->
-            $.mobile.loading "hide"
-            done null, data
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/api/games/guessTheScore"
+            method: "GET"
+         , (xhr, statusText) ->
+            done null, xhr

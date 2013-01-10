@@ -7,7 +7,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             done err, @
 
       load: (done) ->
-         $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/api/connect/addToRoster", (data, status) =>
-            $.mobile.loading "hide"
-            if done then done null, data
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/api/connect/addToRoster"
+            method: "GET"
+         , (xhr, statusText) ->
+            done null, xhr
+

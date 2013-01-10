@@ -7,5 +7,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             done err, @
 
       updateProfile: () ->
-         console.log "HIT"
          fc.user.update bragging_rights: @bragging_rights

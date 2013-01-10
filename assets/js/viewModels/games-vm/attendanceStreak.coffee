@@ -22,7 +22,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          # ajax call
 
       load: (done) ->
-         $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/api/games/attendanceStreak", (data, status) ->
-            $.mobile.loading "hide"
-            done null, data
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/api/games/attendanceStreak"
+            method: "GET"
+         , (xhr, statusText) ->
+            done null, xhr

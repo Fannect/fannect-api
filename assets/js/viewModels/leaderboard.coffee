@@ -9,8 +9,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @is_roster_selected = ko.computed () => return @selected_view() == "roster"
          @roster_fans = ko.observableArray()
          @overall_fans = ko.observableArray()
-         @force_overall_list_update = ko.observable 0
-         @force_roster_list_update = ko.observable 0
 
          @selected_view.subscribe @viewToggled
          @loadOverall (err, data) =>
@@ -21,19 +19,20 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          else if @selected_view() == "overall" and not @overall_loaded then @loadOverall()
 
       loadOverall: (done) ->
-         $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/api/leaderboard?type=overall", (data, status) =>
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/api/leaderboard?type=overall"
+            method: "GET"
+         , (data, statusText) =>
             @overall_fans.push fan for fan in data.fans
             @overall_loaded = true
-            $.mobile.loading "hide"
-            @force_overall_list_update @force_overall_list_update()+1
             if done then done null, data
 
       loadRoster: (done) ->
-         $.mobile.loading "show"
-         $.get "#{fc.getResourceURL()}/api/leaderboard?type=roster", (data, status) =>
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/api/leaderboard?type=roster"
+            method: "GET"
+         , (data, statusText) =>
             @roster_fans.push fan for fan in data.fans
             @roster_loaded = true
             $.mobile.loading "hide"
-            @force_roster_list_update @force_roster_list_update()+1
             if done then done null, data

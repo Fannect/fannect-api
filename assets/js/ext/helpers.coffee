@@ -2,8 +2,7 @@ do ($ = window.jQuery, ko = window.ko) ->
    $.cookie.json = true
    currentUser = null
    currentCookie = null
-   currentForceClient = null
-   client_id = "3MVG9y6x0357Hlef0sJ1clNGWyYjGIN0fGQjmzawi2ojX6xQ_4MbJ7l1Xbl54iZcWCdFd5N1FTepUjq3DX12L"
+   showLoading = false
 
    fc = window.fannect = 
       viewModels: {}
@@ -24,10 +23,23 @@ do ($ = window.jQuery, ko = window.ko) ->
       else
          return $.url().param() 
 
-   fc.ajax = (settings, done) ->
-      $.mobile.loading "show"
-      return $.ajax(settings).always (xhr, textStatus) ->
+   fc.loading = (status) ->
+      showLoading = status == "show"
+      if showLoading
+         $.mobile.loading "show",
+            text: "Loading Page"
+            textVisible: true
+            theme: "b"
+            html: ""
+      else
          $.mobile.loading "hide"
+
+   $(".ui-page").live "pageshow", () -> if showLoading then fc.loading "show"
+
+   fc.ajax = (settings, done) ->
+      fc.loading "show"
+      return $.ajax(settings).always (xhr, textStatus) ->
+         fc.loading "hide"
          if xhr.status == 401
             redirectToLogin()
          else
@@ -58,18 +70,6 @@ do ($ = window.jQuery, ko = window.ko) ->
 
    fc.hideTutorial = () ->
       $(".tutorial", $.mobile.activePage).fadeOut(400)
-
-   fc.getForceClient = () ->
-      unless currentForceClient 
-         auth = fc.cookie.get().auth
-         access_token = auth.access_token
-         instance_url = auth.instance_url
-         if not access_token? or not instance_url
-            throw "Must have access_token and instance_url before creating client_id"
-         
-         currentForceClient = new window.forcetk.Client(client_id, access_token, instanceUrl)
-
-      return currentForceClient
 
    fc.user =
       get: (done) ->

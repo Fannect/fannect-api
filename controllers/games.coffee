@@ -35,7 +35,7 @@ app.get "/api/games/guessTheScore", (req, res, next) ->
 
 #    res.render "points/guessTheScore/picked", gameInfo
 
-app.get "/games/attendanceStreak", (req, res, next) ->
+app.get "/api/games/attendanceStreak", (req, res, next) ->
    gameInfo = 
       home:
          name: "Kansas Jayhawks"
@@ -54,7 +54,7 @@ app.get "/games/attendanceStreak", (req, res, next) ->
 
 # app.post "/points/attendanceStreak"
 
-app.get "/games/gameFace", (req, res, next) ->
+app.get "/api/games/gameFace", (req, res, next) ->
    gameInfo = 
       available: false
       face_value: "off"

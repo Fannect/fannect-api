@@ -4,7 +4,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          new window.fannect.viewModels.Profile (err, vm) =>
             ko.applyBindings vm, @
       )
-
+      
       $("#profile-invitations-page").live("pagecreate", () ->
          new window.fannect.viewModels.Profile.Invitations (err, vm) =>
             ko.applyBindings vm, @

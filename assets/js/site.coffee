@@ -3,6 +3,10 @@ do ($ = window.jQuery, fc = window.fannect) ->
    $(document).on "mobileinit", () ->
       $.mobile.allowCrossDomainPages = true
       $.mobile.pushStateEnabled = false if fc.isPhoneGap()
+      $.mobile.loader.prototype.options.text = "loading";
+      $.mobile.loader.prototype.options.textVisible = true
+      $.mobile.loader.prototype.options.theme = "b"
+      $.mobile.loader.prototype.options.html = ""
       if $.support.touch and not $.support.touchOverflow
          $("body").addClass("speed-up")
 
