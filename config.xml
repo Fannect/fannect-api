@@ -19,6 +19,8 @@
     <feature name="http://api.phonegap.com/1.0/file"/>
     <feature name="http://api.phonegap.com/1.0/camera"/>
 
+    <plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+
     <preference name="phonegap-version" value="2.2.0" />
     <preference name="orientation"      value="portrait" />
     <preference name="target-device"    value="handset" />

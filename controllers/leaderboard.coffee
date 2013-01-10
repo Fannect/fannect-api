@@ -9,49 +9,77 @@ app.get "/api/leaderboard", (req, res, next) ->
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: ""
+            profile_url: "leaderboard-rosterprofile.html"
             profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          },
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: ""
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 12
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: ""
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-             name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: ""
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-             name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: ""
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-             name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: ""
+            profile_url: "leaderboard-rosterprofile.html"
             profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          },
          {
             name: "Jeremy Eccles"
             team: "Sporting Kansas City"
-            profile_url: ""
+            profile_url: "leaderboard-rosterprofile.html"
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "leaderboard-rosterprofile.html"
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "leaderboard-rosterprofile.html"
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "leaderboard-rosterprofile.html"
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "leaderboard-rosterprofile.html"
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "leaderboard-rosterprofile.html"
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "leaderboard-rosterprofile.html"
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "leaderboard-rosterprofile.html"
+            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
+            rank: 1
+         },
+         {
+            name: "Jeremy Eccles"
+            team: "Sporting Kansas City"
+            profile_url: "leaderboard-rosterprofile.html"
             profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
             rank: 1
          }

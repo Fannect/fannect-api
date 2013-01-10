@@ -21,6 +21,7 @@
 #= require "viewModels/games-vm/guessTheScore.coffee"
 #= require "viewModels/connect-vm/addToRoster.coffee"
 #= require "viewModels/connect-vm/addToRosterProfile.coffee"
+#= require "viewModels/leaderboard-vm/rosterProfile.coffee"
 #= require "pages/login.coffee"
 #= require "pages/connect.coffee"
 #= require "pages/games.coffee"

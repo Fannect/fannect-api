@@ -77,7 +77,7 @@ html
 
       script(id="leaderboard-fan-template", type="text/html")
          li.fan(data-icon="false")
-            a(data-bind="attr: { 'href': profile_url }")
+            a(data-bind="attr: { 'href': profile_url }", data-transition="slide")
                .image-wrap
                   img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                   .cover
