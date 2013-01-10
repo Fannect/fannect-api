@@ -43,12 +43,12 @@ app.get "/api/profile", (req, res, next) ->
          .execute (err, profileTeam) ->
             res.json
                profile_image: user.ProfileImageURL__c
-               team_image: profileTeam[0].Image__c
-               roster: profileTeam[0].Roster__c or 0
-               points: profileTeam[0].Points__c or 0
-               rank: profileTeam[0].Rank__c or 0
+               team_image: profileTeam[0]?.Image__c
+               roster: profileTeam[0]?.Roster__c or 0
+               points: profileTeam[0]?.Points__c or 0
+               rank: profileTeam[0]?.Rank__c or 0
                name: user.Name
-               favorite_team: profileTeam[0].TeamName__c
+               favorite_team: profileTeam[0]?.TeamName__c
                bio: user.Bio__c
                game_day_spot: user.GameDaySpot__c
                bragging_rights: user.BraggingRights__c

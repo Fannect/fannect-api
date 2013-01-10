@@ -7,7 +7,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @name = ko.observable data.name
             @team_image = ko.observable data.team_image or ""
             @profile_image = ko.observable data.profile_image or ""
-            @favorite_team = ko.observable data.favorite_team
+            @favorite_team = ko.observable data.favorite_team or "Select Team"
             @roster = ko.observable data.roster
             @points = ko.observable data.points
             @rank = ko.observable data.rank
