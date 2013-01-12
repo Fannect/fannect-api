@@ -5,9 +5,12 @@ sf = require "node-salesforce"
 
 app = module.exports = express()
 
-app.get "/", (req, res, next) -> res.redirect "/profile.html"
+app.get "/", (req, res, next) -> 
+   res.json 
+      status: "success",
+      message: "Fannect- a social network for sports fans"
 
-app.get "/api/profile", (req, res, next) ->
+app.get "/me", (req, res, next) ->
    # client = new ForceTK(req.session.auth)
    # console.log req.session.auth
 
@@ -65,7 +68,7 @@ app.get "/api/profile", (req, res, next) ->
      
    #    res.json profileInfo
 
-app.get "/api/invitations", (req, res, next) ->
+app.get "/me/invitations", (req, res, next) ->
    roster_fans = 
       [
          {
@@ -162,16 +165,16 @@ app.get "/api/invitations", (req, res, next) ->
 
    res.json invitations: roster_fans
 
-app.get "/api/profile/selectSport", (req, res, next) ->
+app.get "/me/profile/selectSport", (req, res, next) ->
    sports = [ "basketball", "football" ]
    res.render "profile/selectSport", sports: sports
 
-app.get "/api/profile/selectLeague", (req, res, next) ->
+app.get "/me/profile/selectLeague", (req, res, next) ->
    sport = req.query.sport
    leagues = [ "NFL", "NCAA" ]
    res.render "profile/selectLeague", leagues: leagues
 
-app.get "/api/profile/selectTeam", (req, res, next) ->
+app.get "/me/profile/selectTeam", (req, res, next) ->
    league = req.query.league
    teams = [ "Arizona Cardinals", "Chicago Bears" ]
    res.render "profile/selectTeam", teams: teams

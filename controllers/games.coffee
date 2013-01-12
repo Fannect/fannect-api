@@ -3,7 +3,7 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/api/games/guessTheScore", (req, res, next) ->
+app.get "/me/games/guessTheScore", (req, res, next) ->
    gameInfo =
       available: true
       picked: true
@@ -35,7 +35,7 @@ app.get "/api/games/guessTheScore", (req, res, next) ->
 
 #    res.render "points/guessTheScore/picked", gameInfo
 
-app.get "/api/games/attendanceStreak", (req, res, next) ->
+app.get "/me/games/attendanceStreak", (req, res, next) ->
    gameInfo = 
       home:
          name: "Kansas Jayhawks"
@@ -54,7 +54,7 @@ app.get "/api/games/attendanceStreak", (req, res, next) ->
 
 # app.post "/points/attendanceStreak"
 
-app.get "/api/games/gameFace", (req, res, next) ->
+app.get "/me/games/gameFace", (req, res, next) ->
    gameInfo = 
       available: false
       face_value: "off"

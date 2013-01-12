@@ -13,7 +13,7 @@ client_secret =  process.env.CLIENT_SECRET or "7701266349787425657"
 redirect_uri = "https://login.salesforce.com/services/oauth2/success"
 login_base_url = "https://login.salesforce.com/services/oauth2/authorize?response_type=code&client_id=#{escape(client_id)}&redirect_uri=#{escape(redirect_uri)}&scope=api%20id%20web%20refresh_token"
 
-app.post "/api/login", (req, res, next) ->
+app.post "/login", (req, res, next) ->
    email = req.body.email
    password = req.body.password
 
