@@ -1,8 +1,0 @@
-extend ../layout
-
-block header
-   h1(data-menu-root="connect") Add to Roster
-   a(href="connect.html", data-icon="back", data-rel="back") Back
-
-block content
-   ul.pattern-bg(data-role="listview", data-theme="a", data-filter="true", data-bind="template: { name:'connect-fan-template', foreach: roster_fans }, listviewUpdate: roster_fans, visible: roster_fans().length > 0").fans
