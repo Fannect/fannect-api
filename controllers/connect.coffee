@@ -4,17 +4,17 @@ rest = require "request"
 app = module.exports = express()
 
 app.get "/me/connect", (req, res, next) ->
-   conn = req.conn
+   # conn = req.conn
    # conn.query "SELECT Id FROM User WHERE Id = 005E0000001jeZ4IAI", (err, data) ->
    #    return res.json data
-   conn.sobject("Roster__c")
-      .find({
-         "FanName__c": req.session.user_id
-      }, {
-         "Teammate__r.Name": 1
-      })
-      .execute (err, roster) ->
-         if err then res.json err else res.json roster
+   # conn.sobject("Roster__c")
+   #    .find({
+   #       "FanName__c": req.session.user_id
+   #    }, {
+   #       "Teammate__r.Name": 1
+   #    })
+   #    .execute (err, roster) ->
+   #       if err then res.json err else res.json roster
 
 
 app.get "/fans", (req, res, next) ->
