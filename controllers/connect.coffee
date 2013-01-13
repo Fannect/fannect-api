@@ -17,7 +17,7 @@ app.get "/me/connect", (req, res, next) ->
    #       if err then res.json err else res.json roster
 
 
-app.get "/fans", (req, res, next) ->
+# app.get "/fans", (req, res, next) ->
    roster_fans = 
       [
          {
