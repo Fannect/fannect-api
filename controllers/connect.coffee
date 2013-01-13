@@ -3,7 +3,7 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/api/connect", (req, res, next) ->
+app.get "/me/connect", (req, res, next) ->
    conn = req.conn
    # conn.query "SELECT Id FROM User WHERE Id = 005E0000001jeZ4IAI", (err, data) ->
    #    return res.json data
@@ -17,7 +17,7 @@ app.get "/api/connect", (req, res, next) ->
          if err then res.json err else res.json roster
 
 
-app.get "/api/connect/addToRoster", (req, res, next) ->
+app.get "/fans", (req, res, next) ->
    roster_fans = 
       [
          {

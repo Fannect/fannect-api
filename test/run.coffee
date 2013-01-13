@@ -22,13 +22,7 @@ describe "Fannect Mobile Web", () ->
       fs.removeSync path.join process.cwd(), "builtAssets"
 
    describe "page errors", () ->
-      views = viewRender.findViews path.resolve(__dirname, "../views")
-      for page, filename of views
-         it "should not exist for: #{page}", (done) ->
-            checkForErrors page, "#{@host}#{page}", done
-
-   # describe "page caching", () ->
-   #    views = viewRender.findViews path.resolve(__dirname, "../views")
-   #    for page, filename of views
-   #       it "should be faster: #{page}", (done) ->
-   #          checkForErrors page, "#{@host}#{page}", done
+      # views = viewRender.findViews path.resolve(__dirname, "../views")
+      # for page, filename of views
+      #    it "should not exist for: #{page}", (done) ->
+      #       checkForErrors page, "#{@host}#{page}", done

@@ -3,7 +3,7 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/api/leaderboard", (req, res, next) ->
+app.get "/me/leaderboard", (req, res, next) ->
    overall_fans = roster_fans = 
       [
          {
