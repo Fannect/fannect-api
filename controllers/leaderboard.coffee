@@ -4,7 +4,10 @@ rest = require "request"
 app = module.exports = express()
 
 app.get "/me/leaderboard", (req, res, next) ->
-   overall_fans = roster_fans = 
+   count = req.query.count
+   skip = req.query.skip
+
+   fans = 
       [
          {
             name: "Jeremy Eccles"
@@ -85,5 +88,4 @@ app.get "/me/leaderboard", (req, res, next) ->
          }
       ]
 
-   if req.query.type == "overall" then return res.json fans: overall_fans
-   else res.json fans: roster_fans
+   res.json fans

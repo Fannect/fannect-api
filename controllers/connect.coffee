@@ -4,6 +4,10 @@ rest = require "request"
 app = module.exports = express()
 
 app.get "/me/connect", (req, res, next) ->
+
+   count = req.query.count
+   skip = req.query.skip
+
    # conn = req.conn
    # conn.query "SELECT Id FROM User WHERE Id = 005E0000001jeZ4IAI", (err, data) ->
    #    return res.json data
@@ -112,4 +116,4 @@ app.get "/me/connect", (req, res, next) ->
          }
       ]
 
-   res.json fans: roster_fans
+   res.json roster_fans
