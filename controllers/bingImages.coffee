@@ -8,7 +8,7 @@ perPage = 20
 
 app = module.exports = express()
 
-app.get "/findimages", (req, res, next) ->
+app.get "/find/images", (req, res, next) ->
    unless req.query then return req.json status: "fail"
    page = if not req.query.page or req.query.page < 0 then 0 else req.query.page
 
