@@ -7,11 +7,11 @@ app.get "/me/games/guessTheScore", (req, res, next) ->
    gameInfo =
       available: true
       picked: true
-      home:
+      home_team:
          picked_score: 34
          name: "Kansas Jayhawks"
          record: "(31-3, 14-2)"
-      away:
+      away_team:
          picked_score: 43
          name: "Missouri Tigers"
          record: "(31-3, 14-2)"
@@ -37,15 +37,17 @@ app.get "/me/games/guessTheScore", (req, res, next) ->
 
 app.get "/me/games/attendanceStreak", (req, res, next) ->
    gameInfo = 
-      home:
+      home_team:
          name: "Kansas Jayhawks"
          record: "(31-3, 14-2)"
-      away:
+      away_team:
          name: "Missouri Tigers"
          record: "(31-3, 14-2)"
       stadium:
          name: "Allen Fieldhouse"
          location: "Lawrence, Kansas"
+         lat: 38.953834
+         lng: -95.252829
       checked_in: false
       no_game: false
       next_game: "January 27, 2013"
@@ -56,12 +58,12 @@ app.get "/me/games/attendanceStreak", (req, res, next) ->
 
 app.get "/me/games/gameFace", (req, res, next) ->
    gameInfo = 
-      available: false
+      available: true
       face_value: "off"
-      home:
+      home_team:
          name: "Kansas Jayhawks"
          record: "(31-3, 14-2)"
-      away:
+      away_team:
          name: "Missouri Tigers"
          record: "(31-3, 14-2)"
    res.json gameInfo

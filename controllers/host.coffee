@@ -20,10 +20,10 @@ app.use express.cookieParser process.env.COOKIE_SECRET or "super duper secret"
 app.use express.static path.join __dirname, "../public"
 
 #Session
-redis_client = redis.connect(process.env.REDISTOGO_URL or "redis://heroku.bad942ab42933a1bd148:d83a3ae81b3c7e67314831b9c167459e@clingfish.redistogo.com:9480/")
-app.use express.session
-   cookie: maxAge: 60000 * 2880
-   store: new RedisStore(client: redis_client)
+# redis_client = redis.connect(process.env.REDISTOGO_URL or "redis://heroku.bad942ab42933a1bd148:d83a3ae81b3c7e67314831b9c167459e@clingfish.redistogo.com:9480/")
+# app.use express.session
+#    cookie: maxAge: 60000 * 2880
+#    store: new RedisStore(client: redis_client)
 
 # Login controller
 app.use require "./login"

@@ -10,10 +10,11 @@ app = module.exports = express()
 
 app.get "/find/images", (req, res, next) ->
    unless req.query then return req.json status: "fail"
-   page = if not req.query.page or req.query.page < 0 then 0 else req.query.page
+   limit = req.query.limit
+   skip = req.query.skip
 
    request 
-      uri: "https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/Image?$top=#{perPage}&$skip=#{page*perPage}&$format=json&Query=%27#{escape(req.query.query)}%27"
+      uri: "https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/Image?$top=#{limit}&$skip=#{skip}&$format=json&Query=%27#{escape(req.query.query)}%27"
       method: "GET"
       headers: 
          "Authorization": "Basic #{authKey}"
