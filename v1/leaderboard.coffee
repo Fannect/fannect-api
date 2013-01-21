@@ -3,7 +3,7 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/me/leaderboard", (req, res, next) ->
+app.get "/v1/leaderboard/:team_id", (req, res, next) ->
    count = req.query.count
    skip = req.query.skip
 

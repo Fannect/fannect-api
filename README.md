@@ -10,6 +10,10 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * GET - get profile information for this user
 * POST - creating original account for this user
 
+### `/v1/me/token`
+* POST - Creates new `access_token` and `refresh_token` with credentials 
+* PUT - Creates new `access_token` with `refresh_token`
+
 ### `/v1/me/teams`
 * GET - get all team profiles
 * POST - add a new team profile to the user
@@ -32,6 +36,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/leaderboard/[team_id]`
 * GET - gets the overall leaderboard for a team
+   * `friends_only` - [false] restrict to friends only
 
 ### `/v1/users`
 * GET - gets users with filter
@@ -41,5 +46,18 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ### `/v1/leagues`
 * GET - lists available leagues
 
-### `/v1/leagues/[league]/teams
+### `/v1/leagues/[league]/teams`
 * GET - ?
+
+### `/v1/images/me`
+* PUT - Updates this user's profile image
+
+### `/v1/images/me/[team_profile_id]`
+* PUT - Updates the team image for this profile
+
+### `/v1/images/bing`
+* GET - Search Bing for images
+   * q - query to search by
+   * limit - number of images to return
+   * skip - images to skip
+

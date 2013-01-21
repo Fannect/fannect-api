@@ -26,15 +26,10 @@ app.use express.static path.join __dirname, "../public"
 #    store: new RedisStore(client: redis_client)
 
 # Login controller
-app.use require "./login"
+# app.use require "./login"
 
 # Check login
 app.use require "../middleware/checkLogin"
 
 # Controllers
-app.use require "./profile"
-app.use require "./games"
-app.use require "./leaderboard"
-app.use require "./connect"
-app.use require "./bingImages"
-app.use require "./settings"
+app.use require "./v1"

@@ -3,8 +3,7 @@ rest = require "request"
 
 app = module.exports = express()
 
-app.get "/me/connect", (req, res, next) ->
-
+app.get "/v1/users", (req, res, next) ->
    count = req.query.count
    skip = req.query.skip
 
