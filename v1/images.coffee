@@ -1,11 +1,7 @@
 fs = require "fs"
 express = require "express"
 request = require "request"
-cloudinary = require "cloudinary"
-
-cloudinary.config "cloud_name", "fannect-dev"
-cloudinary.config "api_key", "498234921417922"
-cloudinary.config "api_secret", "Q4qI_uIoi5D4fwkGOIDm84xZMQc"
+images = require "../utils/images"
 
 app = module.exports = express()
 
@@ -15,34 +11,42 @@ authKey = new Buffer("#{accountKey}:#{accountKey}").toString("base64")
 perPage = 20
 
 # Updates this user's profile image
+app.post "/v1/images/me", (req, res, next) ->
+   if req.files?.image?.path
+      images.uploadToCloud req.files.image.path,
+         [{ width: 280, height: 280, crop: "fill", gravity: "faces" }]
+      , (error, result) ->
+         if error
+            res.json error.http_code or 400,
+               status: "fail"
+               message: error.message
+         else
+            res.json 
+               image_url: result.url
+
+# Updates this user'r profile image to specified url
 app.put "/v1/images/me", (req, res, next) ->
-   res.json
-      image_url: ""
+   image_url = req.body.image_url
+   res.json status: "success"
 
 # Updates the team profile image
-app.put "/v1/images/me/:team_profile_id", (req, res, next) ->
-   console.log image_url = req.body.image_url
-
-
-   if image_url
-      cloudinary.uploader.upload image_url, (result) ->
-         res.json image_url: result.url
-         # TODO: POST URL TO MONGO
-         console.log(result) 
-      , [{ width: 190, height: 190, crop: "fill", gravity: "faces" }]
-   else
-      res.json
-         image_url: ""
+app.post "/v1/images/me/:team_profile_id", (req, res, next) ->
+   image_path = req.files?.image.path or req.body?.image_url
+   if image_path
+      images.uploadToCloud image_path,
+         [{ width: 376, height: 376, crop: "fill", gravity: "faces" }]
+      , (error, result) ->
+         if error
+            res.json error.http_code or 400,
+               status: "fail"
+               message: error.message
+         else
+            res.json 
+               image_url: result.url
             
-# cloudinary.url("sample_remote.jpg")
-
-
-
-   # file_reader = fs.createReadStream('my_picture.jpg', {encoding: 'binary'})
-   #    .on('data', stream.write)
-   #    .on('end', stream.end)
-   # stream = cloudinary.uploader.upload_stream(function(result) { console.log(result); });
-
+app.put "/v1/images/me/:team_profile_id", (req, res, next) ->
+   image_url = req.body.image_url
+   res.json status: "success"
 
 # Search Bing images
 app.get "/v1/images/bing", (req, res, next) ->
