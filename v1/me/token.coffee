@@ -1,4 +1,6 @@
 express = require "express"
+mongoose = require "mongoose"
+User = require "../../models/User"
 
 app = module.exports = express()
 
@@ -6,6 +8,7 @@ app = module.exports = express()
 app.post "/v1/me/token", (req, res, next) ->
    email = req.body.email
    password = req.body.password
+
 
    res.json
       access_token: "123"

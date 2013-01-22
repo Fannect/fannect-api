@@ -1,6 +1,7 @@
 express = require "express"
 rest = require "request"
-sf = require "node-salesforce"
+mongoose = require "mongoose"
+User = require "../models/User"
 
 app = module.exports = express()
 
@@ -20,6 +21,9 @@ app.get "/v1/me", (req, res, next) ->
       "game_day_spot": "I like sports.",
       "bragging_rights": "Оружие хорошо"
       
+app.post "/v1/me", (req, res, next) ->
+   b = req.body
+   # if not b or not b.email or not b.password or not b.first_name or not b.
 
 app.use require "./me/games"
 app.use require "./me/invites"

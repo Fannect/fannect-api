@@ -1,7 +1,8 @@
 express = require "express"
 path = require "path"
-RedisStore = require("connect-redis")(express)
-redis = require("redis-url")
+redis = require "redis-url"
+mongoose = require "mongoose"
+mongooseTypes = require "mongoose-types"
 
 app = module.exports = express()
 
@@ -19,6 +20,16 @@ app.use express.bodyParser()
 app.use express.cookieParser process.env.COOKIE_SECRET or "super duper secret"
 app.use express.static path.join __dirname, "../public"
 
+# Set up mongoose
+mongoose.connect process.env.MONGO_URL or "mongodb://admin:testing@linus.mongohq.com:10064/fannect"
+mongooseTypes.loadTypes mongoose
+
+
+
+
+# db.on "error", console.error.bind(console, "connection error:")
+# db.once "open", () -> "Mongo connected."
+
 #Session
 # redis_client = redis.connect(process.env.REDISTOGO_URL or "redis://heroku.bad942ab42933a1bd148:d83a3ae81b3c7e67314831b9c167459e@clingfish.redistogo.com:9480/")
 # app.use express.session
@@ -27,6 +38,8 @@ app.use express.static path.join __dirname, "../public"
 
 # Login controller
 # app.use require "./login"
+
+
 
 # Check login
 app.use require "../middleware/checkLogin"
