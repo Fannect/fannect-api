@@ -1,5 +1,6 @@
 express = require "express"
 rest = require "request"
+crypt = require "../utils/crypt"
 mongoose = require "mongoose"
 User = require "../models/User"
 
@@ -22,8 +23,17 @@ app.get "/v1/me", (req, res, next) ->
       "bragging_rights": "Оружие хорошо"
       
 app.post "/v1/me", (req, res, next) ->
-   b = req.body
-   # if not b or not b.email or not b.password or not b.first_name or not b.
+   if not body = req.body then next "Missing body"
+
+   User.create
+      email: body.email
+      password: crypt.hashPassword body.password
+      first_name: body.first_name
+      last_name: body.last_name
+      refresh_token: crypt.generateRefreshToken()
+   , (err, user) ->
+      if err then next err
+      else res.json user
 
 app.use require "./me/games"
 app.use require "./me/invites"

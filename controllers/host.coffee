@@ -42,7 +42,11 @@ mongooseTypes.loadTypes mongoose
 
 
 # Check login
-app.use require "../middleware/checkLogin"
+# app.use require "../middleware/checkLogin"
 
 # Controllers
 app.use require "./v1"
+
+# Error handling
+app.use require "../middleware/handleErrors"
+

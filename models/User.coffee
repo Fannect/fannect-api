@@ -12,9 +12,7 @@ userSchema = mongoose.Schema
    profile_image_url: { type: Url }
    created_on: { type: Date, default: Date.now }
    refresh_token: { type: String, required: true }
+   reload_stream: String
    # team_profiles: [{ type: Schema.Types.ObjectId, ref: "TeamProfile" }]
-
-userSchema.post "init", (doc) ->
-   unless doc.refresh_token then doc.refresh_token = crypt.generateRefreshToken()
 
 module.exports = mongoose.model("User", userSchema)
