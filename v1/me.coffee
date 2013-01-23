@@ -2,8 +2,8 @@ express = require "express"
 rest = require "request"
 mongoose = require "mongoose"
 User = require "../models/User"
-authenticate = require "../middleware/authenticate"
-redis = require("../utils/redis").client
+authenticate = require "../common/middleware/authenticate"
+redis = require("../common/utils/redis").client
 
 app = module.exports = express()
 

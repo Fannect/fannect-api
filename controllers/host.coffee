@@ -3,8 +3,8 @@ path = require "path"
 redis = require "redis-url"
 mongoose = require "mongoose"
 mongooseTypes = require "mongoose-types"
-redis = (require "../utils/redis")(process.env.REDIS_URL or "redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203")
-ResourceNotFoundError = require "../errors/ResourceNotFoundError"
+redis = (require "../common/utils/redis")(process.env.REDIS_URL or "redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203")
+ResourceNotFoundError = require "../common/errors/ResourceNotFoundError"
 
 app = module.exports = express()
 
@@ -53,6 +53,6 @@ app.all "*", (req, res, next) ->
    next(new ResourceNotFoundError())
 
 # Error handling
-app.use require "../middleware/handleErrors"
+app.use require "../common/middleware/handleErrors"
 
 

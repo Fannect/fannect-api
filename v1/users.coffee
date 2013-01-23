@@ -1,6 +1,6 @@
 express = require "express"
 rest = require "request"
-authenticate = require "../middleware/authenticate"
+authenticate = require "../common/middleware/authenticate"
 
 app = module.exports = express()
 
