@@ -1,8 +1,8 @@
 /*
 Environmental variables
  - PORT
- - COOKIE_SECRET
- - REDISTOGO_URL
+ - MONGO_URL
+ - REDIS_URL
 */
 
 require("coffee-script");
@@ -11,5 +11,5 @@ http = require("http");
 port = process.env.PORT || 2100;
 
 http.createServer(app).listen(port, function () {
-   console.log("Fannect Web App listening on " + port);
+   console.log("Fannect Core API listening on " + port);
 });

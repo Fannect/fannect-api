@@ -1,5 +1,4 @@
 mongoose = require "mongoose"
-crypt = require "../utils/crypt"
 
 Email = mongoose.SchemaTypes.Email
 Url = mongoose.SchemaTypes.Url

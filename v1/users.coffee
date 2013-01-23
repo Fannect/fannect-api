@@ -1,9 +1,10 @@
 express = require "express"
 rest = require "request"
+authenticate = require "../middleware/authenticate"
 
 app = module.exports = express()
 
-app.get "/v1/users", (req, res, next) ->
+app.get "/v1/users", authenticate, (req, res, next) ->
    count = req.query.count
    skip = req.query.skip
 

@@ -3,6 +3,7 @@ path = require "path"
 redis = require "redis-url"
 mongoose = require "mongoose"
 mongooseTypes = require "mongoose-types"
+redis = (require "../utils/redis")(process.env.REDIS_URL or "redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203")
 
 app = module.exports = express()
 
@@ -49,4 +50,9 @@ app.use require "./v1"
 
 # Error handling
 app.use require "../middleware/handleErrors"
+
+app.all "*", (req, res) ->
+   res.json 404,
+      status: "fail"
+      message: "Resource not found."
 
