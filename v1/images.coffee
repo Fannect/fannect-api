@@ -1,7 +1,7 @@
 fs = require "fs"
 express = require "express"
 request = require "request"
-images = require "../utils/images"
+images = require "../common/utils/images"
 
 app = module.exports = express()
 

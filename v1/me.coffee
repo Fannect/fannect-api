@@ -1,7 +1,7 @@
 express = require "express"
 rest = require "request"
 mongoose = require "mongoose"
-User = require "../models/User"
+User = require "../common/models/User"
 authenticate = require "../common/middleware/authenticate"
 redis = require("../common/utils/redis").client
 
