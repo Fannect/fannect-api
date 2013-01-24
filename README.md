@@ -10,15 +10,11 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * GET - get profile information for this user
 * POST - creating original account for this user
 
-### `/v1/me/token`
-* POST - Creates new `access_token` and `refresh_token` with credentials 
-* PUT - Creates new `access_token` with `refresh_token`
-
 ### `/v1/me/teams`
 * GET - get all team profiles
 * POST - add a new team profile to the user
 
-### `/v1/me/teams/[profile_team_id]`
+### `/v1/me/teams/[team_profile_id]`
 * GET - gets the team profile
 * PUT - update the team profile
 
