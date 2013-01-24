@@ -13,6 +13,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ### `/v1/me/teams`
 * GET - get all team profiles
 * POST - add a new team profile to the user
+  * `team_id` - team_id to create profile for
 
 ### `/v1/me/teams/[team_profile_id]`
 * GET - gets the team profile
@@ -61,6 +62,8 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ### `/v1/sports/[sport_key]/leagues/[league_key]/teams`
 * GET - lists available teams for this league
 
+### `/v1/
+
 ### `/v1/images/me`
 * PUT - Updates this user's profile image
 
@@ -73,3 +76,11 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
    * limit - number of images to return
    * skip - images to skip
 
+
+## Roles
+* rookie - all normal Fannect users
+* subs
+* starter
+* allstar
+* mvp
+* hof - Fannect team, required to upload teams doc
