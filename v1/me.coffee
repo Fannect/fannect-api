@@ -36,10 +36,6 @@ app.put "/v1/me", authenticate, (req, res, next) ->
                status: "success"
 
 
-
-
-
-
    console.log req.body
 
 
@@ -58,3 +54,4 @@ app.put "/v1/me", authenticate, (req, res, next) ->
 
 app.use require "./me/games"
 app.use require "./me/invites"
+app.use require "./me/teams"

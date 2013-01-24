@@ -1,6 +1,5 @@
 express = require "express"
 path = require "path"
-redis = require "redis-url"
 mongoose = require "mongoose"
 mongooseTypes = require "mongoose-types"
 redis = (require "../common/utils/redis")(process.env.REDIS_URL or "redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203")
@@ -19,7 +18,6 @@ app.configure "production", () ->
 # Middleware
 app.use express.query()
 app.use express.bodyParser()
-app.use express.cookieParser process.env.COOKIE_SECRET or "super duper secret"
 app.use express.static path.join __dirname, "../public"
 
 # Set up mongoose
