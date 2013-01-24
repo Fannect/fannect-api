@@ -34,16 +34,16 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * GET - gets the overall leaderboard for a team
    * `friends_only` - [false] restrict to friends only
 
-### `/v1/leaderboard/teams/[team_id]/conference
+### `/v1/leaderboard/teams/[team_id]/conference`
 * GET - gets leaderbaord based on conference
 
-### `/v1/leaderboard/teams/[team_id]/league
+### `/v1/leaderboard/teams/[team_id]/league`
 * GET - gets leaderboard based on league
  
 ### `/v1/leaderboard/teams/[team_id]/breakdown
 * GET - gets points breakdown for this team 
 
-### `/v1/leaderboard/teams/[team_id]/custom
+### `/v1/leaderboard/teams/[team_id]/custom`
 * GET - gets comparison between this team and another
   * `q` - team to compare against
 
