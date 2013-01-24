@@ -30,20 +30,36 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * GET - get current game state for this user
 * PUT - update current game state for this user
 
-### `/v1/leaderboard/[team_id]`
+### `/v1/leaderboard/users/[team_id]`
 * GET - gets the overall leaderboard for a team
    * `friends_only` - [false] restrict to friends only
+
+### `/v1/leaderboard/teams/[team_id]/conference
+* GET - gets leaderbaord based on conference
+
+### `/v1/leaderboard/teams/[team_id]/league
+* GET - gets leaderboard based on league
+ 
+### `/v1/leaderboard/teams/[team_id]/breakdown
+* GET - gets points breakdown for this team 
+
+### `/v1/leaderboard/teams/[team_id]/custom
+* GET - gets comparison between this team and another
+  * `q` - team to compare against
 
 ### `/v1/users`
 * GET - gets users with filter
    * `q` - query to filter users
    * `friends_only` - [false] restrict to friends only
 
-### `/v1/leagues`
-* GET - lists available leagues
+### `/v1/sports`
+* GET - lists available sports
 
-### `/v1/leagues/[league]/teams`
-* GET - ?
+### `/v1/sports/[sport_key]/leagues
+* GET - lists available leagues for this sport
+
+### `/v1/sports/[sport_key]/leagues/[league_key]/teams
+* GET - lists available teams for this league
 
 ### `/v1/images/me`
 * PUT - Updates this user's profile image
