@@ -77,9 +77,9 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
    * skip - images to skip
 
 
-## Roles
+## Roles Levels
 * rookie - all normal Fannect users
-* subs
+* sub
 * starter
 * allstar
 * mvp
