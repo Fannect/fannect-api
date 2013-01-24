@@ -40,7 +40,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ### `/v1/leaderboard/teams/[team_id]/league`
 * GET - gets leaderboard based on league
  
-### `/v1/leaderboard/teams/[team_id]/breakdown
+### `/v1/leaderboard/teams/[team_id]/breakdown`
 * GET - gets points breakdown for this team 
 
 ### `/v1/leaderboard/teams/[team_id]/custom`
@@ -55,10 +55,10 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ### `/v1/sports`
 * GET - lists available sports
 
-### `/v1/sports/[sport_key]/leagues
+### `/v1/sports/[sport_key]/leagues`
 * GET - lists available leagues for this sport
 
-### `/v1/sports/[sport_key]/leagues/[league_key]/teams
+### `/v1/sports/[sport_key]/leagues/[league_key]/teams`
 * GET - lists available teams for this league
 
 ### `/v1/images/me`
