@@ -1,10 +1,24 @@
 express = require "express"
 rest = require "request"
-authenticate = require "../common/middleware/authenticate"
+auth = require "../common/middleware/authenticate"
+TeamProfile = require "../common/models/TeamProfile"
+MongoError = require "../common/errors/MongoError"
+
 
 app = module.exports = express()
 
-app.get "/v1/leaderboard/:team_id", authenticate, (req, res, next) ->
+app.get "/v1/leaderboard/users/:team_id", auth.rookie, (req, res, next) ->
+   friends_only = req.query.friends_only
+
+   TeamProfile
+   .find({ "friends": friends_only })
+   .sort("points")
+   .select("profile_image_url name")
+   .exec (err, done) ->
+      return next(new MongoError(err)) if err
+
+
+app.get "/v1/leaderboard/:team_id", auth.rookie, (req, res, next) ->
    count = req.query.count
    skip = req.query.skip
 

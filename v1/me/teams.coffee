@@ -1,40 +1,63 @@
 express = require "express"
-authenticate = require "../../common/middleware/authenticate"
+auth = require "../../common/middleware/authenticate"
 TeamProfile = require "../../common/models/TeamProfile"
 Team = require "../../common/models/Team"
+MongoError = require "../../common/errors/MongoError"
 
 app = module.exports = express()
 
 # Get team profiles
-app.get "/v1/me/teams", authenticate, (req, res, next) ->
+app.get "/v1/me/teams", auth.rookie, (req, res, next) ->
    TeamProfile
    .find()
    .where("_id").in(req.user.team_profiles)
    .select("_id team_name")
    .exec (err, team_profiles) ->
-      return next(err) if err
+      return next(new MongoError(err)) if err
       res.json team_profiles.toObject()
 
 # Add team profile
-app.post "/v1/me/teams", authenticate, (req, res, next) ->
+app.post "/v1/me/teams", auth.rookie, (req, res, next) ->
    team_id = req.body.team_id
 
    Team
    .findOne("_id": team_id)
-   .select("abbreviation nickname")
+   .select("abbreviation nickname team_key")
    .exec (err, team) ->
-      return next(err) if err
-
+      return next(new MongoError(err)) if err
+         
       TeamProfile.create
          user_id: req.user._id 
          name: "#{req.user.first_name} #{req.user.last_name}"
          team_id: team_id
+         team_key: team.team_key
          team_name: "#{team.abbreviation} #{team.nickname}" 
-      , (err, team_profile) ->
-         return next(err) if err
-         res.json team_profile
+      , (err, this_profile) ->
+         return next(new MongoError(err)) if err
 
-app.get "/v1/me/teams/:team_profile_id", authenticate, (req, res, next) ->
+         TeamProfile
+         .find({ team_id: team_id, user_id: { $in: req.user.friends }})
+         .select("friends")
+         .exec (err, team_profiles) ->
+            return next(new MongoError(err)) if err
+
+            updated = [this_profile.save]
+
+            for profile in team_profiles
+               profile.friends.push this_profile._id
+               this_profile.friends.push profile._id
+               updated.push profile.save
+
+            async.parallel updated, (err) ->
+               return next(new MongoError(err)) if err
+               res.json
+                  status: "success"
+
+
+
+
+
+app.get "/v1/me/teams/:team_profile_id", auth.rookie, (req, res, next) ->
    
    teams = [
       {

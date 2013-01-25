@@ -3,6 +3,7 @@ express = require "express"
 request = require "request"
 images = require "../common/utils/images"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
+auth = "../common/middleware/autheticate"
 
 app = module.exports = express()
 
@@ -12,7 +13,7 @@ authKey = new Buffer("#{accountKey}:#{accountKey}").toString("base64")
 perPage = 20
 
 # Updates this user's profile image
-app.post "/v1/images/me", (req, res, next) ->
+app.post "/v1/images/me", auth.rookie, (req, res, next) ->
    if req.files?.image?.path
       images.uploadToCloud req.files.image.path,
          [{ width: 280, height: 280, crop: "fill", gravity: "faces" }]
@@ -28,12 +29,12 @@ app.post "/v1/images/me", (req, res, next) ->
       next(new InvalidArgumentError("Required: image file"))
 
 # Updates this user'r profile image to specified url
-app.put "/v1/images/me", (req, res, next) ->
+app.put "/v1/images/me", auth.rookie, (req, res, next) ->
    image_url = req.body.image_url
    res.json status: "success"
 
 # Updates the team profile image
-app.post "/v1/images/me/:team_profile_id", (req, res, next) ->
+app.post "/v1/images/me/:team_profile_id", auth.rookie, (req, res, next) ->
    image_path = req.files?.image.path or req.body?.image_url
    if image_path
       images.uploadToCloud image_path,
@@ -47,12 +48,12 @@ app.post "/v1/images/me/:team_profile_id", (req, res, next) ->
             res.json 
                image_url: result.url
             
-app.put "/v1/images/me/:team_profile_id", (req, res, next) ->
+app.put "/v1/images/me/:team_profile_id", auth.rookie, (req, res, next) ->
    image_url = req.body.image_url
    res.json status: "success"
 
 # Search Bing images
-app.get "/v1/images/bing", (req, res, next) ->
+app.get "/v1/images/bing", auth.rookie, (req, res, next) ->
    unless req.query then return req.json status: "fail"
    q = req.query.q
    limit = req.query.limit

@@ -4,7 +4,6 @@ Environmental variables
  - MONGO_URL
  - REDIS_URL
 */
-
 require("coffee-script");
 app = require("./controllers/host.coffee");
 http = require("http");

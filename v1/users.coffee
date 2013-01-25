@@ -1,24 +1,39 @@
 express = require "express"
 rest = require "request"
-authenticate = require "../common/middleware/authenticate"
+auth = require "../common/middleware/authenticate"
+TeamProfile = require "../common/models/TeamProfile"
+Team = require "../common/models/Team"
+MongoError = require "../common/errors/MongoError"
 
 app = module.exports = express()
 
-app.get "/v1/users", authenticate, (req, res, next) ->
+app.post "/v1/users/invite", auth.rookie, (req, res, next) ->
+   other_id = req.body.user_id
+
+   User
+   .update { _id: other_id }, { $addToSet: { invites: req.user._id } }, (err, row, raw) ->
+      return next(new MongoError(err)) if err
+
+      console.log "raw", raw
+      res.json status: "success"
+
+app.get "/v1/users", auth.rookie, (req, res, next) ->
    count = req.query.count
    skip = req.query.skip
+   q = req.query.q
 
-   # conn = req.conn
-   # conn.query "SELECT Id FROM User WHERE Id = 005E0000001jeZ4IAI", (err, data) ->
-   #    return res.json data
-   # conn.sobject("Roster__c")
-   #    .find({
-   #       "FanName__c": req.session.user_id
-   #    }, {
-   #       "Teammate__r.Name": 1
-   #    })
-   #    .execute (err, roster) ->
-   #       if err then res.json err else res.json roster
+   # FINISH
+   if q
+      regex = if q then new RegExp("(|.*[\s]+)(#{q}).*", "i")
+      TeamProfile
+      .find({ name: regex })
+      .sort("name")
+      .select("profile_image_url name")
+   else
+      TeamProfile
+      .find({ user_id: req.user._id })
+      .sort("name")
+      .select("profile_image_url name")
 
 
 # app.get "/fans", (req, res, next) ->

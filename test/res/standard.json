@@ -1,0 +1,124 @@
+{
+    "User": [
+        {
+            "_id": "5102b17168a0c8f70c000002",
+            "email": "testing1@fannect.me",
+            "password": "hi",
+            "first_name": "Mike",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken"
+        }, {
+            "_id": "5102b17168a0c8f70c000003",
+            "email": "testing2@fannect.me",
+            "password": "hi",
+            "first_name": "Allstar",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken"
+        }, {
+            "_id": "5102b17168a0c8f70c000004",
+            "email": "testing3@fannect.me",
+            "password": "hi",
+            "first_name": "Richard",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken"
+        }
+    ],
+    "TeamProfile": [
+        {
+            "_id": "5102b17168a0c8f70c000005",
+            "user_id": "5102b17168a0c8f70c000002",
+            "name": "Mike Testing",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 10,
+                "knowledge": 2,
+                "passion": 3,
+                "dedication": 5
+            }
+        }, {
+            "_id": "5102b17168a0c8f70c000006",
+            "user_id": "5102b17168a0c8f70c000003",
+            "name": "Allstar Testing",
+            "team_id": "5102b17168a0c8f70c000009",
+            "team_name": "Kansas Jayhawks",
+            "team_key": "l.ncaa.org.mfoot-t.521",
+            "points": {
+                "overall": 15,
+                "knowledge": 7,
+                "passion": 3,
+                "dedication": 5
+            }
+        }, {
+            "_id": "5102b17168a0c8f70c000007",
+            "user_id": "5102b17168a0c8f70c000004",
+            "name": "Richard Testing",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 5,
+                "knowledge": 1,
+                "passion": 2,
+                "dedication": 3
+            }
+        }, {
+            "_id": "5102b17168a0c8f70c000010",
+            "user_id": "5102b17168a0c8f70c000004",
+            "name": "Richard Testing",
+            "team_id": "5102b17168a0c8f70c000009",
+            "team_name": "Kansas Jayhawks",
+            "team_key": "l.ncaa.org.mfoot-t.521",
+            "points": {
+                "overall": 6,
+                "knowledge": 2,
+                "passion": 3,
+                "dedication": 1
+            }
+        }
+    ],
+    "Team": [
+        {
+            "_id": "5102b17168a0c8f70c000008",
+            "abbreviation": "Kansas St.",
+            "conference_key": "c.big-12",
+            "conference_name": "Big 12 Conference",
+            "is_college": true,
+            "league_key": "l.ncaa.org.mfoot",
+            "league_name": "NCAA Men's Football Division 1A",
+            "location_name": "Kansas St.",
+            "nickname": "Wildcats",
+            "sport_key": "15003000",
+            "sport_name": "American Football",
+            "stadium": {
+                "name": "Bill Snyder Family Stadium",
+                "coords": [
+                    -96.593878,
+                    39.20198
+                ]
+            },
+            "team_key": "l.ncaa.org.mfoot-t.522"
+        }, {
+            "_id": "5102b17168a0c8f70c000009",
+            "abbreviation": "Kansas",
+            "conference_key": "c.big-12",
+            "conference_name": "Big 12 Conference",
+            "is_college": true,
+            "league_key": "l.ncaa.org.mfoot",
+            "league_name": "NCAA Men's Football Division 1A",
+            "location_name": "Kansas",
+            "nickname": "Jayhawks",
+            "sport_key": "15003000",
+            "sport_name": "American Football",
+            "stadium": {
+                "name": "Memorial Stadium",
+                "coords": [
+                    -95.246401,
+                    38.962979
+                ]
+            },
+            "team_key": "l.ncaa.org.mfoot-t.521"
+        }
+    ]
+}

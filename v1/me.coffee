@@ -2,7 +2,8 @@ express = require "express"
 rest = require "request"
 mongoose = require "mongoose"
 User = require "../common/models/User"
-authenticate = require "../common/middleware/authenticate"
+TeamProfile = require "../common/models/TeamProfile"
+auth = require "../common/middleware/authenticate"
 redis = require("../common/utils/redis").client
 MongoError = require "../common/errors/MongoError"
 async = require "async"
@@ -10,11 +11,13 @@ async = require "async"
 app = module.exports = express()
 
 # Get this user
-app.get "/v1/me", authenticate, (req, res, next) ->
+app.get "/v1/me", auth.rookie, (req, res, next) ->
+   # throw err
+   # console.log auth.toString()
    res.json req.user
 
 # Update this user
-app.put "/v1/me", authenticate, (req, res, next) ->
+app.put "/v1/me", auth.rookie, (req, res, next) ->
    b = req.body
    
    async.parallel [

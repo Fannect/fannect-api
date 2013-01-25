@@ -24,9 +24,6 @@ app.use express.static path.join __dirname, "../public"
 mongoose.connect process.env.MONGO_URL or "mongodb://admin:testing@linus.mongohq.com:10064/fannect"
 mongooseTypes.loadTypes mongoose
 
-
-
-
 # db.on "error", console.error.bind(console, "connection error:")
 # db.once "open", () -> "Mongo connected."
 
