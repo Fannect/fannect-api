@@ -1,29 +1,32 @@
 {
-    "User": [
+    "users": [
         {
             "_id": "5102b17168a0c8f70c000002",
             "email": "testing1@fannect.me",
             "password": "hi",
             "first_name": "Mike",
             "last_name": "Testing",
-            "refresh_token": "testingtoken"
+            "refresh_token": "testingtoken",
+            "friends": ["5102b17168a0c8f70c000004"]
         }, {
             "_id": "5102b17168a0c8f70c000003",
             "email": "testing2@fannect.me",
             "password": "hi",
             "first_name": "Allstar",
             "last_name": "Testing",
-            "refresh_token": "testingtoken"
+            "refresh_token": "testingtoken",
+            "friends": []
         }, {
             "_id": "5102b17168a0c8f70c000004",
             "email": "testing3@fannect.me",
             "password": "hi",
             "first_name": "Richard",
             "last_name": "Testing",
-            "refresh_token": "testingtoken"
+            "refresh_token": "testingtoken",
+            "friends": ["5102b17168a0c8f70c000002"]
         }
     ],
-    "TeamProfile": [
+    "teamprofiles": [
         {
             "_id": "5102b17168a0c8f70c000005",
             "user_id": "5102b17168a0c8f70c000002",
@@ -36,7 +39,8 @@
                 "knowledge": 2,
                 "passion": 3,
                 "dedication": 5
-            }
+            },
+            "friends": ["5102b17168a0c8f70c000007"]
         }, {
             "_id": "5102b17168a0c8f70c000006",
             "user_id": "5102b17168a0c8f70c000003",
@@ -62,7 +66,8 @@
                 "knowledge": 1,
                 "passion": 2,
                 "dedication": 3
-            }
+            },
+            "friends": ["5102b17168a0c8f70c000005"]
         }, {
             "_id": "5102b17168a0c8f70c000010",
             "user_id": "5102b17168a0c8f70c000004",
@@ -78,7 +83,7 @@
             }
         }
     ],
-    "Team": [
+    "teams": [
         {
             "_id": "5102b17168a0c8f70c000008",
             "abbreviation": "Kansas St.",
