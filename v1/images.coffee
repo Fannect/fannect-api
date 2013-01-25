@@ -2,6 +2,7 @@ fs = require "fs"
 express = require "express"
 request = require "request"
 images = require "../common/utils/images"
+InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 
 app = module.exports = express()
 
@@ -23,6 +24,8 @@ app.post "/v1/images/me", (req, res, next) ->
          else
             res.json 
                image_url: result.url
+   else
+      next(new InvalidArgumentError("Required: image file"))
 
 # Updates this user'r profile image to specified url
 app.put "/v1/images/me", (req, res, next) ->

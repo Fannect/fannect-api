@@ -1,100 +1,23 @@
 express = require "express"
+authenticate = require "../common/middleware/authenticate"
+MongoError = require "../common/errors/MongoError"
 
 app = module.exports = express()
 
-app.get "/v1/me/invites", (req, res, next) ->
-   roster_fans = 
-      [
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "profile-invitationProfile.html?user=jeccles"
-            profile_image_url: "/dev/Pic_Player@2x.png"
-            roster: 100
-            points: 100
-            rank: 1
-         }
-      ]
+# Get all invites for this user
+app.get "/v1/me/invites", authenticate, (req, res, next) ->
+   UserProfile
+   .find({ user_id: { $in: req.user.invites } })
+   .select("name team_name profile_image_url")
+   .exec (err, data) ->
+      return next(new MongoError(err))
+      res.json data
 
-   res.json roster_fans
+# Create invite for this user
+app.post "/v1/me/invites/:user"
+
+
+app.
+
+
+/v1/users/:user_id/invite

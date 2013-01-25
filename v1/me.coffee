@@ -4,6 +4,8 @@ mongoose = require "mongoose"
 User = require "../common/models/User"
 authenticate = require "../common/middleware/authenticate"
 redis = require("../common/utils/redis").client
+MongoError = require "../common/errors/MongoError"
+async = require "async"
 
 app = module.exports = express()
 
@@ -13,44 +15,25 @@ app.get "/v1/me", authenticate, (req, res, next) ->
 
 # Update this user
 app.put "/v1/me", authenticate, (req, res, next) ->
-   User
-   .findOne({ "_id": req.user._id })
-   .select("_id email first_name last_name refresh_token birth gender")
-   .exec (err, user) ->
-      return next(err) if err
-
-      b = req.body
-      user.first_name = b.first_name if b.first_name
-      user.last_name = b.last_name if b.last_name
-      # user.birth = b.birth if b.birth
-      # user.gender = b.gender if b.gender
-
-      user.save (err, user) ->
-         return next(err) if err
-
-         redis.set req.query.access_token, user.toJSON(), (err, result) ->
-            return next(err) if err
-
-            redis.expire req.query.access_token, 1800
-            req.json
-               status: "success"
-
-
-   console.log req.body
-
-
-# app.post "/v1/me", (req, res, next) ->
-#    if not body = req.body then next "Missing body"
-
-#    User.create
-#       email: body.email
-#       password: crypt.hashPassword body.password
-#       first_name: body.first_name
-#       last_name: body.last_name
-#       refresh_token: crypt.generateRefreshToken()
-#    , (err, user) ->
-#       if err then next err
-#       else res.json user
+   b = req.body
+   
+   async.parallel [
+      (done) ->
+         User.update { _id: req.user._id },
+            first_name: b.first_name
+            last_name: b.last_name
+         , done
+      (done) ->
+         # Update name in all TeamProfiles
+         if b.first_name or b.last_name
+            name = "#{b.first_name or req.user.first_name} #{b.last_name or req.user.last_name}"
+            TeamProfile.update { user_id: req.user._id },
+               { name: name },
+               { multi: true } 
+            , done
+   ], (err, data) ->
+      return next(new MongoError(err)) if err
+      res.json status: "success"
 
 app.use require "./me/games"
 app.use require "./me/invites"
