@@ -45,7 +45,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/leaderboard/users/[team_id]`
 * GET - gets the overall leaderboard for a team
-   * `friends_only` - [false] restrict to friends only
+   * `friends_of` - [optional] restrict to only friends of a user
 
 ### `/v1/leaderboard/teams/[team_id]/conference`
 * GET - gets leaderbaord based on conference
