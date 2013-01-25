@@ -3,6 +3,7 @@ auth = require "../../common/middleware/authenticate"
 TeamProfile = require "../../common/models/TeamProfile"
 Team = require "../../common/models/Team"
 MongoError = require "../../common/errors/MongoError"
+ResourceNotFoundError = require "../../common/errors/ResourceNotFoundError"
 
 app = module.exports = express()
 
@@ -23,31 +24,12 @@ app.post "/v1/me/teams", auth.rookie, (req, res, next) ->
       return next(err) if err
       res.json teamProfile
 
-
-
+# Get single team profile by id
 app.get "/v1/me/teams/:team_profile_id", auth.rookie, (req, res, next) ->
-   
-   teams = [
-      {
-         user_id: "blahblah"
-         team_profile_id: "12345"
-         name: "Kansas State Wildcats"
-         team_image_url: "" 
-         team_id: "something"
-         roster: 0
-         points: 0
-         rank: 0
-      },
-      {
-         user_id: "blahblah"
-         team_profile_id: "54321"
-         name: "Kansas City Chiefs"
-         team_image_url: "" 
-         team_id: "something"
-         roster: 0
-         points: 0
-         rank: 0
-      }
-   ]
+   TeamProfile.findById req.params.team_profile_id, (err, profile) ->
+      return next(new MongoError(err)) if err
+      return next(new ResourceNotFoundError()) unless profile
+      res.json profile
 
-   res.json teams[req.params.team_profile_id]
+app.put "/v1/me/teams/:team_profile_id", auth.rookie, (req, res, next) ->
+   

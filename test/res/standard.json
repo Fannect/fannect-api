@@ -7,7 +7,8 @@
             "first_name": "Mike",
             "last_name": "Testing",
             "refresh_token": "testingtoken",
-            "friends": ["5102b17168a0c8f70c000004"]
+            "friends": ["5102b17168a0c8f70c000004"],
+            "invites": ["5102b17168a0c8f70c000020"]
         }, {
             "_id": "5102b17168a0c8f70c000003",
             "email": "testing2@fannect.me",
@@ -24,6 +25,14 @@
             "last_name": "Testing",
             "refresh_token": "testingtoken",
             "friends": ["5102b17168a0c8f70c000002"]
+        }, {
+            "_id": "5102b17168a0c8f70c000020",
+            "email": "testing4@fannect.me",
+            "password": "hi",
+            "first_name": "Frank",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken",
+            "friends": []
         }
     ],
     "teamprofiles": [
@@ -80,7 +89,22 @@
                 "knowledge": 2,
                 "passion": 3,
                 "dedication": 1
-            }
+            },
+            "friends": []
+        }, {
+            "_id": "5102b17168a0c8f70c000021",
+            "user_id": "5102b17168a0c8f70c000020",
+            "name": "Mike Testing",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 40,
+                "knowledge": 20,
+                "passion": 3,
+                "dedication": 17
+            },
+            "friends": []
         }
     ],
     "teams": [

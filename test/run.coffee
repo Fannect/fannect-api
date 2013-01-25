@@ -5,6 +5,7 @@ request = require "request"
 csvTeam = require "../common/utils/csvTeam"
 mongoose = require "mongoose"
 mockAuth = require "./utils/mockAuthenticate"
+async = require "async"
 
 # Have to do this because mongoose is initialized later
 dbSetup = null
@@ -20,6 +21,16 @@ process.env.NODE_ENV = "production"
 
 app = require "../controllers/host"
 
+emptyMongo = (done) -> dbSetup.unload data_standard, done
+prepMongo = (done) ->
+   context = @
+   dbSetup.load data_standard, (err, data) ->
+      return done(err) if err
+      context.db = data 
+      context.user = data.users[0]
+      done()
+
+
 describe "Fannect Core API", () ->
    before (done) ->
       context = @
@@ -32,16 +43,12 @@ describe "Fannect Core API", () ->
 
          dbSetup.unload data_standard, done
 
+   #
+   # /v1/me
+   #
    describe "/v1/me", () ->
-      before (done) ->
-         context = @
-         dbSetup.load data_standard, (err, data) ->
-            return done(err) if err
-            context.db = data 
-            context.user = data.users[0]
-            done()
-
-      after (done) -> dbSetup.unload data_standard, done
+      before prepMongo
+      after emptyMongo
       
       describe "GET", () ->
          it "should return this user", (done) ->
@@ -85,18 +92,13 @@ describe "Fannect Core API", () ->
                return done(err) if err
                tp.name.should.equal("Bob Van") for tp in team_profiles
                done()
-
-
+   
+   #
+   # /v1/me/teams
+   #
    describe "/v1/me/teams", () ->
-      before (done) ->
-         context = @
-         dbSetup.load data_standard, (err, data) ->
-            return done(err) if err
-            context.db = data 
-            context.user = data.users[0]
-            done()
-
-      after (done) -> dbSetup.unload data_standard, done
+      before prepMongo
+      after emptyMongo
 
       describe "GET", () ->
          it "should get all team profiles", (done) ->
@@ -142,7 +144,34 @@ describe "Fannect Core API", () ->
                profile.friends.should.include(context.body._id)
                done()
 
-   # describe "/v1/me/teams/[team_profile_id]", () ->
+   #
+   # /v1/me/teams/[team_profile_id]
+   #
+   describe "/v1/me/teams/[team_profile_id]", () ->
+      before prepMongo
+      after emptyMongo
+
+      describe "GET", () ->
+         it "should get the team profile", (done) ->
+            context = @
+            async.series
+               db: (done) -> TeamProfile.findById context.db.teamprofiles[0]._id, done
+               req: (done) ->
+                  request
+                     url: "#{context.host}/v1/me/teams/#{context.db.teamprofiles[0]._id}"
+                     method: "GET"
+                  , (err, resp, body) ->
+                     return done(err) if err
+                     done null, JSON.parse(body)
+            , (err, results) ->
+               return done(err) if err
+               results.db.toObject().toString().should.equal(results.req.toString())
+               done()
+
+   #
+   # /v1/me/invites
+   #
+   # describe "/v1/me/invites", () ->
    #    before (done) ->
    #       context = @
    #       dbSetup.load data_standard, (err, data) ->
@@ -152,5 +181,53 @@ describe "Fannect Core API", () ->
    #          done()
 
    #    after (done) -> dbSetup.unload data_standard, done
-
+      
    #    describe "GET", () ->
+   #       it "should return all invites", () ->
+   #          context = @
+   #          request
+   #             url: "#{context.host}/v1/me/invites"
+   #             method: "GET"
+   #          , (err, resp, body) ->
+   #             return done(err) if err
+   #             body = JSON.parse(body)
+   #             body.length.should.equal(1)
+   #             body[0].name.should.equal("")
+
+   #
+   # /v1/me/leaderboard/users/[team_id]
+   #               
+   describe "/v1/leaderboard/users/[team_id]", () ->
+      before prepMongo
+      after emptyMongo
+
+      describe "GET", () ->
+         it "should return leaderboard for a team", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/leaderboard/users/5102b17168a0c8f70c000008"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(3)
+               (body[0].points.overall > body[1].points.overall).should.be.true
+               done()
+
+         it "should return friends only leaderboard if friends_only flag", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/leaderboard/users/5102b17168a0c8f70c000008?friends_of=5102b17168a0c8f70c000005"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(2)
+               (body[0].points.overall > body[1].points.overall).should.be.true
+               done()
+
+
+
+
+
+

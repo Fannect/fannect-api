@@ -8,15 +8,25 @@ MongoError = require "../common/errors/MongoError"
 app = module.exports = express()
 
 app.get "/v1/leaderboard/users/:team_id", auth.rookie, (req, res, next) ->
-   friends_only = req.query.friends_only
+   friends_of = req.query.friends_of
+   team_id = req.params.team_id
 
-   TeamProfile
-   .find({ "friends": friends_only })
-   .sort("points")
-   .select("profile_image_url name")
-   .exec (err, done) ->
-      return next(new MongoError(err)) if err
-
+   if friends_of
+      TeamProfile
+      .find({ "team_id": team_id, $or: [{"friends": friends_of}, {"_id": friends_of}]})
+      .sort("-points.overall")
+      .select("profile_image_url name points")
+      .exec (err, profiles) ->
+         return next(new MongoError(err)) if err
+         res.json profiles
+   else
+      TeamProfile
+      .find({ "team_id": team_id })
+      .sort("-points.overall")
+      .select("profile_image_url name points")
+      .exec (err, profiles) ->
+         return next(new MongoError(err)) if err
+         res.json profiles
 
 app.get "/v1/leaderboard/:team_id", auth.rookie, (req, res, next) ->
    count = req.query.count
