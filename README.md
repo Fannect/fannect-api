@@ -14,6 +14,16 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/me/teams`
 * GET - get all team profiles
+
+```javascript
+[ { _id: '5102b17168a0c8f70c000005',
+    team_id: '5102b17168a0c8f70c000008',
+    team_key: 'l.ncaa.org.mfoot-t.522',
+    team_name: 'Kansas St. Wildcats',
+    trash_talk: [],
+    points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } } ]
+```
+
 * POST - add a new team profile to the user
   * `team_id` - team_id to create profile for
 
