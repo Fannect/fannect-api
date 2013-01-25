@@ -29,7 +29,6 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/me/teams/[team_profile_id]`
 * GET - gets the team profile
-* PUT - update the team profile
 
 ### `/v1/me/invites`
 * GET - lists all friend invite
