@@ -8,7 +8,9 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/me`
 * GET - get profile information for this user
-* POST - creating original account for this user
+* PUT - update profile information
+  * `first_name`
+  * `last_name`
 
 ### `/v1/me/teams`
 * GET - get all team profiles
@@ -22,6 +24,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ### `/v1/me/invites`
 * GET - lists all friend invite
 * POST - creates a friend invite
+  * `user_id` - accepts the user's invite
 * DELETE - deletes a friend invite
 
 ### `/v1/me/games`
