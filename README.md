@@ -8,9 +8,24 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/me`
 * GET - get profile information for this user
+
+```javascript
+{ _id: '5102b17168a0c8f70c000002',
+  email: 'testing1@fannect.me',
+  password: 'hi',
+  first_name: 'Mike',
+  last_name: 'Testing',
+  refresh_token: 'testingtoken',
+  friends: [ '5102b17168a0c8f70c000004' ] }
+```
+
 * PUT - update profile information
   * `first_name`
   * `last_name`
+
+```javascript
+{ status: 'success' }
+```
 
 ### `/v1/me/teams`
 * GET - get all team profiles
@@ -27,8 +42,40 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * POST - add a new team profile to the user
   * `team_id` - team_id to create profile for
 
+```javascript
+{ __v: 0,
+  _id: '510338a985e7e53d1f000003',
+  user_id: '5102b17168a0c8f70c000002',
+  name: 'Mike Testing',
+  team_id: '5102b17168a0c8f70c000009',
+  team_key: 'l.ncaa.org.mfoot-t.521',
+  team_name: 'Kansas Jayhawks',
+  trash_talk: [],
+  waiting_events: [],
+  has_processing: false,
+  events: [],
+  friends: [ '5102b17168a0c8f70c000010' ],
+  points: { dedication: 0, passion: 0, knowledge: 0, overall: 0 } }
+```
+
 ### `/v1/me/teams/[team_profile_id]`
 * GET - gets the team profile
+
+```javascript
+{ _id: '5102b17168a0c8f70c000005',
+  user_id: '5102b17168a0c8f70c000002',
+  name: 'Mike Testing',
+  team_id: '5102b17168a0c8f70c000008',
+  team_key: 'l.ncaa.org.mfoot-t.522',
+  team_name: 'Kansas St. Wildcats',
+  __v: 0,
+  trash_talk: [],
+  waiting_events: [],
+  has_processing: false,
+  events: [],
+  friends: [ '5102b17168a0c8f70c000007' ],
+  points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } }
+```
 
 ### `/v1/me/invites`
 * GET - lists all friend invite
@@ -47,18 +94,60 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * GET - gets the overall leaderboard for a team
    * `friends_of` - [optional] restrict to only friends of a team_profile_id
 
+```javascript
+[ { _id: '5102b17168a0c8f70c000005',
+    name: 'Mike Testing',
+    points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } },
+  { _id: '5102b17168a0c8f70c000007',
+    name: 'Richard Testing',
+    points: { dedication: 3, passion: 2, knowledge: 1, overall: 5 } } ]
+```
+
 ### `/v1/leaderboard/teams/[team_id]/conference`
-* GET - gets leaderbaord based on conference
+* GET - gets leaderboard based on conference
+
+```javascript
+[[ { _id: '5102b17168a0c8f70c000009',
+    abbreviation: 'Kansas',
+    nickname: 'Jayhawks',
+    points: { dedication: 140, passion: 280, knowledge: 200, overall: 620 } },
+  { _id: '5102b17168a0c8f70c000008',
+    abbreviation: 'Kansas St.',
+    nickname: 'Wildcats',
+    points: { dedication: 50, passion: 250, knowledge: 100, overall: 400 } } ]
+```
 
 ### `/v1/leaderboard/teams/[team_id]/league`
 * GET - gets leaderboard based on league
  
+```javascript
+[ { _id: '5102b17168a0c8f70c000009',
+    abbreviation: 'Kansas',
+    nickname: 'Jayhawks',
+    points: { dedication: 140, passion: 280, knowledge: 200, overall: 620 } },
+  { _id: '5102b17168a0c8f70c000008',
+    abbreviation: 'Kansas St.',
+    nickname: 'Wildcats',
+    points: { dedication: 50, passion: 250, knowledge: 100, overall: 400 } } ]
+```
+
 ### `/v1/leaderboard/teams/[team_id]/breakdown`
 * GET - gets points breakdown for this team 
+
+```javascript
+{ overall: 400, knowledge: 100, passion: 250, dedication: 50 }
+```
 
 ### `/v1/leaderboard/teams/[team_id]/custom`
 * GET - gets comparison between this team and another
   * `team_id` - team to compare against
+
+```javascript
+[ { _id: '5102b17168a0c8f70c000008',
+    points: { dedication: 50, passion: 250, knowledge: 100, overall: 400 } },
+  { _id: '5102b17168a0c8f70c000009',
+    points: { dedication: 140, passion: 280, knowledge: 200, overall: 620 } } ]
+```
 
 ### `/v1/users`
 * GET - gets users with filter

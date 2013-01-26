@@ -105,10 +105,10 @@ describe "Fannect Core API", () ->
             request
                url: "#{@host}/v1/me/teams"
                method: "GET"
-            , (err, resp, team_profiles) ->
+            , (err, resp, body) ->
                return done(err) if err
-               team_profiles = JSON.parse(team_profiles)
-               team_profiles.length.should.equal(1)
+               body = JSON.parse(body)
+               body.length.should.equal(1)
                done()
 
       describe "POST", () ->
