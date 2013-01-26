@@ -85,6 +85,13 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 **DELETE** - deletes a friend invite
 
+### `/v1/teams`
+**POST** - upsert teams
+
+```javascript
+{ status: 'success', count: 621 }
+```
+
 ### `/v1/me/games`
 **GET** - lists all available games for this user
 

@@ -31,7 +31,7 @@ app.get "/v1/users", auth.rookie, (req, res, next) ->
       .select("profile_image_url name")
    else
       TeamProfile
-      .find({ user_id: req.user._id })
+      .find({ friends: req.user._id })
       .sort("name")
       .select("profile_image_url name")
 

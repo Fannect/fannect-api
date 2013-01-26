@@ -308,5 +308,23 @@ describe "Fannect Core API", () ->
                body[1].points.should.be.ok
                done()
 
+   #
+   # /v1/teams
+   #  
+   describe "/v1/teams", () ->
+      before (done) ->
+         Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, done
+      
+      after (done) ->
+         Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, done
+
+      it "should parse csv and upload teams", (done) ->
+         csvTeam "#{__dirname}/res/test-teams.csv", (err, count) ->
+            return done(err) if err
+            count.should.equal(2)
+            Team.find { team_key: { $in: [ "testing.team.1", "testing.team.2"]}}, (err, teams) ->
+               return done(err) if err
+               teams.length.should.equal(2)
+               done()
 
 
