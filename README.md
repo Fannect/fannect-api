@@ -100,7 +100,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 { status: 'success', count: 621 }
 ```
 
-## `/v1/teams/[team_id]/users
+## `/v1/teams/[team_id]/users`
 **GET** - searches users of this team
 * `q` _(optional)_ - query to filter users by
 * `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
