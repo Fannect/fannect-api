@@ -227,6 +227,45 @@ describe "Fannect Core API", () ->
                done()
 
    #
+   # /v1/leaderboard/teams/[team_id]/conference
+   #  
+   describe "/v1/leaderboard/teams/[team_id]/conference", () ->
+      before prepMongo
+      after emptyMongo
+
+      describe "GET", () ->
+         it "should get leaderboard based on conference", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/leaderboard/teams/5102b17168a0c8f70c000008/conference"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(2)
+               (body[0].points.overall > body[1].points.overall).should.be.true
+               done()
+
+   #
+   # /v1/leaderboard/teams/[team_id]/league
+   #  
+   describe "/v1/leaderboard/teams/[team_id]/league", () ->
+      before prepMongo
+      after emptyMongo
+
+      describe "GET", () ->
+         it "should get leaderboard based on league", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/leaderboard/teams/5102b17168a0c8f70c000008/league"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(2)
+               (body[0].points.overall > body[1].points.overall).should.be.true
+               done()
+   #
    # /v1/leaderboard/teams/[team_id]/breakdown
    #  
    describe "/v1/leaderboard/teams/[team_id]/breakdown", () ->

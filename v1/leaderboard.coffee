@@ -30,6 +30,33 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookie, (req, res, next) ->
          return next(new MongoError(err)) if err
          res.json profiles
 
+app.get "/v1/leaderboard/teams/:team_id/conference", auth.rookie, (req, res, next) ->
+   team_id = req.params.team_id
+   Team.findById team_id, "conference_key conference_name", (err, team) ->
+      return next(new MongoError(err)) if err   
+      return next(new InvalidArgumentError("Invalid team_id")) unless team
+      Team
+      .find({conference_key:team.conference_key})
+      .sort("-points.overall")
+      .select("abbreviation nickname points")
+      .exec (err, teams) ->
+         return next(new MongoError(err)) if err
+         res.json teams
+
+app.get "/v1/leaderboard/teams/:team_id/league", auth.rookie, (req, res, next) ->
+   team_id = req.params.team_id
+   Team.findById team_id, "league_key league_name", (err, team) ->
+      return next(new MongoError(err)) if err   
+      return next(new InvalidArgumentError("Invalid team_id")) unless team
+      console.log 
+      Team
+      .find({league_key:team.league_key})
+      .sort("-points.overall")
+      .select("abbreviation nickname points")
+      .exec (err, teams) ->
+         return next(new MongoError(err)) if err
+         res.json teams
+
 app.get "/v1/leaderboard/teams/:team_id/breakdown", auth.rookie, (req, res, next) ->
    team_id = req.params.team_id
    Team.findById team_id, "points", (err, team) ->
