@@ -127,6 +127,12 @@
                     39.20198
                 ]
             },
+            "points": {
+                "overall": 400,
+                "knowledge": 100,
+                "passion": 250,
+                "dedication": 50
+            },
             "team_key": "l.ncaa.org.mfoot-t.522"
         }, {
             "_id": "5102b17168a0c8f70c000009",
@@ -146,6 +152,12 @@
                     -95.246401,
                     38.962979
                 ]
+            },
+            "points": {
+                "overall": 620,
+                "knowledge": 200,
+                "passion": 280,
+                "dedication": 140
             },
             "team_key": "l.ncaa.org.mfoot-t.521"
         }

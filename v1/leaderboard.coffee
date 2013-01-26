@@ -1,8 +1,10 @@
 express = require "express"
 rest = require "request"
 auth = require "../common/middleware/authenticate"
+Team = require "../common/models/Team"
 TeamProfile = require "../common/models/TeamProfile"
 MongoError = require "../common/errors/MongoError"
+InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 
 
 app = module.exports = express()
@@ -28,89 +30,20 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookie, (req, res, next) ->
          return next(new MongoError(err)) if err
          res.json profiles
 
-app.get "/v1/leaderboard/:team_id", auth.rookie, (req, res, next) ->
-   count = req.query.count
-   skip = req.query.skip
+app.get "/v1/leaderboard/teams/:team_id/breakdown", auth.rookie, (req, res, next) ->
+   team_id = req.params.team_id
+   Team.findById team_id, "points", (err, team) ->
+      return next(new MongoError(err)) if err
+      return next(new InvalidArgumentError("Invalid team_id")) unless team
+      res.json team.points
 
-   fans = 
-      [
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         },
-         {
-            name: "Jeremy Eccles"
-            team: "Sporting Kansas City"
-            profile_url: "leaderboard-rosterprofile.html"
-            profile_image_url: "http://fannect.herokuapp.com/dev/Pic_Player@2x.png"
-            rank: 1
-         }
-      ]
+app.get "/v1/leaderboard/teams/:team_id/custom", auth.rookie, (req, res, next) ->
+   this_team_id = req.params.team_id
+   other_team_id = req.query.team_id
+   return next(new InvalidArgumentError("Required: team_id")) unless other_team_id
+   Team.find { _id: { $in: [this_team_id, other_team_id ] }}, "points", (err, teams) ->
+      return next(new MongoError(err)) if err
+      return next(new InvalidArgumentError("Invalid team_id")) unless teams?.length == 2
+      res.json teams
 
-   res.json fans
+

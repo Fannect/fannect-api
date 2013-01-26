@@ -226,8 +226,48 @@ describe "Fannect Core API", () ->
                (body[0].points.overall > body[1].points.overall).should.be.true
                done()
 
+   #
+   # /v1/leaderboard/teams/[team_id]/breakdown
+   #  
+   describe "/v1/leaderboard/teams/[team_id]/breakdown", () ->
+      before prepMongo
+      after emptyMongo
 
+      describe "GET", () ->
+         it "should return points breakdown for team", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/leaderboard/teams/5102b17168a0c8f70c000008/breakdown"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.overall.should.equal(400)
+               body.knowledge.should.equal(100)
+               body.passion.should.equal(250)
+               body.dedication.should.equal(50)
+               done()
 
+   #
+   # /v1/leaderboard/teams/[team_id]/custom
+   #  
+   describe "/v1/leaderboard/teams/[team_id]/custom", () ->
+      before prepMongo
+      after emptyMongo
+
+      describe "GET", () ->
+         it "should return points breakdown for two teams to compare", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/leaderboard/teams/5102b17168a0c8f70c000008/custom?team_id=5102b17168a0c8f70c000009"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(2)
+               body[0].points.should.be.ok
+               body[1].points.should.be.ok
+               done()
 
 
 
