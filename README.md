@@ -104,6 +104,14 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 **GET** - searches users of this team
 * `q` _(optional)_ - query to filter users by
 * `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
+* `skip` _(optional)_ - skips 'n' number of users
+* `limit` _(optional)_ - limits the number of users returned
+
+```javascript
+[ { _id: '5102b17168a0c8f70c000021', name: 'Frank Testing' },
+  { _id: '5102b17168a0c8f70c000005', name: 'Mike Testing' },
+  { _id: '5102b17168a0c8f70c000007', name: 'Richard Testing' } ]
+```
 
 ## `/v1/leaderboard/users/[team_id]`
 **GET** - gets the overall leaderboard for a team

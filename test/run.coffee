@@ -342,41 +342,39 @@ describe "Fannect Core API", () ->
          , (err, resp, body) ->
             return done(err) if err
             body = JSON.parse(body)
-            console.log "body", body
-            should.not.exist(body.next_page_min)
-            body.data.length.should.equal(3)
-            (body.data[0].name < body.data[1].name).should.be.true
+            body.length.should.equal(3)
+            (body[0].name < body[1].name).should.be.true
             done()
 
-      it "should return next_page_min if over limit", (done) ->
+      it "should paginate if skip is supplied", (done) ->
          context = @
          request
             url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
             qs:
                limit: 1
+               skip: 1
             method: "GET"
          , (err, resp, body) ->
             return done(err) if err
             body = JSON.parse(body)
-            body.next_page_min.should.be.ok
-            body.data.length.should.equal(1)
+            body.length.should.equal(1)
+            body[0].name.should.equal("Mike Testing")
             done()
 
-      it "should paginate if min querystring is present", (done) ->
+      it "should only return friends if friends_of is supplied", (done) ->
          context = @
          request
             url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
             qs:
-               limit: 1
-               min: "Frank Testing"
+               friends_of: "5102b17168a0c8f70c000005"
             method: "GET"
          , (err, resp, body) ->
             return done(err) if err
             body = JSON.parse(body)
-            console.log "Body", body
-            body.next_page_min.should.be.ok
-            body.data.length.should.equal(1)
+            body.length.should.equal(1)
+            body[0].name.should.equal("Richard Testing")
             done()
+
 
 
 
