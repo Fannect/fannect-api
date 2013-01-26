@@ -86,7 +86,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
     teams: [ 'Kansas St. Wildcats', 'Kansas Jayhawks' ] } ]
 ```
 
-**POST** - creates a friend invite
+**POST** - accept a friend invite
   * `user_id` - accepts the user's invite
 
 ```javascript
@@ -209,6 +209,10 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
     nickname: 'Wildcats',
     team_key: 'l.ncaa.org.mfoot-t.522' } ]
 ```
+
+## `/v1/users/[user_id]/invite
+**POST** - Creates an invitation for specified user
+* `inviter_user_id` - inviter's user id
 
 ## `/v1/images/me`
 **PUT** - Updates this user's profile image
