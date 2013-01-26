@@ -58,7 +58,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/leaderboard/teams/[team_id]/custom`
 * GET - gets comparison between this team and another
-  * `q` - team to compare against
+  * `team_id` - team to compare against
 
 ### `/v1/users`
 * GET - gets users with filter
