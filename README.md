@@ -172,11 +172,6 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
     points: { dedication: 140, passion: 280, knowledge: 200, overall: 620 } } ]
 ```
 
-## `/v1/users`
-**GET** - gets users with filter
-   * `q` - query to filter users
-   * `friends_only` - [false] restrict to friends only
-
 ## `/v1/sports`
 **GET** - lists available sports
 
