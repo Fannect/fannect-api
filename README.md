@@ -79,8 +79,10 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/me/invites`
 **GET** - lists all friend invite
+
 **POST** - creates a friend invite
   * `user_id` - accepts the user's invite
+
 **DELETE** - deletes a friend invite
 
 ### `/v1/me/games`
@@ -88,6 +90,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ### `/v1/me/games/[game]`
 **GET** - get current game state for this user
+
 **PUT** - update current game state for this user
 
 ### `/v1/leaderboard/users/[team_id]`
