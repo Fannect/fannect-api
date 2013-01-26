@@ -171,28 +171,63 @@ describe "Fannect Core API", () ->
    #
    # /v1/me/invites
    #
-   # describe "/v1/me/invites", () ->
-   #    before (done) ->
-   #       context = @
-   #       dbSetup.load data_standard, (err, data) ->
-   #          return done(err) if err
-   #          context.db = data 
-   #          context.user = data.users[0]
-   #          done()
+   describe "/v1/me/invites", () ->
+      before prepMongo
+      after emptyMongo  
+      describe "GET", () ->
+         it "should return all invites", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/me/invites"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(1)
+               body[0]._id.should.be.ok
+               body[0].name.should.be.ok
+               body[0].teams.length.should.equal(2)
+               done()
+      describe "POST", () ->
+         before (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/me/invites"
+               method: "POST"
+               json: user_id: "5102b17168a0c8f70c000020"
+            , (err, resp, body) ->
+               return done(err) if err
+               done()
 
-   #    after (done) -> dbSetup.unload data_standard, done
-      
-   #    describe "GET", () ->
-   #       it "should return all invites", () ->
-   #          context = @
-   #          request
-   #             url: "#{context.host}/v1/me/invites"
-   #             method: "GET"
-   #          , (err, resp, body) ->
-   #             return done(err) if err
-   #             body = JSON.parse(body)
-   #             body.length.should.equal(1)
-   #             body[0].name.should.equal("")
+         it "should properly swap user ids", (done) ->
+            user_id = "5102b17168a0c8f70c000002"
+            other_id = "5102b17168a0c8f70c000020"
+
+            async.parallel
+               user: (done) -> User.findById user_id, "friends", done
+               other: (done) -> User.findById other_id, "friends", done
+            , (err, results) ->
+               results.user.friends.should.include(other_id)
+               results.other.friends.should.include(user_id)
+               done()
+
+         it "should properly swap user profile ids", (done) ->
+            user_id = "5102b17168a0c8f70c000002"
+            other_id = "5102b17168a0c8f70c000020"
+            team_id = "5102b17168a0c8f70c000008"
+
+            async.parallel
+               users: (done) -> 
+                  TeamProfile.find {user_id: user_id, team_id: team_id}, "friends", done
+               others: (done) ->
+                  TeamProfile.find {user_id: other_id, team_id: team_id}, "friends", done
+            , (err, results) ->
+               results.users.length.should.equal(1)
+               results.others.length.should.equal(1)
+               done()
+
+      describe "DELETE", () ->
+         it "should delete invite"
 
    #
    # /v1/me/leaderboard/users/[team_id]

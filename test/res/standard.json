@@ -105,6 +105,20 @@
                 "dedication": 17
             },
             "friends": []
+        }, {
+            "_id": "5102b17168a0c8f70c000024",
+            "user_id": "5102b17168a0c8f70c000020",
+            "name": "Frank Testing",
+            "team_id": "5102b17168a0c8f70c000009",
+            "team_name": "Kansas Jayhawks",
+            "team_key": "l.ncaa.org.mfoot-t.521",
+            "points": {
+                "overall": 6,
+                "knowledge": 2,
+                "passion": 3,
+                "dedication": 1
+            },
+            "friends": []
         }
     ],
     "teams": [

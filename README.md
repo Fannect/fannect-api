@@ -80,8 +80,18 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ## `/v1/me/invites`
 **GET** - lists all friend invite
 
+```javascript
+[ { _id: '5102b17168a0c8f70c000020',
+    name: 'Frank Testing',
+    teams: [ 'Kansas St. Wildcats', 'Kansas Jayhawks' ] } ]
+```
+
 **POST** - creates a friend invite
   * `user_id` - accepts the user's invite
+
+```javascript
+{ status: 'success' }
+```
 
 **DELETE** - deletes a friend invite
 
