@@ -471,4 +471,24 @@ describe "Fannect Core API", () ->
                body[0].abbreviation.should.be.ok
                done()
 
-
+   #
+   # /v1/users/[user_id]/invite
+   #
+   describe "/v1/users/[user_id]/invite", () ->
+      before prepMongo
+      after emptyMongo
+      describe "POST", () ->
+         it "create invitation to other users", (done) ->
+            user_id = "5102b17168a0c8f70c000002"
+            other_id = "5102b17168a0c8f70c000003"
+            context = @
+            request
+               url: "#{context.host}/v1/users/#{other_id}/invite"
+               method: "POST"
+               json: inviter_user_id: user_id
+            , (err, resp, body) ->
+               return done(err) if err
+               body.status.should.equal("success")
+               User.findById other_id, "invites", (err, other) ->
+                  other.invites.should.include(user_id)
+                  done()      

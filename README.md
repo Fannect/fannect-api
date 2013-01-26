@@ -210,9 +210,13 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
     team_key: 'l.ncaa.org.mfoot-t.522' } ]
 ```
 
-## `/v1/users/[user_id]/invite
+## `/v1/users/[user_id]/invite`
 **POST** - Creates an invitation for specified user
 * `inviter_user_id` - inviter's user id
+
+```javascript
+{ status: 'success' }
+```
 
 ## `/v1/images/me`
 **PUT** - Updates this user's profile image

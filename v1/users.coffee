@@ -3,34 +3,16 @@ rest = require "request"
 auth = require "../common/middleware/authenticate"
 TeamProfile = require "../common/models/TeamProfile"
 Team = require "../common/models/Team"
+User = require "../common/models/User"
 MongoError = require "../common/errors/MongoError"
 
 app = module.exports = express()
 
-app.post "/v1/users/invite", auth.rookie, (req, res, next) ->
-   other_id = req.body.user_id
+app.post "/v1/users/:user_id/invite", auth.rookie, (req, res, next) ->
+   other_id = req.params.user_id
+   inviter_id = req.body.inviter_user_id
 
    User
-   .update { _id: other_id }, { $addToSet: { invites: req.user._id } }, (err, row, raw) ->
+   .update { _id: other_id }, { $addToSet: { invites: inviter_id }}, (err) ->
       return next(new MongoError(err)) if err
-
-      console.log "raw", raw
       res.json status: "success"
-
-# app.get "/v1/users", auth.rookie, (req, res, next) ->
-#    count = req.query.count
-#    skip = req.query.skip
-#    q = req.query.q
-
-#    # FINISH
-#    if q
-#       regex = if q then new RegExp("(|.*[\s]+)(#{q}).*", "i")
-#       TeamProfile
-#       .find({ name: regex })
-#       .sort("name")
-#       .select("profile_image_url name")
-#    else
-#       TeamProfile
-#       .find({ friends: req.user._id })
-#       .sort("name")
-#       .select("profile_image_url name")
