@@ -85,13 +85,6 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 **DELETE** - deletes a friend invite
 
-## `/v1/teams`
-**POST** - upsert teams
-
-```javascript
-{ status: 'success', count: 621 }
-```
-
 ## `/v1/me/games`
 **GET** - lists all available games for this user
 
@@ -100,9 +93,21 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 **PUT** - update current game state for this user
 
+## `/v1/teams`
+**POST** - upsert teams
+
+```javascript
+{ status: 'success', count: 621 }
+```
+
+## `/v1/teams/[team_id]/users
+**GET** - searches users of this team
+* `q` _(optional)_ - query to filter users by
+* `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
+
 ## `/v1/leaderboard/users/[team_id]`
 **GET** - gets the overall leaderboard for a team
-   * `friends_of` - [optional] restrict to only friends of a team_profile_id
+   * `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
 
 ```javascript
 [ { _id: '5102b17168a0c8f70c000005',
