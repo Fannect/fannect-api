@@ -160,6 +160,26 @@
                 "dedication": 140
             },
             "team_key": "l.ncaa.org.mfoot-t.521"
+        }, {
+        "_id": "51038413f71f44551a7b172a",
+        "abbreviation": "NJD",
+        "conference_key": "c.eastern",
+        "conference_name": "Eastern",
+        "is_college": false,
+        "league_key": "l.nhl.com",
+        "league_name": "National Hockey League",
+        "location_name": "New Jersey",
+        "nickname": "Devils",
+        "sport_key": "15031000",
+        "sport_name": "Ice Hockey",
+        "stadium": {
+            "name": "Prudential Center",
+            "coords": [
+                -74.171137,
+                40.733653
+            ]
+        },
+        "team_key": "l.nhl.com-t.1"
         }
     ]
 }

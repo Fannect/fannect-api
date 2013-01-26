@@ -180,11 +180,30 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ## `/v1/sports`
 **GET** - lists available sports
 
+```javascript
+[ { sport_name: 'American Football', sport_key: '15003000' },
+  { sport_name: 'Ice Hockey', sport_key: '15031000' } ]
+```
+
 ## `/v1/sports/[sport_key]/leagues`
 **GET** - lists available leagues for this sport
 
+```javascript
+[ { league_name: 'NCAA Men\'s Football Division 1A',
+    league_key: 'l.ncaa.org.mfoot' } ]
+```
+
 ## `/v1/sports/[sport_key]/leagues/[league_key]/teams`
 **GET** - lists available teams for this league
+
+```javascript
+[ { abbreviation: 'Kansas',
+    nickname: 'Jayhawks',
+    team_key: 'l.ncaa.org.mfoot-t.521' },
+  { abbreviation: 'Kansas St.',
+    nickname: 'Wildcats',
+    team_key: 'l.ncaa.org.mfoot-t.522' } ]
+```
 
 ## `/v1/images/me`
 **PUT** - Updates this user's profile image

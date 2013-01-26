@@ -312,69 +312,128 @@ describe "Fannect Core API", () ->
    # /v1/teams
    #  
    describe "/v1/teams", () ->
-      before (done) ->
-         Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, done
-      
-      after (done) ->
-         Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, done
+      describe "GET", () ->
+         before (done) ->
+            Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, done
+         
+         after (done) ->
+            Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, done
 
-      it "should parse csv and upload teams", (done) ->
-         csvTeam "#{__dirname}/res/test-teams.csv", (err, count) ->
-            return done(err) if err
-            count.should.equal(2)
-            Team.find { team_key: { $in: [ "testing.team.1", "testing.team.2"]}}, (err, teams) ->
+         it "should parse csv and upload teams", (done) ->
+            csvTeam "#{__dirname}/res/test-teams.csv", (err, count) ->
                return done(err) if err
-               teams.length.should.equal(2)
-               done()
+               count.should.equal(2)
+               Team.find { team_key: { $in: [ "testing.team.1", "testing.team.2"]}}, (err, teams) ->
+                  return done(err) if err
+                  teams.length.should.equal(2)
+                  done()
 
    #
-   # /v1/teams/:team_id/users
+   # /v1/teams/[team_id]/users
    #
    describe "/v1/teams/[team_id]/users", () ->
       before prepMongo
       after emptyMongo
+      describe "GET", () ->
+         it "should return users sorted by name", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(3)
+               (body[0].name < body[1].name).should.be.true
+               done()
 
-      it "should return users sorted by name", (done) ->
-         context = @
-         request
-            url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
-            method: "GET"
-         , (err, resp, body) ->
-            return done(err) if err
-            body = JSON.parse(body)
-            body.length.should.equal(3)
-            (body[0].name < body[1].name).should.be.true
-            done()
+         it "should paginate if skip is supplied", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
+               qs:
+                  limit: 1
+                  skip: 1
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(1)
+               body[0].name.should.equal("Mike Testing")
+               done()
 
-      it "should paginate if skip is supplied", (done) ->
-         context = @
-         request
-            url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
-            qs:
-               limit: 1
-               skip: 1
-            method: "GET"
-         , (err, resp, body) ->
-            return done(err) if err
-            body = JSON.parse(body)
-            body.length.should.equal(1)
-            body[0].name.should.equal("Mike Testing")
-            done()
+         it "should only return friends if friends_of is supplied", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
+               qs:
+                  friends_of: "5102b17168a0c8f70c000005"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(1)
+               body[0].name.should.equal("Richard Testing")
+               done()
 
-      it "should only return friends if friends_of is supplied", (done) ->
-         context = @
-         request
-            url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
-            qs:
-               friends_of: "5102b17168a0c8f70c000005"
-            method: "GET"
-         , (err, resp, body) ->
-            return done(err) if err
-            body = JSON.parse(body)
-            body.length.should.equal(1)
-            body[0].name.should.equal("Richard Testing")
-            done()
+   #
+   # /v1/teams/[team_id]/users
+   #
+   describe "/v1/sports", () ->
+      before prepMongo
+      after emptyMongo
+      describe "GET", () ->
+         it "should return all sports", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/sports"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(2)
+               (body[0].sport_name < body[1].sport_name).should.be.true
+               done()
 
+   #
+   # /v1/sports/[sport_key]/leagues
+   #
+   describe "/v1/sports/[sport_key]/leagues", () ->
+      before prepMongo
+      after emptyMongo
+      describe "GET", () ->
+         it "should return all leagues within a sport", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/sports/15003000/leagues"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(1)
+               body[0].league_key.should.be.ok
+               body[0].league_name.should.be.ok
+               done()
 
+   #
+   # /v1/sports/[sport_key]/leagues/[league_key]/teams
+   #
+   describe "/v1/sports/[sport_key]/leagues/[league_key]/teams", () ->
+      before prepMongo
+      after emptyMongo
+      describe "GET", () ->
+         it "should return teams within a league", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/sports/15003000/leagues/l.ncaa.org.mfoot/teams"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(2)
+               body[0].team_key.should.be.ok
+               body[0].nickname.should.be.ok
+               body[0].abbreviation.should.be.ok
+               done()
 
 
