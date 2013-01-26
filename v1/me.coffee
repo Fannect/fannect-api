@@ -12,8 +12,6 @@ app = module.exports = express()
 
 # Get this user
 app.get "/v1/me", auth.rookie, (req, res, next) ->
-   # throw err
-   # console.log auth.toString()
    res.json req.user
 
 # Update this user

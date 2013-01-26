@@ -327,4 +327,56 @@ describe "Fannect Core API", () ->
                teams.length.should.equal(2)
                done()
 
+   #
+   # /v1/teams/:team_id/users
+   #
+   describe "/v1/teams/[team_id]/users", () ->
+      before prepMongo
+      after emptyMongo
+
+      it "should return users sorted by name", (done) ->
+         context = @
+         request
+            url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
+            method: "GET"
+         , (err, resp, body) ->
+            return done(err) if err
+            body = JSON.parse(body)
+            console.log "body", body
+            should.not.exist(body.next_page_min)
+            body.data.length.should.equal(3)
+            (body.data[0].name < body.data[1].name).should.be.true
+            done()
+
+      it "should return next_page_min if over limit", (done) ->
+         context = @
+         request
+            url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
+            qs:
+               limit: 1
+            method: "GET"
+         , (err, resp, body) ->
+            return done(err) if err
+            body = JSON.parse(body)
+            body.next_page_min.should.be.ok
+            body.data.length.should.equal(1)
+            done()
+
+      it "should paginate if min querystring is present", (done) ->
+         context = @
+         request
+            url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
+            qs:
+               limit: 1
+               min: "Frank Testing"
+            method: "GET"
+         , (err, resp, body) ->
+            return done(err) if err
+            body = JSON.parse(body)
+            console.log "Body", body
+            body.next_page_min.should.be.ok
+            body.data.length.should.equal(1)
+            done()
+
+
 
