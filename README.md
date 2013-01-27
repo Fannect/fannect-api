@@ -210,9 +210,17 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
     team_key: 'l.ncaa.org.mfoot-t.522' } ]
 ```
 
+## `/v1/users/[user_id]` NOT IMPLEMENTED
+**GET** - Gets user
+* `is_friend_of` - user_id to check if this user is friends with
+
 ## `/v1/users/[user_id]/invite`
 **POST** - Creates an invitation for specified user
 * `inviter_user_id` - inviter's user id
+
+## `/v1/teamprofiles/[team_profile_id]
+**GET** - Gets team profile
+* `is_friend_of` - team_profile_id to check if this team_profile is friends with
 
 ```javascript
 { status: 'success' }
