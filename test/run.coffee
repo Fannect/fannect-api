@@ -475,9 +475,9 @@ describe "Fannect Core API", () ->
       after emptyMongo
       describe "POST", () ->
          it "create invitation to other users", (done) ->
+            context = @
             user_id = "5102b17168a0c8f70c000002"
             other_id = "5102b17168a0c8f70c000003"
-            context = @
             request
                url: "#{context.host}/v1/users/#{other_id}/invite"
                method: "POST"
@@ -488,3 +488,55 @@ describe "Fannect Core API", () ->
                User.findById other_id, "invites", (err, other) ->
                   other.invites.should.include(user_id)
                   done()      
+
+   #
+   # /v1/teamprofiles/[team_profile_id]
+   #
+   describe "/v1/teamprofiles/[team_profile_id]", () ->
+      before prepMongo
+      after emptyMongo
+      describe "GET", () ->
+         it "should get team profile", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000005"
+            request
+               url: "#{context.host}/v1/teamprofiles/#{profile_id}"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if done
+               body = JSON.parse(body)
+               body._id.should.be.ok
+               body.user_id.should.be.ok
+               body.name.should.be.ok
+               body.team_name.should.be.ok
+               done()
+         
+         it "should set 'is_friend' = true if users are friends", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000005"
+            other_id = "5102b17168a0c8f70c000007"
+            request
+               url: "#{context.host}/v1/teamprofiles/#{profile_id}?is_friend_of=#{other_id}"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if done
+               body = JSON.parse(body)
+               body._id.should.be.ok
+               body.user_id.should.be.ok
+               body.name.should.be.ok
+               body.team_name.should.be.ok
+               body.is_friend.should.be.true
+               done()
+
+         it "should set 'is_friend' = false if users are not friends", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000005"
+            other_id = "5102b17168a0c8f70c000009"
+            request
+               url: "#{context.host}/v1/teamprofiles/#{profile_id}?is_friend_of=#{other_id}"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if done
+               body = JSON.parse(body)
+               body.is_friend.should.be.false
+               done()
