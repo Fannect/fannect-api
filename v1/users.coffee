@@ -8,7 +8,7 @@ MongoError = require "../common/errors/MongoError"
 
 app = module.exports = express()
 
-app.post "/v1/users/:user_id/invite", auth.rookie, (req, res, next) ->
+app.post "/v1/users/:user_id/invite", auth.rookieStatus, (req, res, next) ->
    other_id = req.params.user_id
    inviter_id = req.body.inviter_user_id
 

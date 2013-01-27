@@ -11,11 +11,11 @@ async = require "async"
 app = module.exports = express()
 
 # Get this user
-app.get "/v1/me", auth.rookie, (req, res, next) ->
+app.get "/v1/me", auth.rookieStatus, (req, res, next) ->
    res.json req.user
 
 # Update this user
-app.put "/v1/me", auth.rookie, (req, res, next) ->
+app.put "/v1/me", auth.rookieStatus, (req, res, next) ->
    b = req.body
    
    async.parallel [

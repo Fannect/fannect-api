@@ -12,9 +12,9 @@ passthrough = (req, res, next) ->
    }
    next()
 
-auth.rookie = passthrough
-auth.sub = passthrough
-auth.starter = passthrough
-auth.allstar = passthrough
-auth.mvp = passthrough
-auth.hof = passthrough
+auth.rookieStatus = passthrough
+auth.subStatus = passthrough
+auth.starterStatus = passthrough
+auth.allstarStatus = passthrough
+auth.mvpStatus = passthrough
+auth.hofStatus = passthrough

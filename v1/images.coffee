@@ -3,7 +3,10 @@ express = require "express"
 request = require "request"
 images = require "../common/utils/images"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
-auth = "../common/middleware/autheticate"
+MongoError = require "../common/errors/MongoError"
+auth = require "../common/middleware/authenticate"
+TeamProfile = require "../common/models/TeamProfile"
+User = require "../common/models/User"
 
 app = module.exports = express()
 
@@ -13,7 +16,7 @@ authKey = new Buffer("#{accountKey}:#{accountKey}").toString("base64")
 perPage = 20
 
 # Updates this user's profile image
-app.post "/v1/images/me", auth.rookie, (req, res, next) ->
+app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
    if req.files?.image?.path
       images.uploadToCloud req.files.image.path,
          [{ width: 280, height: 280, crop: "fill", gravity: "faces" }]
@@ -29,12 +32,14 @@ app.post "/v1/images/me", auth.rookie, (req, res, next) ->
       next(new InvalidArgumentError("Required: image file"))
 
 # Updates this user'r profile image to specified url
-app.put "/v1/images/me", auth.rookie, (req, res, next) ->
+app.put "/v1/images/me", auth.rookieStatus, (req, res, next) ->
    image_url = req.body.image_url
    res.json status: "success"
 
 # Updates the team profile image
-app.post "/v1/images/me/:team_profile_id", auth.rookie, (req, res, next) ->
+app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) ->
+   team_profile_id = req.params.team_profile_id
+
    image_path = req.files?.image.path or req.body?.image_url
    if image_path
       images.uploadToCloud image_path,
@@ -45,16 +50,24 @@ app.post "/v1/images/me/:team_profile_id", auth.rookie, (req, res, next) ->
                status: "fail"
                message: error.message
          else
-            res.json 
-               image_url: result.url
+            TeamProfile.update { _id: team_profile_id }
+            , team_image_url: result.url
+            , (err, data) ->
+               next(new MongoError(err)) if err
+               
+               if data == 1
+                  res.json 
+                     team_image_url: result.url
+               else
+                  next(new InvalidArgumentError("Invalid: team_profile_id"))
             
-app.put "/v1/images/me/:team_profile_id", auth.rookie, (req, res, next) ->
+app.put "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) ->
    image_url = req.body.image_url
    res.json status: "success"
 
 # Search Bing images
-app.get "/v1/images/bing", auth.rookie, (req, res, next) ->
-   unless req.query then return req.json status: "fail"
+app.get "/v1/images/bing", auth.rookieStatus, (req, res, next) ->
+   return next(new InvalidArgumentError("Required: q")) unless req.query?.q
    q = req.query.q
    limit = req.query.limit
    skip = req.query.skip

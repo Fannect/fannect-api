@@ -9,7 +9,7 @@ Team = require "../common/models/Team"
 
 app = module.exports = express()
 
-app.get "/v1/teams", auth.rookie, (req, res, next) ->
+app.get "/v1/teams", auth.rookieStatus, (req, res, next) ->
    TeamProfile
    .find({ user_id: req.user.user_id })
    .select("name team_key team_id team_name points team_image_url profile_image_url trash_talk")
@@ -17,7 +17,8 @@ app.get "/v1/teams", auth.rookie, (req, res, next) ->
       return next(new MongoError(err)) if err
       res.json data
 
-app.post "/v1/teams", auth.rookie.hof, (req, res, next) ->
+app.post "/v1/teams", (req, res, next) ->
+# app.post "/v1/teams", auth.hof, (req, res, next) ->
    if req.files?.teams?.path
       csvTeam req.files.teams.path, (err, count) ->
          return next(err) if err
@@ -27,7 +28,7 @@ app.post "/v1/teams", auth.rookie.hof, (req, res, next) ->
    else
       next(new InvalidArgumentError("Required: teams file"))
 
-app.get "/v1/teams/:team_id/users", (req, res, next) ->
+app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
    q = req.query.q
    friends_of = req.query.friends_of

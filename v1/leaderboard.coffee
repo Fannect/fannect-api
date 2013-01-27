@@ -9,7 +9,7 @@ InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 
 app = module.exports = express()
 
-app.get "/v1/leaderboard/users/:team_id", auth.rookie, (req, res, next) ->
+app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
    friends_of = req.query.friends_of
    team_id = req.params.team_id
 
@@ -30,7 +30,7 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookie, (req, res, next) ->
          return next(new MongoError(err)) if err
          res.json profiles
 
-app.get "/v1/leaderboard/teams/:team_id/conference", auth.rookie, (req, res, next) ->
+app.get "/v1/leaderboard/teams/:team_id/conference", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
    Team.findById team_id, "conference_key conference_name", (err, team) ->
       return next(new MongoError(err)) if err   
@@ -43,12 +43,11 @@ app.get "/v1/leaderboard/teams/:team_id/conference", auth.rookie, (req, res, nex
          return next(new MongoError(err)) if err
          res.json teams
 
-app.get "/v1/leaderboard/teams/:team_id/league", auth.rookie, (req, res, next) ->
+app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
    Team.findById team_id, "league_key league_name", (err, team) ->
       return next(new MongoError(err)) if err   
       return next(new InvalidArgumentError("Invalid team_id")) unless team
-      console.log 
       Team
       .find({league_key:team.league_key})
       .sort("-points.overall")
@@ -57,14 +56,14 @@ app.get "/v1/leaderboard/teams/:team_id/league", auth.rookie, (req, res, next) -
          return next(new MongoError(err)) if err
          res.json teams
 
-app.get "/v1/leaderboard/teams/:team_id/breakdown", auth.rookie, (req, res, next) ->
+app.get "/v1/leaderboard/teams/:team_id/breakdown", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
    Team.findById team_id, "points", (err, team) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid team_id")) unless team
       res.json team.points
 
-app.get "/v1/leaderboard/teams/:team_id/custom", auth.rookie, (req, res, next) ->
+app.get "/v1/leaderboard/teams/:team_id/custom", auth.rookieStatus, (req, res, next) ->
    this_team_id = req.params.team_id
    other_team_id = req.query.team_id
    return next(new InvalidArgumentError("Required: team_id")) unless other_team_id
