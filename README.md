@@ -218,6 +218,10 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 **POST** - Creates an invitation for specified user
 * `inviter_user_id` - inviter's user id
 
+```javascript
+{ status: 'success' }
+```
+
 ## `/v1/teamprofiles/[team_profile_id]`
 **GET** - Gets team profile
 * `is_friend_of` - team_profile_id to check if this team_profile is friends with
