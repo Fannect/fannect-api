@@ -6,7 +6,7 @@
             "password": "hi",
             "first_name": "Mike",
             "last_name": "Testing",
-            "refresh_token": "testingtoken",
+            "refresh_token": "testingtoken1",
             "friends": ["5102b17168a0c8f70c000004"],
             "invites": ["5102b17168a0c8f70c000020"]
         }, {
@@ -15,7 +15,7 @@
             "password": "hi",
             "first_name": "Allstar",
             "last_name": "Testing",
-            "refresh_token": "testingtoken",
+            "refresh_token": "testingtoken2",
             "friends": []
         }, {
             "_id": "5102b17168a0c8f70c000004",
@@ -23,7 +23,7 @@
             "password": "hi",
             "first_name": "Richard",
             "last_name": "Testing",
-            "refresh_token": "testingtoken",
+            "refresh_token": "testingtoken3",
             "friends": ["5102b17168a0c8f70c000002"]
         }, {
             "_id": "5102b17168a0c8f70c000020",
@@ -31,7 +31,7 @@
             "password": "hi",
             "first_name": "Frank",
             "last_name": "Testing",
-            "refresh_token": "testingtoken",
+            "refresh_token": "testingtoken4",
             "friends": []
         }
     ],

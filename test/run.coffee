@@ -30,7 +30,6 @@ prepMongo = (done) ->
       context.user = data.users[0]
       done()
 
-
 describe "Fannect Core API", () ->
    before (done) ->
       context = @
