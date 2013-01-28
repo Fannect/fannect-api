@@ -210,6 +210,23 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
     team_key: 'l.ncaa.org.mfoot-t.522' } ]
 ```
 
+## `/v1/sports/[sport_key]/teams`
+**GET** - searches available teams
+* q - query to search by
+* limit - number of teams to return
+* skip - teams to skip
+
+```javascript
+[ { _id: '5102b17168a0c8f70c000009',
+    location_name: 'Kansas',
+    name: 'Jayhawks',
+    full_name: 'Kansas Jayhawks' },
+  { _id: '5102b17168a0c8f70c000008',
+    location_name: 'Kansas St.',
+    name: 'Wildcats',
+    full_name: 'Kansas St. Wildcats' } ]
+```
+
 ## `/v1/users/[user_id]` NOT IMPLEMENTED
 **GET** - Gets user
 * `is_friend_of` - user_id to check if this user is friends with
