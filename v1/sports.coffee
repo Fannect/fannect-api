@@ -35,18 +35,29 @@ app.get "/v1/sports/:sport_key/leagues/:league_key/teams", auth.rookieStatus, (r
 
    Team
    .find({sport_key: sport_key, league_key: league_key})
-   .sort("abbreviation")
-   .select("abbreviation nickname")
+   .sort("full_name")
+   .select("mascot location_name full_name")
    .exec (err, teams) ->
       return next(new MongoError(err)) if err
       res.json teams
-   
-   # .aggregate { $match: { sport_key: sport_key, league_key: league_key }}
-   # , { $group: { _id: "$team_id", abbreviation: { $first: "$abbreviation"}, nickname: { $first: "$nickname"}}}
-   # , { $project: { _id: 1, abbreviation: 1, nickname: 1 }}
-   # , { $sort: { abbreviation: 1 }}
-   # , (err, teams) ->
-   #    return next(new MongoError(err)) if err
-   #    res.json teams
 
+app.get "/v1/sports/:sport_key/teams", auth.rookieStatus, (req, res, next) ->
+   sport_key = req.params.sport_key
+   q = req.query.q or ""
+   skip = req.query.skip or 0
+   limit = req.query.limit or 20
+   limit = if limit > 40 then 40 else limit
+
+   return res.json [] if q.length < 1 
+
+   Team
+   .where("sport_key", sport_key)
+   .where("full_name", new RegExp("(|.*[\s]+)(#{q}).*", "i"))
+   .skip(skip)
+   .limit(limit)
+   .sort("full_name")
+   .select("mascot full_name location_name")
+   .exec (err, teams) ->
+      return next(new MongoError(err)) if err
+      res.json teams
 

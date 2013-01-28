@@ -13,7 +13,7 @@ app.get "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next)
 
    TeamProfile
    .findOne({ _id: profile_id })
-   .select("team_id user_id name points friends team_image_url profile_image_url")
+   .select("team_id user_id name team_name points friends team_image_url profile_image_url")
    .lean()
    .exec (err, profile) ->
       return next(new MongoError(err)) if err

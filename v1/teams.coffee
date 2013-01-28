@@ -33,6 +33,7 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    q = req.query.q
    friends_of = req.query.friends_of
    limit = req.query.limit or 20
+   limit = if limit > 40 then 40 else limit
    skip = req.query.skip or 0
 
    query = TeamProfile.where("team_id", team_id)

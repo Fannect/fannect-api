@@ -463,8 +463,32 @@ describe "Fannect Core API", () ->
                body = JSON.parse(body)
                (body.length >= 2).should.be.true
                body[0]._id.should.be.ok
-               body[0].nickname.should.be.ok
-               body[0].abbreviation.should.be.ok
+               body[0].mascot.should.be.ok
+               body[0].full_name.should.be.ok
+               body[0].location_name.should.be.ok
+               done()
+
+   #
+   # /v1/sports/[sport_key]/teams
+   #
+   describe "/v1/sports/[sport_key]/teams", () ->
+      before prepMongo
+      after emptyMongo
+      describe "GET", () ->
+         it "should get users ", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/sports/15003000/teams?q=kansas"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               (body.length >= 2).should.be.true
+               body[0]._id.should.be.ok
+               body[0].mascot.should.be.ok
+               body[0].full_name.should.be.ok
+               body[0].location_name.should.be.ok
+               (body[0].full_name <= body[1].full_name).should.be.true
                done()
 
    #

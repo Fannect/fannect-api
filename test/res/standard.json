@@ -8,7 +8,8 @@
             "last_name": "Testing",
             "refresh_token": "testingtoken1",
             "friends": ["5102b17168a0c8f70c000004"],
-            "invites": ["5102b17168a0c8f70c000020"]
+            "invites": ["5102b17168a0c8f70c000020"],
+            "profile_image_url": "images/empty_profile.jpg"
         }, {
             "_id": "5102b17168a0c8f70c000003",
             "email": "testing2@fannect.me",
@@ -16,7 +17,8 @@
             "first_name": "Allstar",
             "last_name": "Testing",
             "refresh_token": "testingtoken2",
-            "friends": []
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg"
         }, {
             "_id": "5102b17168a0c8f70c000004",
             "email": "testing3@fannect.me",
@@ -24,7 +26,8 @@
             "first_name": "Richard",
             "last_name": "Testing",
             "refresh_token": "testingtoken3",
-            "friends": ["5102b17168a0c8f70c000002"]
+            "friends": ["5102b17168a0c8f70c000002"],
+            "profile_image_url": "images/empty_profile.jpg"
         }, {
             "_id": "5102b17168a0c8f70c000020",
             "email": "testing4@fannect.me",
@@ -32,7 +35,8 @@
             "first_name": "Frank",
             "last_name": "Testing",
             "refresh_token": "testingtoken4",
-            "friends": []
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg"
         }
     ],
     "teamprofiles": [
@@ -49,7 +53,9 @@
                 "passion": 3,
                 "dedication": 5
             },
-            "friends": ["5102b17168a0c8f70c000007"]
+            "friends": ["5102b17168a0c8f70c000007"],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg"
         }, {
             "_id": "5102b17168a0c8f70c000006",
             "user_id": "5102b17168a0c8f70c000003",
@@ -62,7 +68,9 @@
                 "knowledge": 7,
                 "passion": 3,
                 "dedication": 5
-            }
+            },
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg"
         }, {
             "_id": "5102b17168a0c8f70c000007",
             "user_id": "5102b17168a0c8f70c000004",
@@ -76,7 +84,9 @@
                 "passion": 2,
                 "dedication": 3
             },
-            "friends": ["5102b17168a0c8f70c000005"]
+            "friends": ["5102b17168a0c8f70c000005"],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg"
         }, {
             "_id": "5102b17168a0c8f70c000010",
             "user_id": "5102b17168a0c8f70c000004",
@@ -90,7 +100,9 @@
                 "passion": 3,
                 "dedication": 1
             },
-            "friends": []
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg"
         }, {
             "_id": "5102b17168a0c8f70c000021",
             "user_id": "5102b17168a0c8f70c000020",
@@ -104,7 +116,9 @@
                 "passion": 3,
                 "dedication": 17
             },
-            "friends": []
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg"
         }, {
             "_id": "5102b17168a0c8f70c000024",
             "user_id": "5102b17168a0c8f70c000020",
@@ -118,20 +132,22 @@
                 "passion": 3,
                 "dedication": 1
             },
-            "friends": []
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg"
         }
     ],
     "teams": [
         {
             "_id": "5102b17168a0c8f70c000008",
-            "abbreviation": "Kansas St.",
             "conference_key": "c.big-12",
             "conference_name": "Big 12 Conference",
             "is_college": true,
             "league_key": "l.ncaa.org.mfoot",
             "league_name": "NCAA Men's Football Division 1A",
             "location_name": "Kansas St.",
-            "nickname": "Wildcats",
+            "mascot": "Wildcats",
+            "full_name": "Kansas St. Wildcats",
             "sport_key": "15003000",
             "sport_name": "American Football",
             "stadium": {
@@ -150,14 +166,14 @@
             "team_key": "l.ncaa.org.mfoot-t.522"
         }, {
             "_id": "5102b17168a0c8f70c000009",
-            "abbreviation": "Kansas",
             "conference_key": "c.big-12",
             "conference_name": "Big 12 Conference",
             "is_college": true,
             "league_key": "l.ncaa.org.mfoot",
             "league_name": "NCAA Men's Football Division 1A",
             "location_name": "Kansas",
-            "nickname": "Jayhawks",
+            "mascot": "Jayhawks",
+            "full_name": "Kansas Jayhawks",
             "sport_key": "15003000",
             "sport_name": "American Football",
             "stadium": {
@@ -176,14 +192,14 @@
             "team_key": "l.ncaa.org.mfoot-t.521"
         }, {
         "_id": "51038413f71f44551a7b172a",
-        "abbreviation": "NJD",
         "conference_key": "c.eastern",
         "conference_name": "Eastern",
         "is_college": false,
         "league_key": "l.nhl.com",
         "league_name": "National Hockey League",
         "location_name": "New Jersey",
-        "nickname": "Devils",
+        "mascot": "Devils",
+        "full_name": "New Jersy Devils",
         "sport_key": "15031000",
         "sport_name": "Ice Hockey",
         "stadium": {

@@ -69,8 +69,9 @@ app.put "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) ->
 app.get "/v1/images/bing", auth.rookieStatus, (req, res, next) ->
    return next(new InvalidArgumentError("Required: q")) unless req.query?.q
    q = req.query.q
-   limit = req.query.limit
    skip = req.query.skip
+   limit = req.query.limit
+   limit = if limit > 40 then 40 else limit
 
    request 
       uri: "https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/Image?$top=#{limit}&$skip=#{skip}&$format=json&Query=%27#{escape(q)}%27"
