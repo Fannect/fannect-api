@@ -298,13 +298,14 @@ describe "Fannect Core API", () ->
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
-               (body[0].points.overall >= body[1].points.overall).should.be.true
+               body.conference_name.should.equal("Big 12 Conference")
+               (body.teams[0].points.overall >= body.teams[1].points.overall).should.be.true
                done()
 
    #
    # /v1/leaderboard/teams/[team_id]/league
    #  
-   describe "/v1/leaderboard/teams/[team_id]/league", () ->
+   describe.only "/v1/leaderboard/teams/[team_id]/league", () ->
       before prepMongo
       after emptyMongo
 
@@ -317,7 +318,8 @@ describe "Fannect Core API", () ->
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
-               (body[0].points.overall >= body[1].points.overall).should.be.true
+               body.league_name.should.equal("NCAA Men's Football Division 1A")
+               (body.teams[0].points.overall >= body.teams[1].points.overall).should.be.true
                done()
    #
    # /v1/leaderboard/teams/[team_id]/breakdown

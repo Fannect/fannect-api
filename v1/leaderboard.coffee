@@ -36,18 +36,20 @@ app.get "/v1/leaderboard/teams/:team_id/conference", auth.rookieStatus, (req, re
    limit = if limit > 40 then 40 else limit
    skip = req.query.skip or 0
 
-   Team.findById team_id, "conference_key conference_name", (err, team) ->
+   Team.findById team_id, "sport_key conference_key conference_name", (err, team) ->
       return next(new MongoError(err)) if err   
       return next(new InvalidArgumentError("Invalid team_id")) unless team
       Team
-      .find({conference_key:team.conference_key})
+      .find({ sport_key: team.sport_key, conference_key: team.conference_key})
       .skip(skip)
       .limit(limit)
       .sort("-points.overall")
       .select("full_name mascot location_name points")
       .exec (err, teams) ->
          return next(new MongoError(err)) if err
-         res.json teams
+         res.json
+            conference_name: team.conference_name
+            teams: teams
 
 app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
@@ -55,18 +57,20 @@ app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, n
    limit = if limit > 40 then 40 else limit
    skip = req.query.skip or 0
    
-   Team.findById team_id, "league_key league_name", (err, team) ->
+   Team.findById team_id, "sport_key league_key league_name", (err, team) ->
       return next(new MongoError(err)) if err   
       return next(new InvalidArgumentError("Invalid team_id")) unless team
       Team
-      .find({league_key:team.league_key})
+      .find({ sport_key: team.sport_key, league_key:team.league_key })
       .skip(skip)
       .limit(limit)
       .sort("-points.overall")
       .select("full_name mascot location_name points")
       .exec (err, teams) ->
          return next(new MongoError(err)) if err
-         res.json teams
+         res.json 
+            league_name: team.league_name
+            teams: teams
 
 app.get "/v1/leaderboard/teams/:team_id/breakdown", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
