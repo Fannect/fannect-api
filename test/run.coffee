@@ -143,6 +143,10 @@ describe "Fannect Core API", () ->
                profile.friends.should.include(context.body._id)
                done()
 
+         it "should rollover profile_image_url", () ->
+            context = @
+            context.body.profile_image_url.should.equal("images/empty_profile.jpg")
+
    #
    # /v1/me/teams/[team_profile_id]
    #
@@ -170,7 +174,7 @@ describe "Fannect Core API", () ->
    #
    # /v1/me/invites
    #
-   describe.only "/v1/me/invites", () ->
+   describe "/v1/me/invites", () ->
       before prepMongo
       after emptyMongo  
       describe "GET", () ->
