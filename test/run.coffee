@@ -244,7 +244,7 @@ describe "Fannect Core API", () ->
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
-               body.length.should.equal(3)
+               (body.length >= 3).should.be.true
                (body[0].points.overall >= body[1].points.overall).should.be.true
                done()
 

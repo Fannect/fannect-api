@@ -44,7 +44,7 @@ app.get "/v1/leaderboard/teams/:team_id/conference", auth.rookieStatus, (req, re
       .skip(skip)
       .limit(limit)
       .sort("-points.overall")
-      .select("abbreviation nickname points")
+      .select("full_name mascot location_name points")
       .exec (err, teams) ->
          return next(new MongoError(err)) if err
          res.json teams
@@ -63,7 +63,7 @@ app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, n
       .skip(skip)
       .limit(limit)
       .sort("-points.overall")
-      .select("abbreviation nickname points")
+      .select("full_name mascot location_name points")
       .exec (err, teams) ->
          return next(new MongoError(err)) if err
          res.json teams
