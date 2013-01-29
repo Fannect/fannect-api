@@ -247,12 +247,38 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 { status: 'success' }
 ```
 
+## `/v1/teamprofiles`
+**GET** - Gets most relevent team profile
+* `user_id` - user_id of the team profile to get
+* `friends_with` - **team_profile_id** of the user searching
+
+```javascript
+{ _id: '5102b17168a0c8f70c000021',
+  user_id: '5102b17168a0c8f70c000020',
+  name: 'Frank Testing',
+  team_id: '5102b17168a0c8f70c000008',
+  team_name: 'Kansas St. Wildcats',
+  profile_image_url: 'images/empty_profile.jpg',
+  team_image_url: 'images/empty_profile.jpg',
+  is_college: true,
+  friends: [],
+  points: { dedication: 17, passion: 3, knowledge: 20, overall: 40 } }
+```
+
 ## `/v1/teamprofiles/[team_profile_id]`
 **GET** - Gets team profile
 * `is_friend_of` - team_profile_id to check if this team_profile is friends with
 
 ```javascript
-{ status: 'success' }
+{ _id: '5102b17168a0c8f70c000005',
+  user_id: '5102b17168a0c8f70c000002',
+  name: 'Mike Testing',
+  team_id: '5102b17168a0c8f70c000008',
+  team_name: 'Kansas St. Wildcats',
+  profile_image_url: 'images/empty_profile.jpg',
+  team_image_url: 'images/empty_profile.jpg',
+  is_college: true,
+  points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } }
 ```
 
 ## `/v1/images/me`
