@@ -107,7 +107,7 @@ describe "Fannect Core API", () ->
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
-               body.length.should.equal(1)
+               body.length.should.equal(2)
                done()
 
       describe "POST", () ->
@@ -537,6 +537,41 @@ describe "Fannect Core API", () ->
                User.findById other_id, "invites", (err, other) ->
                   other.invites.should.include(user_id)
                   done()      
+
+   #
+   # /v1/teamprofiles
+   #
+   describe "/v1/teamprofiles", () ->
+      before prepMongo
+      after emptyMongo
+      describe "GET", () ->
+         it "should get team profile of same team if one exists", (done) ->
+            context = @
+            user_id = "5102b17168a0c8f70c000020"
+            friends_with = "5102b17168a0c8f70c000005"
+            request
+               url: "#{context.host}/v1/teamprofiles?friends_with=#{friends_with}&user_id=#{user_id}"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.team_id.should.equal("5102b17168a0c8f70c000008")
+               body.name.should.be.ok
+               done()
+
+         it "should get a team profile if the same team doesn't exist", (done) ->
+            context = @
+            user_id = "5102b17168a0c8f70c000020"
+            friends_with = "5102b17168a0c8f70c000105"
+            request
+               url: "#{context.host}/v1/teamprofiles?friends_with=#{friends_with}&user_id=#{user_id}"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.team_id.should.equal("5102b17168a0c8f70c000008")
+               body.name.should.be.ok
+               done()
 
    #
    # /v1/teamprofiles/[team_profile_id]
