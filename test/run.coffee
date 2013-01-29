@@ -305,7 +305,7 @@ describe "Fannect Core API", () ->
    #
    # /v1/leaderboard/teams/[team_id]/league
    #  
-   describe.only "/v1/leaderboard/teams/[team_id]/league", () ->
+   describe "/v1/leaderboard/teams/[team_id]/league", () ->
       before prepMongo
       after emptyMongo
 
@@ -552,12 +552,13 @@ describe "Fannect Core API", () ->
                url: "#{context.host}/v1/teamprofiles/#{profile_id}"
                method: "GET"
             , (err, resp, body) ->
-               return done(err) if done
+               return done(err) if err
                body = JSON.parse(body)
                body._id.should.be.ok
                body.user_id.should.be.ok
                body.name.should.be.ok
                body.team_name.should.be.ok
+               body.is_college.should.be.ok
                done()
          
          it "should set 'is_friend' = true if users are friends", (done) ->
@@ -568,7 +569,7 @@ describe "Fannect Core API", () ->
                url: "#{context.host}/v1/teamprofiles/#{profile_id}?is_friend_of=#{other_id}"
                method: "GET"
             , (err, resp, body) ->
-               return done(err) if done
+               return done(err) if err
                body = JSON.parse(body)
                body._id.should.be.ok
                body.user_id.should.be.ok
@@ -585,7 +586,7 @@ describe "Fannect Core API", () ->
                url: "#{context.host}/v1/teamprofiles/#{profile_id}?is_friend_of=#{other_id}"
                method: "GET"
             , (err, resp, body) ->
-               return done(err) if done
+               return done(err) if err
                body = JSON.parse(body)
                body.is_friend.should.be.false
                done()

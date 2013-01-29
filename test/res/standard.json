@@ -55,7 +55,8 @@
             },
             "friends": ["5102b17168a0c8f70c000007"],
             "profile_image_url": "images/empty_profile.jpg",
-            "team_image_url": "images/empty_profile.jpg"
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true
         }, {
             "_id": "5102b17168a0c8f70c000006",
             "user_id": "5102b17168a0c8f70c000003",
@@ -70,7 +71,8 @@
                 "dedication": 5
             },
             "profile_image_url": "images/empty_profile.jpg",
-            "team_image_url": "images/empty_profile.jpg"
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true
         }, {
             "_id": "5102b17168a0c8f70c000007",
             "user_id": "5102b17168a0c8f70c000004",
@@ -86,7 +88,8 @@
             },
             "friends": ["5102b17168a0c8f70c000005"],
             "profile_image_url": "images/empty_profile.jpg",
-            "team_image_url": "images/empty_profile.jpg"
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true
         }, {
             "_id": "5102b17168a0c8f70c000010",
             "user_id": "5102b17168a0c8f70c000004",
@@ -102,7 +105,8 @@
             },
             "friends": [],
             "profile_image_url": "images/empty_profile.jpg",
-            "team_image_url": "images/empty_profile.jpg"
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true
         }, {
             "_id": "5102b17168a0c8f70c000021",
             "user_id": "5102b17168a0c8f70c000020",
@@ -118,7 +122,8 @@
             },
             "friends": [],
             "profile_image_url": "images/empty_profile.jpg",
-            "team_image_url": "images/empty_profile.jpg"
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true
         }, {
             "_id": "5102b17168a0c8f70c000024",
             "user_id": "5102b17168a0c8f70c000020",
@@ -134,7 +139,8 @@
             },
             "friends": [],
             "profile_image_url": "images/empty_profile.jpg",
-            "team_image_url": "images/empty_profile.jpg"
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true
         }
     ],
     "teams": [
