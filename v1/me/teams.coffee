@@ -36,7 +36,9 @@ app.post "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
 
 # Get single team profile by id
 app.get "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
-   TeamProfile.findById req.params.team_profile_id, (err, profile) ->
+   TeamProfile.findById req.params.team_profile_id, 
+      "name profile_image_url team_id team_image_url team_key team_name user_id points"
+   , (err, profile) ->
       return next(new MongoError(err)) if err
       return next(new ResourceNotFoundError()) unless profile
       res.json profile

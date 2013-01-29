@@ -12,7 +12,7 @@ app = module.exports = express()
 app.get "/v1/me/invites", auth.rookieStatus, (req, res, next) ->
    me_id = req.user._id
 
-   User.findById req.user._id, (err, user) ->
+   User.findById req.user._id, "invites", (err, user) ->
       return next(new MongoError(err)) if err
 
       TeamProfile
@@ -32,3 +32,17 @@ app.post "/v1/me/invites", auth.rookieStatus, (req, res, next) ->
       user.acceptInvite other_user_id, (err) ->
          return next(new MongoError(err)) if err
          res.json status: "success"
+
+app.del "/v1/me/invites", auth.rookieStatus, (req, res, next) ->
+   other_user_id = req.body.user_id
+   return next(new InvalidArgumentError("Required: user_id")) unless other_user_id
+   
+   User
+   .update { _id: req.user._id }, { $pull: { invites: other_user_id }}
+   , (err, data) ->
+      return next(new MongoError(err)) if err
+      if data == 1 
+         res.json status: "success"
+      else
+         next(new InvalidArgumentError("Invalid: user_id not in invite list"))
+

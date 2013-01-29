@@ -7,6 +7,7 @@ MongoError = require "../common/errors/MongoError"
 auth = require "../common/middleware/authenticate"
 TeamProfile = require "../common/models/TeamProfile"
 User = require "../common/models/User"
+async = require "async"
 
 app = module.exports = express()
 
@@ -17,53 +18,49 @@ perPage = 20
 
 # Updates this user's profile image
 app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
-   if req.files?.image?.path
-      images.uploadToCloud req.files.image.path,
-         [{ width: 280, height: 280, crop: "fill", gravity: "faces" }]
-      , (error, result) ->
-         if error
-            res.json error.http_code or 400,
-               status: "fail"
-               message: error.message
-         else
-            res.json 
-               image_url: result.url
-   else
-      next(new InvalidArgumentError("Required: image file"))
+   image_path = req.files?.image.path or req.body?.image_url
+   next(new InvalidArgumentError("Required: image or image_url")) unless image_path
 
-# Updates this user'r profile image to specified url
-app.put "/v1/images/me", auth.rookieStatus, (req, res, next) ->
-   image_url = req.body.image_url
-   res.json status: "success"
-
+   images.uploadToCloud image_path,
+      [{ width: 272, height: 272, crop: "fill", gravity: "faces" }]
+   , (err, result) ->
+      return next(new InvalidArgumentError("Unable to save image")) if err
+   
+      async.parallel
+         profile: (done) ->
+            TeamProfile.update { user_id: req.user._id }
+            , { profile_image_url: result.url }
+            , done
+         user: (done) ->
+            User.update { _id: req.user._id }
+            , { profile_image_url: result.url }
+            , done
+      , (err, data) ->
+         return next(new MongoError(err)) if err
+         res.json profile_image_url: result.url
+         
 # Updates the team profile image
 app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) ->
    team_profile_id = req.params.team_profile_id
 
    image_path = req.files?.image.path or req.body?.image_url
-   if image_path
-      images.uploadToCloud image_path,
-         [{ width: 376, height: 376, crop: "fill", gravity: "faces" }]
-      , (error, result) ->
-         if error
-            res.json error.http_code or 400,
-               status: "fail"
-               message: error.message
+   next(new InvalidArgumentError("Required: image or image_url")) unless image_path
+
+   images.uploadToCloud image_path,
+      [{ width: 376, height: 376, crop: "fill", gravity: "faces" }]
+   , (err, result) ->
+      return next(new InvalidArgumentError("Unable to save image")) if err
+      
+      TeamProfile.update { _id: team_profile_id }
+      , team_image_url: result.url
+      , (err, data) ->
+         return next(new MongoError(err)) if err
+         
+         if data == 1
+            res.json 
+               team_image_url: result.url
          else
-            TeamProfile.update { _id: team_profile_id }
-            , team_image_url: result.url
-            , (err, data) ->
-               next(new MongoError(err)) if err
-               
-               if data == 1
-                  res.json 
-                     team_image_url: result.url
-               else
-                  next(new InvalidArgumentError("Invalid: team_profile_id"))
-            
-app.put "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) ->
-   image_url = req.body.image_url
-   res.json status: "success"
+            next(new InvalidArgumentError("Invalid: team_profile_id"))
 
 # Search Bing images
 app.get "/v1/images/bing", auth.rookieStatus, (req, res, next) ->

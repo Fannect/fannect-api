@@ -170,7 +170,7 @@ describe "Fannect Core API", () ->
    #
    # /v1/me/invites
    #
-   describe "/v1/me/invites", () ->
+   describe.only "/v1/me/invites", () ->
       before prepMongo
       after emptyMongo  
       describe "GET", () ->
@@ -206,6 +206,7 @@ describe "Fannect Core API", () ->
                user: (done) -> User.findById user_id, "friends", done
                other: (done) -> User.findById other_id, "friends", done
             , (err, results) ->
+               return done(err) if err
                results.user.friends.should.include(other_id)
                results.other.friends.should.include(user_id)
                done()
@@ -221,12 +222,30 @@ describe "Fannect Core API", () ->
                others: (done) ->
                   TeamProfile.find {user_id: other_id, team_id: team_id}, "friends", done
             , (err, results) ->
+               return done(err) if err
                results.users.length.should.equal(1)
                results.others.length.should.equal(1)
                done()
 
+         it "should remove user_id from invite list", (done) ->
+            user_id = "5102b17168a0c8f70c000002"
+            other_id = "5102b17168a0c8f70c000020"
+
+            User.findById user_id, "invites", (err, user) ->
+               return done(err) if err
+               (other_id in user.invites).should.be.false
+               done()
+
       describe "DELETE", () ->
-         it "should delete invite"
+         it "should delete invite", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/me/invites"
+               method: "DELETE"
+               json: user_id: "5102b17168a0c8f70c000020"
+            , (err, resp, body) ->
+               return done(err) if err
+               done()
 
    #
    # /v1/me/leaderboard/users/[team_id]
