@@ -140,28 +140,36 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 **GET** - gets leaderboard based on conference
 
 ```javascript
-[[ { _id: '5102b17168a0c8f70c000009',
-    abbreviation: 'Kansas',
-    nickname: 'Jayhawks',
-    points: { dedication: 140, passion: 280, knowledge: 200, overall: 620 } },
-  { _id: '5102b17168a0c8f70c000008',
-    abbreviation: 'Kansas St.',
-    nickname: 'Wildcats',
-    points: { dedication: 50, passion: 250, knowledge: 100, overall: 400 } } ]
+{ conference_name: 'Big 12 Conference',
+  teams: 
+   [ { _id: '5102b17168a0c8f70c000009',
+       location_name: 'Kansas',
+       mascot: 'Jayhawks',
+       full_name: 'Kansas Jayhawks',
+       points: [Object] },
+     { _id: '5102b17168a0c8f70c000008',
+       location_name: 'Kansas St.',
+       mascot: 'Wildcats',
+       full_name: 'Kansas St. Wildcats',
+       points: [Object] } ] }
 ```
 
 ## `/v1/leaderboard/teams/[team_id]/league`
 **GET** - gets leaderboard based on league
  
 ```javascript
-[ { _id: '5102b17168a0c8f70c000009',
-    abbreviation: 'Kansas',
-    nickname: 'Jayhawks',
-    points: { dedication: 140, passion: 280, knowledge: 200, overall: 620 } },
-  { _id: '5102b17168a0c8f70c000008',
-    abbreviation: 'Kansas St.',
-    nickname: 'Wildcats',
-    points: { dedication: 50, passion: 250, knowledge: 100, overall: 400 } } ]
+{ league_name: 'NCAA Men\'s Football Division 1A',
+  teams: 
+   [ { _id: '5102b17168a0c8f70c000009',
+       location_name: 'Kansas',
+       mascot: 'Jayhawks',
+       full_name: 'Kansas Jayhawks',
+       points: [Object] },
+     { _id: '5102b17168a0c8f70c000008',
+       location_name: 'Kansas St.',
+       mascot: 'Wildcats',
+       full_name: 'Kansas St. Wildcats',
+       points: [Object] } ] }
 ```
 
 ## `/v1/leaderboard/teams/[team_id]/breakdown`
