@@ -39,7 +39,7 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    query = TeamProfile.where("team_id", team_id)
 
    if q
-      regex = if q then new RegExp("(|.*[\s]+)(#{q}).*", "i")
+      regex = if q then new RegExp("(|.*[\s]+)(#{q.trim()}).*", "i")
       query = query.where("name", regex)
 
    if friends_of

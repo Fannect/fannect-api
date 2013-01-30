@@ -22,7 +22,7 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
    next(new InvalidArgumentError("Required: image or image_url")) unless image_path
 
    images.uploadToCloud image_path,
-      [{ width: 272, height: 272, crop: "fill", gravity: "faces" }]
+      [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
    , (err, result) ->
       return next(new InvalidArgumentError("Unable to save image")) if err
    
@@ -47,7 +47,7 @@ app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) -
    next(new InvalidArgumentError("Required: image or image_url")) unless image_path
 
    images.uploadToCloud image_path,
-      [{ width: 376, height: 376, crop: "fill", gravity: "faces" }]
+      [{ width: 376, height: 376, crop: "fill", gravity: "faces", quality: 100 }]
    , (err, result) ->
       return next(new InvalidArgumentError("Unable to save image")) if err
       
