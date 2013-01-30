@@ -12,7 +12,10 @@ app = module.exports = express()
 
 # Get this user
 app.get "/v1/me", auth.rookieStatus, (req, res, next) ->
-   res.json req.user
+   User.findById req.user._id, "email profile_image_url first_name last_name invites"
+   , (err, user) ->
+      return next(new MongoError(err)) if err
+      res.json user
 
 # Update this user
 app.put "/v1/me", auth.rookieStatus, (req, res, next) ->

@@ -22,7 +22,7 @@ app.get "/v1/teamprofiles", auth.rookieStatus, (req, res, next) ->
 
       TeamProfile
       .findOne({ user_id: user_id, team_id: friend.team_id })
-      .select("team_id user_id name team_name points friends team_image_url profile_image_url is_college")
+      .select({ user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1 })
       .lean()
       .exec (err, profile) ->
 
@@ -39,7 +39,7 @@ app.get "/v1/teamprofiles", auth.rookieStatus, (req, res, next) ->
 
             TeamProfile
             .findOne({ user_id: user_id, team_id: { $in: (t.team_id for t in teams) }})
-            .select("team_id user_id name team_name points friends team_image_url profile_image_url is_college")
+            .select({ user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1 })
             .lean()
             .exec (err, profile) ->
                return next(new MongoError(err)) if err
@@ -51,7 +51,7 @@ app.get "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next)
 
    TeamProfile
    .findOne({ _id: profile_id })
-   .select("team_id user_id name team_name points friends team_image_url profile_image_url is_college")
+   .select({ user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, friends: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1 })
    .lean()
    .exec (err, profile) ->
       return next(new MongoError(err)) if err

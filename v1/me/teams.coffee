@@ -1,3 +1,4 @@
+mongoose = require "mongoose"
 express = require "express"
 auth = require "../../common/middleware/authenticate"
 TeamProfile = require "../../common/models/TeamProfile"
@@ -37,11 +38,22 @@ app.post "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
 # Get single team profile by id
 app.get "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
    TeamProfile.findById req.params.team_profile_id, 
-      "name profile_image_url team_id team_image_url team_key team_name user_id points"
+      { user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1 }
    , (err, profile) ->
       return next(new MongoError(err)) if err
       return next(new ResourceNotFoundError()) unless profile
       res.json profile
-
-app.put "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
    
+app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, next) ->
+   profile_id = req.params.team_profile_id
+   shout = req.body.shout
+   next(new InvalidArgumentError("Required: shout")) unless shout
+   next(new InvalidArgumentError("Invalid: shout should be 140 characters or less")) if shout.length > 140
+
+   TeamProfile
+   .update({_id: profile_id}, { $push: { shouts: { _id: new mongoose.Types.ObjectId, text: shout } } })
+   .exec (err, data) ->
+      return next(new MongoError(err)) if err
+      return next(new InvalidArgumentError("Invalid: team_profile_id")) if data == 0
+      res.json status: "success"
+

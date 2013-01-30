@@ -60,6 +60,7 @@ app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, n
    Team.findById team_id, "sport_key league_key league_name", (err, team) ->
       return next(new MongoError(err)) if err   
       return next(new InvalidArgumentError("Invalid team_id")) unless team
+
       Team
       .find({ sport_key: team.sport_key, league_key:team.league_key })
       .skip(skip)

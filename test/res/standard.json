@@ -56,7 +56,16 @@
             "friends": ["5102b17168a0c8f70c000007"],
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
-            "is_college": true
+            "is_college": true,
+            "shouts": [
+                {
+                    "_id": "5102b17168a0c8f70c001008",
+                    "text": "something"
+                }, {
+                    "_id": "5102b17168a0c8f70c001108",
+                    "text": "something else"
+                }
+            ]
         }, {
             "_id": "5102b17168a0c8f70c000105",
             "user_id": "5102b17168a0c8f70c000002",

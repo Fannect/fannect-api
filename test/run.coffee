@@ -157,19 +157,44 @@ describe "Fannect Core API", () ->
       describe "GET", () ->
          it "should get the team profile", (done) ->
             context = @
-            async.series
-               db: (done) -> TeamProfile.findById context.db.teamprofiles[0]._id, done
-               req: (done) ->
-                  request
-                     url: "#{context.host}/v1/me/teams/#{context.db.teamprofiles[0]._id}"
-                     method: "GET"
-                  , (err, resp, body) ->
-                     return done(err) if err
-                     done null, JSON.parse(body)
-            , (err, results) ->
+            request
+               url: "#{context.host}/v1/me/teams/#{context.db.teamprofiles[0]._id}"
+               method: "GET"
+            , (err, resp, body) ->
                return done(err) if err
-               results.db.toObject().toString().should.equal(results.req.toString())
+               body = JSON.parse(body)
+               body.name.should.equal("Mike Testing")
+               body.team_id.should.be.ok
+               body.user_id.should.be.ok
+               body.profile_image_url.should.be.ok
+               body.team_name.should.be.ok
+               body.points.should.be.ok
+               body.shouts.length.should.equal(1)
                done()
+
+   #
+   # /v1/me/teams/[team_profile_id]/shouts
+   #
+   describe "/v1/me/teams/[team_profile_id]/shouts", () ->
+      before prepMongo
+      after emptyMongo
+
+      describe "POST", () ->
+         it "should post new shout", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/me/teams/#{context.db.teamprofiles[0]._id}/shouts"
+               method: "POST"
+               json: shout: "This is my cool new shout!"
+            , (err, resp, body) ->
+               return done(err) if err
+               body.status.should.equal("success")
+               request 
+                  url: "#{context.host}/v1/me/teams/#{context.db.teamprofiles[0]._id}"
+               , (err, resp, body) ->
+                  body = JSON.parse(body)
+                  body.shouts[0].text.should.equal("This is my cool new shout!")
+                  done()
 
    #
    # /v1/me/invites
@@ -191,7 +216,7 @@ describe "Fannect Core API", () ->
                body[0].name.should.be.ok
                body[0].teams.length.should.equal(2)
                done()
-      describe.only "POST", () ->
+      describe "POST", () ->
          before (done) ->
             context = @
             request
