@@ -13,6 +13,8 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
    friends_of = req.query.friends_of
    team_id = req.params.team_id
 
+   return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
+
    if friends_of
       TeamProfile
       .find({ "team_id": team_id, $or: [{"friends": friends_of}, {"_id": friends_of}]})
@@ -36,6 +38,8 @@ app.get "/v1/leaderboard/teams/:team_id/conference", auth.rookieStatus, (req, re
    limit = if limit > 40 then 40 else limit
    skip = req.query.skip or 0
 
+   return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
+
    Team.findById team_id, "sport_key conference_key conference_name", (err, team) ->
       return next(new MongoError(err)) if err   
       return next(new InvalidArgumentError("Invalid team_id")) unless team
@@ -56,6 +60,8 @@ app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, n
    limit = req.query.limit or 20
    limit = if limit > 40 then 40 else limit
    skip = req.query.skip or 0
+
+   return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
    
    Team.findById team_id, "sport_key league_key league_name", (err, team) ->
       return next(new MongoError(err)) if err   

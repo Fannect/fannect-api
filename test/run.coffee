@@ -147,6 +147,17 @@ describe "Fannect Core API", () ->
             context = @
             context.body.profile_image_url.should.equal("images/empty_profile.jpg")
 
+         it "should not create a duplicate", (done) ->
+            request 
+               url: "#{@host}/v1/me/teams"
+               method: "POST"
+               json: { team_id: "5102b17168a0c8f70c000009" }
+            , (err, resp, body) ->
+               # return done(err) if err
+               body.status.should.equal("fail")
+               body.reason.should.equal("duplicate")
+               done()
+
    #
    # /v1/me/teams/[team_profile_id]
    #
@@ -650,3 +661,39 @@ describe "Fannect Core API", () ->
                body = JSON.parse(body)
                body.is_friend.should.be.false
                done()
+
+      describe "DELETE", () ->
+         it "should get team profile", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000005"
+            user_id = "5102b17168a0c8f70c000002"
+            request
+               url: "#{context.host}/v1/teamprofiles/#{profile_id}"
+               method: "DELETE"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.status.should.be.ok
+
+               async.parallel
+                  profile: (done) -> 
+                     TeamProfile.findById(profile_id, "user_id", done)
+                  others: (done) ->
+                     TeamProfile.find(friends: profile_id, "friends", done)
+                  user: (done) ->
+                     User.findById(user_id, "team_profiles", done)
+               , (err, result) ->
+                  return done(err) if err
+                  should.not.exist(result.profile)
+                  result.others.should.be.empty
+                  result.user.team_profiles.should.not.include(profile_id)
+                  done()
+
+   #
+   # /v1/teamprofiles/[team_profile_id]
+   #
+   # describe "/v1/teamprofiles/[team_profile_id]", () ->
+   #    before prepMongo
+   #    after emptyMongo
+   #    describe "GET", () ->
+   #       it "should get team profile", (done) ->

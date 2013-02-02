@@ -7,6 +7,9 @@ ResourceNotFoundError = require "../common/errors/ResourceNotFoundError"
 
 app = module.exports = express()
 
+# Loggly
+(require "../common/utils/logger")("f102b90e-0c59-43b4-bce8-e499318c454b")
+
 # Settings
 app.configure "development", () ->
    app.use express.logger "dev"
@@ -24,22 +27,6 @@ app.use express.static path.join __dirname, "../public"
 mongoose.connect process.env.MONGO_URL or "mongodb://admin:testing@linus.mongohq.com:10064/fannect"
 mongooseTypes.loadTypes mongoose
 
-# db.on "error", console.error.bind(console, "connection error:")
-# db.once "open", () -> "Mongo connected."
-
-#Session
-# redis_client = redis.connect(process.env.REDISTOGO_URL or "redis://heroku.bad942ab42933a1bd148:d83a3ae81b3c7e67314831b9c167459e@clingfish.redistogo.com:9480/")
-# app.use express.session
-#    cookie: maxAge: 60000 * 2880
-#    store: new RedisStore(client: redis_client)
-
-# Login controller
-# app.use require "./login"
-
-
-
-# Check login
-# app.use require "../middleware/checkLogin"
 
 # Controllers
 app.use require "./v1"

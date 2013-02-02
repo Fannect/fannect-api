@@ -9,7 +9,8 @@
             "refresh_token": "testingtoken1",
             "friends": ["5102b17168a0c8f70c000004"],
             "invites": ["5102b17168a0c8f70c000020"],
-            "profile_image_url": "images/empty_profile.jpg"
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_profiles": ["5102b17168a0c8f70c000005"]
         }, {
             "_id": "5102b17168a0c8f70c000003",
             "email": "testing2@fannect.me",

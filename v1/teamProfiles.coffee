@@ -2,8 +2,10 @@ express = require "express"
 rest = require "request"
 auth = require "../common/middleware/authenticate"
 TeamProfile = require "../common/models/TeamProfile"
+User = require "../common/models/User"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
+async = require "async"
 
 app = module.exports = express()
 
@@ -49,6 +51,8 @@ app.get "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next)
    profile_id = req.params.team_profile_id
    is_friend_of = req.query.is_friend_of
 
+   return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
+
    TeamProfile
    .findOne({ _id: profile_id })
    .select({ user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, friends: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1 })
@@ -67,3 +71,26 @@ app.get "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next)
       delete profile.friends
 
       res.json profile
+
+app.del "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next) ->
+   profile_id = req.params.team_profile_id
+   return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
+
+   TeamProfile
+   .findById profile_id, "user_id", (err, profile) ->
+      return next(new MongoError(err)) if err
+      return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
+      
+      async.parallel
+         profile: (done) -> profile.remove(done)
+         otherProfiles: (done) ->
+            TeamProfile
+            .update({ friends: profile_id }, { $pull: { friends: profile_id }}, done)
+         user: (done) ->
+            User
+            .update({ _id: profile.user_id }, { $pull: { team_profiles: profile_id }}, done)
+      , (err) ->
+         return next(new MongoError(err)) if err
+         res.json status: "success"
+
+
