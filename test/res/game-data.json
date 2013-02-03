@@ -29,24 +29,22 @@
             "waiting_events": [
                 {
                     "type": "guess_the_score",
-                    "points_earned": {
-                        "knowledge": 1,
-                        "passion": 0,
-                        "dedication": 0
+                    "meta": {
+                        "home_score": 43,
+                        "away_score": 23,
+                        "picked": true
                     }
                 }, {
                     "type": "game_face",
-                    "points_earned": {
-                        "knowledge": 0,
-                        "passion": 1,
-                        "dedication": 0
+                    "meta": {
+                        "face_on": true
                     }
                 }, {
-                    "type": "attendance",
-                    "points_earned": {
-                        "knowledge": 0,
-                        "passion": 0,
-                        "dedication": 1
+                    "type": "attendance_streak",
+                    "meta": {
+                        "checked_in": true,
+                        "lat": 50,
+                        "lng": 50
                     }
                 }
             ],
@@ -82,6 +80,7 @@
                     "opponent_id": "51084c08f71f44551a7b3ef7",
                     "stadium_id": "51084c08f71f34551a7b1ef6", 
                     "stadium_name": "Some Stadium",
+                    "stadium_location": "KCMO",
                     "stadium_coords": [32,32],
                     "is_home": false,
                     "coverage": "ESPN"
@@ -115,6 +114,7 @@
                     "stadium_id": "51084c08f71f34551a7b1ef6", 
                     "stadium_name": "Some Stadium",
                     "stadium_coords": [32,32],
+                    "stadium_location": "KCMO",
                     "is_home": false,
                     "coverage": "ESPN"
                 }
