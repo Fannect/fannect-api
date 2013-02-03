@@ -14,6 +14,7 @@ TeamProfile = null
 User = null
 
 data_standard = require "./res/standard"
+data_games = require "./res/game-data"
 
 process.env.REDIS_URL = "redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203"
 process.env.MONGO_URL = "mongodb://admin:testing@linus.mongohq.com:10064/fannect"
@@ -690,10 +691,29 @@ describe "Fannect Core API", () ->
                   done()
 
    #
-   # /v1/teamprofiles/[team_profile_id]
+   # /v1/me/teams/[team_profile_id]/games/gameFace
    #
-   # describe "/v1/teamprofiles/[team_profile_id]", () ->
-   #    before prepMongo
-   #    after emptyMongo
-   #    describe "GET", () ->
-   #       it "should get team profile", (done) ->
+   describe.only "/v1/me/teams/[team_profile_id]/games/gameFace", () ->
+      before (done) -> dbSetup.load data_games, done
+      after (done) -> dbSetup.unload data_games, done
+
+      describe "GET", () ->
+
+         it "should work when not game date", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c100007"
+            request
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
+            , (err, resp, body) ->
+               return done(err) if err
+               console.log body
+               done()
+
+
+         it "should work when is game date and not activated game face"#, (done) ->
+         it "should work when is game date and activated game face"#, (done) ->
+
+
+
+
+

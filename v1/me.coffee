@@ -21,12 +21,12 @@ app.get "/v1/me", auth.rookieStatus, (req, res, next) ->
 app.put "/v1/me", auth.rookieStatus, (req, res, next) ->
    b = req.body
    
+   data = {}
+   data.first_name = b.first_name if b.first_name
+   data.last_name = b.last_name if b.last_name
+
    async.parallel [
-      (done) ->
-         User.update { _id: req.user._id },
-            first_name: b.first_name
-            last_name: b.last_name
-         , done
+      (done) -> User.update { _id: req.user._id }, data, done
       (done) ->
          # Update name in all TeamProfiles
          if b.first_name or b.last_name

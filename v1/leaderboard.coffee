@@ -81,10 +81,10 @@ app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, n
 
 app.get "/v1/leaderboard/teams/:team_id/breakdown", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
-   Team.findById team_id, "points", (err, team) ->
+   Team.findById team_id, "mascot location_name full_name points", (err, team) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid team_id")) unless team
-      res.json team.points
+      res.json team
 
 app.get "/v1/leaderboard/teams/:team_id/custom", auth.rookieStatus, (req, res, next) ->
    this_team_id = req.params.team_id

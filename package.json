@@ -21,7 +21,8 @@
       "mongoose": "3.5.4",
       "mongoose-types": "1.0.3",
       "redis": "0.8.2",
-      "csv": "0.2.6"
+      "csv": "0.2.6",
+      "loggly": "0.3.11"
    },
    "devDependencies": {
       "mocha": "1.7.4",

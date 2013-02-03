@@ -4,6 +4,10 @@ rest = require "request"
 app = module.exports = express()
 
 app.get "/v1/me/games/guessTheScore", (req, res, next) ->
+   
+
+
+   
    gameInfo =
       available: true
       picked: true

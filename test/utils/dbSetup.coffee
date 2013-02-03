@@ -23,11 +23,13 @@ module.exports =
    unload: (obj, cb) ->
       user_ids = if obj.users then (u._id for u in obj.users) else []
       team_ids = if obj.teams then (t._id for t in obj.teams) else []
+      profile_ids = if obj.teamprofiles then (t._id for t in obj.teamprofiles) else []
 
       async.parallel [
          (done) -> User.remove({_id: { $in: user_ids }}, done)
          (done) -> Team.remove({_id: { $in: team_ids }}, done)
          (done) -> TeamProfile.remove({user_id: { $in: user_ids }}, done)
+         (done) -> TeamProfile.remove({_id: { $in: profile_ids }}, done)
       ], cb
 
 
