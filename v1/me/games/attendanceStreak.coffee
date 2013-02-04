@@ -20,6 +20,8 @@ app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStatu
          checked_in: false
    , (err, result) ->
       next(err) if err
+
+      console.log result
       res.json result
 
 app.post "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStatus, (req, res, next) ->
@@ -36,3 +38,41 @@ app.post "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStat
    , (err, result) ->
       return next(err) if err
       res.json status: "success"
+
+app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock0", auth.rookieStatus, (req, res, next) ->
+   res.json {
+      home_team: { name: 'Boston Celtics' },
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+      available: false 
+   }
+
+app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock1", auth.rookieStatus, (req, res, next) ->
+   res.json {
+      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+      home_team: { name: 'Boston Celtics' },
+      away_team: { name: 'Fannect a Squad' },
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+      preview: [ ],
+      available: false 
+   }
+
+app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock2", auth.rookieStatus, (req, res, next) ->
+   res.json {
+      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+      home_team: { name: 'Boston Celtics' },
+      away_team: { name: 'Fannect a Squad' },
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+      preview: [ ],
+      available: true,
+      meta: { checked_in: false }
+   }
+app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock3", auth.rookieStatus, (req, res, next) ->
+   res.json {
+      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+      home_team: { name: 'Boston Celtics' },
+      away_team: { name: 'Fannect a Squad' },
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+      preview: [ ],
+      available: true,
+      meta: { lng: 50, lat: 50, checked_in: true }
+   }

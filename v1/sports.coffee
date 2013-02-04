@@ -5,7 +5,6 @@ TeamProfile = require "../common/models/TeamProfile"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 
-
 app = module.exports = express()
 
 app.get "/v1/sports", auth.rookieStatus, (req, res, next) ->

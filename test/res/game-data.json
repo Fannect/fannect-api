@@ -1,6 +1,15 @@
 {
     "teamprofiles": [
         {
+            "_id": "5102b17148a0c8f70c100054",
+            "user_id": "5102b17168a0c8f70c000002",
+            "name": "Ron Testing",
+            "team_id": "51084c08f71f41521a7b1ef2",
+            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_name": "Outta Season",
+            "events": [],
+            "is_college": false
+        }, {
             "_id": "5102b17168a0c8f70c100007",
             "user_id": "5102b17168a0c8f70c000002",
             "name": "Ron Testing",
@@ -119,6 +128,25 @@
                     "coverage": "ESPN"
                 }
             }
+        }, {
+            "_id": "51084c08f71f41521a7b1ef2",
+            "team_key": "l.nba.com-t.1",   
+            "mascot": "Outta",
+            "location_name": "Season",
+            "full_name": "Outta Season",
+            "stadium": {
+                "stadium_id": "51084b38f71f54551a8b1d95",
+                "name": "TD Garden",
+                "location": "Boston, MA",
+                "coords": [ -71.06222, 42.366289 ]
+            },
+            "sport_key": "15008000",
+            "sport_name": "Basketball",
+            "league_key": "l.test.nba.com",
+            "league_name": "National Basketball Association",
+            "conference_key": "c.eastern",
+            "conference_name": "Eastern",
+            "is_college": false
         }
     ]
 }

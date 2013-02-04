@@ -1,0 +1,4 @@
+stadium_key,team_key,location,name,lat,lng,activate,college
+Boston_College_Alumni_Stadium,testing.team.1,"Bosten, MA",Boston College Alumni Stadium,42.335073,-71.16643,a,c
+Clemson_Memorial_Stadium,testing.team.2,"Clemson, SC",Clemson Memorial Stadium,34.678711,-82.84318,a,c
+Clemson Memorial Stadium,testing.team.3,Clemson,Clemson Memorial Stadium,34.678711,-82.84318,,c

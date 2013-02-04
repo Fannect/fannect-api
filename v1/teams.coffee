@@ -1,6 +1,6 @@
 express = require "express"
 auth = require "../common/middleware/authenticate"
-csvTeam = require "../common/utils/csvTeam"
+csvParser = require "../common/utils/csvParser"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 RestError = require "../common/errors/RestError"
 MongoError = require "../common/errors/MongoError"
@@ -20,7 +20,7 @@ app.get "/v1/teams", auth.rookieStatus, (req, res, next) ->
 app.post "/v1/teams", (req, res, next) ->
 # app.post "/v1/teams", auth.hof, (req, res, next) ->
    if req.files?.teams?.path
-      csvTeam req.files.teams.path, (err, count) ->
+      csvParser.parseTeams req.files.teams.path, (err, count) ->
          return next(err) if err
          res.json
             status: "success"

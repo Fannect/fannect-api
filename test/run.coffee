@@ -2,15 +2,16 @@ require "mocha"
 should = require "should"
 http = require "http"
 request = require "request"
-csvTeam = require "../common/utils/csvTeam"
 mongoose = require "mongoose"
 mockAuth = require "./utils/mockAuthenticate"
 async = require "async"
+csvParser = require "../common/utils/csvParser"
 
 # Have to do this because mongoose is initialized later
 dbSetup = null
 Team = null
 TeamProfile = null
+Stadium = null
 User = null
 
 data_standard = require "./res/standard"
@@ -44,7 +45,7 @@ describe "Fannect Core API", () ->
          Team = require "../common/models/Team"
          TeamProfile = require "../common/models/TeamProfile"
          User = require "../common/models/User"
-
+         Stadium = require "../common/models/Stadium"
          dbSetup.unload data_standard, done
 
    #
@@ -408,22 +409,46 @@ describe "Fannect Core API", () ->
    #
    # /v1/teams
    #  
-   describe "/v1/teams", () ->
-      describe "GET", () ->
+   describe "Uploading teams and stadiums", () ->
          before (done) ->
-            Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, done
-         
+            async.parallel
+               teams: (cb) ->
+                  Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, cb
+               stadiums: (cb) ->
+                  Stadium.remove {stadium_key: { $in: [ "Boston_College_Alumni_Stadium", "Clemson_Memorial_Stadium"]}}, cb
+            , done
          after (done) ->
-            Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, done
+            async.parallel
+               teams: (cb) ->
+                  Team.remove { team_key: { $in: [ "testing.team.1", "testing.team.2" ]}}, cb
+               stadiums: (cb) ->
+                  Stadium.remove {stadium_key: { $in: [ "Boston_College_Alumni_Stadium", "Clemson_Memorial_Stadium"]}}, cb
+            , done
 
          it "should parse csv and upload teams", (done) ->
-            csvTeam "#{__dirname}/res/test-teams.csv", (err, count) ->
+            csvParser.parseTeams "#{__dirname}/res/test-teams.csv", (err, count) ->
                return done(err) if err
                count.should.equal(2)
                Team.find { team_key: { $in: [ "testing.team.1", "testing.team.2"]}}, (err, teams) ->
                   return done(err) if err
                   teams.length.should.equal(2)
                   done()
+
+         it "should parse csv and upload stadiums", (done) ->
+            csvParser.parseStadiums "#{__dirname}/res/test-stadiums.csv", (err, count) ->
+               return done(err) if err
+               count.should.equal(2)
+               Stadium.find {stadium_key: { $in: [ "Boston_College_Alumni_Stadium", "Clemson_Memorial_Stadium"]}}, (err, stadiums) ->
+                  return done(err) if err
+                  stadiums.length.should.equal(2)
+                  done()
+
+         it "should associate team_keys and stadiums", (done) ->
+            # Team.find (err, team) ->
+            Team.findOne team_key: "testing.team.2", (err, team) ->
+               return done(err) if err
+               team.stadium.name.should.equal("Clemson Memorial Stadium")
+               done()
 
    #
    # /v1/teams/[team_id]/users
@@ -703,6 +728,18 @@ describe "Fannect Core API", () ->
 
       describe "GET", () ->
 
+         it "should work when no upcoming games in database", (done) ->
+            context = @
+            profile_id = "5102b17148a0c8f70c100054"
+            request
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.available.should.be.false
+               body.home_team.should.be.ok
+               done()
+
          it "should work when not game date", (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c100007"
@@ -769,7 +806,19 @@ describe "Fannect Core API", () ->
 
       describe "GET", () ->
 
-         it "should work when not attendance streak", (done) ->
+         it "should work when no upcoming games in database", (done) ->
+            context = @
+            profile_id = "5102b17148a0c8f70c100054"
+            request
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.available.should.be.false
+               body.home_team.should.be.ok
+               done()
+
+         it "should work when not game day", (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c100007"
             request
@@ -836,6 +885,18 @@ describe "Fannect Core API", () ->
       after (done) -> dbSetup.unload data_games, done
 
       describe "GET", () ->
+
+         it "should work when no upcoming games in database", (done) ->
+            context = @
+            profile_id = "5102b17148a0c8f70c100054"
+            request
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.available.should.be.false
+               body.home_team.should.be.ok
+               done()
 
          it "should work when not game date", (done) ->
             context = @

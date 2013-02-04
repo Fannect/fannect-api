@@ -36,3 +36,46 @@ app.post "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus,
    , (err, result) ->
       return next(err) if err
       res.json status: "success"
+
+app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock0", auth.rookieStatus, (req, res, next) ->
+   res.json {
+      home_team: { name: 'Boston Celtics' },
+      available: false 
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+   }
+
+app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock1", auth.rookieStatus, (req, res, next) ->
+   res.json {
+      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+      home_team: { name: 'Boston Celtics' },
+      away_team: { name: 'Fannect a Squad' },
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+      preview: [ ],
+      available: false 
+   }
+
+app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock2", auth.rookieStatus, (req, res, next) ->
+   res.json {
+      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+      home_team: { name: 'Boston Celtics' },
+      away_team: { name: 'Fannect a Squad' },
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+      preview: [ ],
+      available: true,
+      meta: { picked: false }
+   }
+
+app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock3", auth.rookieStatus, (req, res, next) ->
+   res.json {
+      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+      home_team: { name: 'Boston Celtics' },
+      away_team: { name: 'Fannect a Squad' },
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+      preview: [ ],
+      available: true,
+      meta: { picked: true, away_score: 23, home_score: 43 }
+   }
+
+
+
+
