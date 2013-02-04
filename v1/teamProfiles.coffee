@@ -71,26 +71,3 @@ app.get "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next)
       delete profile.friends
 
       res.json profile
-
-app.del "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next) ->
-   profile_id = req.params.team_profile_id
-   return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
-
-   TeamProfile
-   .findById profile_id, "user_id", (err, profile) ->
-      return next(new MongoError(err)) if err
-      return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
-      
-      async.parallel
-         profile: (done) -> profile.remove(done)
-         otherProfiles: (done) ->
-            TeamProfile
-            .update({ friends: profile_id }, { $pull: { friends: profile_id }}, done)
-         user: (done) ->
-            User
-            .update({ _id: profile.user_id }, { $pull: { team_profiles: profile_id }}, done)
-      , (err) ->
-         return next(new MongoError(err)) if err
-         res.json status: "success"
-
-

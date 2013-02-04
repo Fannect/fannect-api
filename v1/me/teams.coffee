@@ -6,6 +6,8 @@ Team = require "../../common/models/Team"
 MongoError = require "../../common/errors/MongoError"
 ResourceNotFoundError = require "../../common/errors/ResourceNotFoundError"
 InvalidArgumentError = require "../../common/errors/InvalidArgumentError"
+async = require "async"
+User = require "../../common/models/User"
 
 app = module.exports = express()
 
@@ -43,6 +45,27 @@ app.get "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
       return next(new MongoError(err)) if err
       return next(new ResourceNotFoundError()) unless profile
       res.json profile
+
+app.del "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
+   profile_id = req.params.team_profile_id
+   return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
+
+   TeamProfile
+   .findById profile_id, "user_id", (err, profile) ->
+      return next(new MongoError(err)) if err
+      return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
+      
+      async.parallel
+         profile: (done) -> profile.remove(done)
+         otherProfiles: (done) ->
+            TeamProfile
+            .update({ friends: profile_id }, { $pull: { friends: profile_id }}, done)
+         user: (done) ->
+            User
+            .update({ _id: profile.user_id }, { $pull: { team_profiles: profile_id }}, done)
+      , (err) ->
+         return next(new MongoError(err)) if err
+         res.json status: "success"
    
 app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, next) ->
    profile_id = req.params.team_profile_id
@@ -56,4 +79,3 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: team_profile_id")) if data == 0
       res.json status: "success"
-
