@@ -12,7 +12,7 @@ app = module.exports = express()
 app.post "/v1/stadiums", (req, res, next) ->
 # app.post "/v1/stadiums", auth.hof, (req, res, next) ->
    if req.files?.stadiums?.path
-      csvParser.parseStadiums req.files.teams.path, (err, count) ->
+      csvParser.parseStadiums req.files.stadiums.path, (err, count) ->
          return next(err) if err
          res.json
             status: "success"
