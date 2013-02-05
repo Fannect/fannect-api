@@ -287,6 +287,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 ## `/v1/images/me`
 **PUT** - Updates this user's profile image
+* `pull_twitter` - pull profile image from twitter
 
 ## `/v1/images/me/[team_profile_id]`
 **PUT** - Updates the team image for this profile
