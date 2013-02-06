@@ -8,6 +8,7 @@ ResourceNotFoundError = require "../../common/errors/ResourceNotFoundError"
 InvalidArgumentError = require "../../common/errors/InvalidArgumentError"
 async = require "async"
 User = require "../../common/models/User"
+twitter = require "../../common/utils/twitterReq"
 
 app = module.exports = express()
 
@@ -72,10 +73,22 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
    shout = req.body.shout
    next(new InvalidArgumentError("Required: shout")) unless shout
    next(new InvalidArgumentError("Invalid: shout should be 140 characters or less")) if shout.length > 140
+   tweet = req.body.tweet or false
 
-   TeamProfile
-   .update({_id: profile_id}, { $push: { shouts: { _id: new mongoose.Types.ObjectId, text: shout } } })
-   .exec (err, data) ->
+   saveShout = (cb) ->
+      TeamProfile
+      .update({_id: profile_id}, { $push: { shouts: { _id: new mongoose.Types.ObjectId, text: shout } } })
+      .exec cb
+
+   resp = (err, data) ->
       return next(new MongoError(err)) if err
-      return next(new InvalidArgumentError("Invalid: team_profile_id")) if data == 0
       res.json status: "success"
+   
+   if tweet
+      async.parallel
+         shout: saveShout
+         tweet: (done) -> twitter(req.query.access_token, req.user.twitter, shout, done)
+      , resp
+   else
+      saveShout(resp)
+         

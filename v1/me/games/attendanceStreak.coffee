@@ -57,8 +57,8 @@ app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock1", auth.rooki
 app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock2", auth.rookieStatus, (req, res, next) ->
    res.json {
       game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
-      home_team: { name: 'Boston Celtics' },
-      away_team: { name: 'Fannect a Squad' },
+      home_team: { name: 'Boston Celtics', record: "(13-3)" },
+      away_team: { name: 'Fannect a Squad', record: "(18-1)" },
       stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.09472, lng: -94.581127 },
       preview: [ ],
       available: true,

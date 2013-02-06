@@ -4,10 +4,12 @@ request = require "request"
 images = require "../common/utils/images"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 MongoError = require "../common/errors/MongoError"
+RestError = require "../common/errors/RestError"
 auth = require "../common/middleware/authenticate"
 TeamProfile = require "../common/models/TeamProfile"
 User = require "../common/models/User"
 async = require "async"
+twitter = require "../common/utils/twitterReq"
 
 app = module.exports = express()
 
@@ -18,26 +20,35 @@ perPage = 20
 
 # Updates this user's profile image
 app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
-   image_path = req.files?.image.path or req.body?.image_url
-   next(new InvalidArgumentError("Required: image or image_url")) unless image_path
+   pull_twitter = req.body.pull_twitter or false
 
-   images.uploadToCloud image_path,
-      [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
-   , (err, result) ->
-      return next(new InvalidArgumentError("Unable to save image")) if err
-   
-      async.parallel
-         profile: (done) ->
-            TeamProfile.update { user_id: req.user._id }
-            , { profile_image_url: result.url }
-            , done
-         user: (done) ->
-            User.update { _id: req.user._id }
-            , { profile_image_url: result.url }
-            , done
-      , (err, data) ->
-         return next(new MongoError(err)) if err
-         res.json profile_image_url: result.url
+   console.log "PULL_TWITTER", pull_twitter
+
+   if pull_twitter
+      return next(new InvalidArgumentError("No twitter account connected to this user")) unless req.user?.twitter
+      twitter.pullProfile req.query.access_token, req.user.twitter, (err, url) ->
+         return next(new RestError(err)) if err
+
+         images.uploadToCloud url,
+            [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
+         , (err, result) ->
+            return next(new InvalidArgumentError("Unable to save image")) if err
+            
+            updateUserProfileImage req.user._id, result.url, (err, data) ->
+               return next(new MongoError(err)) if err
+               res.json profile_image_url: result.url
+   else
+      image_path = req.files?.image.path or req.body?.image_url
+      next(new InvalidArgumentError("Required: image or image_url")) unless image_path
+
+      images.uploadToCloud image_path,
+         [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
+      , (err, result) ->
+         return next(new InvalidArgumentError("Unable to save image")) if err
+         
+         updateUserProfileImage req.user._id, result.url, (err, data) ->
+            return next(new MongoError(err)) if err
+            res.json profile_image_url: result.url
          
 # Updates the team profile image
 app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) ->
@@ -86,6 +97,18 @@ app.get "/v1/images/bing", auth.rookieStatus, (req, res, next) ->
             error_message: body
       else
          res.json parseBingResults JSON.parse body
+
+updateUserProfileImage = (user_id, url, cb) ->
+   async.parallel
+      profile: (done) ->
+         TeamProfile.update { user_id: user_id }
+         , { profile_image_url: url }
+         , done
+      user: (done) ->
+         User.update { _id: user_id }
+         , { profile_image_url: url }
+         , done
+   , cb
 
 parseBingResults = (data) ->
    results = []
