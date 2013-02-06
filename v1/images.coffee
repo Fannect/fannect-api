@@ -22,8 +22,6 @@ perPage = 20
 app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
    pull_twitter = req.body.pull_twitter or false
 
-   console.log "PULL_TWITTER", pull_twitter
-
    if pull_twitter
       return next(new InvalidArgumentError("No twitter account connected to this user")) unless req.user?.twitter
       twitter.pullProfile req.query.access_token, req.user.twitter, (err, url) ->

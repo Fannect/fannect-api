@@ -87,7 +87,7 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
    if tweet
       async.parallel
          shout: saveShout
-         tweet: (done) -> twitter(req.query.access_token, req.user.twitter, shout, done)
+         tweet: (done) -> twitter.tweet(req.query.access_token, req.user.twitter, shout, done)
       , resp
    else
       saveShout(resp)

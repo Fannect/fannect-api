@@ -70,7 +70,7 @@ app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock3", auth.rookieSt
       game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
       home_team: { name: 'Boston Celtics' },
       away_team: { name: 'Fannect a Squad' },
-      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
+      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -71.06222 },
       preview: [ ],
       available: true,
       meta: { picked: true, away_score: 23, home_score: 43 }

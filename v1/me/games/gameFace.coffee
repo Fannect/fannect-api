@@ -30,7 +30,6 @@ app.post "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, (req
       gameType: "game_face"
    , (err, result) ->
       return next(err) if err
-
       res.json status: "success"
 
 app.get "/v1/me/teams/:team_profile_id/games/gameFace/mock0", auth.rookieStatus, (req, res, next) ->
