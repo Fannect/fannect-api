@@ -28,6 +28,8 @@ app.post "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, (req
 
    gameDay.post profile_id, 
       gameType: "game_face"
+      meta:
+         face_on: true
    , (err, result) ->
       return next(err) if err
       res.json status: "success"
