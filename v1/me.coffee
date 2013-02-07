@@ -4,7 +4,6 @@ mongoose = require "mongoose"
 User = require "../common/models/User"
 TeamProfile = require "../common/models/TeamProfile"
 auth = require "../common/middleware/authenticate"
-redis = require("../common/utils/redis").client
 MongoError = require "../common/errors/MongoError"
 async = require "async"
 
@@ -29,6 +28,9 @@ updateProfile = (req, res, next) ->
    data.first_name = b.first_name if b.first_name
    data.last_name = b.last_name if b.last_name
 
+   req.user.first_name = data.first_name if data.first_name
+   req.user.last_name = data.last_name if data.last_name
+
    async.parallel [
       (done) -> User.update { _id: req.user._id }, data, done
       (done) ->
@@ -39,6 +41,7 @@ updateProfile = (req, res, next) ->
                { name: name },
                { multi: true } 
             , done
+      (done) -> auth.setUser(req.query.access_token, req.user, done)
    ], (err, data) ->
       return next(new MongoError(err)) if err
       res.json status: "success"

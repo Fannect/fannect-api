@@ -101,6 +101,7 @@ updateUserProfileImage = (user_id, url, cb) ->
       profile: (done) ->
          TeamProfile.update { user_id: user_id }
          , { profile_image_url: url }
+         , { multi: true }
          , done
       user: (done) ->
          User.update { _id: user_id }
