@@ -48,6 +48,7 @@ app.get "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
       res.json profile
 
 app.del "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
+   console.log "MADE IT TO DELETE", profile_id
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
 
