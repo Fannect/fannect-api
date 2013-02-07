@@ -22,8 +22,7 @@ app.get "/v1/me", auth.rookieStatus, (req, res, next) ->
       user.twitter = if user.twitter?.user_id then true else false
       res.json user
 
-# Update this user
-app.put "/v1/me", auth.rookieStatus, (req, res, next) ->
+updateProfile = (req, res, next) ->
    b = req.body
    
    data = {}
@@ -43,6 +42,22 @@ app.put "/v1/me", auth.rookieStatus, (req, res, next) ->
    ], (err, data) ->
       return next(new MongoError(err)) if err
       res.json status: "success"
+
+# Update this user
+app.post "/v1/me/update", auth.rookieStatus, updateProfile
+app.put "/v1/me", auth.rookieStatus, updateProfile
+
+updatePush = (req, res, next) ->
+   updates = push: {}
+   updates["push"]["game_notice"] = req.body.game_notice if req.body.game_notice
+   updates["push"]["points_notice"] = req.body.point_notice if req.body.point_notice
+
+   User.update { _id: req.user._id }, updates, (err) ->
+      return next(new MongoError(err)) if err
+      res.json status: "success"
+
+app.post "/v1/me/push/update", auth.rookieStatus, updatePush
+app.put "/v1/me/push", auth.rookieStatus, updatePush
 
 app.use require "./me/games"
 app.use require "./me/invites"
