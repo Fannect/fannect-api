@@ -33,7 +33,10 @@ app.post "/v1/me/invites", auth.rookieStatus, (req, res, next) ->
          return next(new MongoError(err)) if err
          res.json status: "success"
 
-app.del "/v1/me/invites", auth.rookieStatus, (req, res, next) ->
+app.del "/v1/me/invites", auth.rookieStatus, deleteInvite
+app.post "/v1/me/invites/delete", auth.rookieStatus, deleteInvite
+
+deleteInvite = (req, res, next) ->
    other_user_id = req.body.user_id
    return next(new InvalidArgumentError("Required: user_id")) unless other_user_id
    

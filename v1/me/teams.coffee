@@ -46,9 +46,8 @@ app.get "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
       return next(new MongoError(err)) if err
       return next(new ResourceNotFoundError()) unless profile
       res.json profile
-
-app.del "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
-   console.log "MADE IT TO DELETE", profile_id
+         
+deleteTeamProfile = (req, res, next) ->
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
 
@@ -69,6 +68,9 @@ app.del "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
          return next(new MongoError(err)) if err
          res.json status: "success"
    
+app.del "/v1/me/teams/:team_profile_id", auth.rookieStatus, deleteTeamProfile
+app.post "/v1/me/teams/:team_profile_id/delete", auth.rookieStatus, deleteTeamProfile
+
 app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, next) ->
    profile_id = req.params.team_profile_id
    shout = req.body.shout
@@ -92,4 +94,3 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
       , resp
    else
       saveShout(resp)
-         
