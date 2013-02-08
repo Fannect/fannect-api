@@ -6,7 +6,7 @@ MongoError = require "../../../common/errors/MongoError"
 InvalidArgumentError = require "../../../common/errors/InvalidArgumentError"
 RestError = require "../../../common/errors/RestError"
 auth = require "../../../common/middleware/authenticate"
-gameDay = require "../../../common/utils/gameDay"
+GameStatus = require "../../../common/GameStatus/GameStatus"
 
 app = module.exports = express()
 
@@ -14,11 +14,12 @@ app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStatu
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
 
-   gameDay.get profile_id,
-      gameType: "attendance_streak", 
-      meta:
-         checked_in: false
-   , (err, result) ->
+   GameStatus
+   .get(profile_id, "attendance_streak")
+   .availability("tillEnd")
+   .meta "raw",
+      checked_in: false
+   .exec (err, result) ->
       next(err) if err
       res.json result
 
@@ -27,16 +28,18 @@ app.post "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStat
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
    return next(new InvalidArgumentError("Required: lat and lng")) if not req.body.lat or not req.body.lng
 
-   gameDay.post profile_id, 
-      gameType: "attendance_streak"
-      meta: 
-         lat: req.body.lat
-         lng: req.body.lng
-         checked_in: true
-   , (err, result) ->
+   GameStatus
+   .set(profile_id, "attendance_streak")
+   .availability("tillEnd")
+   .meta "raw",
+      lat: req.body.lat
+      lng: req.body.lng
+      checked_in: true
+   .exec (err) ->
       return next(err) if err
       res.json status: "success"
-
+      
+      
 app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock0", auth.rookieStatus, (req, res, next) ->
    res.json {
       home_team: { name: 'Boston Celtics' },

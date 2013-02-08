@@ -13,8 +13,6 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
    friends_of = req.query.friends_of
    team_id = req.params.team_id
 
-   console.log req.query
-
    return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
 
    if friends_of

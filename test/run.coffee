@@ -15,11 +15,6 @@ Stadium = null
 User = null
 
 data_standard = require "./res/standard"
-data_games = require "./res/game-data"
-
-# fix game times
-data_games.teams[0].schedule.pregame.game_time = new Date((new Date() / 1) + 1000 * 60 * 60 * 3)
-data_games.teams[1].schedule.pregame.game_time = new Date((new Date() / 1) + 1000 * 60 * 60 * 24)
 
 process.env.REDIS_URL = "redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203"
 process.env.MONGO_URL = "mongodb://admin:testing@linus.mongohq.com:10064/fannect"
@@ -147,6 +142,7 @@ describe "Fannect Core API", () ->
             TeamProfile.findById "5102b17168a0c8f70c000010", (err, profile) ->
                return done(err) if err
                profile.friends.should.include(context.body._id)
+               profile.friends_count.should.equal(profile.friends.length)
                done()
 
          it "should rollover profile_image_url", () ->
@@ -290,14 +286,16 @@ describe "Fannect Core API", () ->
             team_id = "5102b17168a0c8f70c000008"
 
             async.parallel
-               users: (done) -> 
-                  TeamProfile.find {user_id: user_id, team_id: team_id}, "friends", done
-               others: (done) ->
-                  TeamProfile.find {user_id: other_id, team_id: team_id}, "friends", done
+               user: (done) -> 
+                  TeamProfile.findOne {user_id: user_id, team_id: team_id}, "friends friends_count", done
+               other: (done) ->
+                  TeamProfile.findOne {user_id: other_id, team_id: team_id}, "friends friends_count", done
             , (err, results) ->
                return done(err) if err
-               results.users.length.should.equal(1)
-               results.others.length.should.equal(1)
+               results.user.friends.should.include(results.other._id)
+               results.other.friends.should.include(results.user._id)
+               results.user.friends_count.should.equal(results.user.friends.length)
+               results.other.friends_count.should.equal(results.other.friends.length)
                done()
 
          it "should remove user_id from invite list", (done) ->
@@ -719,244 +717,7 @@ describe "Fannect Core API", () ->
                body.is_friend.should.be.false
                done()
 
-   #
-   # /v1/me/teams/[team_profile_id]/games/gameFace
-   #
-   describe "/v1/me/teams/[team_profile_id]/games/gameFace", () ->
-      before (done) -> dbSetup.load data_games, done
-      after (done) -> dbSetup.unload data_games, done
-
-      describe "GET", () ->
-
-         it "should work when no upcoming games in database", (done) ->
-            context = @
-            profile_id = "5102b17148a0c8f70c100054"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.false
-               body.home_team.should.be.ok
-               done()
-
-         it "should work when not game date", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c100007"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.false
-               body.home_team.should.be.ok
-               body.away_team.should.be.ok
-               done()
-
-         it "should work when is game date and not activated game face", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c001005"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.true
-               body.meta.face_on.should.be.false
-               done()
-
-         it "should work when is game date and activated game face", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c000106"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.true
-               body.meta.face_on.should.be.true
-               done()
-
-      describe "POST", () ->
-
-         it "should save gameface", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c001005"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
-               method: "POST"
-               json: face_on: true
-            , (err, resp, body) ->
-               return done(err) if err
-               
-               TeamProfile
-               .findById profile_id, "waiting_events", (err, profile) ->
-                  for ev in profile.waiting_events
-                     if ev.type == "game_face"
-                        return done()
-
-                  done(new Error("Didn't add waiting event"))
-
-   #
-   # /v1/me/teams/[team_profile_id]/games/attendanceStreak
-   #
-   describe "/v1/me/teams/[team_profile_id]/games/attendanceStreak", () ->
-      before (done) -> dbSetup.load data_games, done
-      after (done) -> dbSetup.unload data_games, done
-
-      describe "GET", () ->
-
-         it "should work when no upcoming games in database", (done) ->
-            context = @
-            profile_id = "5102b17148a0c8f70c100054"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.false
-               body.home_team.should.be.ok
-               done()
-
-         it "should work when not game day", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c100007"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.false
-               body.home_team.should.be.ok
-               body.away_team.should.be.ok
-               done()
-
-         it "should work when is game date and not activated attendance streak", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c001005"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.true
-               body.meta.checked_in.should.be.false
-               done()
-
-         it "should work when is game date and activated attendance streak", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c000106"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.true
-               body.meta.checked_in.should.be.true
-               done()
-
-      describe "POST", () ->
-
-         it "should save attendanceStreak", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c001005"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
-               method: "POST"
-               json: 
-                  lat: 40
-                  lng: 40
-            , (err, resp, body) ->
-               return done(err) if err
-               
-               TeamProfile
-               .findById profile_id, "waiting_events", (err, profile) ->
-                  for ev in profile.waiting_events
-                     if ev.type == "attendance_streak"
-                        return done()
-
-                  done(new Error("Didn't add waiting event"))
-
-   #
-   # /v1/me/teams/[team_profile_id]/games/guessTheScore
-   #
-   describe "/v1/me/teams/[team_profile_id]/games/guessTheScore", () ->
-      before (done) -> dbSetup.load data_games, done
-      after (done) -> dbSetup.unload data_games, done
-
-      describe "GET", () ->
-
-         it "should work when no upcoming games in database", (done) ->
-            context = @
-            profile_id = "5102b17148a0c8f70c100054"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.false
-               body.home_team.should.be.ok
-               done()
-
-         it "should work when not game date", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c100007"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.false
-               body.home_team.should.be.ok
-               body.away_team.should.be.ok
-               done()
-
-         it "should work when is game date and not activated guess the score", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c001005"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.true
-               body.meta.picked.should.be.false
-               done()
-
-         it "should work when is game date and activated guess the score", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c000106"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.available.should.be.true
-               body.meta.picked.should.be.true
-               done()
-
-      describe "POST", () ->
-
-         it "should save guessTheScore", (done) ->
-            context = @
-            profile_id = "5102b17168a0c8f70c001005"
-            request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
-               method: "POST"
-               json: 
-                  away_score: 45
-                  home_score: 52
-            , (err, resp, body) ->
-               return done(err) if err
-               
-               TeamProfile
-               .findById profile_id, "waiting_events", (err, profile) ->
-                  for ev in profile.waiting_events
-                     if ev.type == "guess_the_score"
-                        return done()
-
-                  done(new Error("Didn't add waiting event"))
-                  
+   require "./tests/games"
 
 
 
