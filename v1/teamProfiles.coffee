@@ -55,7 +55,7 @@ app.get "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next)
 
    TeamProfile
    .findOne({ _id: profile_id })
-   .select({ user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1, friends_count: 1, rank: 1 })
+   .select({ user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1, friends: 1, friends_count: 1, rank: 1 })
    .lean()
    .exec (err, profile) ->
       return next(new MongoError(err)) if err
