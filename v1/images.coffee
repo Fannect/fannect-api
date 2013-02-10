@@ -24,7 +24,7 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
 
    if pull_twitter
       return next(new InvalidArgumentError("No twitter account connected to this user")) unless req.user?.twitter
-      twitter.pullProfile req.query.access_token, req.user.twitter, (err, url) ->
+      twitter.pullProfile req.user.twitter, (err, url) ->
          return next(new RestError(err)) if err
 
          images.uploadToCloud url,
