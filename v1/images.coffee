@@ -23,7 +23,7 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
    pull_twitter = req.body.pull_twitter or false
 
    if pull_twitter
-      return next(new InvalidArgumentError("No twitter account connected to this user")) unless req.user?.twitter
+      return next(new InvalidArgumentError("No twitter account connected to this user")) unless req.user.twitter
       twitter.pullProfile req.user.twitter, (err, url) ->
          return next(new RestError(err)) if err
 
