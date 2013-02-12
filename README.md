@@ -137,7 +137,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * `name` - name of the group
 * `tags` - tags to associate with the group
 
-## `/v1/groups/[group_id]
+## `/v1/groups/[group_id]`
 **GET** - gets a group by `_id`
 
 ## `/v1/leaderboard/users/[team_id]`
