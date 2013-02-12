@@ -76,7 +76,7 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
    shout = req.body.shout
    next(new InvalidArgumentError("Required: shout")) unless shout
    next(new InvalidArgumentError("Invalid: shout should be 140 characters or less")) if shout.length > 140
-   tweet = req.body.tweet or false
+   tweet = req.body.tweet or "false"
 
    saveShout = (cb) ->
       TeamProfile
@@ -87,7 +87,7 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
       return next(new MongoError(err)) if err
       res.json status: "success"
    
-   if tweet
+   if tweet.toString() == "true"
       async.parallel
          shout: saveShout
          tweet: (done) -> twitter.tweet(req.user.twitter, shout, done)
