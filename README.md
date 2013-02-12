@@ -140,6 +140,10 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ## `/v1/groups/[group_id]`
 **GET** - gets a group by `_id`
 
+## `/v1/groups/[group_id]/teamprofiles`
+**POST** - adds a team profile to a group
+* `email` - email of the user to add
+
 ## `/v1/leaderboard/users/[team_id]`
 **GET** - gets the overall leaderboard for a team
    * `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
