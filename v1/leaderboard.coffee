@@ -18,7 +18,7 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
    if friends_of
       TeamProfile
       .find({ "team_id": team_id, $or: [{"friends": friends_of}, {"_id": friends_of}]})
-      .sort("-points.overall")
+      .sort({"points.overall": -1, name: 1})
       .select("profile_image_url name points")
       .exec (err, profiles) ->
          return next(new MongoError(err)) if err
