@@ -19,7 +19,7 @@ app.get "/v1/groups/:group_id", auth.rookieStatus, (req, res, next) ->
       return next(new InvalidArgumentError("Invalid: group_id")) unless group
       res.json group
 
-app.post "/v1/groups/:group_id/teamprofiles", auth.subStatus, (req, res, next) ->
+app.post "/v1/groups/:group_id/teamprofiles", auth.app.ownerStatus, (req, res, next) ->
    group_id = req.params.group_id
    email = req.body.email
    return next(new InvalidArgumentError("Required: email")) unless email
