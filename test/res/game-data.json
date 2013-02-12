@@ -1,11 +1,23 @@
 {
+    "users": [
+        {
+            "_id": "5102b17168a0c8f70c000002",
+            "email": "testing1@fannect.me",
+            "password": "hi",
+            "first_name": "Mike",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken1",
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_profiles": ["5102b17168a0c8f70c001005"]
+        }
+    ],
     "teamprofiles": [
         {
             "_id": "5102b17148a0c8f70c100054",
             "user_id": "5102b17168a0c8f70c000002",
             "name": "Ron Testing",
             "team_id": "51084c08f71f41521a7b1ef2",
-            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
             "team_name": "Outta Season",
             "events": [],
             "is_college": false
@@ -14,7 +26,7 @@
             "user_id": "5102b17168a0c8f70c000002",
             "name": "Ron Testing",
             "team_id": "51084c08f71f44551a7b1ef6",
-            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
             "team_name": "Boston Celtics",
             "events": [],
             "is_college": false
@@ -23,17 +35,17 @@
             "user_id": "5102b17168a0c8f70c000002",
             "name": "Ron Testing",
             "team_id": "5102b17168a0c8f70c000008",
-            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
             "team_name": "Kansas St. Wildcats",
             "friends": ["5102b17168a0c8f70c000007"],
             "events": [],
             "is_college": true
         }, {
             "_id": "5102b17168a0c8f70c000106",
-            "user_id": "5102b17168a0c8f70c000002",
+            "user_id": "5102b17168a0c8f70c000003",
             "name": "Ron Testing",
             "team_id": "5102b17168a0c8f70c000008",
-            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
             "team_name": "Kansas St. Wildcats",
             "waiting_events": [
                 {
@@ -60,6 +72,69 @@
             "is_college": true
         }
     ],
+    "groups": [
+        {
+            "_id": "5102b17168a0c8f71c000019",
+            "sport_key": "15003000",
+            "sport_name": "American Football",
+            "name": "Some Group",
+            "tags": [ "tag one", "tag two" ],
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 40,
+                "passion": 15,
+                "dedication": 10,
+                "knowledge": 15
+            }
+        }, {
+            "_id": "5102b17168a0c8f71c000118",
+            "sport_key": "15003000",
+            "sport_name": "American Football",
+            "name": "Some Group",
+            "tags": [ "tag one", "tag two" ],
+            "team_id": "5102b17168a0c8f72c000019",
+            "team_key": "l.ncaa.org.mfoot-testing-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 40,
+                "passion": 15,
+                "dedication": 10,
+                "knowledge": 15
+            }
+        }, {
+            "_id": "5102b17168a0c8f71c000021",
+            "sport_key": "15003000",
+            "sport_name": "American Football",
+            "name": "Some Group",
+            "tags": [ "tag one" ],
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 60,
+                "passion": 15,
+                "dedication": 30,
+                "knowledge": 15
+            }
+        }, {
+            "_id": "5102b17168a0c8f71c000033",
+            "sport_key": "15003000",
+            "sport_name": "American Football",
+            "name": "Some Group",
+            "tags": [ "tag two" ],
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 50,
+                "passion": 25,
+                "dedication": 10,
+                "knowledge": 15
+            }
+        }
+    ],
     "teams": [
         {
             "_id": "5102b17168a0c8f70c000008",
@@ -80,7 +155,7 @@
                     39.20198
                 ]
             },
-            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
             "schedule": {
                 "pregame": {
                     "event_key": "l.nba.com-2012-e.17856",
@@ -97,7 +172,7 @@
             }
         }, {
             "_id": "51084c08f71f44551a7b1ef6",
-            "team_key": "l.nba.com-t.1",   
+            "team_key": "l.nba.test-t.1",   
             "mascot": "Celtics",
             "location_name": "Boston",
             "full_name": "Boston Celtics",
@@ -130,7 +205,7 @@
             }
         }, {
             "_id": "51084c08f71f41521a7b1ef2",
-            "team_key": "l.nba.com-t.1",   
+            "team_key": "l.nba.testing-t.1",   
             "mascot": "Outta",
             "location_name": "Season",
             "full_name": "Outta Season",

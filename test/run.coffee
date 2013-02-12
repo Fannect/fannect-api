@@ -718,6 +718,7 @@ describe "Fannect Core API", () ->
                done()
 
    require "./tests/games"
+   require "./tests/groups"
 
 
 

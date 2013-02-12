@@ -54,6 +54,7 @@
                 "passion": 3,
                 "dedication": 5
             },
+            "rank": 2,
             "friends": ["5102b17168a0c8f70c000007"],
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
@@ -112,6 +113,7 @@
                 "passion": 2,
                 "dedication": 3
             },
+            "rank": 3,
             "friends": ["5102b17168a0c8f70c000005"],
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
@@ -146,6 +148,7 @@
                 "passion": 3,
                 "dedication": 17
             },
+            "rank": 1,
             "friends": [],
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",

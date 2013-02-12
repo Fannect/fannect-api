@@ -53,3 +53,5 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    .exec (err, profiles) ->
       return next(new MongoError(err)) if err
       res.json profiles
+
+app.use require "./teams/groups"
