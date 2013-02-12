@@ -127,6 +127,23 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
   { _id: '5102b17168a0c8f70c000007', name: 'Richard Testing' } ]
 ```
 
+## `/v1/teams/[team_id]/groups`
+**GET** - returns groups of this team
+* `tags` _(optional)_ - tags to filter by
+* `skip` _(optional)_ - skips 'n' number of users
+* `limit` _(optional)_ - limits the number of users returned
+
+**POST** - creates a group for this team
+* `name` - name of the group
+* `tags` - tags to associate with the group
+
+## `/v1/groups/[group_id]`
+**GET** - gets a group by `_id`
+
+## `/v1/groups/[group_id]/teamprofiles`
+**POST** - adds a team profile to a group
+* `email` - email of the user to add
+
 ## `/v1/leaderboard/users/[team_id]`
 **GET** - gets the overall leaderboard for a team
    * `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
