@@ -25,7 +25,7 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
          res.json profiles
    else
       TeamProfile
-      .find({ "team_id": team_id })
+      .find({ "team_id": team_id, rank: { $gt: 0 }})
       .sort("rank")
       .select("profile_image_url name points")
       .exec (err, profiles) ->

@@ -29,7 +29,6 @@ app.post "/v1/groups/:group_id/teamprofiles", auth.app.ownerStatus, (req, res, n
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: group_id")) unless group
 
-
       User.findOne {email: email}, "_id", (err, user) ->
          return next(new MongoError(err)) if err
          return next(new InvalidArgumentError("Invalid: email")) unless user
