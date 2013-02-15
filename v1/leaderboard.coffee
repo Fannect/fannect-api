@@ -12,12 +12,17 @@ app = module.exports = express()
 app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
    friends_of = req.query.friends_of
    team_id = req.params.team_id
+   limit = req.query.limit or 20
+   limit = if limit > 40 then 40 else limit
+   skip = req.query.skip or 0
 
    return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
 
    if friends_of
       TeamProfile
       .find({ "team_id": team_id, $or: [{"friends": friends_of}, {"_id": friends_of}]})
+      .skip(skip)
+      .limit(limit)
       .sort({"points.overall": -1, name: 1})
       .select("profile_image_url name points")
       .exec (err, profiles) ->
@@ -26,6 +31,8 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
    else
       TeamProfile
       .find({ "team_id": team_id, rank: { $gt: 0 }})
+      .skip(skip)
+      .limit(limit)
       .sort("rank")
       .select("profile_image_url name points")
       .exec (err, profiles) ->
