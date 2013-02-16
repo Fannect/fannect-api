@@ -523,6 +523,20 @@ describe "Fannect Core API", () ->
                body[0].name.should.equal("Richard Testing")
                done()
 
+         it "should return users sorted by name", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
+               method: "GET"
+               qs: 
+                  q: "test"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(3)
+               (body[0].name < body[1].name).should.be.true
+               done()
+
    #
    # /v1/teams/[team_id]/users
    #

@@ -75,7 +75,7 @@ app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, n
       return next(new InvalidArgumentError("Invalid team_id")) unless team
 
       Team
-      .find({ sport_key: team.sport_key, league_key:team.league_key })
+      .find({ league_key:team.league_key, sport_key: team.sport_key })
       .skip(skip)
       .limit(limit)
       .sort("-points.overall")

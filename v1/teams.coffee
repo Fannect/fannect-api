@@ -36,14 +36,17 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    limit = if limit > 40 then 40 else limit
    skip = req.query.skip or 0
 
-   query = TeamProfile.where("team_id", team_id)
-
    if q
-      regex = if q then new RegExp("(|.*[\s]+)(#{q.trim()}).*", "i")
-      query = query.where("name", regex)
+      regex = if q then new RegExp("^(#{q.trim()})|(.*[\\s]+(#{q.trim()}))", "i")
+      query = TeamProfile.where("name", regex)
 
+   if query
+      query.where("team_id", team_id)
+   else
+      query = TeamProfile.where("team_id", team_id)
+   
    if friends_of
-      query = query.where("friends", friends_of)
+      query.where("friends", friends_of)
 
    query
    .skip(skip)
