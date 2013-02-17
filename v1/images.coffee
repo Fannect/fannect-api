@@ -16,7 +16,7 @@ app = module.exports = express()
 # Bing settings
 accountKey = process.env.BING_IMAGE_KEY or "DzZgf34XWljeZxOPoUFQNOYHmL7SV+7hy4HFXQIHWH4="
 authKey = new Buffer("#{accountKey}:#{accountKey}").toString("base64")
-perPage = 20
+perPage = 30
 
 # Updates this user's profile image
 app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
@@ -52,7 +52,7 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
 app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) ->
    team_profile_id = req.params.team_profile_id
 
-   image_path = req.files?.image.path or req.body?.image_url
+   image_path = req.files?.image?.path or req.body?.image_url
    next(new InvalidArgumentError("Required: image or image_url")) unless image_path
 
    images.uploadToCloud image_path,
