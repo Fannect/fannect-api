@@ -6,6 +6,10 @@ This is the source for the Fannect core API.
 # Environmental Variables
 * MONGO_URL
 * REDIS_URL
+* CLOUDINARY_NAME
+* CLOUDINARY_KEY
+* CLOUDINARY_SECRET
+* BING_IMAGE_KEY
 
 # REST Schema
 This is based on [this video](http://blog.apigee.com/detail/restful_api_design) by apigee
