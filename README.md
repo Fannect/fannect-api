@@ -10,6 +10,8 @@ This is the source for the Fannect core API.
 * CLOUDINARY_KEY
 * CLOUDINARY_SECRET
 * BING_IMAGE_KEY
+* SENDGRID_USERNAME
+* SENDGRID_PASSWORD
 
 # REST Schema
 This is based on [this video](http://blog.apigee.com/detail/restful_api_design) by apigee

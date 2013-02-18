@@ -24,7 +24,8 @@
       "redis": "0.8.2",
       "csv": "0.2.6",
       "loggly": "0.3.11",
-      "oauth": "0.9.8"
+      "sendgrid-web": "0.0.4",
+      "kaiseki": "*"
    },
    "devDependencies": {
       "mocha": "1.7.4",
