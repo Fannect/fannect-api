@@ -12,6 +12,8 @@ This is the source for the Fannect core API.
 * BING_IMAGE_KEY
 * SENDGRID_USERNAME
 * SENDGRID_PASSWORD
+* PARSE_APP_ID
+* PARSE_API_KEY
 
 # REST Schema
 This is based on [this video](http://blog.apigee.com/detail/restful_api_design) by apigee
