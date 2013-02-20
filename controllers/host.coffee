@@ -27,6 +27,10 @@ mongoose.connect process.env.MONGO_URL or "mongodb://admin:testing@linus.mongohq
 # mongoose.connect process.env.MONGO_URL or "mongodb://halloffamer:krzj2blW7674QGk3R1ll967LO41FG1gL2Kil@fannect-production.member0.mongolayer.com:27017/fannect-production"
 mongooseTypes.loadTypes mongoose
 
+db = mongoose.connection
+db.on "error", console.error.bind(console, "mongo connection error:")
+db.on "open", console.log.bind(console, "mongo connection opened")
+db.on "close", console.log.bind(console, "mongo connection closed")
 
 # Controllers
 app.use require "./v1"
