@@ -15,7 +15,7 @@ Team = null
 data_games.teams[0].schedule.pregame.game_time = new Date((new Date() / 1) + 1000 * 60 * 60 * 3)
 data_games.teams[1].schedule.pregame.game_time = new Date((new Date() / 1) + 1000 * 60 * 60 * 24)
 
-describe "Games", () ->
+describe.only "Games", () ->
    before (done) ->
       dbSetup = require "../utils/dbSetup"
       Team = require "../../common/models/Team"
@@ -98,6 +98,7 @@ describe "Games", () ->
                .findById profile_id, "waiting_events", (err, profile) ->
                   for ev in profile.waiting_events
                      if ev.type == "game_face"
+                        ev.event_key.should.be.ok
                         return done()
 
                   done(new Error("Didn't add waiting event"))
@@ -178,6 +179,7 @@ describe "Games", () ->
                .findById profile_id, "waiting_events", (err, profile) ->
                   for ev in profile.waiting_events
                      if ev.type == "attendance_streak"
+                        ev.event_key.should.be.ok
                         return done()
 
                   done(new Error("Didn't add waiting event"))
@@ -258,6 +260,7 @@ describe "Games", () ->
                .findById profile_id, "waiting_events", (err, profile) ->
                   for ev in profile.waiting_events
                      if ev.type == "guess_the_score"
+                        ev.event_key.should.be.ok
                         return done()
 
                   done(new Error("Didn't add waiting event"))
