@@ -15,7 +15,7 @@ Team = null
 data_games.teams[0].schedule.pregame.game_time = new Date((new Date() / 1) + 1000 * 60 * 60 * 3)
 data_games.teams[1].schedule.pregame.game_time = new Date((new Date() / 1) + 1000 * 60 * 60 * 24)
 
-describe.only "Games", () ->
+describe "Games", () ->
    before (done) ->
       dbSetup = require "../utils/dbSetup"
       Team = require "../../common/models/Team"

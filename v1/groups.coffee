@@ -29,17 +29,28 @@ app.post "/v1/groups/:group_id/teamprofiles", auth.app.ownerStatus, (req, res, n
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: group_id")) unless group
 
-      User.findOne {email: email}, "_id", (err, user) ->
+      User.findOne {email: email}, "_id name", (err, user) ->
          return next(new MongoError(err)) if err
          return next(new InvalidArgumentError("Invalid: email")) unless user
 
-         TeamProfile.update { user_id: user._id, team_id: group.team_id}
-         , { $addToSet: groups: {
-               group_id: group._id 
+         TeamProfile
+         .findOne({ user_id: user._id, team_id: group.team_id })
+         .select("groups")
+         .exec (err, profile) ->
+            return next(new MongoError(err)) if err
+            return next(new InvalidArgumentError("User does not have a profile for team: #{group.team_name}")) unless profile
+
+            for group in profile.groups
+               console.log "#{group.group_id} == #{group._id}"
+               if group.group_id == group._id
+                  return next(new InvalidArgumentError("User is already a part of group: #{group.name}"))
+
+            profile.groups.addToSet {
+               group_id: group._id
                name: group.name
                tags: group.tags
-            }}
-         , (err, results) ->
-            return next(new MongoError(err)) if err
-            return next(new InvalidArgumentError("User does not have a profile for team: #{group.team_name}")) if results == 0
-            res.json status: "success"
+            }
+
+            profile.save (err) ->
+               return next(new MongoError(err)) if err
+               res.json status: "success"
