@@ -41,8 +41,7 @@ app.post "/v1/groups/:group_id/teamprofiles", auth.app.ownerStatus, (req, res, n
             return next(new InvalidArgumentError("User does not have a profile for team: #{group.team_name}")) unless profile
 
             for group in profile.groups
-               console.log "#{group.group_id} == #{group._id}"
-               if group.group_id == group._id
+               if group.group_id.toString() == group_id
                   return next(new InvalidArgumentError("User is already a part of group: #{group.name}"))
 
             profile.groups.addToSet {
