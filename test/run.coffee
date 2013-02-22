@@ -764,7 +764,7 @@ describe "Fannect Core API", () ->
          it "should get events for this team profile", (done) ->
             context = @
             request
-               url: "#{context.host}/v1/me/teams/5102b17168a0c8f70c001005/events"
+               url: "#{context.host}/v1/teamprofiles/5102b17168a0c8f70c001005/events"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
