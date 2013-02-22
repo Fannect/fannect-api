@@ -15,6 +15,7 @@ Stadium = null
 User = null
 
 data_standard = require "./res/standard"
+data_games = require "./res/game-data"
 
 process.env.REDIS_URL = "redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203"
 process.env.MONGO_URL = "mongodb://admin:testing@linus.mongohq.com:10064/fannect"
@@ -473,6 +474,27 @@ describe "Fannect Core API", () ->
             Team.findOne team_key: "testing.team.2", (err, team) ->
                return done(err) if err
                team.stadium.name.should.equal("Clemson Memorial Stadium")
+               done()
+
+   #
+   # /v1/teams/[team_id]
+   #
+   describe.only "/v1/teams/[team_id]", () ->
+      before (done) -> dbSetup.load data_games, done
+      after (done) -> dbSetup.unload data_games, done
+      describe "GET", () ->
+         it "should return next game information", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008?content=next_game"
+               method: "GET"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.event_key.should.equal("l.nba.com-2012-e.17856")
+               body.stadium_location.should.be.ok
+               body.stadium_name.should.be.ok
+               body.opponent.should.be.ok
                done()
 
    #

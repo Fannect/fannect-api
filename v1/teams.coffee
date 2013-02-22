@@ -28,6 +28,21 @@ app.post "/v1/teams", auth.hof, (req, res, next) ->
    else
       next(new InvalidArgumentError("Required: teams file"))
 
+app.get "/v1/teams/:team_id", auth.rookieStatus, (req, res, next) ->
+   content = req.query.content
+   team_id = req.params.team_id
+   return next(new InvalidArgumentError("Required: content")) unless content
+   return next(new InvalidArgumentError("Invalid: content")) unless content == "next_game"
+   return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
+
+   Team
+   .findOne({ _id: req.params.team_id })
+   .select("schedule.pregame")
+   .exec (err, team) ->
+      return next(new MongoError(err)) if err
+      return next(new InvalidArgumentError("Invalid: team_id")) unless team_id
+      res.json team.schedule?.pregame or {}
+
 app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
    q = req.query.q
