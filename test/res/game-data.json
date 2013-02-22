@@ -39,7 +39,41 @@
             "team_name": "Kansas St. Wildcats",
             "friends": ["5102b17168a0c8f70c000007"],
             "events": [],
-            "is_college": true
+            "is_college": true,
+            "events": [ 
+                {
+                    "type": "game_face",
+                    "meta": {
+                        "face_on": true
+                    },
+                    "_id": "5119c7ea0fcd5c0200000006",
+                    "points_earned": {
+                        "passion": 1
+                    }
+                }, {
+                    "type": "guess_the_score",
+                    "meta": {
+                        "home_score": "71",
+                        "away_score": "66",
+                        "picked": true
+                    },
+                    "_id": "5119c7ea0fcd5c0200000007",
+                    "points_earned": {
+                        "knowledge": 2
+                    }
+                }, {
+                    "type": "attendance_streak",
+                    "meta": {
+                        "lat": "38.954229437679494",
+                        "lng": "-95.25254333959168",
+                        "checked_in": true
+                    },
+                    "_id": "512061c95659b50200000053",
+                    "points_earned": {
+                        "dedication": 10
+                    }
+                }
+            ]
         }, {
             "_id": "5102b17168a0c8f70c000106",
             "user_id": "5102b17168a0c8f70c000003",
