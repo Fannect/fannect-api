@@ -47,7 +47,7 @@ app.get "/v1/teams/:team_id", auth.rookieStatus, (req, res, next) ->
 
       res.json
          event_key: game.event_key
-         game_date: game.game_date
+         game_time: game.game_time
          coverage: game.coverage
          stadium_name: game.stadium_name
          stadium_location: game.stadium_location
