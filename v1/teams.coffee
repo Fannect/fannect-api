@@ -37,11 +37,22 @@ app.get "/v1/teams/:team_id", auth.rookieStatus, (req, res, next) ->
 
    Team
    .findOne({ _id: req.params.team_id })
-   .select("schedule.pregame")
+   .select("schedule.pregame full_name")
    .exec (err, team) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: team_id")) unless team_id
-      res.json team.schedule?.pregame or {}
+      return res.json {} unless team.schedule?.pregame
+
+      game = team.schedule.pregame
+
+      res.json
+         event_key: game.event_key
+         game_date: game.game_date
+         coverage: game.coverage
+         stadium_name: game.stadium_name
+         stadium_location: game.stadium_location
+         home_team: if game.is_home then team.full_name else game.opponent
+         away_team: if game.is_home then game.opponent else team.full_name
 
 app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id

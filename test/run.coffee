@@ -492,11 +492,11 @@ describe "Fannect Core API", () ->
                return done(err) if err
                body = JSON.parse(body)
                body.event_key.should.equal("l.nba.com-2012-e.17856")
+               body.home_team.should.be.equal("Fannect a Squad")
+               body.away_team.should.be.equal("Kansas St. Wildcats")
                body.stadium_location.should.be.ok
                body.stadium_name.should.be.ok
-               body.opponent.should.be.ok
                done()
-
    #
    # /v1/teams/[team_id]/users
    #
