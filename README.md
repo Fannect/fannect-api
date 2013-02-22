@@ -314,6 +314,29 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
   points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } }
 ```
 
+## `/v1/teamprofiles/[team_profile_id]/events`
+**GET** - Gets events for team profile
+* `skip` - events to skip
+* `limit` - number of events to return
+
+```javascript
+[ { type: 'attendance_streak',
+    meta: 
+     { lat: '38.954229437679494',
+       lng: '-95.25254333959168',
+       checked_in: true },
+    _id: '512061c95659b50200000053',
+    points_earned: { dedication: 10 } },
+  { type: 'guess_the_score',
+    meta: { home_score: '71', away_score: '66', picked: true },
+    _id: '5119c7ea0fcd5c0200000007',
+    points_earned: { knowledge: 2 } },
+  { type: 'game_face',
+    meta: { face_on: true },
+    _id: '5119c7ea0fcd5c0200000006',
+    points_earned: { passion: 1 } } ]
+```
+
 ## `/v1/images/me`
 **PUT** - Updates this user's profile image
 * `pull_twitter` - pull profile image from twitter

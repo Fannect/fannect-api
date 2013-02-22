@@ -95,23 +95,3 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
       , resp
    else
       saveShout(resp)
-
-app.get "/v1/me/teams/:team_profile_id/events", auth.rookieStatus, (req, res, next) ->
-   profile_id = req.params.team_profile_id
-   limit = req.query.limit or 20
-   limit = if limit > 20 then 20 else limit
-   skip = req.query.skip or 0
-
-   if skip == 0
-      slice = limit * -1
-   else
-      slice = [ skip * -1, limit ] 
-   
-   TeamProfile
-   .findById(profile_id)
-   .select({ events: { $slice: slice } })
-   .exec (err, profile) ->
-      return next(new MongoError(err)) if err
-      return next(new InvalidArgumentError("Invalid: team_profile_id")) unless profile
-      events = profile.events or []
-      res.json events.reverse()

@@ -238,27 +238,6 @@ describe "Fannect Core API", () ->
                   done()
 
    #
-   # /v1/me/teams/[team_profile_id]/events
-   #
-   describe.only "/v1/me/teams/[team_profile_id]/events", () ->
-      before (done) -> dbSetup.load data_games, done
-      after (done) -> dbSetup.unload data_games, done
-
-      describe "GET", () ->
-         it "should get events for this team profile", (done) ->
-            context = @
-            request
-               url: "#{context.host}/v1/me/teams/5102b17168a0c8f70c001005/events"
-            , (err, resp, body) ->
-               return done(err) if err
-               body = JSON.parse(body)
-               body.length.should.equal(3)
-               date1 = new Date(parseInt(body[0]._id.substring(0,8), 16)*1000)
-               date2 = new Date(parseInt(body[1]._id.substring(0,8), 16)*1000)
-               (date1 >= date2).should.be.true
-               done()
-
-   #
    # /v1/me/invites
    #
    describe "/v1/me/invites", () ->
@@ -772,6 +751,27 @@ describe "Fannect Core API", () ->
                return done(err) if err
                body = JSON.parse(body)
                body.is_friend.should.be.false
+               done()
+
+   #
+   # /v1/teamprofiles/[team_profile_id]/events
+   #
+   describe.only "/v1/teamprofiles/[team_profile_id]/events", () ->
+      before (done) -> dbSetup.load data_games, done
+      after (done) -> dbSetup.unload data_games, done
+
+      describe "GET", () ->
+         it "should get events for this team profile", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/me/teams/5102b17168a0c8f70c001005/events"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(3)
+               date1 = new Date(parseInt(body[0]._id.substring(0,8), 16)*1000)
+               date2 = new Date(parseInt(body[1]._id.substring(0,8), 16)*1000)
+               (date1 >= date2).should.be.true
                done()
 
    require "./tests/games"
