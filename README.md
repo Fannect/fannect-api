@@ -122,6 +122,10 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 { status: 'success', count: 621 }
 ```
 
+## `/v1/teams/[team_id]`
+**GET** - gets information about a tema
+* `content` - type of content to return, can only be `next_game` currently
+
 ## `/v1/teams/[team_id]/users`
 **GET** - searches users of this team
 * `q` _(optional)_ - query to filter users by
