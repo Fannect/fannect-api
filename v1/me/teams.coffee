@@ -16,6 +16,7 @@ app = module.exports = express()
 app.get "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
    TeamProfile
    .find({ user_id: req.user._id })
+   .sort("team_name")
    .select("team_id team_name team_key points sport_name sport_key")
    .exec (err, team_profiles) ->
       return next(new MongoError(err)) if err

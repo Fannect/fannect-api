@@ -479,7 +479,7 @@ describe "Fannect Core API", () ->
    #
    # /v1/teams/[team_id]
    #
-   describe.only "/v1/teams/[team_id]", () ->
+   describe "/v1/teams/[team_id]", () ->
       before (done) -> dbSetup.load data_games, done
       after (done) -> dbSetup.unload data_games, done
       describe "GET", () ->
