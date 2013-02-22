@@ -764,11 +764,10 @@ describe "Fannect Core API", () ->
          it "should get events for this team profile", (done) ->
             context = @
             request
-               url: "#{context.host}/v1/teamprofiles/5102b17168a0c8f70c001005/events"
+               url: "#{context.host}/v1/teamprofiles/5102b17168a0c8f70c001005/events?skip=1&limit=2"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
-               body.length.should.equal(3)
                date1 = new Date(parseInt(body[0]._id.substring(0,8), 16)*1000)
                date2 = new Date(parseInt(body[1]._id.substring(0,8), 16)*1000)
                (date1 >= date2).should.be.true
