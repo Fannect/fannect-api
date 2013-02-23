@@ -42,7 +42,7 @@ describe "Groups", () ->
                body.length.should.equal(1)
                done()
 
-      describe "POST", () ->
+      describe.only "POST", () ->
          it "should create a group with correct team_id", (done) ->
             context = @
             team_id = "51084c08f71f41521a7b1ef2"
@@ -61,6 +61,9 @@ describe "Groups", () ->
                results.first.status.should.equal("success")
                results.second.length.should.equal(1)
                results.second[0].name.should.equal("Test group!")
+               results.second[0].tags.length.should.equal(2)
+               results.second[0].tags[0].should.equal("testing one")
+               results.second[0].tags[1].should.equal("testing two")
                done()
 
    #

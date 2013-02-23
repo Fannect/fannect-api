@@ -112,7 +112,7 @@ describe "Fannect Core API", () ->
                body.length.should.equal(2)
                done()
 
-      describe.only "POST", () ->
+      describe "POST", () ->
          before (done) ->
             context = @
             request 
