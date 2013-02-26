@@ -500,7 +500,7 @@ describe "Fannect Core API", () ->
    #
    # /v1/teams/[team_id]/users
    #
-   describe "/v1/teams/[team_id]/users", () ->
+   describe.only "/v1/teams/[team_id]/users", () ->
       before prepMongo
       after emptyMongo
       describe "GET", () ->
@@ -545,7 +545,7 @@ describe "Fannect Core API", () ->
                body[0].name.should.equal("Richard Testing")
                done()
 
-         it "should return users sorted by name", (done) ->
+         it "should return users sorted by name when filtered", (done) ->
             context = @
             request
                url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
@@ -559,6 +559,21 @@ describe "Fannect Core API", () ->
                (body[0].name < body[1].name).should.be.true
                done()
 
+         it "should set gameface value if content is gameface", (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/teams/5102b17168a0c8f70c000008/users"
+               method: "GET"
+               qs: 
+                  q: "test"
+                  content: "gameface"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(3)
+               (body[0].name < body[1].name).should.be.true
+               body[2].gameface_on.should.be.true
+               done()
    #
    # /v1/teams/[team_id]/users
    #
@@ -756,7 +771,7 @@ describe "Fannect Core API", () ->
    #
    # /v1/teamprofiles/[team_profile_id]/events
    #
-   describe.only "/v1/teamprofiles/[team_profile_id]/events", () ->
+   describe "/v1/teamprofiles/[team_profile_id]/events", () ->
       before (done) -> dbSetup.load data_games, done
       after (done) -> dbSetup.unload data_games, done
 

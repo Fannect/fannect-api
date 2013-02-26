@@ -42,7 +42,7 @@ describe "Groups", () ->
                body.length.should.equal(1)
                done()
 
-      describe.only "POST", () ->
+      describe "POST", () ->
          it "should create a group with correct team_id", (done) ->
             context = @
             team_id = "51084c08f71f41521a7b1ef2"

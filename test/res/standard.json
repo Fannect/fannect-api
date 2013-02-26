@@ -117,7 +117,15 @@
             "friends": ["5102b17168a0c8f70c000005"],
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
-            "is_college": true
+            "is_college": true,
+            "waiting_events": [
+                {
+                    "type": "game_face",
+                    "meta": {
+                        "face_on": true
+                    }
+                }
+            ]
         }, {
             "_id": "5102b17168a0c8f70c000010",
             "user_id": "5102b17168a0c8f70c000004",

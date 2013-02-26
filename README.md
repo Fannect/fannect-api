@@ -132,11 +132,23 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
 * `skip` _(optional)_ - skips 'n' number of users
 * `limit` _(optional)_ - limits the number of users returned
+* `content` _(optional)_ - sets the content to return 
+  * `standard` _(default)_ - only _id, name, and profile_image_url
+  * `gameface` - adds `gameface_on` field
 
 ```javascript
-[ { _id: '5102b17168a0c8f70c000021', name: 'Frank Testing' },
-  { _id: '5102b17168a0c8f70c000005', name: 'Mike Testing' },
-  { _id: '5102b17168a0c8f70c000007', name: 'Richard Testing' } ]
+[ { _id: '5102b17168a0c8f70c000021',
+    name: 'Frank Testing',
+    profile_image_url: 'images/empty_profile.jpg',
+    gameface_on: false },
+  { _id: '5102b17168a0c8f70c000005',
+    name: 'Mike Testing',
+    profile_image_url: 'images/empty_profile.jpg',
+    gameface_on: false },
+  { _id: '5102b17168a0c8f70c000007',
+    name: 'Richard Testing',
+    profile_image_url: 'images/empty_profile.jpg',
+    gameface_on: true } ]
 ```
 
 ## `/v1/teams/[team_id]/groups`

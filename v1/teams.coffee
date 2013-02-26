@@ -55,12 +55,17 @@ app.get "/v1/teams/:team_id", auth.rookieStatus, (req, res, next) ->
          away_team: if game.is_home then game.opponent else team.full_name
 
 app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
+   content_types = [ "standard", "gameface" ]
+
    team_id = req.params.team_id
    q = req.query.q
    friends_of = req.query.friends_of
    limit = req.query.limit or 20
    limit = if limit > 40 then 40 else limit
    skip = req.query.skip or 0
+   content = req.query.content or "standard"
+
+   return next(new InvalidArgumentError("Invalid: content")) unless (content in content_types)
 
    if q
       regex = if q then new RegExp("^(#{q.trim()})|(.*[\\s]+(#{q.trim()}))", "i")
@@ -74,13 +79,37 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    if friends_of
       query.where("friends", friends_of)
 
+   select = "profile_image_url name"
+
+   if content == "gameface"
+      select += " waiting_events"
+
    query
    .skip(skip)
    .limit(limit)
    .sort("name")
-   .select("profile_image_url name")
+   .select(select)
+   .lean()
    .exec (err, profiles) ->
       return next(new MongoError(err)) if err
+
+      # Transform for gameface
+      transform[content](profile) for profile in profiles if content
+
       res.json profiles
+
+# Transforms to run on profiles
+transform =
+   standard: () ->
+   gameface: (profile) ->
+      profile.gameface_on = false
+      for event in profile.waiting_events
+         if event.type == "game_face"
+            profile.gameface_on = event.meta.face_on or false
+            break
+
+      delete profile.waiting_events
+
+      return profile
 
 app.use require "./teams/groups"
