@@ -123,7 +123,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 ```
 
 ## `/v1/teams/[team_id]`
-**GET** - gets information about a tema
+**GET** - gets information about a team
 * `content` - type of content to return, can only be `next_game` currently
 
 ## `/v1/teams/[team_id]/users`
