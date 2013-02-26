@@ -72,7 +72,6 @@ app.get "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next)
 
       res.json profile
 
-
 app.get "/v1/teamprofiles/:team_profile_id/events", auth.rookieStatus, (req, res, next) ->
    profile_id = req.params.team_profile_id
    limit = req.query.limit or 20

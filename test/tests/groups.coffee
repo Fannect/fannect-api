@@ -32,7 +32,7 @@ describe "Groups", () ->
       describe "GET", () ->
          it "should return groups with correct tags and team", (done) ->
             context = @
-            team_id = "5102b17168a0c8f70c000008"
+            team_id = "5102b17168a0c8f70c000111"
             request
                url: "#{context.host}/v1/teams/#{team_id}/groups"
                qs: { tags: "tag one, tag two" }
@@ -98,7 +98,7 @@ describe "Groups", () ->
          it "should group with matching group_id", (done) ->
             context = @
             group_id = "5102b17168a0c8f71c000019"
-            profile_id = "5102b17168a0c8f70c001005"
+            profile_id = "5102b17148a0c8f70c100666"
             request
                url: "#{context.host}/v1/groups/#{group_id}/teamprofiles"
                method: "POST"

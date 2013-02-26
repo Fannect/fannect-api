@@ -84,7 +84,7 @@ describe "Games", () ->
 
       describe "POST", () ->
 
-         it "should save gameface", (done) ->
+         before (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c001005"
             request
@@ -93,15 +93,77 @@ describe "Games", () ->
                json: face_on: true
             , (err, resp, body) ->
                return done(err) if err
-               
-               TeamProfile
-               .findById profile_id, "waiting_events", (err, profile) ->
-                  for ev in profile.waiting_events
-                     if ev.type == "game_face"
-                        ev.event_key.should.be.ok
-                        return done()
+               done()
 
-                  done(new Error("Didn't add waiting event"))
+         it "should save gameface", (done) ->
+            TeamProfile
+            .findById "5102b17168a0c8f70c001005", "waiting_events", (err, profile) ->
+               return done(err) if err
+               for ev in profile.waiting_events
+                  if ev.type == "game_face"
+                     ev.event_key.should.be.ok
+                     return done()
+
+               done(new Error("Didn't add waiting event"))
+
+         it "should update motivator's motivated count", (done) ->
+            TeamProfile
+            .findById "5102b17168a0c8f70c000106", "waiting_events", (err, profile) ->
+               return done(err) if err
+               for ev in profile.waiting_events
+                  if ev.type == "game_face"
+                     ev.meta.motivated_count.should.equal(1)
+                     return done()
+
+               done(new Error("Didn't update motivated count"))
+
+   #
+   # /v1/me/teams/[team_profile_id]/games/gameFace/motivate
+   #
+   describe "/v1/me/teams/[team_profile_id]/games/gameFace/motivate", () ->
+      before (done) -> dbSetup.load data_games, done
+      after (done) -> dbSetup.unload data_games, done
+
+      describe "POST", () ->
+
+         before (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/me/teams/5102b17168a0c8f70c002019/games/gameFace/motivate"
+               method: "POST"
+               json: 
+                  motivatees: ["5102b17168a0c8f70c000202"]
+                  message: "Caught you with your GameFace off!"
+            , (err, resp, body) ->
+               return done(err) if err
+               context.body = body
+               done()
+
+         it "should send motivate message to motivatees", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000202"
+            TeamProfile.findById profile_id, "waiting_events", (err, profile) ->
+               return done(err) if err
+               for ev in profile.waiting_events
+                  if ev.type == "game_face"
+                     ev.meta.motivator.team_profile_id.should.equal("5102b17168a0c8f70c002019")
+                     ev.meta.motivator.name.should.equal("Mike Testing")
+                     ev.meta.motivator.message.should.equal("Caught you with your GameFace off!")
+                     return done()
+               
+               done(new Error("Didn't update motivated"))
+
+         it "should update attempted_motivation_count", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c002019"
+            TeamProfile.findById profile_id, "waiting_events", (err, profile) ->
+               return done(err) if err
+               for ev in profile.waiting_events
+                  if ev.type == "game_face"
+                     ev.meta.attempted_motivation_count.should.equal(1)
+                     return done()
+
+               done(new Error("Didn't update motivated"))
 
    #
    # /v1/me/teams/[team_profile_id]/games/attendanceStreak

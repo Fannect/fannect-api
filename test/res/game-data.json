@@ -8,11 +8,19 @@
             "last_name": "Testing",
             "refresh_token": "testingtoken1",
             "profile_image_url": "images/empty_profile.jpg",
-            "team_profiles": ["5102b17168a0c8f70c001005"]
+            "team_profiles": ["5102b17168a0c8f70c001005", "5102b17148a0c8f70c100666"]
         }
     ],
-    "teamprofiles": [
-        {
+    "teamprofiles": [{
+            "_id": "5102b17148a0c8f70c100666",
+            "user_id": "5102b17168a0c8f70c000002",
+            "name": "Ron Testing",
+            "team_id": "5102b17168a0c8f70c000111",
+            "team_key": "l.ncaa.org.mfoot-testing",
+            "team_name": "Outta Season",
+            "events": [],
+            "is_college": false
+        }, {
             "_id": "5102b17148a0c8f70c100054",
             "user_id": "5102b17168a0c8f70c000002",
             "name": "Ron Testing",
@@ -30,6 +38,25 @@
             "team_name": "Boston Celtics",
             "events": [],
             "is_college": false
+        }, {
+            "_id": "5102b17168a0c8f70c002019",
+            "user_id": "5102b17168a0c8f70c000002",
+            "name": "Mike Testing",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "friends": ["5102b17168a0c8f70c000007"],
+            "events": [],
+            "is_college": true,
+            "waiting_events": [
+                {
+                    "type": "game_face",
+                    "meta": {
+                        "face_on": true
+                    },
+                    "event_key": "l.nba.com-2012-e.17856"
+                }
+            ]
         }, {
             "_id": "5102b17168a0c8f70c001005",
             "user_id": "5102b17168a0c8f70c000002",
@@ -73,6 +100,20 @@
                         "dedication": 10
                     }
                 }
+            ],
+            "waiting_events": [
+                {
+                    "type": "game_face",
+                    "meta": {
+                        "face_on": false,
+                        "motivator": {
+                            "team_profile_id": "5102b17168a0c8f70c000106",
+                            "name": "Ron Testing",
+                            "message": "Get your head in the game!"
+                        } 
+                    },
+                    "event_key": "l.nba.com-2012-e.17856"
+                }
             ]
         }, {
             "_id": "5102b17168a0c8f70c000106",
@@ -88,21 +129,33 @@
                         "home_score": 43,
                         "away_score": 23,
                         "picked": true
-                    }
+                    },
+                    "event_key": "l.nba.com-2012-e.17856"
                 }, {
                     "type": "game_face",
                     "meta": {
-                        "face_on": true
-                    }
+                        "face_on": true,
+                        "attempted_motivation_count": 1
+                    },
+                    "event_key": "l.nba.com-2012-e.17856"
                 }, {
                     "type": "attendance_streak",
                     "meta": {
                         "checked_in": true,
                         "lat": 50,
                         "lng": 50
-                    }
+                    },
+                    "event_key": "l.nba.com-2012-e.17856"
                 }
             ],
+            "is_college": true
+        }, {
+            "_id": "5102b17168a0c8f70c000202",
+            "user_id": "5102b17168a0c8f70c000003",
+            "name": "Ron Testing",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-test-t.522",
+            "team_name": "Kansas St. Wildcats",
             "is_college": true
         }
     ],
@@ -113,8 +166,8 @@
             "sport_name": "American Football",
             "name": "Some Group",
             "tags": [ "tag one", "tag two" ],
-            "team_id": "5102b17168a0c8f70c000008",
-            "team_key": "l.ncaa.org.mfoot-test-t.522",
+            "team_id": "5102b17168a0c8f70c000111",
+            "team_key": "l.ncaa.org.mfoot-testing",
             "team_name": "Kansas St. Wildcats",
             "points": {
                 "overall": 40,
