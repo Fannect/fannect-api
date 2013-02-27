@@ -133,7 +133,7 @@ describe "Games", () ->
                method: "POST"
                json: 
                   motivatees: ["5102b17168a0c8f70c000202"]
-                  message: "Caught you with your GameFace off!"
+                  # message: "Caught you with your GameFace off!"
             , (err, resp, body) ->
                return done(err) if err
                context.body = body
@@ -148,7 +148,7 @@ describe "Games", () ->
                   if ev.type == "game_face"
                      ev.meta.motivator.team_profile_id.should.equal("5102b17168a0c8f70c002019")
                      ev.meta.motivator.name.should.equal("Mike Testing")
-                     ev.meta.motivator.message.should.equal("Caught you with your GameFace off!")
+                     # ev.meta.motivator.message.should.equal("Caught you with your GameFace off!")
                      return done()
                
                done(new Error("Didn't update motivated"))

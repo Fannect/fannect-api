@@ -69,7 +69,7 @@ app.post "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, (req
 app.post "/v1/me/teams/:team_profile_id/games/gameFace/motivate", auth.rookieStatus, (req, res, next) ->
    profile_id = req.params.team_profile_id
    motivatees = req.body.motivatees
-   message = req.body.message or "Get your head in the game!"
+   # message = req.body.message or "Get your head in the game!"
    
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
    return next(new InvalidArgumentError("Invalid: motivatees")) unless motivatees
@@ -83,7 +83,7 @@ app.post "/v1/me/teams/:team_profile_id/games/gameFace/motivate", auth.rookieSta
          motivator: 
             team_profile_id: profile_id, 
             name: "#{req.user.first_name} #{req.user.last_name}"
-            message: message
+            # message: message
       )
 
    q = async.queue (task, callback) ->
@@ -124,7 +124,7 @@ motivatorMeta = (info, status, next) ->
       parse.sendPushNotification 
          channels: ["user_#{info.profile._id}"]
          data: 
-            alert: "Figure out what to say here"
+            alert: "It's Game Day! #{ev.motivator.name} sent you a reminder to turn on your GameFace."
             event: "motivate"
             badge: "Increment"
             title: "Motivated"
