@@ -6,9 +6,6 @@ redis = (require "../common/utils/redis")(process.env.REDIS_URL or "redis://redi
 ResourceNotFoundError = require "../common/errors/ResourceNotFoundError"
 app = module.exports = express()
 
-# Loggly
-(require "../common/utils/logger")("f102b90e-0c59-43b4-bce8-e499318c454b")
-
 # Settings
 app.configure "development", () ->
    app.use express.logger "dev"
@@ -36,7 +33,7 @@ db.on "close", console.log.bind(console, "mongo connection closed")
 app.use require "./v1"
 
 app.all "*", (req, res, next) ->
-   next(new ResourceNotFoundError())
+   return next(new ResourceNotFoundError())
 
 # Error handling
 app.use require "../common/middleware/handleErrors"

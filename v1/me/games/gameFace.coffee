@@ -75,7 +75,7 @@ app.post "/v1/me/teams/:team_profile_id/games/gameFace/motivate", auth.rookieSta
    return next(new InvalidArgumentError("Invalid: motivatees")) unless motivatees
 
    motivatees = [motivatees] if typeof motivatees == "string"
-   
+
    gs = GameStatus
       .set("game_face")
       .availability("before")
@@ -109,8 +109,9 @@ motivatorMeta = (info, status, next) ->
 
    if ev
       if ev.motivator
-         return next(new InvalidArgumentError("Duplicate: Already motivated by: #{ev.motivator.name}"))
+         return next(new InvalidArgumentError("Duplicate: Already motivated by: #{info.meta.motivator.name}"))
 
+      ev.meta = {} unless ev.meta
       ev.meta.motivator = info.meta.motivator
       ev.markModified("meta")
    else
@@ -122,11 +123,11 @@ motivatorMeta = (info, status, next) ->
    # send push
    unless process.env.NODE_TESTING
       parse.sendPushNotification 
-         channels: ["user_#{info.profile._id}"]
+         channels: ["user_#{info.profile.user_id}"]
          data: 
-            alert: "It's Game Day! #{ev.motivator.name} sent you a reminder to turn on your GameFace."
-            event: "motivate"
-            badge: "Increment"
+            alert: "It's Game Day! #{info.meta.motivator.name} sent you a reminder to turn on your GameFace."
+            event: "gameface"
+            profileId: info.profile._id
             title: "Motivated"
       , (err) ->
          console.error "Failed to send motivation push: ", err if err

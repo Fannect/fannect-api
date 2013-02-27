@@ -105,8 +105,8 @@ transform =
       profile.gameface_on = false
       for event in profile.waiting_events
          if event.type == "game_face"
-            profile.gameface_on = event.meta.face_on or false
-            profile.motivator = event.meta.motivator or null
+            profile.gameface_on = event.meta?.face_on or false
+            profile.motivator = event.meta?.motivator or null
             break
 
       delete profile.waiting_events
