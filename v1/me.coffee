@@ -70,7 +70,8 @@ app.put "/v1/me/push", auth.rookieStatus, updatePush
 
 app.post "/v1/me/verified", auth.rookieStatus, (req, res, next) ->
    html = "<h1>#{req.user.first_name} #{req.user.last_name} wants to become verified.</h1>
-   <p>User_id: #{req.user._id}</p>
+   <p>User_id:\t #{req.user._id}</p>
+   <p>Email:\t #{req.user.email}</p>
 
    <h3>Info</h3>
    "
