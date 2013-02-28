@@ -75,11 +75,11 @@ app.post "/v1/me/verified", auth.rookieStatus, (req, res, next) ->
 
    <h3>Info</h3>
    "
-   for k, v of body
+   for k, v of req.body
       html += "<p>#{k}:\t#{v}</p>"
    
    sendgrid.send
-      to: "verify@fannect.me"
+      to: "blake@fannect.me"
       from: "admin@fannect.me"
       subject: "Verification Request- #{req.user.first_name} #{req.user.last_name}"
       html: html
