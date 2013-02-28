@@ -69,17 +69,17 @@ app.put "/v1/me/push", auth.rookieStatus, updatePush
 
 
 app.post "/v1/me/verified", auth.rookieStatus, (req, res, next) ->
-   html = "<h1>#{req.user.first_name} #{req.user.last_name} wants to become verified.</h1>
-   <p>User_id:\t #{req.user._id}</p>
-   <p>Email:\t #{req.user.email}</p>
+   html = "<h2>#{req.user.first_name} #{req.user.last_name} wants to become verified.</h2>
+   <p>User_id:\t #{req.user._id}<br>Email:\t #{req.user.email}</p>
+   <h3>Info</h3><p>"
 
-   <h3>Info</h3>
-   "
    for k, v of req.body
-      html += "<p>#{k}:\t#{v}</p>"
-   
+      html += "#{k}:\t#{v}<br>"
+      
+   html += "</p>"
+
    sendgrid.send
-      to: "blake@fannect.me"
+      to: "verify@fannect.me"
       from: "admin@fannect.me"
       subject: "Verification Request- #{req.user.first_name} #{req.user.last_name}"
       html: html
