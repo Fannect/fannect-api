@@ -39,6 +39,14 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 { status: 'success' }
 ```
 
+## `/v1/me/verified`
+**POST** - send verification request
+  * any body content will be sent in the email
+  
+```javascript
+{ status: 'success' }
+```
+
 ## `/v1/me/teams`
 **GET** - get all team profiles
 

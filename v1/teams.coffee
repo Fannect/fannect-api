@@ -17,8 +17,7 @@ app.get "/v1/teams", auth.rookieStatus, (req, res, next) ->
       return next(new MongoError(err)) if err
       res.json data
 
-# app.post "/v1/teams", (req, res, next) ->
-app.post "/v1/teams", auth.hof, (req, res, next) ->
+app.post "/v1/teams", auth.hofStatus, (req, res, next) ->
    if req.files?.teams?.path
       csvParser.parseTeams req.files.teams.path, (err, count) ->
          return next(err) if err

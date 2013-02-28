@@ -7,6 +7,11 @@ auth = require "../common/middleware/authenticate"
 MongoError = require "../common/errors/MongoError"
 async = require "async"
 
+sendgrid = new (require("sendgrid-web"))({ 
+   user: process.env.SENDGRID_USER or "fannect", 
+   key: process.env.SENDGRID_PASSWORD or "1Billion!" 
+})
+
 app = module.exports = express()
 
 # Get this user
@@ -61,6 +66,25 @@ updatePush = (req, res, next) ->
 
 app.post "/v1/me/push/update", auth.rookieStatus, updatePush
 app.put "/v1/me/push", auth.rookieStatus, updatePush
+
+
+app.post "/v1/me/verified", auth.rookieStatus, (req, res, next) ->
+   html = "<h1>#{req.user.first_name} #{req.user.last_name} wants to become verified.</h1>
+   <p>User_id: #{req.user._id}</p>
+
+   <h3>Info</h3>
+   "
+   for k, v of body
+      html += "<p>#{k}:\t#{v}</p>"
+   
+   sendgrid.send
+      to: "verify@fannect.me"
+      from: "admin@fannect.me"
+      subject: "Verification Request- #{req.user.first_name} #{req.user.last_name}"
+      html: html
+   , (err) ->  
+      return next(new RestError(err)) if err
+      res.json status: "success"
 
 app.use require "./me/games"
 app.use require "./me/invites"

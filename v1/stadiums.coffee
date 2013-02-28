@@ -9,8 +9,7 @@ Stadium = require "../common/models/Stadium"
 
 app = module.exports = express()
 
-app.post "/v1/stadiums", (req, res, next) ->
-# app.post "/v1/stadiums", auth.hof, (req, res, next) ->
+app.post "/v1/stadiums", auth.hofStatus, (req, res, next) ->
    if req.files?.stadiums?.path
       csvParser.parseStadiums req.files.stadiums.path, (err, count) ->
          return next(err) if err
