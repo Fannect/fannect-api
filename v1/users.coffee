@@ -46,3 +46,18 @@ app.post "/v1/users/:user_id/invite", auth.rookieStatus, (req, res, next) ->
                      title: "Roster Request"
                , (err) ->
                   console.error "Failed to send invite push: ", err if err
+
+app.put "/v1/users/:user_id/verified", auth.hofStatus, (req, res, next) ->
+   verified = req.body.verified or null
+   user_id = req.params.user_id
+
+   async.parallel
+      user: (done) -> User.update {_id: user_id}, { verified: verified }, done
+      profiles: (done) -> TeamProfile.update {user_id: user_id}, {verified: verified}, {multi:true}, done
+   , (err, results) ->
+      return next(new MongoError(err)) if err
+      return next((new InvalidArgumentError("Invalid: user_id"))) if results.user == 0
+   res.send status: "success"
+      
+
+

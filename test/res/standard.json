@@ -10,7 +10,8 @@
             "friends": ["5102b17168a0c8f70c000004"],
             "invites": ["5102b17168a0c8f70c000020"],
             "profile_image_url": "images/empty_profile.jpg",
-            "team_profiles": ["5102b17168a0c8f70c000005"]
+            "team_profiles": ["5102b17168a0c8f70c000005"],
+            "verified": "Testing_Squad"
         }, {
             "_id": "5102b17168a0c8f70c000003",
             "email": "testing2@fannect.me",
@@ -37,7 +38,8 @@
             "last_name": "Testing",
             "refresh_token": "testingtoken4",
             "friends": [],
-            "profile_image_url": "images/empty_profile.jpg"
+            "profile_image_url": "images/empty_profile.jpg",
+            "verified": "Fannect_Squad"
         }
     ],
     "teamprofiles": [
@@ -160,7 +162,8 @@
             "friends": [],
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
-            "is_college": true
+            "is_college": true,
+            "verified": "Fannect_Squad"
         }, {
             "_id": "5102b17168a0c8f70c000024",
             "user_id": "5102b17168a0c8f70c000020",
@@ -177,7 +180,8 @@
             "friends": [],
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
-            "is_college": true
+            "is_college": true,
+            "verified": "Fannect_Squad"
         }
     ],
     "teams": [

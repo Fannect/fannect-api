@@ -292,6 +292,14 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 { status: 'success' }
 ```
 
+## `/v1/users/[user_id]/verified`
+**PUT** - Creates an invitation for specified user
+* `verified` - verified value to set (leave `null` to remove verification)
+
+```javascript
+{ status: 'success' }
+```
+
 ## `/v1/teamprofiles`
 **GET** - Gets most relevent team profile
 * `user_id` - user_id of the team profile to get

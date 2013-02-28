@@ -79,7 +79,7 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    if friends_of
       query.where("friends", friends_of)
 
-   select = "profile_image_url name"
+   select = "profile_image_url name verified"
 
    if content == "gameface"
       select += " waiting_events"

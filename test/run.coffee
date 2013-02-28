@@ -130,6 +130,7 @@ describe "Fannect Core API", () ->
             context = @
             context.body.name.should.equal("Mike Testing")
             context.body.team_key.should.equal("l.ncaa.org.mfoot-t.521")
+            context.body.verified.should.equal("Testing_Squad")
 
          it "should add to this user's profile_team list", (done) ->
             context = @
@@ -515,6 +516,7 @@ describe "Fannect Core API", () ->
                body = JSON.parse(body)
                body.length.should.equal(3)
                (body[0].name < body[1].name).should.be.true
+               body[0].verified.should.equal("Fannect_Squad")
                done()
 
          it "should paginate if skip is supplied", (done) ->
@@ -666,7 +668,7 @@ describe "Fannect Core API", () ->
       before prepMongo
       after emptyMongo
       describe "POST", () ->
-         it "create invitation to other users", (done) ->
+         it "should create invitation to other users", (done) ->
             context = @
             user_id = "5102b17168a0c8f70c000002"
             other_id = "5102b17168a0c8f70c000003"
@@ -680,6 +682,37 @@ describe "Fannect Core API", () ->
                User.findById other_id, "invites", (err, other) ->
                   other.invites.should.include(user_id)
                   done()      
+
+   #
+   # /v1/users/[user_id]/verified
+   #
+   describe "/v1/users/[user_id]/verified", () ->
+      before prepMongo
+      after emptyMongo
+      describe "PUT", () ->
+
+         before (done) ->
+            context = @
+            request
+               url: "#{context.host}/v1/users/5102b17168a0c8f70c000002/verified"
+               method: "PUT"
+               json: verified: "Test_Squad"
+            , (err, resp, body) ->
+               context.body = body
+               done()
+
+         it "should update user's verified status", (done) ->
+            User.findById "5102b17168a0c8f70c000002", "verified", (err, user) ->
+               return next(err) if err
+               user.verified.should.equal("Test_Squad")
+               done()
+
+         it "should update user's profiles' verified status", (done) ->
+            TeamProfile.find user_id: "5102b17168a0c8f70c000002", "verified", (err, profiles) ->
+               return next(err) if err
+               for profile in profiles
+                  profile.verified.should.equal("Test_Squad")
+               done()
 
    #
    # /v1/teamprofiles

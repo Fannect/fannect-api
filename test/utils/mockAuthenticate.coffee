@@ -8,7 +8,8 @@ passthrough = (req, res, next) ->
       "first_name": "Mike",
       "last_name": "Testing",
       "refresh_token": "testingtoken",
-      "friends": ["5102b17168a0c8f70c000004"]
+      "friends": ["5102b17168a0c8f70c000004"],
+      "verified": "Testing_Squad"
    }
    next()
 

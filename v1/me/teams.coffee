@@ -30,7 +30,6 @@ app.post "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
    TeamProfile.createAndAttach req.user, team_id, (err, teamProfile) ->
       return next(err) if err
       p = teamProfile.toObject()
-
       delete p.events
       delete p.wating_events
       delete p.has_processing
