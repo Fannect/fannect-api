@@ -17,7 +17,7 @@ app.get "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
    TeamProfile
    .find({ user_id: req.user._id })
    .sort("team_name")
-   .select("team_id team_name team_key points sport_name sport_key")
+   .select("team_id team_name team_key points sport_name sport_key verified")
    .exec (err, team_profiles) ->
       return next(new MongoError(err)) if err
       res.json team_profiles
@@ -41,7 +41,7 @@ app.post "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
 # Get single team profile by id
 app.get "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
    TeamProfile.findById req.params.team_profile_id, 
-      { user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1, friends_count: 1, rank: 1, sport_name: 1, sport_key: 1 }
+      { user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1, friends_count: 1, rank: 1, sport_name: 1, sport_key: 1, verified:1 }
    , (err, profile) ->
       return next(new MongoError(err)) if err
       return next(new ResourceNotFoundError()) unless profile
