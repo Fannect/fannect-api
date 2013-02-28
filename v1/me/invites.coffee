@@ -17,7 +17,7 @@ app.get "/v1/me/invites", auth.rookieStatus, (req, res, next) ->
 
       TeamProfile
       .aggregate { $match: { user_id: { $in: user.invites }}}
-      , { $group: { _id: "$user_id", "name": {$first: "$name"}, "profile_image_url": {$first: "$profile_image_url"}, "verified":{$first:"$verified"} "teams": {$addToSet: "$team_name"}}}
+      , { $group: { _id: "$user_id", "name": {$first: "$name"}, "profile_image_url": {$first: "$profile_image_url"}, "verified":{$first:"$verified"}, "teams": {$addToSet: "$team_name"}}}
       , (err, profiles) ->
          return next(new MongoError(err)) if err
          res.json profiles
