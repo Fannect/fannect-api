@@ -13,7 +13,7 @@ User = null
 Team = null
 Group = null
 
-describe "Groups", () ->
+describe.only "Groups", () ->
    before (done) ->
       dbSetup = require "../utils/dbSetup"
       Team = require "../../common/models/Team"

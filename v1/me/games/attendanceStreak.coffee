@@ -40,40 +40,40 @@ app.post "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStat
       res.json status: "success"
       
       
-app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock0", auth.rookieStatus, (req, res, next) ->
-   res.json {
-      home_team: { name: 'Boston Celtics' },
-      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -94.579968 },
-      available: false 
-   }
+# app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock0", auth.rookieStatus, (req, res, next) ->
+#    res.json {
+#       home_team: { name: 'Boston Celtics' },
+#       stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -94.579968 },
+#       available: false 
+#    }
 
-app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock1", auth.rookieStatus, (req, res, next) ->
-   res.json {
-      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
-      home_team: { name: 'Boston Celtics' },
-      away_team: { name: 'Fannect a Squad' },
-      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -94.579968 },
-      preview: [ ],
-      available: false 
-   }
+# app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock1", auth.rookieStatus, (req, res, next) ->
+#    res.json {
+#       game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+#       home_team: { name: 'Boston Celtics' },
+#       away_team: { name: 'Fannect a Squad' },
+#       stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -94.579968 },
+#       preview: [ ],
+#       available: false 
+#    }
 
-app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock2", auth.rookieStatus, (req, res, next) ->
-   res.json {
-      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
-      home_team: { name: 'Boston Celtics', record: "(13-3)" },
-      away_team: { name: 'Fannect a Squad', record: "(18-1)" },
-      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -94.579968 },
-      preview: [ ],
-      available: true,
-      meta: { checked_in: false }
-   }
-app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock3", auth.rookieStatus, (req, res, next) ->
-   res.json {
-      game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
-      home_team: { name: 'Boston Celtics' },
-      away_team: { name: 'Fannect a Squad' },
-      stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -94.579968 },
-      preview: [ ],
-      available: true,
-      meta: { lng: 50, lat: 50, checked_in: true }
-   }
+# app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock2", auth.rookieStatus, (req, res, next) ->
+#    res.json {
+#       game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+#       home_team: { name: 'Boston Celtics', record: "(13-3)" },
+#       away_team: { name: 'Fannect a Squad', record: "(18-1)" },
+#       stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -94.579968 },
+#       preview: [ ],
+#       available: true,
+#       meta: { checked_in: false }
+#    }
+# app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock3", auth.rookieStatus, (req, res, next) ->
+#    res.json {
+#       game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
+#       home_team: { name: 'Boston Celtics' },
+#       away_team: { name: 'Fannect a Squad' },
+#       stadium: { name: 'Some Stadium', location: 'KCMO', lat: 39.097328, lng: -94.579968 },
+#       preview: [ ],
+#       available: true,
+#       meta: { lng: 50, lat: 50, checked_in: true }
+#    }

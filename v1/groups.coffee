@@ -35,7 +35,7 @@ app.post "/v1/groups/:group_id/teamprofiles", auth.app.ownerStatus, (req, res, n
 
          TeamProfile
          .findOne({ user_id: user._id, team_id: group.team_id })
-         .select("groups")
+         .select("groups points")
          .exec (err, profile) ->
             return next(new MongoError(err)) if err
             return next(new InvalidArgumentError("User does not have a profile for team: #{group.team_name}")) unless profile
@@ -50,6 +50,19 @@ app.post "/v1/groups/:group_id/teamprofiles", auth.app.ownerStatus, (req, res, n
                tags: group.tags
             }
 
-            profile.save (err) ->
+            group.members = 0 unless group.members
+            group.members += 1
+            group.points.passion += profile.points.passion or 0
+            group.points.dedication += profile.points.dedication or 0
+            group.points.knowledge += profile.points.knowledge or 0
+            group.points.overall += profile.points.overall or 0
+
+            async.parallel
+               profile: (done) -> profile.save done
+               group: (done) -> group.save done
+            , (err) ->
                return next(new MongoError(err)) if err
-               res.json status: "success"
+               res.json 
+                  status: "success"
+                  group: group
+
