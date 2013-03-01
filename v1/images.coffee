@@ -25,16 +25,22 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
    if pull_twitter
       return next(new InvalidArgumentError("No twitter account connected to this user")) unless req.user.twitter
       twitter.pullProfile req.user.twitter, (err, url) ->
-         return next(new RestError(err)) if err
+         if err
+            next(new RestError("Twitter account no longer authorized.")) 
 
-         images.uploadToCloud url,
-            [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
-         , (err, result) ->
-            return next(new InvalidArgumentError("Unable to save image")) if err
-            
-            updateUserProfileImage req.user._id, result.url, (err, data) ->
-               return next(new MongoError(err)) if err
-               res.json profile_image_url: result.url
+            req.user.twitter = null
+            async.parallel 
+               mongo: (done) -> User.update {_id: req.user.user_id}, {twitter:null}, done
+               redis: (done) -> auth.updateUser req.user, done
+         else
+            images.uploadToCloud url,
+               [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
+            , (err, result) ->
+               return next(new InvalidArgumentError("Unable to save image")) if err
+               
+               updateUserProfileImage req.user._id, result.url, (err, data) ->
+                  return next(new MongoError(err)) if err
+                  res.json profile_image_url: result.url
    else
       image_path = req.files?.image.path or req.body?.image_url
       next(new InvalidArgumentError("Required: image or image_url")) unless image_path
