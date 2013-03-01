@@ -40,9 +40,11 @@ app.post "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
 
 # Get single team profile by id
 app.get "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
+   console.log "Before mongo"
    TeamProfile.findById req.params.team_profile_id, 
       { user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1, friends_count: 1, rank: 1, sport_name: 1, sport_key: 1, verified:1 }
    , (err, profile) ->
+      console.log "After mongo"
       return next(new MongoError(err)) if err
       return next(new ResourceNotFoundError()) unless profile
       res.json profile
