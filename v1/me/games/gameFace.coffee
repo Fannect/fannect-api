@@ -104,8 +104,10 @@ app.post "/v1/me/teams/:team_profile_id/games/gameFace/motivate", auth.rookieSta
 
 motivatorMeta = (info, status, next) ->
    ev = null
-   for ev in info.profile.waiting_events
-      break if ev.type == "game_face" and ev.event_key == status.event_key 
+   for event in info.profile.waiting_events
+      if event.type == "game_face" and event.event_key == status.event_key 
+         ev = event
+         break
 
    if ev
       if ev.motivator
