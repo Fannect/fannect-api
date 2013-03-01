@@ -140,8 +140,10 @@ motivatorMeta = (info, status, next) ->
 
 motivatedMeta = (info, status, next) ->
    ev = null
-   for ev in info.profile.waiting_events
-      break if ev.type == "game_face" and ev.event_key == status.event_key 
+   for event in info.profile.waiting_events
+      if event.type == "game_face" and event.event_key == status.event_key 
+         ev = event
+         break
 
    if ev
       ev.meta.attempted_motivation_count = (ev.meta.attempted_motivation_count or 0) + info.meta.motivatees_count
