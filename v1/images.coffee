@@ -32,6 +32,7 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
             async.parallel 
                mongo: (done) -> User.update {_id: req.user.user_id}, {twitter:null}, done
                redis: (done) -> auth.updateUser req.user, done
+            , (err) -> console.log "Twitter update ERR:", err
          else
             images.uploadToCloud url,
                [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
