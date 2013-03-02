@@ -52,10 +52,10 @@ app.post "/v1/groups/:group_id/teamprofiles", auth.app.ownerStatus, (req, res, n
 
             group.members = 0 unless group.members
             group.members += 1
-            group.points.passion += profile.points.passion or 0
-            group.points.dedication += profile.points.dedication or 0
-            group.points.knowledge += profile.points.knowledge or 0
-            group.points.overall += profile.points.overall or 0
+            group.points.passion += profile?.points?.passion or 0
+            group.points.dedication += profile?.points?.dedication or 0
+            group.points.knowledge += profile?.points?.knowledge or 0
+            group.points.overall += profile?.points?.overall or 0
 
             async.parallel
                profile: (done) -> profile.save done
