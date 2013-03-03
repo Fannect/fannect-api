@@ -24,7 +24,7 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
       .skip(skip)
       .limit(limit)
       .sort({"points.overall": -1, name: 1})
-      .select("profile_image_url name points")
+      .select("profile_image_url name points verified")
       .exec (err, profiles) ->
          return next(new MongoError(err)) if err
          res.json profiles
@@ -34,7 +34,7 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
       .skip(skip)
       .limit(limit)
       .sort("rank")
-      .select("profile_image_url name points")
+      .select("profile_image_url name points verified")
       .exec (err, profiles) ->
          return next(new MongoError(err)) if err
          res.json profiles
