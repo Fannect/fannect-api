@@ -206,12 +206,15 @@ describe "Fannect Core API", () ->
                      TeamProfile.findById(profile_id, "user_id", done)
                   others: (done) ->
                      TeamProfile.find(friends: profile_id, "friends", done)
+                  other: (done) ->
+                     TeamProfile.findById("5102b17168a0c8f70c000007","friends_count",done)
                   user: (done) ->
                      User.findById(user_id, "team_profiles", done)
                , (err, result) ->
                   return done(err) if err
                   should.not.exist(result.profile)
                   result.others.should.be.empty
+                  result.oother.friends_count.should.equal(0)
                   result.user.team_profiles.should.not.include(profile_id)
                   done()
 

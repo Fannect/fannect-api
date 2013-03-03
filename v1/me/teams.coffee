@@ -56,13 +56,13 @@ deleteTeamProfile = (req, res, next) ->
    TeamProfile
    .findById profile_id, "user_id", (err, profile) ->
       return next(new MongoError(err)) if err
-      return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
+      return next(new InvalidArgumentError("Invalid: team_profile_id")) unless profile
       
       async.parallel
          profile: (done) -> profile.remove(done)
          otherProfiles: (done) ->
             TeamProfile
-            .update({ friends: profile_id }, { $pull: { friends: profile_id }}, done)
+            .update({ friends: profile_id }, { $pull: { friends: profile_id }, $inc: { friends_count: -1 }}, done)
          user: (done) ->
             User
             .update({ _id: profile.user_id }, { $pull: { team_profiles: profile_id }}, done)
