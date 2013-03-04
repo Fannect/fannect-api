@@ -827,6 +827,7 @@ describe "Fannect Core API", () ->
 
    require "./tests/games"
    require "./tests/groups"
+   require "./tests/huddles"
 
 
 

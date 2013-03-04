@@ -113,3 +113,4 @@ transform =
       return profile
 
 app.use require "./teams/groups"
+app.use require "./teams/huddles"
