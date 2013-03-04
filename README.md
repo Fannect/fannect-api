@@ -159,6 +159,29 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
     gameface_on: true } ]
 ```
 
+## `/v1/teams/[team_id]/huddles`
+**GET** - returns huddles of this team
+* `sort_by` - order returned huddles 
+  * `most_active` - sort by latest reply
+  * `oldest`
+  * `newest`
+* `created_by` - filter by creator _(uses access_token)_
+  * `team`
+  * `me`
+  * `roster`
+  * `any`
+* `skip`
+* `limit`
+
+**POST** - create new huddle
+* `team_profile_id`
+* `topic`
+* `content`
+* `include_teams`
+* `include_league`
+* `include_conference`
+
+
 ## `/v1/teams/[team_id]/groups`
 **GET** - returns groups of this team
 * `tags` _(optional)_ - tags to filter by
@@ -386,3 +409,33 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * allstar
 * mvp
 * hof - Fannect team, required to upload teams doc
+
+
+## Steps to Verify User
+
+### Get access token
+First you will need to get an access_token for an account that has `hof` status (see above).
+
+Send a `POST` request to `https://fannect-login.herokuapp.com/v1/token` with the following forms:
+* `email` - obviously your email
+* `password` - your password
+
+__Copy__ the `access_token` in the response into your clipboard.
+
+### Make request to verified endpoint
+
+Send a `PUT` request to `http://api.fannect.me/v1/users/[user_id]/verified` with the following:
+* replace `[user_id]` with the user's mongo `_id`
+* `verified` - the users new verification status, to clear verification status do NOT include, determine the correct value using the run below
+
+#### Determining Verified Status 
+* prefix any players with `player_`
+* prefix any coach with `coach_`
+* prefix any sports authority with `authority_`
+* suffix with the related sport
+
+Examples
+* `player_basketball`
+* `coach_basketball`
+* `authority_all`
+* `authority_basketball`
