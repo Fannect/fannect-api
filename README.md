@@ -159,6 +159,29 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
     gameface_on: true } ]
 ```
 
+## `/v1/teams/[team_id]/huddles`
+**GET** - returns huddles of this team
+* `sort_by` - order returned huddles 
+  * `most_active` - sort by latest reply
+  * `oldest`
+  * `newest`
+* `created_by` - filter by creator _(uses access_token)_
+  * `team`
+  * `me`
+  * `roster`
+  * `any`
+* `skip`
+* limit`
+
+**POST** - create new huddle
+* `team_profile_id`
+* `topic`
+* `content`
+* `include_teams`
+* `include_league`
+* `include_conference`
+
+
 ## `/v1/teams/[team_id]/groups`
 **GET** - returns groups of this team
 * `tags` _(optional)_ - tags to filter by
