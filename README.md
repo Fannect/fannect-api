@@ -388,7 +388,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * hof - Fannect team, required to upload teams doc
 
 
-## Steps to verify someone
+## Steps to Verify User
 
 ### Get access token
 First you will need to get an access_token for an account that has `hof` status (see above).
