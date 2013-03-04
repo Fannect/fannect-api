@@ -42,7 +42,7 @@ app.post "/v1/users/:user_id/invite", auth.rookieStatus, (req, res, next) ->
                   data: 
                      alert: "#{inviter.first_name} #{inviter.last_name} just sent you a Roster Request."
                      event: "invite"
-                     badge: "Increment"
+                     badge: other.invites.length or 0
                      title: "Roster Request"
                , (err) ->
                   console.error "Failed to send invite push: ", err if err
