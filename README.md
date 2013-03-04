@@ -171,7 +171,7 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
   * `roster`
   * `any`
 * `skip`
-* limit`
+* `limit`
 
 **POST** - create new huddle
 * `team_profile_id`
