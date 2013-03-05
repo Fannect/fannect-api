@@ -214,7 +214,7 @@ describe "Fannect Core API", () ->
                   return done(err) if err
                   should.not.exist(result.profile)
                   result.others.should.be.empty
-                  result.oother.friends_count.should.equal(0)
+                  result.other.friends_count.should.equal(0)
                   result.user.team_profiles.should.not.include(profile_id)
                   done()
 

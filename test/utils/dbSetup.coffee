@@ -42,7 +42,7 @@ module.exports =
          (done) -> TeamProfile.remove({_id: { $in: profile_ids }}, done)
          (done) -> Group.remove({_id: { $in: group_ids }}, done)
          (done) -> Group.remove({team_id: { $in: team_ids }}, done)
-         (done) -> Huddle.remove({team_id: { $in: team_ids }}, done)
+         (done) -> Huddle.remove({_id: { $in: huddle_ids }}, done)
          (done) -> Huddle.remove({team_id: { $in: team_ids }}, done)
       ], cb
 

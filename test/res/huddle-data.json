@@ -168,20 +168,10 @@
         }, {
             "_id": "5102b17168a0c8f70c000024",
             "user_id": "5102b17168a0c8f70c000020",
-            "name": "Frank Testing",
-            "team_id": "5102b17168a0c8f70c000009",
-            "team_name": "Kansas Jayhawks",
-            "team_key": "l.ncaa.org.mfoot-t.521",
-            "points": {
-                "overall": 6,
-                "knowledge": 2,
-                "passion": 3,
-                "dedication": 1
-            },
-            "friends": [],
-            "profile_image_url": "images/empty_profile.jpg",
-            "team_image_url": "images/empty_profile.jpg",
-            "is_college": true,
+            "name": "Bob",
+            "team_id": "5102b17168a0c8f70c000444",
+            "team_name": "Fannect Squad",
+            "team_key": "l.ncaa.org.squad-t.521",
             "verified": "Fannect_Squad"
         }
     ],
@@ -239,31 +229,32 @@
             },
             "team_key": "l.ncaa.org.mfoot-t.521"
         }, {
-        "_id": "51038413f71f44551a7b172a",
-        "conference_key": "c.eastern",
-        "conference_name": "Eastern",
-        "is_college": false,
-        "league_key": "l.nhl.com",
-        "league_name": "National Hockey League",
-        "location_name": "New Jersey",
-        "mascot": "Devils",
-        "full_name": "New Jersy Devils",
-        "sport_key": "15031000",
-        "sport_name": "Ice Hockey",
-        "stadium": {
-            "name": "Prudential Center",
-            "coords": [
-                -74.171137,
-                40.733653
-            ]
-        },
-        "team_key": "l.nhl.com-t.1"
+            "_id": "51038413f71f44551a7b172a",
+            "conference_key": "c.eastern",
+            "conference_name": "Eastern",
+            "is_college": false,
+            "league_key": "l.nhl.com",
+            "league_name": "National Hockey League",
+            "location_name": "New Jersey",
+            "mascot": "Devils",
+            "full_name": "New Jersy Devils",
+            "sport_key": "15031000",
+            "sport_name": "Ice Hockey",
+            "stadium": {
+                "name": "Prudential Center",
+                "coords": [
+                    -74.171137,
+                    40.733653
+                ]
+            },
+            "team_key": "l.nhl.com-t.1"
         }
     ],
     "huddles": [
         {
             "_id": "513526fec16e8ec75f00000a",
             "team_id": "5102b17168a0c8f70c000008",
+            "team_name": "Kansas St. Wildcats",
             "owner_id": "5102b17168a0c8f70c000005",
             "owner_user_id": "5102b17168a0c8f70c000002",
             "owner_name":"Mike Testing",
@@ -291,7 +282,8 @@
             "reply_count": 1 
         }, {
             "_id": "513526fec16e8ec75f00009b",
-            "team_id": "5102b17168a0c8f70c000008",
+            "team_id": "5102b17168a0c8f70c000009",
+            "team_name": "Kansas St. Wildcats",
             "owner_id": "5102b17168a0c8f70c000006",
             "owner_user_id": "5102b17168a0c8f70c000003",
             "owner_name":"Allstar Testing",
@@ -327,6 +319,65 @@
                 } 
             ],
             "reply_count": 1 
+        }, {
+            "_id": "513526fec16e8ec75f00008c",
+            "team_name": "Kansas St. Wildcats",
+            "team_id": "5102b17168a0c8f70c000009",
+            "owner_id": "5102b17168a0c8f70c000006",
+            "owner_user_id": "5102b17168a0c8f70c000003",
+            "owner_name":"Allstar Testing",
+            "topic": "Here&#39;s a test topic",
+            "last_comment_time": "2013-03-04T22:58:06.601Z",
+            "rating_count": 0,
+            "rating": 0,
+            "tags": 
+            [],
+            "replies": [ 
+                { 
+                   "_id": "513526fec16e8ec75f00000b",
+                    "owner_id": "5102b17168a0c8f70c000005",
+                   "owner_user_id": "5102b17168a0c8f70c000002",
+                   "owner_name": "Mike Testing",
+                   "content": "Here is some fake content"
+                } 
+            ],
+            "reply_count": 1 
+        }, {
+            "_id": "513526fec16e8ec75f000828",
+            "team_name": "Kansas St. Wildcats",
+            "team_id": "5102b17168a0c8f70c000444",
+            "owner_id": "5102b17168a0c8f70c000020",
+            "owner_user_id": "5102b17168a0c8f70c000003",
+            "owner_name":"Allstar Testing",
+            "topic": "Here&#39;s a test topic",
+            "last_comment_time": "2013-03-04T22:58:06.601Z",
+            "rating_count": 2,
+            "rating": 4,
+            "rated_by": [ "513526fec16e9ec75f007777" ],
+            "tags": [],
+            "replies": [ 
+                { 
+                    "_id": "5102b17168a0c8f70c000024",
+                    "owner_id": "5102b17168a0c8f70c000020",
+                    "owner_user_id": "5102b17168a0c8f70c000002",
+                    "owner_name": "Bob Testing",
+                    "content": "Here is some fake content"
+                }, { 
+                    "_id": "5102b17168a0c8f70c000025",
+                    "owner_id": "5102b17168a0c8f70c000020",
+                    "owner_user_id": "5102b17168a0c8f70c000002",
+                    "owner_name": "Bob Testing",
+                    "content": "Here is some fake content"
+                }, { 
+                    "_id": "5102b17168a0c8f70c000026",
+                    "owner_id": "5102b17168a0c8f70c000020",
+                    "owner_user_id": "5102b17168a0c8f70c000002",
+                    "owner_name": "Bob Testing",
+                    "content": "Here is some fake content"
+                } 
+            ],
+            "reply_count": 3,
+            "verified": "Fannect_Squad"
         }
     ]
 }

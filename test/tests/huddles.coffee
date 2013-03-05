@@ -13,7 +13,7 @@ User = null
 Team = null
 Huddle = null
 
-describe "Huddles", () ->
+describe.only "Huddles", () ->
    before (done) ->
       dbSetup = require "../utils/dbSetup"
       Team = require "../../common/models/Team"
@@ -27,7 +27,7 @@ describe "Huddles", () ->
    #
    describe "/v1/teams/:team_id/huddles", () ->
 
-      describe.only "GET", () ->
+      describe "GET", () ->
          before (done) -> dbSetup.load data_huddle, done
          after (done) -> dbSetup.unload data_huddle, done
 
@@ -46,7 +46,7 @@ describe "Huddles", () ->
                return done(err) if err
                body = JSON.parse(body)
                body.length.should.equal(1)
-               body[0]._id.toString().should.equal("513526fec16e8ec75f00009b")
+               body[0].team_id.should.equal(team_id)
                done()
 
          it "should search huddles and include any", (done) ->
@@ -59,12 +59,30 @@ describe "Huddles", () ->
                url: "#{context.host}/v1/teams/#{team_id}/huddles"
                qs:
                   skip: 0
-                  limit: 1
+                  created_by: "any"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
                body.length.should.equal(2)
                body[0]._id.toString().should.equal("513526fec16e8ec75f00009b")
+               done()
+
+         it "should search huddles and filter by roster", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000005"
+            team_id = "5102b17168a0c8f70c000008"
+            user_id = "5102b17168a0c8f70c000002"
+
+            request
+               url: "#{context.host}/v1/teams/#{team_id}/huddles"
+               qs:
+                  skip: 0
+                  created_by: "roster"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.length.should.equal(1)
+               body[0]._id.toString().should.equal("513526fec16e8ec75f00000a")
                done()
 
       describe "POST", () ->
@@ -88,6 +106,7 @@ describe "Huddles", () ->
             , (err, resp, body) ->
                return done(err) if err
                body.team_id.toString().should.equal(team_id)
+               body.team_name.should.equal("Kansas St. Wildcats")
                body.owner_user_id.toString().should.equal(user_id)
                body.owner_id.toString().should.equal(profile_id)
                body.topic.should.equal("Here&#39;s a test topic")
@@ -120,6 +139,7 @@ describe "Huddles", () ->
                
                # Ensure the same info is still there
                body.team_id.toString().should.equal(team_id)
+               body.team_name.should.equal("Kansas St. Wildcats")
                body.owner_user_id.toString().should.equal(user_id)
                body.owner_id.toString().should.equal(profile_id)
                body.topic.should.equal("Here&#39;s a test topic")
@@ -137,3 +157,136 @@ describe "Huddles", () ->
                body.tags[2].name.should.equal("Big 12 Conference")
 
                done()
+   #
+   # /v1/teams/[team_id]/huddles/[huddle_id]
+   #
+   describe "/v1/teams/:team_id/huddles/:huddle_id", () ->
+
+      describe "GET", () ->
+         before (done) -> dbSetup.load data_huddle, done
+         after (done) -> dbSetup.unload data_huddle, done
+
+         it "should retrieve huddle", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000024"
+            team_id = "5102b17168a0c8f70c000444"
+            user_id = "5102b17168a0c8f70c000020"
+            huddle_id = "513526fec16e8ec75f000828"
+
+            request
+               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body._id.toString().should.equal(huddle_id)
+               body.owner_user_id.toString().should.equal("5102b17168a0c8f70c000003")
+               body.owner_name.should.be.ok
+               body.topic.should.be.ok
+               done()
+
+   #
+   # /v1/teams/[team_id]/huddles/[huddle_id]/replies
+   #
+   describe "/v1/teams/:team_id/huddles/:huddle_id/replies", () ->
+
+      describe "GET", () ->
+         before (done) -> dbSetup.load data_huddle, done
+         after (done) -> dbSetup.unload data_huddle, done
+
+         it "should retrieve singe reply", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000024"
+            team_id = "5102b17168a0c8f70c000444"
+            user_id = "5102b17168a0c8f70c000020"
+            huddle_id = "513526fec16e8ec75f000828"
+
+            request
+               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}/replies"
+               qs: skip: 1, limit: 1
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body[0]._id.toString().should.equal("5102b17168a0c8f70c000025")
+               body[0].owner_name.should.equal("Bob Testing")
+               done()
+
+      describe "POST", () ->
+         before (done) -> dbSetup.load data_huddle, done
+         after (done) -> dbSetup.unload data_huddle, done
+
+         it "should create reply", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000024"
+            team_id = "5102b17168a0c8f70c000444"
+            user_id = "5102b17168a0c8f70c000020"
+            huddle_id = "513526fec16e8ec75f000828"
+
+            request
+               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}/replies"
+               method: "POST"
+               json: 
+                  team_profile_id: profile_id
+                  content: "Here is some kind of reply!"
+            , (err, resp, body) ->
+               return done(err) if err
+               body.status.should.equal("success")
+               Huddle.findById huddle_id, (err, huddle) ->
+                  return done(err) if err
+                  huddle.reply_count.should.equal(huddle.replies.length)
+                  reply = huddle.replies[huddle.replies.length-1]
+                  reply.owner_id.toString().should.equal("5102b17168a0c8f70c000024")
+                  reply.content.should.equal("Here is some kind of reply!")
+                  done()
+
+   #
+   # /v1/teams/[team_id]/huddles/[huddle_id]/ratings
+   #
+   describe "/v1/teams/:team_id/huddles/:huddle_id/ratings", () ->
+
+      describe "POST", () ->
+         before (done) -> dbSetup.load data_huddle, done
+         # after (done) -> dbSetup.unload data_huddle, done
+
+         it "should create reply", (done) ->
+            context = @
+            profile_id = "5102b17168a0c8f70c000024"
+            team_id = "5102b17168a0c8f70c000444"
+            user_id = "5102b17168a0c8f70c000020"
+            huddle_id = "513526fec16e8ec75f000828"
+
+            request
+               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}/rating"
+               method: "POST"
+               json: 
+                  team_profile_id: profile_id
+                  rating: 3
+            , (err, resp, body) ->
+               return done(err) if err
+               body.status.should.equal("success")
+               body.rating_count.should.equal(3)
+               Huddle.findById huddle_id, (err, huddle) ->
+                  return done(err) if err
+                  huddle.rating_count.should.equal(body.rating_count)
+                  done()
+
+         it "should create reply", (done) ->
+            context = @
+            profile_id = "513526fec16e9ec75f007777"
+            team_id = "5102b17168a0c8f70c000444"
+            user_id = "5102b17168a0c8f70c000020"
+            huddle_id = "513526fec16e8ec75f000828"
+
+            request
+               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}/rating"
+               method: "POST"
+               json: 
+                  team_profile_id: profile_id
+                  rating: 3
+            , (err, resp, body) ->
+               return done(err) if err
+               body.status.should.equal("fail")
+               done()
+
+
+                  
+   
