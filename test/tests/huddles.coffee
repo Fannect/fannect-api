@@ -109,7 +109,8 @@ describe.only "Huddles", () ->
                body.team_name.should.equal("Kansas St. Wildcats")
                body.owner_user_id.toString().should.equal(user_id)
                body.owner_id.toString().should.equal(profile_id)
-               body.topic.should.equal("Here&#39;s a test topic")
+               body.owner_verified.should.equal("Testing_Squad")
+               body.topic.should.equal("Here's a test topic")
                body.replies.length.should.equal(1)
                body.reply_count.should.equal(1)
                body.replies[0].owner_id.toString().should.equal(profile_id)
@@ -142,7 +143,7 @@ describe.only "Huddles", () ->
                body.team_name.should.equal("Kansas St. Wildcats")
                body.owner_user_id.toString().should.equal(user_id)
                body.owner_id.toString().should.equal(profile_id)
-               body.topic.should.equal("Here&#39;s a test topic")
+               body.topic.should.equal("Here's a test topic")
                body.replies.length.should.equal(1)
                body.reply_count.should.equal(1)
                body.replies[0].owner_id.toString().should.equal(profile_id)
@@ -158,9 +159,9 @@ describe.only "Huddles", () ->
 
                done()
    #
-   # /v1/teams/[team_id]/huddles/[huddle_id]
+   # /v1/huddles/[huddle_id]
    #
-   describe "/v1/teams/:team_id/huddles/:huddle_id", () ->
+   describe "/v1/huddles/:huddle_id", () ->
 
       describe "GET", () ->
          before (done) -> dbSetup.load data_huddle, done
@@ -174,7 +175,7 @@ describe.only "Huddles", () ->
             huddle_id = "513526fec16e8ec75f000828"
 
             request
-               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}"
+               url: "#{context.host}/v1/huddles/#{huddle_id}"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -185,15 +186,15 @@ describe.only "Huddles", () ->
                done()
 
    #
-   # /v1/teams/[team_id]/huddles/[huddle_id]/replies
+   # /v1/huddles/[huddle_id]/replies
    #
-   describe "/v1/teams/:team_id/huddles/:huddle_id/replies", () ->
+   describe "/v1/huddles/:huddle_id/replies", () ->
 
       describe "GET", () ->
          before (done) -> dbSetup.load data_huddle, done
          after (done) -> dbSetup.unload data_huddle, done
 
-         it "should retrieve singe reply", (done) ->
+         it "should retrieve single reply", (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c000024"
             team_id = "5102b17168a0c8f70c000444"
@@ -201,7 +202,7 @@ describe.only "Huddles", () ->
             huddle_id = "513526fec16e8ec75f000828"
 
             request
-               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}/replies"
+               url: "#{context.host}/v1/huddles/#{huddle_id}/replies"
                qs: skip: 1, limit: 1
             , (err, resp, body) ->
                return done(err) if err
@@ -222,7 +223,7 @@ describe.only "Huddles", () ->
             huddle_id = "513526fec16e8ec75f000828"
 
             request
-               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}/replies"
+               url: "#{context.host}/v1/huddles/#{huddle_id}/replies"
                method: "POST"
                json: 
                   team_profile_id: profile_id
@@ -236,16 +237,17 @@ describe.only "Huddles", () ->
                   reply = huddle.replies[huddle.replies.length-1]
                   reply.owner_id.toString().should.equal("5102b17168a0c8f70c000024")
                   reply.content.should.equal("Here is some kind of reply!")
+                  reply.owner_verified.should.equal("Fannect_Squad")
                   done()
 
    #
-   # /v1/teams/[team_id]/huddles/[huddle_id]/ratings
+   # /v1/huddles/[huddle_id]/ratings
    #
-   describe "/v1/teams/:team_id/huddles/:huddle_id/ratings", () ->
+   describe "/v1/huddles/:huddle_id/ratings", () ->
 
       describe "POST", () ->
          before (done) -> dbSetup.load data_huddle, done
-         # after (done) -> dbSetup.unload data_huddle, done
+         after (done) -> dbSetup.unload data_huddle, done
 
          it "should create reply", (done) ->
             context = @
@@ -255,7 +257,7 @@ describe.only "Huddles", () ->
             huddle_id = "513526fec16e8ec75f000828"
 
             request
-               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}/rating"
+               url: "#{context.host}/v1/huddles/#{huddle_id}/rating"
                method: "POST"
                json: 
                   team_profile_id: profile_id
@@ -277,7 +279,7 @@ describe.only "Huddles", () ->
             huddle_id = "513526fec16e8ec75f000828"
 
             request
-               url: "#{context.host}/v1/teams/#{team_id}/huddles/#{huddle_id}/rating"
+               url: "#{context.host}/v1/huddles/#{huddle_id}/rating"
                method: "POST"
                json: 
                   team_profile_id: profile_id

@@ -69,7 +69,8 @@
                     "_id": "5102b17168a0c8f70c001108",
                     "text": "something else"
                 }
-            ]
+            ],
+            "verified": "Testing_Squad"
         }, {
             "_id": "5102b17168a0c8f70c000105",
             "user_id": "5102b17168a0c8f70c000002",
