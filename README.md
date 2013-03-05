@@ -181,6 +181,23 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * `include_league`
 * `include_conference`
 
+## `/v1/teams/[team_id]/huddles/[huddle_id]`
+**GET** - retrieves a huddle
+
+## `/v1/teams/[team_id]/huddles/[huddle_id]/replies`
+**GET** - retrieves replies of a huddle
+* `limit` - limit replies returned
+* `skip` - skip replies
+* `reverse` - (true or false) determines the order, inverse skip sorts by descending
+
+**POST** - creates a new reply
+* `team_profile_id` - profile replying
+* `content` - content of the reply
+
+## `/v1/teams/[team_id]/huddles/[huddle_id]/rating`
+**POST** - rates the reply
+* `team_profile_id` - profile rating
+* `rating` - 1-5 rating
 
 ## `/v1/teams/[team_id]/groups`
 **GET** - returns groups of this team
