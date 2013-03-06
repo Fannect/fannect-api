@@ -78,6 +78,12 @@ app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) -
          else
             next(new InvalidArgumentError("Invalid: team_profile_id"))
 
+# Get Cloudinary signed token
+app.post "/v1/images/signature", auth.rookieStatus, (req, res, next) ->
+   res.json
+      cloud_name: images.getCloudName()
+      params: images.getParams(req.body)
+
 # Search Bing images
 app.get "/v1/images/bing", auth.rookieStatus, (req, res, next) ->
    return next(new InvalidArgumentError("Required: q")) unless req.query?.q
