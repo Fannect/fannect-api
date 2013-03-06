@@ -183,6 +183,7 @@ describe.only "Huddles", () ->
                body.owner_user_id.toString().should.equal("5102b17168a0c8f70c000003")
                body.owner_name.should.be.ok
                body.topic.should.be.ok
+               body.views.should.equal(5)
                done()
 
    #
@@ -207,8 +208,12 @@ describe.only "Huddles", () ->
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
-               body[0]._id.toString().should.equal("5102b17168a0c8f70c000025")
-               body[0].owner_name.should.equal("Bob Testing")
+               body.meta.count.should.be.ok
+               body.meta.limit.should.be.ok
+               body.meta.skip.should.be.ok
+               should.exist(body.meta.reverse)
+               body.replies[0]._id.toString().should.equal("5102b17168a0c8f70c000025")
+               body.replies[0].owner_name.should.equal("Bob Testing")
                done()
 
       describe "POST", () ->
@@ -230,7 +235,7 @@ describe.only "Huddles", () ->
                   content: "Here is some kind of reply!"
             , (err, resp, body) ->
                return done(err) if err
-               body.status.should.equal("success")
+               body.meta.count.should.equal(4)
                Huddle.findById huddle_id, (err, huddle) ->
                   return done(err) if err
                   huddle.reply_count.should.equal(huddle.replies.length)

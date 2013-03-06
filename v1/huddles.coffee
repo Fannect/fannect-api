@@ -14,17 +14,23 @@ app = module.exports = express()
 
 app.get "/v1/huddles/:huddle_id", auth.rookieStatus, (req, res, next) ->
    huddle_id = req.params.huddle_id
+   limit = req.query.limit or 10
+   limit = parseInt(limit)
+   limit = if limit > 20 then 20 else limit
    return next(new InvalidArgumentError("Invalid: huddle_id")) if huddle_id == "undefined"
 
    Huddle
    .findOne({ _id: huddle_id })
-   .select(_id:1,owner_user_id:1, owner_name:1, owner_verified:1, topic:1, 
-      reply_count:1, replies:{$slice:5}, team_id:1, team_name:1, rating:1, 
-      rating_count:1, last_reply_time:1, tags:1)
+   .select({ _id:1, owner_user_id:1, owner_name:1, owner_verified:1, topic:1, reply_count:1, replies:{$slice:limit}, team_id:1, team_name:1, rating:1, rating_count:1, last_reply_time:1, tags:1, views:1 })
    .exec (err, huddle) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: huddle_id")) unless huddle
+      huddle.views++ unless huddle.owner_user_id.toString() == req.user._id.toString()
       res.json huddle
+      
+      # Update views
+      huddle.save (err) ->
+         console.error "Failed to update view count!", err if err
 
 app.get "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) ->
    huddle_id = req.params.huddle_id
@@ -45,13 +51,19 @@ app.get "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) ->
 
    Huddle
    .findById(huddle_id)
-   .select({ replies: { $slice: slice } })
+   .select({ replies: { $slice: slice }, reply_count: 1 })
    .exec (err, huddle) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: huddle_id")) unless huddle
       replies = huddle.replies or []
       replies = replies.reverse() if reverse
-      res.json replies
+      res.json
+         meta: 
+            skip: skip
+            limit: limit
+            reverse: reverse
+            count: huddle.reply_count
+         replies: replies
       
 app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) ->
    huddle_id = req.params.huddle_id
@@ -84,23 +96,28 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
          unless valid
             return next(new InvalidArgumentError("Invalid: team_profile_id, not part of this huddle")) 
 
+      reply = 
+         _id: new mongoose.Types.ObjectId
+         owner_id: results.profile._id
+         owner_user_id: results.profile.user_id
+         owner_name: results.profile.name
+         owner_verified: results.profile.verified
+         team_id: results.profile.team_id
+         team_name: results.profile.team_name
+         content: content  
+
       # Add to replies
       Huddle.update { _id: results.huddle._id },
-         $push: 
-            replies: 
-               _id: mongoose.Types.ObjectId
-               owner_id: results.profile._id
-               owner_user_id: results.profile.user_id
-               owner_name: results.profile.name
-               owner_verified: results.profile.verified
-               team_id: results.profile.team_id
-               team_name: results.profile.team_name
-               content: content  
+         $push: { replies: reply }
          reply_count: results.huddle.reply_count + 1
          last_reply_time: new Date()
-      , (err) ->
+      , (err, result) ->
          return next(new MongoError(err)) if err
-         res.json status: "success" 
+         return next(new RestError("Failed to save reply")) unless result == 1
+         res.json 
+            meta: 
+               count: results.huddle.reply_count + 1
+            reply:reply
 
 app.post "/v1/huddles/:huddle_id/rating", auth.rookieStatus, (req, res, next) ->
    huddle_id = req.params.huddle_id

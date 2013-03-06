@@ -118,8 +118,8 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          owner_user_id: results.profile.user_id
          owner_name: results.profile.name
          owner_verified: results.profile.verified
-         team_id: results.profile.team_id
-         team_name: results.profile.team_name
+         team_id: results.team._id
+         team_name: results.team.full_name
          content: content
       })
       huddle.reply_count = 1
