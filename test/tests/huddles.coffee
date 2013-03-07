@@ -13,7 +13,7 @@ User = null
 Team = null
 Huddle = null
 
-describe.only "Huddles", () ->
+describe "Huddles", () ->
    before (done) ->
       dbSetup = require "../utils/dbSetup"
       Team = require "../../common/models/Team"

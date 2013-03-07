@@ -36,18 +36,32 @@ updateProfile = (req, res, next) ->
    req.user.first_name = data.first_name if data.first_name
    req.user.last_name = data.last_name if data.last_name
 
+   console.log "Before parallel"
+
    async.parallel [
-      (done) -> User.update { _id: req.user._id }, data, done
+      (done) -> 
+         console.log "Before 1"
+         User.update { _id: req.user._id }, data, (err, data) ->
+            console.log "After 1"
+            done(err,data)
       (done) ->
+         console.log "Before 2"
          # Update name in all TeamProfiles
          if b.first_name or b.last_name
             name = "#{b.first_name or req.user.first_name} #{b.last_name or req.user.last_name}"
             TeamProfile.update { user_id: req.user._id },
                { name: name },
                { multi: true } 
-            , done
-      (done) -> auth.setUser(req.query.access_token, req.user, done)
+            , (err, data) ->
+               console.log "After 2"
+               done(err,data)
+      (done) -> 
+         console.log "Before 3"
+         auth.updateUser req.query.access_token, req.user, (err, data) ->
+            console.log "After 3"
+            done(err,data)
    ], (err, data) ->
+      console.log "After parallel"
       return next(new MongoError(err)) if err
       res.json status: "success"
 
