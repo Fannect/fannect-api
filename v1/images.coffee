@@ -100,7 +100,7 @@ updateTeamImage = (req, res, next) ->
       else next(new InvalidArgumentError("Invalid: team_profile_id"))
 
 app.put "/v1/images/me/:team_profile_id", auth.rookieStatus, updateTeamImage
-app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, updateTeamImage
+app.post "/v1/images/me/:team_profile_id/update", auth.rookieStatus, updateTeamImage
 
 # Get Cloudinary signed token
 app.post "/v1/images/signature", auth.rookieStatus, (req, res, next) ->
