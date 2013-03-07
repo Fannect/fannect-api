@@ -54,7 +54,17 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
          updateUserProfileImage req.user._id, result.url, (err, data) ->
             return next(new MongoError(err)) if err
             res.json profile_image_url: result.url
-         
+      
+updateProfileImage = (req, res, next) ->
+   image_url = req.body.image_url
+   return next(new InvalidArgumentError("Required: image_url")) unless image_url
+   updateUserProfileImage req.user._id, image_url, (err, data) ->
+      return next(new MongoError(err)) if err
+      res.json status: "success"
+
+app.put "/v1/images/me", auth.rookieStatus, updateProfileImage
+app.post "/v1/images/me/update", auth.rookieStatus, updateProfileImage
+
 # Updates the team profile image
 app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) ->
    team_profile_id = req.params.team_profile_id
@@ -77,6 +87,20 @@ app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) -
                team_image_url: result.url
          else
             next(new InvalidArgumentError("Invalid: team_profile_id"))
+
+updateTeamImage = (req, res, next) ->
+   image_url = req.body.image_url
+   return next(new InvalidArgumentError("Required: image_url")) unless image_url
+
+   TeamProfile.update { _id: req.params.team_profile_id }
+   , team_image_url: image_url
+   , (err, data) ->
+      return next(new MongoError(err)) if err
+      if data == 1 then res.json status: "success"
+      else next(new InvalidArgumentError("Invalid: team_profile_id"))
+
+app.put "/v1/images/me/:team_profile_id", auth.rookieStatus, updateTeamImage
+app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, updateTeamImage
 
 # Get Cloudinary signed token
 app.post "/v1/images/signature", auth.rookieStatus, (req, res, next) ->
