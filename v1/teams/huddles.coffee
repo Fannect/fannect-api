@@ -77,6 +77,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
    profile_id = req.body.team_profile_id
    topic = req.body.topic
    content = req.body.content
+   image_url = req.body.image_url
    include_teams = req.body.include_teams or []
    include_league = req.body.include_league
    include_conference = req.body.include_conference
@@ -121,6 +122,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          team_id: results.team._id
          team_name: results.team.full_name
          content: content
+         image_url: image_url
       })
       huddle.reply_count = 1
 

@@ -13,7 +13,7 @@ User = null
 Team = null
 Huddle = null
 
-describe "Huddles", () ->
+describe.only "Huddles", () ->
    before (done) ->
       dbSetup = require "../utils/dbSetup"
       Team = require "../../common/models/Team"
@@ -102,6 +102,7 @@ describe "Huddles", () ->
                   team_profile_id: profile_id
                   topic: "Here's a test topic"
                   content: "Here is some fake content"
+                  image_url: "http://something/image/here"
                }
             , (err, resp, body) ->
                return done(err) if err
@@ -116,6 +117,7 @@ describe "Huddles", () ->
                body.replies[0].owner_id.toString().should.equal(profile_id)
                body.replies[0].owner_name.should.equal("Mike Testing")
                body.replies[0].content.should.equal("Here is some fake content")
+               body.replies[0].image_url.should.equal("http://something/image/here")
                done()
 
          it "should create huddle with associated team", (done) ->
