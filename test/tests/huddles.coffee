@@ -214,6 +214,7 @@ describe "Huddles", () ->
                should.exist(body.meta.reverse)
                body.replies[0]._id.toString().should.equal("5102b17168a0c8f70c000025")
                body.replies[0].owner_name.should.equal("Bob Testing")
+               body.replies[0].has_voted.should.be.false
                done()
 
       describe "POST", () ->
@@ -294,6 +295,50 @@ describe "Huddles", () ->
                body.status.should.equal("fail")
                done()
 
+   #
+   # /v1/huddles/[huddle_id]/replies/:reply/vote
+   #
+   describe "/v1/huddles/:huddle_id/replies/:reply/vote", () ->
 
-                  
+      describe "POST", () ->
+         before (done) -> dbSetup.load data_huddle, done
+         after (done) -> dbSetup.unload data_huddle, done
+
+         it "should save down vote", (done) ->
+            context = @
+            huddle_id = "513526fec16e8ec75f000828"
+            reply_id = "5102b17168a0c8f70c000026"
+
+            request
+               url: "#{context.host}/v1/huddles/#{huddle_id}/replies/#{reply_id}/vote"
+               method: "POST"
+               json: { vote: "down" }
+            , (err, resp, body) ->
+               return done(err) if err
+               body.status.should.equal("success")
+               Huddle.findById huddle_id, (err, huddle) ->
+                  return done(err) if err
+                  huddle.replies[2].up_votes.should.equal(0)
+                  huddle.replies[2].down_votes.should.equal(1)
+                  huddle.replies[2].voted_by[0].toString().should.equal("5102b17168a0c8f70c000002")
+                  done()
+
+         it "should not save repeat", (done) ->
+            context = @
+            huddle_id = "513526fec16e8ec75f000828"
+            reply_id = "5102b17168a0c8f70c000026"
+
+            request
+               url: "#{context.host}/v1/huddles/#{huddle_id}/replies/#{reply_id}/vote"
+               method: "POST"
+               json: { vote: "down" }
+            , (err, resp, body) ->
+               return done(err) if err
+               body.status.should.equal("fail")
+               Huddle.findById huddle_id, (err, huddle) ->
+                  return done(err) if err
+                  huddle.replies[2].up_votes.should.equal(0)
+                  huddle.replies[2].down_votes.should.equal(1)
+                  huddle.replies[2].voted_by.length.should.equal(1)
+                  done()
    
