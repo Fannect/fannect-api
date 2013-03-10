@@ -17,7 +17,7 @@ app.get "/v1/huddles/:huddle_id", auth.rookieStatus, (req, res, next) ->
    limit = req.query.limit or 10
    limit = parseInt(limit)
    limit = if limit > 20 then 20 else limit
-   return next(new InvalidArgumentError("Invalid: huddle_id")) if huddle_id == "undefined"
+   return next(new InvalidArgumentError("Invalid: huddle_id")) if huddle_id == "undefined" or huddle_id == "null"
 
    Huddle
    .findOne({ _id: huddle_id })
@@ -26,7 +26,10 @@ app.get "/v1/huddles/:huddle_id", auth.rookieStatus, (req, res, next) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: huddle_id")) unless huddle
       huddle.views++ unless huddle.owner_user_id.toString() == req.user._id.toString()
-      res.json huddle
+      
+      obj = huddle.toObject()
+      setReplyVoting(req.user._id, reply) for reply in obj.replies
+      res.json obj
       
       # Update views
       huddle.save (err) ->
@@ -85,16 +88,7 @@ app.get "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) ->
       return next(new InvalidArgumentError("Invalid: huddle_id")) unless huddle
       replies = huddle.replies or []
       replies = replies.reverse() if reverse
-
-      for reply in replies
-         if req.user._id == reply.owner_user_id
-            reply.is_owner = true
-            reply.has_voted = true
-         else
-            reply.is_owner = false
-            reply.has_voted = (req.user._id in reply.voted_by) unless reply.has_voted
-         
-         delete reply.voted_by
+      setReplyVoting(req.user._id, reply) for reply in replies
 
       res.json
          meta: 
@@ -154,9 +148,8 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
          return next(new MongoError(err)) if err
          return next(new RestError("Failed to save reply")) unless result == 1
          res.json 
-            meta: 
-               count: results.huddle.reply_count + 1
-            reply:reply
+            meta: { count: results.huddle.reply_count + 1 }
+            reply: setReplyVoting(req.user._id, reply)
 
 app.post "/v1/huddles/:huddle_id/replies/:reply_id/vote", auth.rookieStatus, (req, res, next) ->
    huddle_id = req.params.huddle_id
@@ -178,3 +171,14 @@ app.post "/v1/huddles/:huddle_id/replies/:reply_id/vote", auth.rookieStatus, (re
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: arguments or user has already voted")) if result == 0
       res.json { status: "success" }
+
+setReplyVoting = (user_id, reply) ->
+   if user_id.toString() == reply.owner_user_id.toString()
+      reply.is_owner = true
+      reply.has_voted = true
+   else
+      reply.is_owner = false
+      reply.has_voted = (user_id in (reply?.voted_by or []))
+   
+   delete reply.voted_by
+   return reply

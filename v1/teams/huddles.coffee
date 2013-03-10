@@ -59,13 +59,13 @@ app.get "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          ])
 
       # Sort by
-      if sort_by == "oldest" then query.sort({ _id: 1, last_reply_time: -1 })
-      if sort_by == "newest" then query.sort({ _id: -1, last_reply_time: -1 })
-      else query.sort({ last_reply_time: -1, _id: -1 })
+      if sort_by == "oldest" then query.sort("_id -last_reply_time")
+      if sort_by == "newest" then query.sort("-_id -last_reply_time")
+      else query.sort("-last_reply_time _id")
 
       query
-      .limit(limit)
       .skip(skip)
+      .limit(limit)
       .select("owner_id owner_user_id owner_name owner_verified topic reply_count replies team_id team_name rating rating_count last_reply_time")
       .exec (err, huddles) ->
          return next(new MongoError(err)) if err
