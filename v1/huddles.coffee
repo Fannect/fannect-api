@@ -102,6 +102,7 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
    huddle_id = req.params.huddle_id
    content = req.body.content
    profile_id = req.body.team_profile_id
+   image_url = req.body.image_url
 
    return next(new InvalidArgumentError("Invalid: huddle_id")) if huddle_id == "undefined"
    return next(new InvalidArgumentError("Require: team_profile_id")) unless profile_id
@@ -111,7 +112,7 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
       huddle: (done) -> 
          Huddle.findById huddle_id, "reply_count team_id tags", done
       profile: (done) -> 
-         TeamProfile.findById profile_id, "name user_id team_id team_name conference_key league_key verified", done
+         TeamProfile.findById profile_id, "name user_id team_id team_name conference_key league_key verified profile_image_url", done
    , (err, results) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: huddle_id")) unless results.huddle
@@ -135,9 +136,13 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
          owner_user_id: results.profile.user_id
          owner_name: results.profile.name
          owner_verified: results.profile.verified
+         owner_profile_image_url: results.profile.profile_image_url
          team_id: results.profile.team_id
          team_name: results.profile.team_name
          content: content  
+         up_votes: 0
+         down_votes: 0
+         image_url: image_url
 
       # Add to replies
       Huddle.update { _id: results.huddle._id },
@@ -178,7 +183,12 @@ setReplyVoting = (user_id, reply) ->
       reply.has_voted = true
    else
       reply.is_owner = false
-      reply.has_voted = (user_id in (reply?.voted_by or []))
-   
+      if reply?.voted_by 
+         for v in reply.voted_by
+            if user_id == v.toString() 
+               reply.has_voted = true
+               break
+      else reply.has_voted = false
+
    delete reply.voted_by
    return reply

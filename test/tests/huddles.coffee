@@ -216,7 +216,7 @@ describe.only "Huddles", () ->
                should.exist(body.meta.reverse)
                body.replies[0]._id.toString().should.equal("5102b17168a0c8f70c000025")
                body.replies[0].owner_name.should.equal("Bob Testing")
-               body.replies[0].has_voted.should.be.false
+               body.replies[0].has_voted.should.be.true
                done()
 
       describe "POST", () ->

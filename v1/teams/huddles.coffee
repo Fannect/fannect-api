@@ -97,7 +97,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
       teams: (done) ->
          Team.find({_id: $in: include_teams}, "team_name", done)
       profile: (done) ->
-         TeamProfile.findById(profile_id, "name user_id verified", done)
+         TeamProfile.findById(profile_id, "name user_id verified profile_image_url", done)
    , (err, results) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: team_id")) unless results.team
@@ -119,6 +119,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          owner_user_id: results.profile.user_id
          owner_name: results.profile.name
          owner_verified: results.profile.verified
+         owner_profile_image_url: results.profile.profile_image_url
          team_id: results.team._id
          team_name: results.team.full_name
          content: content
