@@ -54,7 +54,7 @@ app.get "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
             { "owner_user_id": req.user._id },
             { "replies.owner_user_id": req.user._id }
          ])
-         
+
       else if created_by == "roster"
          query.or([
             { owner_user_id: req.user._id },
@@ -84,6 +84,8 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
    include_teams = req.body.include_teams or []
    include_league = req.body.include_league
    include_conference = req.body.include_conference
+
+   console.log "BODY", req.body
 
    # force teams to be an array
    if include_teams and typeof include_teams == "string"
@@ -139,7 +141,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          })
       
       # Add league tag
-      if include_league
+      if include_league == "true"
          huddle.tags.push({
             include_key: results.team.league_key
             type: "league"
@@ -147,7 +149,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          })
 
       # Add conference tag
-      if include_conference
+      if include_conference == "true"
          huddle.tags.push({
             include_key: results.team.conference_key
             type: "conference"
