@@ -31,27 +31,35 @@ app.get "/v1/teams/:team_id", auth.rookieStatus, (req, res, next) ->
    content = req.query.content
    team_id = req.params.team_id
    return next(new InvalidArgumentError("Required: content")) unless content
-   return next(new InvalidArgumentError("Invalid: content")) unless content == "next_game"
+   return next(new InvalidArgumentError("Invalid: content")) unless (content in ["next_game","full"])
    return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
+
+   if content == "full"
+      select = "team_key schedule.pregame full_name conference_name conference_key league_name league_key mascot location_name is_college points sport_key sport_name stadium"
+   else if content == "next_game"
+      select = "schedule.pregame full_name"
 
    Team
    .findOne({ _id: req.params.team_id })
-   .select("schedule.pregame full_name")
+   .select(select)
+   .lean()
    .exec (err, team) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: team_id")) unless team_id
-      return res.json {} unless team.schedule?.pregame
+      return res.json {} if not team?.schedule?.pregame and content == "next_game"
 
-      game = team.schedule.pregame
-
-      res.json
-         event_key: game.event_key
-         game_time: game.game_time
-         coverage: game.coverage
-         stadium_name: game.stadium_name
-         stadium_location: game.stadium_location
-         home_team: if game.is_home then team.full_name else game.opponent
-         away_team: if game.is_home then game.opponent else team.full_name
+      if content == "next_game"
+         game = team.schedule.pregame
+         res.json
+            event_key: game.event_key
+            game_time: game.game_time
+            coverage: game.coverage
+            stadium_name: game.stadium_name
+            stadium_location: game.stadium_location
+            home_team: if game.is_home then team.full_name else game.opponent
+            away_team: if game.is_home then game.opponent else team.full_name
+      else
+         res.json team
 
 app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    content_types = [ "standard", "gameface" ]

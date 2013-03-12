@@ -50,8 +50,11 @@ app.get "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          query = Huddle.find({team_id: team_id})
       
       if created_by == "me"
-         query.where("owner_user_id", req.user._id)
-      
+         query.or([
+            { "owner_user_id": req.user._id },
+            { "replies.owner_user_id": req.user._id }
+         ])
+         
       else if created_by == "roster"
          query.or([
             { owner_user_id: req.user._id },
