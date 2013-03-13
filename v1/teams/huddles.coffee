@@ -85,8 +85,6 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
    include_league = req.body.include_league
    include_conference = req.body.include_conference
 
-   console.log "BODY", req.body
-
    # force teams to be an array
    if include_teams and typeof include_teams == "string"
       include_teams = [include_teams]
