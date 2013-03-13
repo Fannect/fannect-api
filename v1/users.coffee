@@ -2,10 +2,12 @@ express = require "express"
 rest = require "request"
 auth = require "../common/middleware/authenticate"
 TeamProfile = require "../common/models/TeamProfile"
+Huddle = require "../common/models/Huddle"
 Team = require "../common/models/Team"
 User = require "../common/models/User"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
+mongoose = require "mongoose"
 async = require "async"
  
 parse = new (require "kaiseki")(
@@ -53,10 +55,26 @@ app.put "/v1/users/:user_id/verified", auth.hofStatus, (req, res, next) ->
    async.parallel
       user: (done) -> User.update {_id: user_id}, { verified: verified }, done
       profiles: (done) -> TeamProfile.update {user_id: user_id}, {verified: verified}, {multi:true}, done
+      huddles: (done) ->
+         Huddle.update { "owner_user_id": user_id }
+         , { "owner_verified": verified }
+         , { multi: true }
+         , done
    , (err, results) ->
       return next(new MongoError(err)) if err
       return next((new InvalidArgumentError("Invalid: user_id"))) if results.user == 0
-   res.send status: "success"
+   
+      res.send status: "success"
       
+      # Update replies after the fact
+      Huddle.find { "replies.owner_user_id": user_id }, "replies", (err, huddles) ->
+         q = async.queue (huddle, callback) ->
+            for reply in huddle.replies
+               if user_id == reply.owner_user_id.toString()
+                  reply.owner_verified = verified 
+            huddle.save(callback)
+         , 10
+
+         q.push(huddle) for huddle in huddles
 
 

@@ -3,6 +3,7 @@ rest = require "request"
 mongoose = require "mongoose"
 User = require "../common/models/User"
 TeamProfile = require "../common/models/TeamProfile"
+Huddle = require "../common/models/Huddle"
 auth = require "../common/middleware/authenticate"
 MongoError = require "../common/errors/MongoError"
 async = require "async"
@@ -36,12 +37,14 @@ updateProfile = (req, res, next) ->
    req.user.first_name = data.first_name if data.first_name
    req.user.last_name = data.last_name if data.last_name
 
+   if data.first_name or data.last_name
+      name = "#{data.first_name or req.user.first_name} #{data.last_name or req.user.last_name}"
+
    async.parallel [
       (done) -> User.update { _id: req.user._id }, data, done
       (done) ->
          # Update name in all TeamProfiles
-         if b.first_name or b.last_name
-            name = "#{b.first_name or req.user.first_name} #{b.last_name or req.user.last_name}"
+         if name
             TeamProfile.update { user_id: req.user._id },
                { name: name },
                { multi: true } 
@@ -50,6 +53,18 @@ updateProfile = (req, res, next) ->
    ], (err, data) ->
       return next(new MongoError(err)) if err
       res.json status: "success"
+
+      # After the fact
+      if name
+         Huddle.find { "replies.owner_user_id": req.user._id }, "replies", (err, huddles) ->
+            q = async.queue (huddle, callback) ->
+               for reply in huddle.replies
+                  if req.user._id == reply.owner_user_id.toString()
+                     reply.owner_name = name
+               huddle.save(callback)
+            , 10
+
+            q.push(huddle) for huddle in huddles
 
 # Update this user
 app.post "/v1/me/update", auth.rookieStatus, updateProfile

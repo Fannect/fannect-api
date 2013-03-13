@@ -8,6 +8,7 @@ RestError = require "../common/errors/RestError"
 auth = require "../common/middleware/authenticate"
 TeamProfile = require "../common/models/TeamProfile"
 User = require "../common/models/User"
+Huddle = require "../common/models/Huddle"
 async = require "async"
 twitter = require "../common/utils/twitterReq"
 
@@ -35,7 +36,7 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
             , (err) -> console.error "Twitter update ERR:", err
          else
             images.uploadToCloud url,
-               [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
+               [{ width: 280, height: 280, crop: "fill", gravity: "faces", quality: 100 }]
             , (err, result) ->
                return next(new InvalidArgumentError("Unable to save image")) if err
                
@@ -47,7 +48,7 @@ app.post "/v1/images/me", auth.rookieStatus, (req, res, next) ->
       next(new InvalidArgumentError("Required: image or image_url")) unless image_path
 
       images.uploadToCloud image_path,
-         [{ width: 272, height: 272, crop: "fill", gravity: "faces", quality: 100 }]
+         [{ width: 280, height: 280, crop: "fill", gravity: "faces", quality: 100 }]
       , (err, result) ->
          return next(new InvalidArgumentError("Unable to save image")) if err
          
@@ -144,6 +145,18 @@ updateUserProfileImage = (user_id, url, cb) ->
          User.update { _id: user_id }
          , { profile_image_url: url }
          , done
+      huddle: (done) ->
+         # Update images for replies
+         Huddle.find { "replies.owner_user_id": user_id }, "replies", (err, huddles) ->
+            q = async.queue (huddle, callback) ->
+               for reply in huddle.replies
+                  if user_id == reply.owner_user_id.toString()
+                     reply.owner_profile_image_url = url
+               huddle.save(callback)
+            , 10
+
+            q.push(huddle) for huddle in huddles
+            q.drain = done
    , cb
 
 parseBingResults = (data) ->
