@@ -103,6 +103,7 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
    content = req.body.content
    profile_id = req.body.team_profile_id
    image_url = req.body.image_url
+   image_url = null if image_url == "undefined" or image_url == "null"
 
    return next(new InvalidArgumentError("Invalid: huddle_id")) if huddle_id == "undefined"
    return next(new InvalidArgumentError("Require: team_profile_id")) unless profile_id

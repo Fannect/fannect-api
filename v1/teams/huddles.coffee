@@ -85,6 +85,10 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
    include_league = req.body.include_league
    include_conference = req.body.include_conference
 
+   include_teams = null if include_teams == "null" or include_teams == "undefined"
+   include_league = null if include_league == "null" or include_league == "undefined"
+   include_conference = null if include_conference == "null" or include_conference == "undefined"
+
    # force teams to be an array
    if include_teams and typeof include_teams == "string"
       include_teams = [include_teams]
@@ -94,18 +98,21 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
    return next(new InvalidArgumentError("Required: topic")) unless topic
    return next(new InvalidArgumentError("Required: content")) unless content
    
-   async.parallel
+   parallel =
       team: (done) ->
          Team.findById(team_id, "full_name league_key league_name conference_key conference_name", done)
-      teams: (done) ->
-         Team.find({_id: $in: include_teams}, "team_name", done)
       profile: (done) ->
          TeamProfile.findById(profile_id, "name user_id verified profile_image_url", done)
-   , (err, results) ->
+   
+   if include_teams
+      parallel.teams = (done) ->
+         Team.find({_id: $in: include_teams}, "team_name", done)
+
+   async.parallel parallel, (err, results) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: team_id")) unless results.team
       return next(new InvalidArgumentError("Invalid: team_profile_id")) unless results.profile
-      
+
       huddle = new Huddle({
          team_id: results.team._id
          team_name: results.team.full_name
@@ -131,12 +138,13 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
       huddle.reply_count = 1
 
       # Add team tags
-      for team in results.teams
-         huddle.tags.push({
-            include_id: team._id
-            type: "team"
-            name: team.full_name
-         })
+      if results.teams 
+         for team in results.teams
+            huddle.tags.push({
+               include_id: team._id
+               type: "team"
+               name: team.full_name
+            })
       
       # Add league tag
       if include_league == "true"
