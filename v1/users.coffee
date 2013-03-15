@@ -68,6 +68,7 @@ app.put "/v1/users/:user_id/verified", auth.hofStatus, (req, res, next) ->
       
       # Update replies after the fact
       Huddle.find { "replies.owner_user_id": user_id }, "replies", (err, huddles) ->
+         return if err or not (huddles?.length > 0)
          q = async.queue (huddle, callback) ->
             for reply in huddle.replies
                if user_id == reply.owner_user_id.toString()

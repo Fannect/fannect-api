@@ -148,6 +148,8 @@ updateUserProfileImage = (user_id, url, cb) ->
       huddle: (done) ->
          # Update images for replies
          Huddle.find { "replies.owner_user_id": user_id }, "replies", (err, huddles) ->
+            return done(err) if err
+            return done() unless huddles.length > 0
             q = async.queue (huddle, callback) ->
                for reply in huddle.replies
                   if user_id == reply.owner_user_id.toString()

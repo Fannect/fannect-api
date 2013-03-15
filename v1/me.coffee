@@ -49,6 +49,8 @@ updateProfile = (req, res, next) ->
                { name: name },
                { multi: true } 
             , done
+         else
+            done()
       (done) -> auth.updateUser req.query.access_token, req.user, done
    ], (err, data) ->
       return next(new MongoError(err)) if err
@@ -57,6 +59,7 @@ updateProfile = (req, res, next) ->
       # After the fact
       if name
          Huddle.find { "replies.owner_user_id": req.user._id }, "replies", (err, huddles) ->
+            return if err or not (huddles?.length > 0)
             q = async.queue (huddle, callback) ->
                for reply in huddle.replies
                   if req.user._id == reply.owner_user_id.toString()
