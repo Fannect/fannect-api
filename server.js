@@ -16,6 +16,11 @@ app = require("./controllers/host.coffee");
 http = require("http");
 port = process.env.PORT || 2100;
 
-http.createServer(app).listen(port, function () {
+server = http.createServer(app).listen(port, function () {
    console.log("Fannect Core API listening on " + port);
+});
+
+process.on('SIGTERM', function () {
+  console.log("Closing Fannect Core API");
+  server.close();
 });
