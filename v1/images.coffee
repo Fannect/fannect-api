@@ -11,6 +11,7 @@ User = require "../common/models/User"
 Huddle = require "../common/models/Huddle"
 async = require "async"
 twitter = require "../common/utils/twitterReq"
+ProfileImageJob = require "../common/jobs/ProfileImageJob"
 
 app = module.exports = express()
 
@@ -146,19 +147,8 @@ updateUserProfileImage = (user_id, url, cb) ->
          , { profile_image_url: url }
          , done
       huddle: (done) ->
-         # Update images for replies
-         Huddle.find { "replies.owner_user_id": user_id }, "replies", (err, huddles) ->
-            return done(err) if err
-            return done() unless huddles.length > 0
-            q = async.queue (huddle, callback) ->
-               for reply in huddle.replies
-                  if user_id == reply.owner_user_id.toString()
-                     reply.owner_profile_image_url = url
-               huddle.save(callback)
-            , 10
-
-            q.push(huddle) for huddle in huddles
-            q.drain = done
+         job = new ProfileImageJob({ user_id: user_id, new_image_url: url })
+         job.queue(done)
    , cb
 
 parseBingResults = (data) ->

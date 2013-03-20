@@ -6,6 +6,7 @@ This is the source for the Fannect core API.
 # Environmental Variables
 * MONGO_URL
 * REDIS_URL
+* REDIS_QUEUE_URL
 * CLOUDINARY_NAME
 * CLOUDINARY_KEY
 * CLOUDINARY_SECRET

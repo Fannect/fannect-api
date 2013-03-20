@@ -7,6 +7,7 @@ Huddle = require "../common/models/Huddle"
 auth = require "../common/middleware/authenticate"
 MongoError = require "../common/errors/MongoError"
 async = require "async"
+RenameJob = require "../common/jobs/RenameJob"
 
 sendgrid = new (require("sendgrid-web"))({ 
    user: process.env.SENDGRID_USER or "fannect", 
@@ -58,16 +59,8 @@ updateProfile = (req, res, next) ->
 
       # After the fact
       if name
-         Huddle.find { "replies.owner_user_id": req.user._id }, "replies", (err, huddles) ->
-            return if err or not (huddles?.length > 0)
-            q = async.queue (huddle, callback) ->
-               for reply in huddle.replies
-                  if req.user._id == reply.owner_user_id.toString()
-                     reply.owner_name = name
-               huddle.save(callback)
-            , 10
-
-            q.push(huddle) for huddle in huddles
+         renameJob = new RenameJob({ user_id: req.user._id, new_name: name })
+         renameJob.queue()
 
 # Update this user
 app.post "/v1/me/update", auth.rookieStatus, updateProfile

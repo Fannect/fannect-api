@@ -147,7 +147,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
             })
       
       # Add league tag
-      if include_league == "true"
+      if include_league == true or include_league == "true"
          huddle.tags.push({
             include_key: results.team.league_key
             type: "league"
@@ -155,7 +155,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          })
 
       # Add conference tag
-      if include_conference == "true"
+      if include_conference == true or include_conference == "true"
          huddle.tags.push({
             include_key: results.team.conference_key
             type: "conference"

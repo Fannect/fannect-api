@@ -6,6 +6,10 @@ mongoose = require "mongoose"
 mockAuth = require "./utils/mockAuthenticate"
 async = require "async"
 csvParser = require "../common/utils/csvParser"
+Job = require "../common/jobs/Job"
+
+# Mock job queuing
+Job.prototype.queue = (cb) -> process.nextTick(cb) if cb
 
 # Have to do this because mongoose is initialized later
 dbSetup = null
@@ -17,8 +21,8 @@ User = null
 data_standard = require "./res/standard"
 data_games = require "./res/game-data"
 
-process.env.REDIS_URL = "redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203"
-process.env.MONGO_URL = "mongodb://admin:testing@linus.mongohq.com:10064/fannect"
+process.env.REDIS_URL = null #"redis://redistogo:f74caf74a1f7df625aa879bf817be6d1@perch.redistogo.com:9203"
+process.env.MONGO_URL = "localhost" #"mongodb://admin:testing@linus.mongohq.com:10064/fannect"
 process.env.NODE_ENV = "production"
 process.env.NODE_TESTING = true
 

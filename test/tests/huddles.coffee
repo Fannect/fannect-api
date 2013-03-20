@@ -151,7 +151,6 @@ describe "Huddles", () ->
                body.replies[0].owner_id.toString().should.equal(profile_id)
                body.replies[0].owner_name.should.equal("Mike Testing")
                body.replies[0].content.should.equal("Here is some fake content")
-               
                body.tags.length.should.equal(3)
                body.tags[0].type.should.equal("team")
                body.tags[1].type.should.equal("league")
