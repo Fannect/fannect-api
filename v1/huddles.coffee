@@ -119,43 +119,46 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
       return next(new InvalidArgumentError("Invalid: huddle_id")) unless results.huddle
       return next(new InvalidArgumentError("Invalid: team_profile_id")) unless results.profile
    
-      # Verify that the user is part of this huddle
-      if results.huddle.team_id.toString() != results.profile.team_id.toString()
-         valid = false
-         for tag in results.huddle.tags
-            if (tag.type == "conference" and tag.include_key == results.profile.conference_key or \
-            tag.type == "league" and tag.include_key == results.profile.conference_key or \
-            tag.type == "team" and tag.include_id == results.profile.team_id)
-               valid = true
-               break
-         unless valid
-            return next(new InvalidArgumentError("Invalid: team_profile_id, not part of this huddle")) 
-
-      reply = 
-         _id: new mongoose.Types.ObjectId
-         owner_id: results.profile._id
-         owner_user_id: results.profile.user_id
-         owner_name: results.profile.name
-         owner_verified: results.profile.verified
-         owner_profile_image_url: results.profile.profile_image_url
-         team_id: results.profile.team_id
-         team_name: results.profile.team_name
-         content: content  
-         up_votes: 0
-         down_votes: 0
-         image_url: image_url
-
-      # Add to replies
-      Huddle.update { _id: results.huddle._id },
-         $push: { replies: reply }
-         reply_count: results.huddle.reply_count + 1
-         last_reply_time: new Date()
-      , (err, result) ->
+      Team.findById profile.team_id, "conference_key league_key", (err, team) ->
          return next(new MongoError(err)) if err
-         return next(new RestError("Failed to save reply")) unless result == 1
-         res.json 
-            meta: { count: results.huddle.reply_count + 1 }
-            reply: setReplyVoting(req.user._id, reply)
+
+         # Verify that the user is part of this huddle
+         if results.huddle.team_id.toString() != results.profile.team_id.toString()
+            valid = false
+            for tag in results.huddle.tags
+               if (tag.type == "conference" and tag.include_key == team.conference_key or \
+               tag.type == "league" and tag.include_key == team.league_key or \
+               tag.type == "team" and tag.include_id == results.profile.team_id)
+                  valid = true
+                  break
+            unless valid
+               return next(new InvalidArgumentError("Invalid: team_profile_id, not part of this huddle")) 
+
+         reply = 
+            _id: new mongoose.Types.ObjectId
+            owner_id: results.profile._id
+            owner_user_id: results.profile.user_id
+            owner_name: results.profile.name
+            owner_verified: results.profile.verified
+            owner_profile_image_url: results.profile.profile_image_url
+            team_id: results.profile.team_id
+            team_name: results.profile.team_name
+            content: content  
+            up_votes: 0
+            down_votes: 0
+            image_url: image_url
+
+         # Add to replies
+         Huddle.update { _id: results.huddle._id },
+            $push: { replies: reply }
+            reply_count: results.huddle.reply_count + 1
+            last_reply_time: new Date()
+         , (err, result) ->
+            return next(new MongoError(err)) if err
+            return next(new RestError("Failed to save reply")) unless result == 1
+            res.json 
+               meta: { count: results.huddle.reply_count + 1 }
+               reply: setReplyVoting(req.user._id, reply)
 
 app.post "/v1/huddles/:huddle_id/replies/:reply_id/vote", auth.rookieStatus, (req, res, next) ->
    huddle_id = req.params.huddle_id
