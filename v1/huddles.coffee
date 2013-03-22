@@ -119,7 +119,7 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
       return next(new InvalidArgumentError("Invalid: huddle_id")) unless results.huddle
       return next(new InvalidArgumentError("Invalid: team_profile_id")) unless results.profile
    
-      Team.findById profile.team_id, "conference_key league_key", (err, team) ->
+      Team.findById results.profile.team_id, "conference_key league_key", (err, team) ->
          return next(new MongoError(err)) if err
 
          # Verify that the user is part of this huddle
