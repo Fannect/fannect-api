@@ -102,7 +102,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
       team: (done) ->
          Team.findById(team_id, "full_name league_key league_name conference_key conference_name", done)
       profile: (done) ->
-         TeamProfile.findById(profile_id, "name user_id verified profile_image_url", done)
+         TeamProfile.findOne({ _id: profile_id, user_id: req.user._id }, "name user_id verified profile_image_url", done)
    
    if include_teams
       parallel.teams = (done) ->

@@ -26,7 +26,8 @@
       "loggly": "0.3.11",
       "sendgrid-web": "0.0.4",
       "kaiseki": "0.4.0",
-      "node-html-encoder": "0.0.2"
+      "node-html-encoder": "0.0.2",
+      "instagram-node-lib": "0.1.1"
    },
    "devDependencies": {
       "mocha": "1.7.4",

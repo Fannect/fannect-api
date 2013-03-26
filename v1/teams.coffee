@@ -122,3 +122,4 @@ transform =
 
 app.use require "./teams/groups"
 app.use require "./teams/huddles"
+app.use require "./teams/highlights"

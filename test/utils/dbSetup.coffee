@@ -4,6 +4,7 @@ TeamProfile = require "../../common/models/TeamProfile"
 Team = require "../../common/models/Team"
 Group = require "../../common/models/Group"
 Huddle = require "../../common/models/Huddle"
+Highlight = require "../../common/models/Highlight"
 async = require "async"
 
 module.exports =
@@ -26,6 +27,9 @@ module.exports =
       if obj.huddles
          creates.huddles = (done) -> Huddle.create(obj.huddles, done)
 
+      if obj.highlights
+         creates.highlights = (done) -> Highlight.create(obj.highlights, done)
+
       async.parallel(creates, cb)
 
    unload: (obj, cb) ->
@@ -34,6 +38,7 @@ module.exports =
       profile_ids = if obj.teamprofiles then (t._id for t in obj.teamprofiles) else []
       group_ids = if obj.groups then (t._id for t in obj.groups) else []
       huddle_ids = if obj.huddles then (h._id for h in obj.huddles) else []
+      highlight_ids = if obj.hightlights then (h._id for h in obj.highlights) else []
 
       async.parallel [
          (done) -> User.remove({_id: { $in: user_ids }}, done)
@@ -44,6 +49,8 @@ module.exports =
          (done) -> Group.remove({team_id: { $in: team_ids }}, done)
          (done) -> Huddle.remove({_id: { $in: huddle_ids }}, done)
          (done) -> Huddle.remove({team_id: { $in: team_ids }}, done)
+         (done) -> Highlight.remove({_id: { $in: highlight_ids }}, done)
+         (done) -> Highlight.remove({team_id: { $in: team_ids }}, done)
       ], cb
 
 

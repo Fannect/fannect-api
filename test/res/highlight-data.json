@@ -1,0 +1,307 @@
+{
+    "users": [
+        {
+            "_id": "5102b17168a0c8f70c000002",
+            "email": "testing1@fannect.me",
+            "password": "hi",
+            "first_name": "Mike",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken1",
+            "friends": ["5102b17168a0c8f70c000004"],
+            "invites": ["5102b17168a0c8f70c000020"],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_profiles": ["5102b17168a0c8f70c000005"],
+            "verified": "Testing_Squad"
+        }, {
+            "_id": "5102b17168a0c8f70c000003",
+            "email": "testing2@fannect.me",
+            "password": "hi",
+            "first_name": "Allstar",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken2",
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg"
+        }, {
+            "_id": "5102b17168a0c8f70c000004",
+            "email": "testing3@fannect.me",
+            "password": "hi",
+            "first_name": "Richard",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken3",
+            "friends": ["5102b17168a0c8f70c000002"],
+            "profile_image_url": "images/empty_profile.jpg"
+        }, {
+            "_id": "5102b17168a0c8f70c000020",
+            "email": "testing4@fannect.me",
+            "password": "hi",
+            "first_name": "Frank",
+            "last_name": "Testing",
+            "refresh_token": "testingtoken4",
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg",
+            "verified": "Fannect_Squad"
+        }
+    ],
+    "teamprofiles": [
+        {
+            "_id": "5102b17168a0c8f70c000005",
+            "user_id": "5102b17168a0c8f70c000002",
+            "name": "Mike Testing",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 10,
+                "knowledge": 2,
+                "passion": 3,
+                "dedication": 5
+            },
+            "rank": 2,
+            "friends": ["5102b17168a0c8f70c000007"],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true,
+            "shouts": [
+                {
+                    "_id": "5102b17168a0c8f70c001008",
+                    "text": "something"
+                }, {
+                    "_id": "5102b17168a0c8f70c001108",
+                    "text": "something else"
+                }
+            ],
+            "verified": "Testing_Squad"
+        }, {
+            "_id": "5102b17168a0c8f70c000105",
+            "user_id": "5102b17168a0c8f70c000002",
+            "name": "Mike Testing",
+            "team_id": "51038413f71f44551a7b172a",
+            "team_key": "l.nhl.com-t.1",
+            "team_name": "New Jersy Devils",
+            "points": {
+                "overall": 10,
+                "knowledge": 2,
+                "passion": 3,
+                "dedication": 5
+            },
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": false
+        }, {
+            "_id": "5102b17168a0c8f70c000006",
+            "user_id": "5102b17168a0c8f70c000003",
+            "name": "Allstar Testing",
+            "team_id": "5102b17168a0c8f70c000009",
+            "team_name": "Kansas Jayhawks",
+            "team_key": "l.ncaa.org.mfoot-t.521",
+            "points": {
+                "overall": 15,
+                "knowledge": 7,
+                "passion": 3,
+                "dedication": 5
+            },
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true
+        }, {
+            "_id": "5102b17168a0c8f70c000007",
+            "user_id": "5102b17168a0c8f70c000004",
+            "name": "Richard Testing",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 5,
+                "knowledge": 1,
+                "passion": 2,
+                "dedication": 3
+            },
+            "rank": 3,
+            "friends": ["5102b17168a0c8f70c000005"],
+            "friends_count": 1,
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true,
+            "waiting_events": [
+                {
+                    "type": "game_face",
+                    "meta": {
+                        "face_on": true
+                    }
+                }
+            ]
+        }, {
+            "_id": "5102b17168a0c8f70c000010",
+            "user_id": "5102b17168a0c8f70c000004",
+            "name": "Richard Testing",
+            "team_id": "5102b17168a0c8f70c000009",
+            "team_name": "Kansas Jayhawks",
+            "team_key": "l.ncaa.org.mfoot-t.521",
+            "points": {
+                "overall": 6,
+                "knowledge": 2,
+                "passion": 3,
+                "dedication": 1
+            },
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true
+        }, {
+            "_id": "5102b17168a0c8f70c000021",
+            "user_id": "5102b17168a0c8f70c000020",
+            "name": "Frank Testing",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_key": "l.ncaa.org.mfoot-t.522",
+            "team_name": "Kansas St. Wildcats",
+            "points": {
+                "overall": 40,
+                "knowledge": 20,
+                "passion": 3,
+                "dedication": 17
+            },
+            "rank": 1,
+            "friends": [],
+            "profile_image_url": "images/empty_profile.jpg",
+            "team_image_url": "images/empty_profile.jpg",
+            "is_college": true,
+            "verified": "Fannect_Squad"
+        }, {
+            "_id": "5102b17168a0c8f70c000024",
+            "user_id": "5102b17168a0c8f70c000020",
+            "name": "Bob",
+            "team_id": "5102b17168a0c8f70c000444",
+            "team_name": "Fannect Squad",
+            "team_key": "l.ncaa.org.squad-t.521",
+            "verified": "Fannect_Squad"
+        }
+    ],
+    "teams": [
+        {
+            "_id": "5102b17168a0c8f70c000008",
+            "conference_key": "c.big-12",
+            "conference_name": "Big 12 Conference",
+            "is_college": true,
+            "league_key": "l.ncaa.org.mfoot",
+            "league_name": "NCAA Men's Football Division 1A",
+            "location_name": "Kansas St.",
+            "mascot": "Wildcats",
+            "full_name": "Kansas St. Wildcats",
+            "sport_key": "15003000",
+            "sport_name": "American Football",
+            "stadium": {
+                "name": "Bill Snyder Family Stadium",
+                "coords": [
+                    -96.593878,
+                    39.20198
+                ]
+            },
+            "points": {
+                "overall": 400,
+                "knowledge": 100,
+                "passion": 250,
+                "dedication": 50
+            },
+            "team_key": "l.ncaa.org.mfoot-t.522"
+        }, {
+            "_id": "5102b17168a0c8f70c000009",
+            "conference_key": "c.big-12",
+            "conference_name": "Big 12 Conference",
+            "is_college": true,
+            "league_key": "l.ncaa.org.mfoot",
+            "league_name": "NCAA Men's Football Division 1A",
+            "location_name": "Kansas",
+            "mascot": "Jayhawks",
+            "full_name": "Kansas Jayhawks",
+            "sport_key": "15003000",
+            "sport_name": "American Football",
+            "stadium": {
+                "name": "Memorial Stadium",
+                "coords": [
+                    -95.246401,
+                    38.962979
+                ]
+            },
+            "points": {
+                "overall": 620,
+                "knowledge": 200,
+                "passion": 280,
+                "dedication": 140
+            },
+            "team_key": "l.ncaa.org.mfoot-t.521"
+        }, {
+            "_id": "51038413f71f44551a7b172a",
+            "conference_key": "c.eastern",
+            "conference_name": "Eastern",
+            "is_college": false,
+            "league_key": "l.nhl.com",
+            "league_name": "National Hockey League",
+            "location_name": "New Jersey",
+            "mascot": "Devils",
+            "full_name": "New Jersy Devils",
+            "sport_key": "15031000",
+            "sport_name": "Ice Hockey",
+            "stadium": {
+                "name": "Prudential Center",
+                "coords": [
+                    -74.171137,
+                    40.733653
+                ]
+            },
+            "team_key": "l.nhl.com-t.1"
+        }
+    ],
+    "highlights": [
+        {
+            "_id": "513526fec16e8ec75f00000a",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_name": "Kansas St. Wildcats",
+            "owner_id": "5102b17168a0c8f70c000005",
+            "owner_user_id": "5102b17168a0c8f70c000002",
+            "owner_profile_image_url": "http://fannect.me/some-picture.jpg",
+            "owner_name": "Mike Testing",
+            "caption": "My awesome caption",
+            "up_votes": 10,
+            "down_votes": 2,
+            "comments": [ 
+                { 
+                    "_id": "513526fec16e8ec75f00000b",
+                    "owner_id": "5102b17168a0c8f70c000005",
+                    "owner_user_id": "5102b17168a0c8f70c000002",
+                    "owner_name": "Mike Testing",
+                    "content": "Here is some fake content"
+                } 
+            ],
+            "comment_count": 1,
+            "game_type": "gameday_pics"
+        }, {
+            "_id": "513526fec16e8ec75f00001b",
+            "team_id": "5102b17168a0c8f70c000008",
+            "team_name": "Kansas St. Wildcats",
+            "owner_id": "5102b17168a0c8f70c000005",
+            "owner_user_id": "5102b17168a0c8f70c000003",
+            "owner_profile_image_url": "http://fannect.me/some-picture.jpg",
+            "owner_name": "Mike Testing",
+            "caption": "My awesome caption",
+            "up_votes": 10,
+            "down_votes": 2,
+            "comments": [ 
+                { 
+                    "_id": "514526fec16e8ec75f000111",
+                    "owner_id": "5102b17168a0c8f70c000005",
+                    "owner_user_id": "5102b17168a0c8f70c000002",
+                    "owner_name": "Mike Testing",
+                    "content": "Here's my comment!"
+                }, { 
+                    "_id": "514526fec16e8ec75f000112",
+                    "owner_id": "5102b17168a0c8f70c000005",
+                    "owner_user_id": "5102b17168a0c8f70c000004",
+                    "owner_name": "Scott Tester",
+                    "content": "Here is some fake content"
+                } 
+            ],
+            "comment_count": 2,
+            "game_type": "gameday_pics"
+        }
+    ]
+}
