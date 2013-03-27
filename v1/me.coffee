@@ -97,6 +97,7 @@ app.post "/v1/me/verified", auth.rookieStatus, (req, res, next) ->
       return next(new RestError(err)) if err
       res.json status: "success"
 
+app.use require "./me/facebook"
 app.use require "./me/games"
 app.use require "./me/invites"
 app.use require "./me/teams"
