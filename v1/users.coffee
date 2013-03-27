@@ -25,28 +25,10 @@ app.post "/v1/users/:user_id/invite", auth.rookieStatus, (req, res, next) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: inviter_user_id")) unless inviter
       
-      User.findById other_id, "invites", (err, other) ->
-         return next(new MongoError(err)) if err
-         
-         for id in other.invites 
-            if inviter_id == id.toString()
-               return next(new MongoError("Duplicate: invite already sent"))
-               
-         other.invites.addToSet(inviter_id)
-         other.save (err) ->
-            return next(new MongoError(err)) if err
-            res.json status: "success"
+      User.sendInvite inviter, other_id, (err) ->
+         return next(err) if err
+         res.json status: "success"
 
-            # send push
-            unless process.env.NODE_TESTING
-               parse.sendPushNotification 
-                  channels: ["user_#{other_id}"]
-                  data: 
-                     alert: "#{inviter.first_name} #{inviter.last_name} just sent you a Roster Request."
-                     event: "invite"
-                     title: "Roster Request"
-               , (err) ->
-                  console.error "Failed to send invite push: ", err if err
 
 app.put "/v1/users/:user_id/verified", auth.hofStatus, (req, res, next) ->
    verified = req.body.verified or null
