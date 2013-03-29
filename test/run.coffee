@@ -330,6 +330,39 @@ describe "Fannect Core API", () ->
                done()
 
    #
+   # /v1/me/friends/[user_id]
+   #
+   describe "/v1/me/friends/[user_id]", () ->
+      before prepMongo
+      after emptyMongo  
+      describe "DELETE", () ->
+         it "should remove friendship", (done) ->
+            user_id = "5102b17168a0c8f70c000004"
+            my_profile_id = "5102b17168a0c8f70c000005"
+            context = @
+            request
+               url: "#{context.host}/v1/me/friends/#{user_id}"
+               method: "DELETE"
+            , (err, resp, body) ->
+               return done(err) if err
+               body = JSON.parse(body)
+               body.status.should.equal("success")
+
+               async.parallel
+                  me: (done) -> User.findById("5102b17168a0c8f70c000002", done)
+                  other: (done) -> User.findById(user_id, done)
+                  me_profiles: (done) -> TeamProfile.find(user_id: "5102b17168a0c8f70c000002", done)
+                  other_profiles: (done) -> TeamProfile.find(user_id: user_id, done)
+               , (err, results) ->
+                  return done(err) if err
+                  results.me.friends.length.should.equal(0)
+                  results.other.friends.length.should.equal(0)
+                  results.me_profiles[0].friends_count.should.equal(0)
+                  results.me_profiles[0].friends.length.should.equal(0)
+                  results.other_profiles[0].friends_count.should.equal(0)
+                  results.other_profiles[0].friends.length.should.equal(0)
+                  done()
+   #
    # /v1/me/leaderboard/users/[team_id]
    #               
    describe "/v1/leaderboard/users/[team_id]", () ->

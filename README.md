@@ -116,6 +116,13 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 
 **DELETE** - deletes a friend invite
 
+## `/v1/me/friends/[user_id]`
+**DELETE** - remove a friend
+
+```javascript
+{ status: 'success' }
+```
+
 ## `/v1/me/games`
 **GET** - lists all available games for this user
 

@@ -18,7 +18,7 @@ app = module.exports = express()
 
 # Get this user
 app.get "/v1/me", auth.rookieStatus, (req, res, next) ->
-   User.findById req.user._id, "email profile_image_url first_name last_name invites twitter verified"
+   User.findById req.user._id, "email profile_image_url first_name last_name invites twitter facebook birthday gender verified"
    , (err, user) ->
       return next(new MongoError(err)) if err
 
@@ -26,6 +26,7 @@ app.get "/v1/me", auth.rookieStatus, (req, res, next) ->
 
       # Set if user has connected twitter
       user.twitter = if user.twitter?.user_id then true else false
+      user.facebook = if user.facebook?.id then true else false
       res.json user
 
 updateProfile = (req, res, next) ->
@@ -98,6 +99,7 @@ app.post "/v1/me/verified", auth.rookieStatus, (req, res, next) ->
       res.json status: "success"
 
 app.use require "./me/facebook"
+app.use require "./me/friends"
 app.use require "./me/games"
 app.use require "./me/invites"
 app.use require "./me/teams"

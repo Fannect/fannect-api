@@ -9,11 +9,6 @@ MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 mongoose = require "mongoose"
 async = require "async"
- 
-parse = new (require "kaiseki")(
-   process.env.PARSE_APP_ID or "EP2BOLtJpCtZP1gMWc65YxIMUvum8qqjKswCESJi",
-   process.env.PARSE_API_KEY or "G8ZsbWBu0Is83VVsyvWcJeAqXhL0FI7cQeJvSHxU"
-)
 
 app = module.exports = express()
 
