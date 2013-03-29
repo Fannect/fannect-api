@@ -101,7 +101,8 @@
             },
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
-            "is_college": true
+            "is_college": true,
+            "rank": 1
         }, {
             "_id": "5102b17168a0c8f70c000007",
             "user_id": "5102b17168a0c8f70c000004",
@@ -145,7 +146,8 @@
             "friends": [],
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
-            "is_college": true
+            "is_college": true,
+            "rank": 2
         }, {
             "_id": "5102b17168a0c8f70c000021",
             "user_id": "5102b17168a0c8f70c000020",
@@ -182,7 +184,8 @@
             "profile_image_url": "images/empty_profile.jpg",
             "team_image_url": "images/empty_profile.jpg",
             "is_college": true,
-            "verified": "Fannect_Squad"
+            "verified": "Fannect_Squad",
+            "rank": 3
         }
     ],
     "teams": [
