@@ -36,17 +36,21 @@ app.get "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
    else if sort_by == "most_popular" then query.sort("-up_vote")
    else return next(new InvalidArgumentError("Invalid: sort_by. Must be 'newest' or 'most_popular'"))
 
+
+
    query
    .skip(skip)
    .limit(limit)
-   .select("owner_id owner_user_id owner_name owner_profile_image_url team_name team_id owner_verified caption image_url comment_count up_votes down_votes")
+   .select("owner_id owner_user_id owner_name owner_profile_image_url team_name team_id owner_verified caption image_url comment_count up_votes up_voted_by down_votes down_voted_by")
    .exec (err, highlights) ->
       return next(new MongoError(err)) if err
 
       user_id = req.user._id  
+      results = []
 
       for highlight in highlights 
          obj = highlight.toObject()
+         results.push(obj)
          if user_id == obj.owner_user_id.toString()
             obj.is_owner = true
             obj.current_vote = "owner"
@@ -63,8 +67,8 @@ app.get "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
                      obj.current_vote = "down"
                      break
          
-      res.json highlights
-
+      res.json results
+      
 # Create a highlight
 app.post "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id

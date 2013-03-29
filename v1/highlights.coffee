@@ -147,6 +147,7 @@ app.get "/v1/highlights/:highlight_id/comments", auth.rookieStatus, (req, res, n
    skip = req.query.skip or 0
    skip = parseInt(skip)
    reverse = req.query.reverse or false
+   reverse = if typeof reverse == "string" and reverse.toLowerCase() == "true" or reverse == true then true else false
 
    return next(new InvalidArgumentError("Invalid: highlight_id")) if highlight_id == "undefined"
 
