@@ -1,5 +1,4 @@
 # Fannect API
-[![Build Status](https://secure.travis-ci.org/Fannect/fannect-mobileweb.png?branch=master)](https://travis-ci.org/Fannect/fannect-mobileweb)
 
 This is the source for the Fannect core API.
 
@@ -16,8 +15,11 @@ This is the source for the Fannect core API.
 * PARSE_APP_ID
 * PARSE_API_KEY
 
-# REST Schema
-This is based on [this video](http://blog.apigee.com/detail/restful_api_design) by apigee
+# REST Schema 
+
+## Table of Contents
+  * [/v1/me](#v1me) - GET
+
 
 ## `/v1/me`
 **GET** - get profile information for this user
