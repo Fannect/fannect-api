@@ -1,23 +1,48 @@
 # Fannect API
-[![Build Status](https://secure.travis-ci.org/Fannect/fannect-mobileweb.png?branch=master)](https://travis-ci.org/Fannect/fannect-mobileweb)
 
 This is the source for the Fannect core API.
 
-# Environmental Variables
-* MONGO_URL
-* REDIS_URL
-* REDIS_QUEUE_URL
-* CLOUDINARY_NAME
-* CLOUDINARY_KEY
-* CLOUDINARY_SECRET
-* BING_IMAGE_KEY
-* SENDGRID_USERNAME
-* SENDGRID_PASSWORD
-* PARSE_APP_ID
-* PARSE_API_KEY
+# Table of Contents
+  * [REST Schema](#rest-schema) 
+    * [/v1/me](#v1me) - GET, PUT
+    * [/v1/me/verified](#v1meverified) - POST
+    * [/v1/me/teams](#v1meteams) - GET, POST
+    * [/v1/me/teams/\[team_profile_id\]](#v1meteamsteam_profile_id) - GET
+    * [/v1/me/invites](#v1meinvites) - GET, POST, DELETE
+    * [/v1/me/friends/\[user_id\]](#v1mefriendsuser_id) - DELETE
+    * [/v1/me/games](#v1megames) - GET
+    * [/v1/me/games/\[game_type\]](#v1megamesgame) - GET, PUT
+    * [/v1/teams](#v1teams) - POST
+    * [/v1/teams/\[team_id\]](#v1teamsteam_id) - GET
+    * [/v1/teams/\[team_id\]/users](#v1teamsteam_idusers) - GET
+    * [/v1/teams/\[team_id\]/huddles](#v1teamsteam_idhuddles) - GET, POST
+    * [/v1/huddles/\[huddle_id\]](#v1huddleshuddle_id) - GET
+    * [/v1/huddles/\[huddle_id\]/replies](#v1huddleshuddle_idreplies) - GET, POST
+    * [/v1/huddles/\[huddle_id\]/rating](#v1huddleshuddle_idrating) - POST
+    * [/v1/teams/\[team_id\]](#v1teamsteam_idgroups) - GET, POST
+    * [/v1/groups/\[group_id\]](#v1teamsteam_idgroups) - GET
+    * [/v1/groups/\[group_id\]/teamprofiles](#v1groupsgroup_idteamprofiles) - POST
+    * [/v1/leaderboard/users/\[team_id\]](#v1leaderboardusersteam_id) - GET
+    * [/v1/leaderboard/teams/\[team_id\]/conference](#v1leaderboardteamsteam_idconference) - GET
+    * [/v1/leaderboard/teams/\[team_id\]/league](#v1leaderboardteamsteam_idleague) - GET
+    * [/v1/leaderboard/teams/\[team_id\]/breakdown](#v1leaderboardteamsteam_idbreakdown) - GET
+    * [/v1/leaderboard/teams/\[team_id\]/custom](#v1leaderboardteamsteam_idcustom) - GET
+    * [/v1/sports](#v1sports) - GET
+    * [/v1/sports/\[sport_key\]/leagues](#v1sportssport_keyleagues) - GET
+    * [/v1/sports/\[sport_key\]/leagues/\[league_key\]/teams](#v1sportssport_keyleaguesleague_keyteams) - GET
+    * [/v1/sports/\[sport_key\]/teams](#v1sportssport_keyteams) - GET
+    * [/v1/users/\[user_id\]/invite](#v1usersuser_idinvite) - POST
+    * [/v1/users/\[user_id\]/verified](#v1usersuser_idverified) - PUT
+    * [/v1/teamprofiles](#v1teamprofiles) - GET
+    * [/v1/teamprofiles/\[team_profile_id\]](#v1teamprofilesteam_profile_id) - GET
+    * [/v1/teamprofiles/\[team_profile_id\]/events](#v1teamprofilesteam_profile_idevents) - GET
+    * [/v1/images/me](#v1imagesme) - PUT
+    * [/v1/images/me/\[team_profile_id\]](#v1imagesmeteam_profile_id) - PUT
+    * [/v1/images/bing](#v1imagesbing)
+  * [Role Levels](#roles-levels)
+  * [Steps to Verify User](#steps-to-verify-user)
 
 # REST Schema
-This is based on [this video](http://blog.apigee.com/detail/restful_api_design) by apigee
 
 ## `/v1/me`
 **GET** - get profile information for this user
@@ -429,7 +454,20 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
    * skip - images to skip
 
 
-## Roles Levels
+# Environmental Variables
+* MONGO_URL
+* REDIS_URL
+* REDIS_QUEUE_URL
+* CLOUDINARY_NAME
+* CLOUDINARY_KEY
+* CLOUDINARY_SECRET
+* BING_IMAGE_KEY
+* SENDGRID_USERNAME
+* SENDGRID_PASSWORD
+* PARSE_APP_ID
+* PARSE_API_KEY
+
+# Roles Levels
 * rookie - all normal Fannect users
 * sub
 * starter
@@ -438,9 +476,9 @@ This is based on [this video](http://blog.apigee.com/detail/restful_api_design) 
 * hof - Fannect team, required to upload teams doc
 
 
-## Steps to Verify User
+# Steps to Verify User
 
-### Get access token
+## Get access token
 First you will need to get an access_token for an account that has `hof` status (see above).
 
 Send a `POST` request to `https://fannect-login.herokuapp.com/v1/token` with the following forms:
@@ -449,13 +487,13 @@ Send a `POST` request to `https://fannect-login.herokuapp.com/v1/token` with the
 
 __Copy__ the `access_token` in the response into your clipboard.
 
-### Make request to verified endpoint
+## Make request to verified endpoint
 
 Send a `PUT` request to `http://api.fannect.me/v1/users/[user_id]/verified` with the following:
 * replace `[user_id]` with the user's mongo `_id`
 * `verified` - the users new verification status, to clear verification status do NOT include, determine the correct value using the run below
 
-#### Determining Verified Status 
+### Determining Verified Status 
 * prefix any players with `player_`
 * prefix any coach with `coach_`
 * prefix any sports authority with `authority_`
