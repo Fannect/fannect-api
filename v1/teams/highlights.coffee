@@ -31,12 +31,13 @@ app.get "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
    else if created_by == "me" then query = Highlight.find({ owner_user_id: req.user._id })
    else query = Highlight.find({ team_id: team_id, game_type: created_by })
 
+   query = query.where("is_active", true)
+
    # Sort by
-   if sort_by == "newest" then query.sort("-_id -up_vote")
-   else if sort_by == "most_popular" then query.sort("-up_vote")
-   else return next(new InvalidArgumentError("Invalid: sort_by. Must be 'newest' or 'most_popular'"))
-
-
+   if sort_by == "most_popular" then query = query.sort("-up_votes")
+   else if sort_by == "newest" then query = query.sort("-_id")
+   else if sort_by == "oldest" then query = query.sort("_id")
+   else return next(new InvalidArgumentError("Invalid: sort_by. Must be 'most_popular', 'newest', or 'oldest'"))
 
    query
    .skip(skip)
@@ -70,33 +71,33 @@ app.get "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
       res.json results
       
 # Create a highlight
-app.post "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
-   team_id = req.params.team_id
-   caption = req.body.caption
-   image_url = req.body.image_url
-   game_type = req.body.game_type
-   game_meta = req.body.game_meta
+# app.post "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
+#    team_id = req.params.team_id
+#    caption = req.body.caption
+#    image_url = req.body.image_url
+#    game_type = req.body.game_type
+#    game_meta = req.body.game_meta
 
-   return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
-   return next(new InvalidArgumentError("Required: image_url")) unless image_url
-   return next(new InvalidArgumentError("Required: game_type")) unless game_type
+#    return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
+#    return next(new InvalidArgumentError("Required: image_url")) unless image_url
+#    return next(new InvalidArgumentError("Required: game_type")) unless game_type
    
-   game_types = ["spirit_wear", "photo_challenge", "gameday_pics", "picture_with_a_player"]
-   unless (game_type in game_types)
-      return next(new InvalidArgumentError("Invalid: game_type must be '#{game_types.join("', '")}'"))
+#    game_types = ["spirit_wear", "photo_challenge", "gameday_pics", "picture_with_a_player"]
+#    unless (game_type in game_types)
+#       return next(new InvalidArgumentError("Invalid: game_type must be '#{game_types.join("', '")}'"))
 
-   TeamProfile
-   .findOne({ user_id: req.user._id, team_id: team_id })
-   .select("name user_id team_name team_id verified profile_image_url")
-   .exec (err, profile) ->
-      return next(new MongoError(err)) if err
-      return next(new InvalidArgumentError("Invalid: user doesn't have a profile with this team")) unless profile
+#    TeamProfile
+#    .findOne({ user_id: req.user._id, team_id: team_id })
+#    .select("name user_id team_name team_id verified profile_image_url")
+#    .exec (err, profile) ->
+#       return next(new MongoError(err)) if err
+#       return next(new InvalidArgumentError("Invalid: user doesn't have a profile with this team")) unless profile
    
-      Highlight.createAndAttach profile,
-         image_url: image_url
-         caption: caption
-         game_type: game_type
-         game_meta: game_meta
-      , (err, highlight) ->
-         return next(err) if err
-         res.json highlight.toObject()
+#       Highlight.createAndAttach profile,
+#          image_url: image_url
+#          caption: caption
+#          game_type: game_type
+#          game_meta: game_meta
+#       , (err, highlight) ->
+#          return next(err) if err
+#          res.json highlight.toObject()

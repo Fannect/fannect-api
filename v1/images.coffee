@@ -110,6 +110,46 @@ app.post "/v1/images/signature", auth.rookieStatus, (req, res, next) ->
       cloud_name: images.getCloudName()
       params: images.getParams(req.body)
 
+app.get "/v1/images/instagram", auth.rookieStatus, (req, res, next) ->
+   return next(new InvalidArgumentError("No Instagram account attached to user.")) unless req.user.instagram
+   limit = req.query.limit or 20
+   limit = parseInt(limit)
+   limit = if limit > 40 then 40 else limit
+   max_id = req.query.max_id
+
+   qs = 
+      count: limit
+      access_token: req.user.instagram.access_token
+   qs.max_id = max_id if max_id
+
+   request 
+      uri: "https://api.instagram.com/v1/users/#{req.user.instagram.id}/media/recent"
+      qs: qs
+      method: "GET"
+   , (err, resp, body) ->
+      return next(new RestError(err)) if err
+      
+      if resp.statusCode >= 400
+         unlinkInstagram(req.query.access_token, req.user)
+         return next(new InvalidArgumentError("Instagram OAuth has expired.")) 
+      
+      body = JSON.parse(body)
+      results = []
+      for image in body.data
+         results.push
+            url: image.images.standard_resolution.url
+            width: image.images.standard_resolution.width
+            height: image.images.standard_resolution.height
+            thumbnail: 
+               url: image.images.low_resolution.url
+               width: image.images.low_resolution.width
+               height: image.images.low_resolution.height
+
+      res.json 
+         meta: 
+            next_max_id: body?.data?[body.data.length-1]?.id
+         images: results
+
 # Search Bing images
 app.get "/v1/images/bing", auth.rookieStatus, (req, res, next) ->
    return next(new InvalidArgumentError("Required: q")) unless req.query?.q
@@ -150,6 +190,13 @@ updateUserProfileImage = (user_id, url, cb) ->
          job = new ProfileImageJob({ user_id: user_id, new_image_url: url })
          job.queue(done)
    , cb
+
+unlinkInstagram = (access_token, user) ->
+   delete user.instagram
+   async.parallel 
+      mongo: (done) -> User.update {_id: user._id}, { instagram:null }, done
+      redis: (done) -> auth.updateUser access_token, user, done
+   , (err) ->
 
 parseBingResults = (data) ->
    results = []

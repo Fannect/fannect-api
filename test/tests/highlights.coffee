@@ -52,7 +52,7 @@ describe "Highlights", () ->
                body[0].team_id.should.equal(team_id)
                done()
 
-      describe "POST", () ->
+      describe.skip "POST", () ->
          before (done) -> dbSetup.load data_highlight, done
          after (done) -> dbSetup.unload data_highlight, done
 

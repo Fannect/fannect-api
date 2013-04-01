@@ -8,3 +8,4 @@ app.get "/v1/me/games", (req, res, next) ->
 app.use require "./games/attendanceStreak"
 app.use require "./games/gameFace"
 app.use require "./games/guessTheScore"
+app.use require "./games/photos"
