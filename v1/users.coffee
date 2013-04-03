@@ -24,7 +24,6 @@ app.post "/v1/users/:user_id/invite", auth.rookieStatus, (req, res, next) ->
          return next(err) if err
          res.json status: "success"
 
-
 app.put "/v1/users/:user_id/verified", auth.hofStatus, (req, res, next) ->
    verified = req.body.verified or null
    user_id = req.params.user_id

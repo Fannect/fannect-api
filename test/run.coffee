@@ -47,6 +47,9 @@ describe "Fannect Core API", () ->
          TeamProfile = require "../common/models/TeamProfile"
          User = require "../common/models/User"
          Stadium = require "../common/models/Stadium"
+         Job::queue = (cb = ->) ->
+            context.queued = @
+            process.nextTick(cb)
          dbSetup.unload data_standard, done
 
    #
@@ -144,7 +147,7 @@ describe "Fannect Core API", () ->
                user.team_profiles.should.include(context.body._id)
                done()
 
-         it "should rollover friends from over teams", (done) ->
+         it "should rollover friends from other teams", (done) ->
             context = @
             context.body.friends.should.include("5102b17168a0c8f70c000010")
             TeamProfile.findById "5102b17168a0c8f70c000010", (err, profile) ->
@@ -168,6 +171,19 @@ describe "Fannect Core API", () ->
                body.reason.should.equal("duplicate")
                done()
 
+         it "should reactivate an inactive profile", (done) ->
+            TeamProfile.update {user_id: "5102b17168a0c8f70c000002", team_id: "5102b17168a0c8f70c000009"}, {is_active: false}, (err) =>
+               return done(err) if err
+               request 
+                  url: "#{@host}/v1/me/teams"
+                  method: "POST"
+                  json: { team_id: "5102b17168a0c8f70c000009" }
+               , (err, resp, body) ->
+                  should.not.exist(body.status)
+                  body.name.should.equal("Mike Testing")
+                  body.team_key.should.equal("l.ncaa.org.mfoot-t.521")
+                  body.verified.should.equal("Testing_Squad")
+                  done()
    #
    # /v1/me/teams/[team_profile_id]
    #
@@ -194,7 +210,7 @@ describe "Fannect Core API", () ->
                done()
 
       describe "DELETE", () ->
-         it "should delete team profile", (done) ->
+         it "should set team profile to inactive", (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c000005"
             user_id = "5102b17168a0c8f70c000002"
@@ -208,7 +224,7 @@ describe "Fannect Core API", () ->
 
                async.parallel
                   profile: (done) -> 
-                     TeamProfile.findById(profile_id, "user_id", done)
+                     TeamProfile.findOne({_id: profile_id, is_active: true }, "user_id", done)
                   others: (done) ->
                      TeamProfile.find(friends: profile_id, "friends", done)
                   other: (done) ->

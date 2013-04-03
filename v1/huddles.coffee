@@ -113,7 +113,7 @@ app.post "/v1/huddles/:huddle_id/replies", auth.rookieStatus, (req, res, next) -
       huddle: (done) -> 
          Huddle.findById huddle_id, "reply_count team_id tags", done
       profile: (done) -> 
-         TeamProfile.findById profile_id, "name user_id team_id team_name conference_key league_key verified profile_image_url", done
+         TeamProfile.findOne {_id:profile_id, is_active:true}, "name user_id team_id team_name conference_key league_key verified profile_image_url", done
    , (err, results) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: huddle_id")) unless results.huddle

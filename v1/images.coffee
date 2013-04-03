@@ -79,16 +79,12 @@ app.post "/v1/images/me/:team_profile_id", auth.rookieStatus, (req, res, next) -
    , (err, result) ->
       return next(new InvalidArgumentError("Unable to save image")) if err
       
-      TeamProfile.update { _id: team_profile_id }
+      TeamProfile.update { _id: team_profile_id, is_active: true }
       , team_image_url: result.url
       , (err, data) ->
          return next(new MongoError(err)) if err
-         
-         if data == 1
-            res.json 
-               team_image_url: result.url
-         else
-            next(new InvalidArgumentError("Invalid: team_profile_id"))
+         return next(new ResourceNotFoundError("Not found: TeamProfile")) unless data == 1
+         res.json team_image_url: result.url
 
 updateTeamImage = (req, res, next) ->
    image_url = req.body.image_url
@@ -98,9 +94,9 @@ updateTeamImage = (req, res, next) ->
    , team_image_url: image_url
    , (err, data) ->
       return next(new MongoError(err)) if err
-      if data == 1 then res.json status: "success"
-      else next(new InvalidArgumentError("Invalid: team_profile_id"))
-
+      return next(new ResourceNotFoundError("Not found: TeamProfile")) unless data == 1
+      res.json status: "success"
+      
 app.put "/v1/images/me/:team_profile_id", auth.rookieStatus, updateTeamImage
 app.post "/v1/images/me/:team_profile_id/update", auth.rookieStatus, updateTeamImage
 
