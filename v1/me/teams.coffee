@@ -15,7 +15,7 @@ app = module.exports = express()
 # Get team profiles
 app.get "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
    TeamProfile
-   .find({ user_id: req.user._id })
+   .find({ user_id: req.user._id, user_id: req.user._id, is_active: true })
    .sort("team_name")
    .select("team_id team_name team_key points sport_name sport_key verified")
    .exec (err, team_profiles) ->
@@ -40,30 +40,28 @@ app.post "/v1/me/teams", auth.rookieStatus, (req, res, next) ->
 
 # Get single team profile by id
 app.get "/v1/me/teams/:team_profile_id", auth.rookieStatus, (req, res, next) ->
-   TeamProfile.findById req.params.team_profile_id, 
+   TeamProfile.findOne {_id: req.params.team_profile_id, user_id: req.user._id, is_active: true },
       { user_id: 1, name: 1, profile_image_url: 1, team_id: 1, team_image_url: 1, team_name: 1, points: 1, shouts: { $slice: [-1, 1]}, is_college: 1, friends_count: 1, rank: 1, sport_name: 1, sport_key: 1, verified:1 }
    , (err, profile) ->
       return next(new MongoError(err)) if err
-      return next(new ResourceNotFoundError()) unless profile
+      return next(new ResourceNotFoundError("Not found: TeamProfile")) unless profile
       res.json profile
          
 deleteTeamProfile = (req, res, next) ->
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
-
-   TeamProfile
-   .findById profile_id, "user_id", (err, profile) ->
+   
+   TeamProfile.update {_id: profile_id, user_id: req.user._id, is_active: true}
+   , {is_active: false}
+   , (err, result) ->
       return next(new MongoError(err)) if err
-      return next(new InvalidArgumentError("Invalid: team_profile_id")) unless profile
-      
+      return next(new InvalidArgumentError("Invalid: team_profile_id")) unless result == 1
+
       async.parallel
-         profile: (done) -> profile.remove(done)
          otherProfiles: (done) ->
-            TeamProfile
-            .update({ friends: profile_id }, { $pull: { friends: profile_id }, $inc: { friends_count: -1 }}, done)
+            TeamProfile.update({ friends: profile_id }, { $pull: { friends: profile_id }, $inc: { friends_count: -1 }}, done)
          user: (done) ->
-            User
-            .update({ _id: profile.user_id }, { $pull: { team_profiles: profile_id }}, done)
+            User.update({ _id: req.user._id }, { $pull: { team_profiles: profile_id }}, done)
       , (err) ->
          return next(new MongoError(err)) if err
          res.json status: "success"
@@ -80,10 +78,13 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
 
    saveShout = (cb) ->
       TeamProfile
-      .update({_id: profile_id}, { $push: { shouts: { _id: new mongoose.Types.ObjectId, text: shout } } })
-      .exec cb
+      .update({_id: profile_id, is_active: true}, { $push: { shouts: { _id: new mongoose.Types.ObjectId, text: shout } } })
+      .exec (err, result) ->
+         return next(new MongoError(err)) if err
+         return next(new ResourceNotFoundError("Not found: TeamProfile")) unless result == 1
+         cb()
 
-   resp = (err, data) ->
+   respond = (err, data) ->
       return next(new MongoError(err)) if err
       res.json status: "success"
    
@@ -91,6 +92,6 @@ app.post "/v1/me/teams/:team_profile_id/shouts", auth.rookieStatus, (req, res, n
       async.parallel
          shout: saveShout
          tweet: (done) -> twitter.tweet(req.user.twitter, shout, done)
-      , resp
+      , respond
    else
-      saveShout(resp)
+      saveShout(respond)

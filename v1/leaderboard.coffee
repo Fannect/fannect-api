@@ -20,7 +20,7 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
 
    if friends_of
       TeamProfile
-      .find({ "team_id": team_id, $or: [{"friends": friends_of}, {"_id": friends_of}]})
+      .find({ team_id: team_id, is_active: true, $or: [{friends: friends_of}, {_id: friends_of}]})
       .skip(skip)
       .limit(limit)
       .sort({"points.overall": -1, name: 1})
@@ -30,7 +30,7 @@ app.get "/v1/leaderboard/users/:team_id", auth.rookieStatus, (req, res, next) ->
          res.json profiles
    else
       TeamProfile
-      .find({ "team_id": team_id, rank: { $gt: 0 }})
+      .find({ team_id: team_id, is_active: true, rank: { $gt: 0 }})
       .skip(skip)
       .limit(limit)
       .sort("rank")
@@ -49,7 +49,8 @@ app.get "/v1/leaderboard/teams/:team_id/conference", auth.rookieStatus, (req, re
 
    Team.findById team_id, "sport_key conference_key conference_name", (err, team) ->
       return next(new MongoError(err)) if err   
-      return next(new InvalidArgumentError("Invalid team_id")) unless team
+      return next(new ResourceNotFoundError("Not found: Team")) unless team
+      
       Team
       .find({ sport_key: team.sport_key, conference_key: team.conference_key})
       .skip(skip)
@@ -72,8 +73,8 @@ app.get "/v1/leaderboard/teams/:team_id/league", auth.rookieStatus, (req, res, n
    
    Team.findById team_id, "sport_key league_key league_name", (err, team) ->
       return next(new MongoError(err)) if err   
-      return next(new InvalidArgumentError("Invalid team_id")) unless team
-
+      return next(new ResourceNotFoundError("Not found: Team")) unless team
+      
       Team
       .find({ league_key:team.league_key, sport_key: team.sport_key })
       .skip(skip)
@@ -90,7 +91,7 @@ app.get "/v1/leaderboard/teams/:team_id/breakdown", auth.rookieStatus, (req, res
    team_id = req.params.team_id
    Team.findById team_id, "mascot location_name full_name points", (err, team) ->
       return next(new MongoError(err)) if err
-      return next(new InvalidArgumentError("Invalid team_id")) unless team
+      return next(new ResourceNotFoundError("Not found: Team")) unless team
       res.json team
 
 app.get "/v1/leaderboard/teams/:team_id/custom", auth.rookieStatus, (req, res, next) ->

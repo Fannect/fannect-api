@@ -9,14 +9,6 @@ Team = require "../common/models/Team"
 
 app = module.exports = express()
 
-app.get "/v1/teams", auth.rookieStatus, (req, res, next) ->
-   TeamProfile
-   .find({ user_id: req.user.user_id })
-   .select("name team_key team_id team_name points team_image_url profile_image_url trash_talk")
-   .exec (err, data) ->
-      return next(new MongoError(err)) if err
-      res.json data
-
 app.post "/v1/teams", auth.hofStatus, (req, res, next) ->
    if req.files?.teams?.path
       csvParser.parseTeams req.files.teams.path, (err, count) ->
@@ -82,6 +74,8 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
       query.where("team_id", team_id)
    else
       query = TeamProfile.where("team_id", team_id)
+
+   query.where("is_active", true)
    
    if friends_of
       query.where("friends", friends_of)
@@ -99,10 +93,8 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    .lean()
    .exec (err, profiles) ->
       return next(new MongoError(err)) if err
-
       # Transform for gameface
       transform[content](profile) for profile in profiles if content
-
       res.json profiles
 
 # Transforms to run on profiles

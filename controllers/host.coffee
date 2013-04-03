@@ -35,7 +35,7 @@ db.on "close", console.log.bind(console, "mongo connection closed")
 app.use require "./v1"
 
 app.all "*", (req, res, next) ->
-   return next(new ResourceNotFoundError())
+   return next(new ResourceNotFoundError("Unknown URL."))
 
 # Error handling
 app.use require "../common/middleware/handleErrors"

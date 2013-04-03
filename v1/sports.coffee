@@ -1,7 +1,6 @@
 express = require "express"
 auth = require "../common/middleware/authenticate"
 Team = require "../common/models/Team"
-TeamProfile = require "../common/models/TeamProfile"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 

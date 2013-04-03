@@ -31,7 +31,7 @@ app.get "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
          Team.findById(team_id, "full_name conference_key conference_name league_key league_name", done)
 
    if created_by == "roster"
-      pull.profile = (done) -> TeamProfile.findOne({ user_id: req.user._id, team_id: team_id }, "friends", done)
+      pull.profile = (done) -> TeamProfile.findOne({ user_id: req.user._id, team_id: team_id, is_active: true }, "friends", done)
 
    # Get data in parallel
    async.parallel pull, (err, results) ->
@@ -77,7 +77,6 @@ app.get "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
 # Create a huddle
 app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
    team_id = req.params.team_id
-   profile_id = req.body.team_profile_id
    topic = req.body.topic
    content = req.body.content
    image_url = req.body.image_url
@@ -94,7 +93,6 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
       include_teams = [include_teams]
 
    return next(new InvalidArgumentError("Invalid: team_id")) if team_id == "undefined"
-   return next(new InvalidArgumentError("Required: team_profile_id")) unless profile_id
    return next(new InvalidArgumentError("Required: topic")) unless topic
    return next(new InvalidArgumentError("Required: content")) unless content
    
@@ -102,7 +100,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
       team: (done) ->
          Team.findById(team_id, "full_name league_key league_name conference_key conference_name", done)
       profile: (done) ->
-         TeamProfile.findById(profile_id, "name user_id verified profile_image_url", done)
+         TeamProfile.findOne({ user_id: req.user._id, team_id: team_id, is_active: true}, "name user_id verified profile_image_url", done)
    
    if include_teams
       parallel.teams = (done) ->
@@ -111,7 +109,7 @@ app.post "/v1/teams/:team_id/huddles", auth.rookieStatus, (req, res, next) ->
    async.parallel parallel, (err, results) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: team_id")) unless results.team
-      return next(new InvalidArgumentError("Invalid: team_profile_id")) unless results.profile
+      return next(new InvalidArgumentError("Invalid: User does not have TeamProfile for this Team")) unless results.profile
 
       huddle = new Huddle({
          team_id: results.team._id
