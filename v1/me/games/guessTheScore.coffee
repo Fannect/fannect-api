@@ -10,7 +10,7 @@ GameStatus = require "../../../common/GameStatus/GameStatus"
 
 app = module.exports = express()
 
-app.get "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus, (req, res, next) ->
+getGuessTheScore = (req, res, next) ->
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
 
@@ -22,7 +22,10 @@ app.get "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus, 
       return next(err) if err
       res.json result
 
-app.post "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus, (req, res, next) ->
+app.get "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus, getGuessTheScore
+app.get "/v1/me/teams/:team_profile_id/games/guess_the_score", auth.rookieStatus, getGuessTheScore
+
+postGuessTheScore = (req, res, next) ->
    profile_id = req.params.team_profile_id
    home_score = parseInt(req.body.home_score)
    away_score = parseInt(req.body.away_score)
@@ -42,14 +45,17 @@ app.post "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus,
       return next(err) if err
       res.json status: "success"
 
-# app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock0", auth.rookieStatus, (req, res, next) ->
+app.post "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus, postGuessTheScore
+app.post "/v1/me/teams/:team_profile_id/games/guess_the_score", auth.rookieStatus, postGuessTheScore
+
+# app.get "/v1/me/teams/:team_profile_id/games/guess_the_score/mock0", auth.rookieStatus, (req, res, next) ->
 #    res.json {
 #       home_team: { name: 'Boston Celtics' },
 #       available: false 
 #       stadium: { name: 'Some Stadium', location: 'KCMO', lat: 42.366289, lng: -71.06222 },
 #    }
 
-# app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock1", auth.rookieStatus, (req, res, next) ->
+# app.get "/v1/me/teams/:team_profile_id/games/guess_the_score/mock1", auth.rookieStatus, (req, res, next) ->
 #    res.json {
 #       game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
 #       home_team: { name: 'Boston Celtics' },
@@ -59,7 +65,7 @@ app.post "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus,
 #       available: false 
 #    }
 
-# app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock2", auth.rookieStatus, (req, res, next) ->
+# app.get "/v1/me/teams/:team_profile_id/games/guess_the_score/mock2", auth.rookieStatus, (req, res, next) ->
 #    res.json {
 #       game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
 #       home_team: { name: 'Boston Celtics' },
@@ -70,7 +76,7 @@ app.post "/v1/me/teams/:team_profile_id/games/guessTheScore", auth.rookieStatus,
 #       meta: { picked: false }
 #    }
 
-# app.get "/v1/me/teams/:team_profile_id/games/guessTheScore/mock3", auth.rookieStatus, (req, res, next) ->
+# app.get "/v1/me/teams/:team_profile_id/games/guess_the_score/mock3", auth.rookieStatus, (req, res, next) ->
 #    res.json {
 #       game_time: new Date("Mon Feb 04 2013 12:29:18 GMT-0600 (CST)"),
 #       home_team: { name: 'Boston Celtics' },

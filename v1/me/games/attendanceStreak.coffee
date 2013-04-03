@@ -10,7 +10,7 @@ GameStatus = require "../../../common/GameStatus/GameStatus"
 
 app = module.exports = express()
 
-app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStatus, (req, res, next) ->
+getAttedanceStreak = (req, res, next) -> 
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
 
@@ -23,7 +23,11 @@ app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStatu
       next(err) if err
       res.json result
 
-app.post "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStatus, (req, res, next) ->
+app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStatus, getAttedanceStreak
+app.get "/v1/me/teams/:team_profile_id/games/attendance_streak", auth.rookieStatus, getAttedanceStreak
+   
+
+postAttendanceStreak = (req, res, next) ->
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
    return next(new InvalidArgumentError("Required: lat and lng")) if not req.body.lat or not req.body.lng
@@ -38,7 +42,9 @@ app.post "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStat
    .exec (err) ->
       return next(err) if err
       res.json status: "success"
-      
+
+app.post "/v1/me/teams/:team_profile_id/games/attendanceStreak", auth.rookieStatus, postAttendanceStreak     
+app.post "/v1/me/teams/:team_profile_id/games/attendance_streak", auth.rookieStatus, postAttendanceStreak     
       
 # app.get "/v1/me/teams/:team_profile_id/games/attendanceStreak/mock0", auth.rookieStatus, (req, res, next) ->
 #    res.json {

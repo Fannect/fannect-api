@@ -130,7 +130,7 @@ describe "Fannect Core API", () ->
                done()
          after () -> delete @body
 
-         it.only "should create a new team profile", () ->
+         it "should create a new team profile", () ->
             context = @
             context.body.name.should.equal("Mike Testing")
             context.body.team_key.should.equal("l.ncaa.org.mfoot-t.521")

@@ -25,9 +25,9 @@ describe "Games", () ->
       dbSetup.unload data_games, done
       
    #
-   # /v1/me/teams/[team_profile_id]/games/gameFace
+   # /v1/me/teams/[team_profile_id]/games/game_face
    #
-   describe "/v1/me/teams/[team_profile_id]/games/gameFace", () ->
+   describe "/v1/me/teams/[team_profile_id]/games/game_face", () ->
       before (done) -> dbSetup.load data_games, done
       after (done) -> dbSetup.unload data_games, done
 
@@ -37,7 +37,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17148a0c8f70c100054"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/game_face"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -49,7 +49,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c100007"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/game_face"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -62,7 +62,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c001005"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/game_face"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -74,7 +74,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c000106"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/game_face"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -88,14 +88,14 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c001005"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/gameFace"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/game_face"
                method: "POST"
                json: face_on: true
             , (err, resp, body) ->
                return done(err) if err
                done()
 
-         it "should save gameface", (done) ->
+         it "should save game_face", (done) ->
             TeamProfile
             .findById "5102b17168a0c8f70c001005", "waiting_events", (err, profile) ->
                return done(err) if err
@@ -118,9 +118,9 @@ describe "Games", () ->
                done(new Error("Didn't update motivated count"))
 
    #
-   # /v1/me/teams/[team_profile_id]/games/gameFace/motivate
+   # /v1/me/teams/[team_profile_id]/games/game_face/motivate
    #
-   describe "/v1/me/teams/[team_profile_id]/games/gameFace/motivate", () ->
+   describe "/v1/me/teams/[team_profile_id]/games/game_face/motivate", () ->
       before (done) -> dbSetup.load data_games, done
       after (done) -> dbSetup.unload data_games, done
 
@@ -129,11 +129,11 @@ describe "Games", () ->
          before (done) ->
             context = @
             request
-               url: "#{context.host}/v1/me/teams/5102b17168a0c8f70c002019/games/gameFace/motivate"
+               url: "#{context.host}/v1/me/teams/5102b17168a0c8f70c002019/games/game_face/motivate"
                method: "POST"
                json: 
                   motivatees: ["5102b17168a0c8f70c000202"]
-                  # message: "Caught you with your GameFace off!"
+                  # message: "Caught you with your Game_face off!"
             , (err, resp, body) ->
                return done(err) if err
                context.body = body
@@ -148,7 +148,7 @@ describe "Games", () ->
                   if ev.type == "game_face"
                      ev.meta.motivator.team_profile_id.should.equal("5102b17168a0c8f70c002019")
                      ev.meta.motivator.name.should.equal("Mike Testing")
-                     # ev.meta.motivator.message.should.equal("Caught you with your GameFace off!")
+                     # ev.meta.motivator.message.should.equal("Caught you with your Game_face off!")
                      return done()
                
                done(new Error("Didn't update motivated"))
@@ -166,9 +166,9 @@ describe "Games", () ->
                done(new Error("Didn't update motivated"))
 
    #
-   # /v1/me/teams/[team_profile_id]/games/attendanceStreak
+   # /v1/me/teams/[team_profile_id]/games/attendance_streak
    #
-   describe "/v1/me/teams/[team_profile_id]/games/attendanceStreak", () ->
+   describe "/v1/me/teams/[team_profile_id]/games/attendance_streak", () ->
       before (done) -> dbSetup.load data_games, done
       after (done) -> dbSetup.unload data_games, done
 
@@ -178,7 +178,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17148a0c8f70c100054"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendance_streak"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -190,7 +190,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c100007"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendance_streak"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -203,7 +203,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c001005"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendance_streak"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -215,7 +215,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c000106"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendance_streak"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -225,11 +225,11 @@ describe "Games", () ->
 
       describe "POST", () ->
 
-         it "should save attendanceStreak", (done) ->
+         it "should save attendance_streak", (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c001005"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendanceStreak"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/attendance_streak"
                method: "POST"
                json: 
                   lat: 40
@@ -247,9 +247,9 @@ describe "Games", () ->
                   done(new Error("Didn't add waiting event"))
 
    #
-   # /v1/me/teams/[team_profile_id]/games/guessTheScore
+   # /v1/me/teams/[team_profile_id]/games/guess_the_score
    #
-   describe "/v1/me/teams/[team_profile_id]/games/guessTheScore", () ->
+   describe "/v1/me/teams/[team_profile_id]/games/guess_the_score", () ->
       before (done) -> dbSetup.load data_games, done
       after (done) -> dbSetup.unload data_games, done
 
@@ -259,7 +259,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17148a0c8f70c100054"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guess_the_score"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -271,7 +271,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c100007"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guess_the_score"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -284,7 +284,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c001005"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guess_the_score"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -296,7 +296,7 @@ describe "Games", () ->
             context = @
             profile_id = "5102b17168a0c8f70c000106"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guess_the_score"
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
@@ -306,11 +306,11 @@ describe "Games", () ->
 
       describe "POST", () ->
 
-         it "should save guessTheScore", (done) ->
+         it "should save guess_the_score", (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c001005"
             request
-               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guessTheScore"
+               url: "#{context.host}/v1/me/teams/#{profile_id}/games/guess_the_score"
                method: "POST"
                json: 
                   away_score: 45

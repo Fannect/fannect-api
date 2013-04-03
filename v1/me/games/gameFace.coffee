@@ -16,7 +16,7 @@ parse = new (require "kaiseki")(
 
 app = module.exports = express()
 
-app.get "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, (req, res, next) ->
+getGameFace = (req, res, next) ->
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
 
@@ -29,7 +29,10 @@ app.get "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, (req,
       return next(err) if err
       res.json result
 
-app.post "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, (req, res, next) ->
+app.get "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, getGameFace
+app.get "/v1/me/teams/:team_profile_id/games/game_face", auth.rookieStatus, getGameFace
+
+postGameFace = (req, res, next) ->
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
 
@@ -66,7 +69,10 @@ app.post "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, (req
       return next(err) if err
       res.json status: "success"
 
-app.post "/v1/me/teams/:team_profile_id/games/gameFace/motivate", auth.rookieStatus, (req, res, next) ->
+app.post "/v1/me/teams/:team_profile_id/games/gameFace", auth.rookieStatus, postGameFace
+app.post "/v1/me/teams/:team_profile_id/games/game_face", auth.rookieStatus, postGameFace
+
+postMotivate = (req, res, next) ->
    profile_id = req.params.team_profile_id
    motivatees = req.body.motivatees
    # message = req.body.message or "Get your head in the game!"
@@ -101,6 +107,9 @@ app.post "/v1/me/teams/:team_profile_id/games/gameFace/motivate", auth.rookieSta
       .exec (err) ->
          return next(err) if err
          res.json status: "success"
+
+app.post "/v1/me/teams/:team_profile_id/games/gameFace/motivate", auth.rookieStatus, postMotivate
+app.post "/v1/me/teams/:team_profile_id/games/game_face/motivate", auth.rookieStatus, postMotivate
 
 motivatorMeta = (info, status, next) ->
    ev = null

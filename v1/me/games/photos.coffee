@@ -3,6 +3,7 @@ rest = require "request"
 TeamProfile = require "../../../common/models/TeamProfile"
 Team = require "../../../common/models/Team"
 Highlight = require "../../../common/models/Highlight"
+Config = require "../../../common/models/Config"
 MongoError = require "../../../common/errors/MongoError"
 InvalidArgumentError = require "../../../common/errors/InvalidArgumentError"
 RestError = require "../../../common/errors/RestError"
@@ -24,7 +25,21 @@ app = module.exports = express()
 #       next(err) if err
 #       res.json result
 
-app.post "/v1/me/teams/:team_profile_id/games/gamedayPics", auth.rookieStatus, (req, res, next) ->
+app.get "/v1/me/teams/:team_profile_id/games/photo_challenge", auth.rookieStatus, (req, res, next) ->
+   Config.getPhotoChallenge (err, challenge) ->
+      return next(new RestError("Failed to pull configuration data")) if err
+      res.json
+         available: true
+         meta:
+            challenge_title: challenge.title
+            challenge_description: challenge.description
+
+alwaysAvailable = (req, res, next) -> res.json({ available: true })
+app.get "/v1/me/teams/:team_profile_id/games/gameday_pics", auth.rookieStatus, alwaysAvailable
+app.get "/v1/me/teams/:team_profile_id/games/spirit_wear", auth.rookieStatus, alwaysAvailable
+app.get "/v1/me/teams/:team_profile_id/games/picture_with_player", auth.rookieStatus, alwaysAvailable
+
+app.post "/v1/me/teams/:team_profile_id/games/gameday_pics", auth.rookieStatus, (req, res, next) ->
    image_url = req.body.image_url
    return next(new InvalidArgumentError("Required: image_url")) unless image_url
    
@@ -36,12 +51,7 @@ app.post "/v1/me/teams/:team_profile_id/games/gamedayPics", auth.rookieStatus, (
       return next(err) if err
       res.json highlight.toObject()
 
-alwaysAvailable = (req, res, next) -> res.json({ available: true })
-app.get "/v1/me/teams/:team_profile_id/games/spiritWear", auth.rookieStatus, alwaysAvailable
-app.get "/v1/me/teams/:team_profile_id/games/pictureWithPlayer", auth.rookieStatus, alwaysAvailable
-app.get "/v1/me/teams/:team_profile_id/games/photoChallenge", auth.rookieStatus, alwaysAvailable
-
-app.post "/v1/me/teams/:team_profile_id/games/spiritWear", auth.rookieStatus, (req, res, next) ->
+app.post "/v1/me/teams/:team_profile_id/games/spirit_wear", auth.rookieStatus, (req, res, next) ->
    image_url = req.body.image_url
    return next(new InvalidArgumentError("Required: image_url")) unless image_url
    
@@ -53,7 +63,7 @@ app.post "/v1/me/teams/:team_profile_id/games/spiritWear", auth.rookieStatus, (r
       return next(err) if err
       res.json highlight.toObject()
 
-app.post "/v1/me/teams/:team_profile_id/games/pictureWithPlayer", auth.rookieStatus, (req, res, next) ->
+app.post "/v1/me/teams/:team_profile_id/games/picture_with_player", auth.rookieStatus, (req, res, next) ->
    image_url = req.body.image_url
    return next(new InvalidArgumentError("Required: image_url")) unless image_url
    
@@ -65,17 +75,23 @@ app.post "/v1/me/teams/:team_profile_id/games/pictureWithPlayer", auth.rookieSta
       return next(err) if err
       res.json highlight.toObject()
 
-app.post "/v1/me/teams/:team_profile_id/games/photoChallenge", auth.rookieStatus, (req, res, next) ->
+app.post "/v1/me/teams/:team_profile_id/games/photo_challenge", auth.rookieStatus, (req, res, next) ->
    image_url = req.body.image_url
    return next(new InvalidArgumentError("Required: image_url")) unless image_url
    
-   createHighlight req.params.team_profile_id,
-      image_url: image_url
-      caption: req.body.caption
-      game_type: "photo_challenge"
-   , (err, highlight) ->
-      return next(err) if err
-      res.json highlight.toObject()
+   Config.getPhotoChallenge (err, challenge) ->
+      return next(new RestError("Failed to pull configuration data")) if err
+
+      createHighlight req.params.team_profile_id,
+         image_url: image_url
+         caption: req.body.caption
+         game_type: "photo_challenge"
+         game_meta: 
+            challenge_title: challenge.title
+            challenge_description: challenge.description
+      , (err, highlight) ->
+         return next(err) if err
+         res.json highlight.toObject()
 
 createHighlight = (profileId, options, cb) ->
    TeamProfile

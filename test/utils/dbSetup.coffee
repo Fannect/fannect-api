@@ -38,7 +38,7 @@ module.exports =
       profile_ids = if obj.teamprofiles then (t._id for t in obj.teamprofiles) else []
       group_ids = if obj.groups then (t._id for t in obj.groups) else []
       huddle_ids = if obj.huddles then (h._id for h in obj.huddles) else []
-      highlight_ids = if obj.hightlights then (h._id for h in obj.highlights) else []
+      highlight_ids = if obj.highlights then (h._id for h in obj.highlights) else []
 
       async.parallel [
          (done) -> User.remove({_id: { $in: user_ids }}, done)
