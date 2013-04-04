@@ -42,7 +42,7 @@ app.get "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
    query
    .skip(skip)
    .limit(limit)
-   .select("owner_id owner_user_id owner_name owner_profile_image_url team_name team_id owner_verified caption image_url comment_count up_votes up_voted_by down_votes down_voted_by")
+   .select("owner_id owner_user_id owner_name owner_profile_image_url short_id team_name team_id owner_verified caption image_url comment_count up_votes up_voted_by down_votes down_voted_by")
    .exec (err, highlights) ->
       return next(new MongoError(err)) if err
 

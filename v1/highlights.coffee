@@ -12,38 +12,41 @@ async = require "async"
 
 app = module.exports = express()
 
-app.get "/v1/highlights/:highlight_id", auth.rookieStatus, (req, res, next) ->
+app.get "/v1/highlights/:highlight_id", auth.either("rookie", "manager"), (req, res, next) ->
    highlight_id = req.params.highlight_id
    limit = req.query.limit or 10
    limit = parseInt(limit)
    limit = if limit > 20 then 20 else limit
    return next(new InvalidArgumentError("Invalid: highlight_id")) if highlight_id == "undefined" or highlight_id == "null"
 
-   Highlight
-   .findOne({ _id: highlight_id })
-   .select({ _id:1, owner_user_id:1, owner_name:1, owner_verified:1, image_url:1, caption:1, comment_count:1, comments:{$slice:limit}, team_id:1, team_name:1, up_votes:1, up_voted_by:1, down_votes:1, down_voted_by:1 })
+   if highlight_id.length == 24 then query = Highlight.findOne({ _id: highlight_id })
+   else query = Highlight.findOne({ short_id: highlight_id })
+
+   query
+   .select({ _id:1, owner_user_id:1, owner_name:1, owner_profile_image_url:1, owner_verified:1, short_id:1, image_url:1, caption:1, comment_count:1, comments:{$slice:limit}, team_id:1, team_name:1, up_votes:1, up_voted_by:1, down_votes:1, down_voted_by:1 })
    .exec (err, highlight) ->
       return next(new MongoError(err)) if err
       return next(new InvalidArgumentError("Invalid: highlight_id")) unless highlight
       
       obj = highlight.toObject()
-      user_id = req.user._id.toString()
-      
-      if user_id == obj.owner_user_id.toString()
-         obj.is_owner = true
-         obj.current_vote = "owner"
-      else
-         obj.is_owner = false
-         obj.current_vote = "none"
-         for id in obj.up_voted_by
-            if id.toString() == user_id
-               obj.current_vote = "up"
-               break
-         if obj.current_vote == "none"
-            for id in obj.down_voted_by
+      user_id = req.user?._id?.toString()
+      # make sure request is a user and not an app
+      if user_id?
+         if user_id == obj.owner_user_id.toString()
+            obj.is_owner = true
+            obj.current_vote = "owner"
+         else
+            obj.is_owner = false
+            obj.current_vote = "none"
+            for id in obj.up_voted_by
                if id.toString() == user_id
-                  obj.current_vote = "down"
+                  obj.current_vote = "up"
                   break
+            if obj.current_vote == "none"
+               for id in obj.down_voted_by
+                  if id.toString() == user_id
+                     obj.current_vote = "down"
+                     break
 
       delete obj.up_voted_by
       delete obj.down_voted_by

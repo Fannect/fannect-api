@@ -27,3 +27,4 @@ auth.mvpStatus = passthrough
 auth.hofStatus = passthrough
 auth.app.managerStatus = appPassThrough
 auth.app.ownerStatus = appPassThrough
+auth.either = () -> passthrough
