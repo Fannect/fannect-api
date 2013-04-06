@@ -2,7 +2,7 @@ express = require "express"
 rest = require "request"
 auth = require "../common/middleware/authenticate"
 TeamProfile = require "../common/models/TeamProfile"
-Highlights = require "../common/models/Highlights"
+Highlight = require "../common/models/Highlight"
 User = require "../common/models/User"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
@@ -104,7 +104,7 @@ app.get "/v1/teamprofiles/:team_profile_id/highlights", auth.rookieStatus, (req,
    skip = req.query.skip or 0
    skip = parseInt(skip)
    
-   Highlights
+   Highlight
    .find({ owner_id: profile_id })
    .skip(skip)
    .limit(limit)
