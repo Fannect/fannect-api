@@ -2,6 +2,7 @@ express = require "express"
 rest = require "request"
 auth = require "../common/middleware/authenticate"
 TeamProfile = require "../common/models/TeamProfile"
+Highlights = require "../common/models/Highlights"
 User = require "../common/models/User"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
@@ -93,3 +94,22 @@ app.get "/v1/teamprofiles/:team_profile_id/events", auth.rookieStatus, (req, res
       return next(new ResourceNotFoundError("Not found: TeamProfile")) unless profile
       events = profile.events or []
       res.json events.reverse()
+
+
+app.get "/v1/teamprofiles/:team_profile_id/highlights", auth.rookieStatus, (req, res, next) ->
+   profile_id = req.params.team_profile_id
+   limit = req.query.limit or 20
+   limit = parseInt(limit)
+   limit = if limit > 20 then 20 else limit
+   skip = req.query.skip or 0
+   skip = parseInt(skip)
+   
+   Highlights
+   .find({ owner_id: profile_id })
+   .skip(skip)
+   .limit(limit)
+   .sort("-_id")
+   .select({ _id:1, owner_user_id:1, owner_profile_image_url:1, short_id:1, image_url:1, caption:1, comment_count:1, comments:{$slice:limit}, up_votes:1, down_votes:1 })
+   .exec (err, highlights) ->
+      return next(new MongoError(err)) if err
+      res.json highlights

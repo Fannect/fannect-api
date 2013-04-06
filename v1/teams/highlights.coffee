@@ -34,7 +34,7 @@ app.get "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
    query = query.where("is_active", true)
 
    # Sort by
-   if sort_by == "most_popular" then query = query.sort("-up_votes")
+   if sort_by == "most_popular" then query = query.sort("-up_votes -_id")
    else if sort_by == "newest" then query = query.sort("-_id")
    else if sort_by == "oldest" then query = query.sort("_id")
    else return next(new InvalidArgumentError("Invalid: sort_by. Must be 'most_popular', 'newest', or 'oldest'"))

@@ -2,6 +2,7 @@ mongoose = require "mongoose"
 express = require "express"
 auth = require "../common/middleware/authenticate"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
+ResourceNotFoundError = require "../common/errors/ResourceNotFoundError"
 RestError = require "../common/errors/RestError"
 MongoError = require "../common/errors/MongoError"
 User = require "../common/models/User"
@@ -9,6 +10,7 @@ Team = require "../common/models/Team"
 TeamProfile = require "../common/models/TeamProfile"
 Highlight = require "../common/models/Highlight"
 async = require "async"
+twitterReq = require "../common/utils/twitterReq"
 
 app = module.exports = express()
 
@@ -217,3 +219,30 @@ app.post "/v1/highlights/:highlight_id/comments", auth.rookieStatus, (req, res, 
          res.json 
             meta: { count: results.highlight.comment_count + 1 }
             comment: comment
+
+shareLink = "fans.fannect.me"
+
+app.post "/v1/highlights/:highlight_id/share", auth.rookieStatus, (req, res, next) ->
+   twitter = req.body.toString().toLowerCase() == "true"
+   caption = req.body.caption
+   # facebook =
+   return next(new InvalidArgumentError("No twitter account connected to this user")) unless req.user.twitter
+
+   Highlight.findById req.params.highlight_id, "short_id caption", (err, highlight) ->
+      return next(new ResourceNotFoundError("Not found: Highlight")) unless highlight
+
+      caption = req.body.caption or highlight.caption
+      tweet = "#{caption} #{shareLink}/#{highlight.short_id}"
+
+      twitterReq.tweet req.user.twitter, tweet, (err) ->      
+         return next(err) if err
+         res.json status: "success"
+
+
+
+
+
+
+
+
+

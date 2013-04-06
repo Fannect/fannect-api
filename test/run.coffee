@@ -630,6 +630,7 @@ describe "Fannect Core API", () ->
             , (err, resp, body) ->
                return done(err) if err
                body = JSON.parse(body)
+               console.log body
                body.length.should.equal(3)
                (body[0].name < body[1].name).should.be.true
                body[2].gameface_on.should.be.true

@@ -130,7 +130,11 @@
                 {
                     "type": "game_face",
                     "meta": {
-                        "face_on": true
+                        "face_on": true,
+                        "motivator": {
+                          "team_profile_id": "511eb95a8c6c14020000001c",
+                            "name": "Adam Johnson"
+                        }
                     }
                 }
             ],

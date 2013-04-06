@@ -237,7 +237,7 @@ describe "Huddles", () ->
                   content: "Here is some kind of reply!"
             , (err, resp, body) ->
                return done(err) if err
-               body.meta.count.should.equal(4)
+               body.meta.count.should.equal(4)      
                Huddle.findById huddle_id, (err, huddle) ->
                   return done(err) if err
                   huddle.reply_count.should.equal(huddle.replies.length)
