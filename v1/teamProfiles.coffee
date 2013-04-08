@@ -5,6 +5,7 @@ TeamProfile = require "../common/models/TeamProfile"
 User = require "../common/models/User"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
+ResourceNotFoundError = require "../common/errors/ResourceNotFoundError"
 async = require "async"
 
 app = module.exports = express()
