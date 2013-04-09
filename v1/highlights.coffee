@@ -226,7 +226,9 @@ app.post "/v1/highlights/:highlight_id/share", auth.rookieStatus, (req, res, nex
    twitter = req.body.toString().toLowerCase() == "true"
    caption = req.body.caption
    # facebook =
+
    return next(new InvalidArgumentError("No twitter account connected to this user")) unless req.user.twitter
+   return res.json status: "success" unless twitter
 
    Highlight.findById req.params.highlight_id, "short_id caption", (err, highlight) ->
       return next(new ResourceNotFoundError("Not found: Highlight")) unless highlight
