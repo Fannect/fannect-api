@@ -6,6 +6,7 @@ Highlight = require "../common/models/Highlight"
 User = require "../common/models/User"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
+ResourceNotFoundError = require "../common/errors/ResourceNotFoundError"
 async = require "async"
 
 app = module.exports = express()
@@ -46,7 +47,8 @@ app.get "/v1/teamprofiles", auth.rookieStatus, (req, res, next) ->
             .lean()
             .exec (err, profile) ->
                return next(new MongoError(err)) if err
-               res.json profile if profile
+               return next(new ResourceNotFoundError("Not found: TeamProfile with a Team corresponding to 'user_id' param")) unless profile
+               res.json profile
 
 app.get "/v1/teamprofiles/:team_profile_id", auth.rookieStatus, (req, res, next) ->
    profile_id = req.params.team_profile_id

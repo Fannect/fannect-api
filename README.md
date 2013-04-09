@@ -2,462 +2,18 @@
 
 This is the source for the Fannect core API.
 
-# Table of Contents
-  * [REST Schema](#rest-schema) 
-    * [/v1/me](#v1me) - GET, PUT
-    * [/v1/me/verified](#v1meverified) - POST
-    * [/v1/me/teams](#v1meteams) - GET, POST
-    * [/v1/me/teams/\[team_profile_id\]](#v1meteamsteam_profile_id) - GET
-    * [/v1/me/invites](#v1meinvites) - GET, POST, DELETE
-    * [/v1/me/friends/\[user_id\]](#v1mefriendsuser_id) - DELETE
-    * [/v1/me/games](#v1megames) - GET
-    * [/v1/me/games/\[game_type\]](#v1megamesgame) - GET, PUT
-    * [/v1/teams](#v1teams) - POST
-    * [/v1/teams/\[team_id\]](#v1teamsteam_id) - GET
-    * [/v1/teams/\[team_id\]/users](#v1teamsteam_idusers) - GET
-    * [/v1/teams/\[team_id\]/huddles](#v1teamsteam_idhuddles) - GET, POST
-    * [/v1/huddles/\[huddle_id\]](#v1huddleshuddle_id) - GET
-    * [/v1/huddles/\[huddle_id\]/replies](#v1huddleshuddle_idreplies) - GET, POST
-    * [/v1/huddles/\[huddle_id\]/rating](#v1huddleshuddle_idrating) - POST
-    * [/v1/teams/\[team_id\]](#v1teamsteam_idgroups) - GET, POST
-    * [/v1/groups/\[group_id\]](#v1teamsteam_idgroups) - GET
-    * [/v1/groups/\[group_id\]/teamprofiles](#v1groupsgroup_idteamprofiles) - POST
-    * [/v1/leaderboard/users/\[team_id\]](#v1leaderboardusersteam_id) - GET
-    * [/v1/leaderboard/teams/\[team_id\]/conference](#v1leaderboardteamsteam_idconference) - GET
-    * [/v1/leaderboard/teams/\[team_id\]/league](#v1leaderboardteamsteam_idleague) - GET
-    * [/v1/leaderboard/teams/\[team_id\]/breakdown](#v1leaderboardteamsteam_idbreakdown) - GET
-    * [/v1/leaderboard/teams/\[team_id\]/custom](#v1leaderboardteamsteam_idcustom) - GET
-    * [/v1/sports](#v1sports) - GET
-    * [/v1/sports/\[sport_key\]/leagues](#v1sportssport_keyleagues) - GET
-    * [/v1/sports/\[sport_key\]/leagues/\[league_key\]/teams](#v1sportssport_keyleaguesleague_keyteams) - GET
-    * [/v1/sports/\[sport_key\]/teams](#v1sportssport_keyteams) - GET
-    * [/v1/users/\[user_id\]/invite](#v1usersuser_idinvite) - POST
-    * [/v1/users/\[user_id\]/verified](#v1usersuser_idverified) - PUT
-    * [/v1/teamprofiles](#v1teamprofiles) - GET
-    * [/v1/teamprofiles/\[team_profile_id\]](#v1teamprofilesteam_profile_id) - GET
-    * [/v1/teamprofiles/\[team_profile_id\]/events](#v1teamprofilesteam_profile_idevents) - GET
-    * [/v1/images/me](#v1imagesme) - PUT
-    * [/v1/images/me/\[team_profile_id\]](#v1imagesmeteam_profile_id) - PUT
-    * [/v1/images/bing](#v1imagesbing)
+## Table of Contents
+  * [REST Schema](#rest-schema)
   * [Role Levels](#roles-levels)
   * [Steps to Verify User](#steps-to-verify-user)
 
-# REST Schema
-
-## `/v1/me`
-**GET** - get profile information for this user
-
-```javascript
-{ _id: '5102b17168a0c8f70c000002',
-  email: 'testing1@fannect.me',
-  password: 'hi',
-  first_name: 'Mike',
-  last_name: 'Testing',
-  refresh_token: 'testingtoken',
-  friends: [ '5102b17168a0c8f70c000004' ] }
-```
-
-**PUT** - update profile information
-  * `first_name`
-  * `last_name`
-
-```javascript
-{ status: 'success' }
-```
-
-## `/v1/me/verified`
-**POST** - send verification request
-  * any body content will be sent in the email
-  
-```javascript
-{ status: 'success' }
-```
-
-## `/v1/me/teams`
-**GET** - get all team profiles
-
-```javascript
-[ { _id: '5102b17168a0c8f70c000005',
-    team_id: '5102b17168a0c8f70c000008',
-    team_key: 'l.ncaa.org.mfoot-t.522',
-    team_name: 'Kansas St. Wildcats',
-    trash_talk: [],
-    points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } } ]
-```
-
-**POST** - add a new team profile to the user
-  * `team_id` - team_id to create profile for
-
-```javascript
-{ __v: 0,
-  _id: '510338a985e7e53d1f000003',
-  user_id: '5102b17168a0c8f70c000002',
-  name: 'Mike Testing',
-  team_id: '5102b17168a0c8f70c000009',
-  team_key: 'l.ncaa.org.mfoot-t.521',
-  team_name: 'Kansas Jayhawks',
-  trash_talk: [],
-  waiting_events: [],
-  has_processing: false,
-  events: [],
-  friends: [ '5102b17168a0c8f70c000010' ],
-  points: { dedication: 0, passion: 0, knowledge: 0, overall: 0 } }
-```
-
-## `/v1/me/teams/[team_profile_id]`
-**GET** - gets the team profile
-
-```javascript
-{ _id: '5102b17168a0c8f70c000005',
-  user_id: '5102b17168a0c8f70c000002',
-  name: 'Mike Testing',
-  team_id: '5102b17168a0c8f70c000008',
-  team_key: 'l.ncaa.org.mfoot-t.522',
-  team_name: 'Kansas St. Wildcats',
-  __v: 0,
-  trash_talk: [],
-  waiting_events: [],
-  has_processing: false,
-  events: [],
-  friends: [ '5102b17168a0c8f70c000007' ],
-  points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } }
-```
-
-## `/v1/me/invites`
-**GET** - lists all friend invite
-
-```javascript
-[ { _id: '5102b17168a0c8f70c000020',
-    name: 'Frank Testing',
-    teams: [ 'Kansas St. Wildcats', 'Kansas Jayhawks' ] } ]
-```
-
-**POST** - accept a friend invite
-  * `user_id` - accepts the user's invite
-
-```javascript
-{ status: 'success' }
-```
-
-**DELETE** - deletes a friend invite
-
-## `/v1/me/friends/[user_id]`
-**DELETE** - remove a friend
-
-```javascript
-{ status: 'success' }
-```
-
-## `/v1/me/games`
-**GET** - lists all available games for this user
-
-## `/v1/me/games/[game]`
-**GET** - get current game state for this user
-
-**PUT** - update current game state for this user
-
-## `/v1/teams`
-**POST** - upsert teams
-
-```javascript
-{ status: 'success', count: 621 }
-```
-
-## `/v1/teams/[team_id]`
-**GET** - gets information about a team
-* `content` - type of content to return
-  * `full` - returns all team information except for the full schedule
-  * `next_game` - returns only information pertaining to the next game
-
-## `/v1/teams/[team_id]/users`
-**GET** - searches users of this team
-* `q` _(optional)_ - query to filter users by
-* `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
-* `skip` _(optional)_ - skips 'n' number of users
-* `limit` _(optional)_ - limits the number of users returned
-* `content` _(optional)_ - sets the content to return 
-  * `standard` _(default)_ - only _id, name, and profile_image_url
-  * `gameface` - adds `gameface_on` field
-
-```javascript
-[ { _id: '5102b17168a0c8f70c000021',
-    name: 'Frank Testing',
-    profile_image_url: 'images/empty_profile.jpg',
-    gameface_on: false },
-  { _id: '5102b17168a0c8f70c000005',
-    name: 'Mike Testing',
-    profile_image_url: 'images/empty_profile.jpg',
-    gameface_on: false },
-  { _id: '5102b17168a0c8f70c000007',
-    name: 'Richard Testing',
-    profile_image_url: 'images/empty_profile.jpg',
-    gameface_on: true } ]
-```
-
-## `/v1/teams/[team_id]/huddles`
-**GET** - returns huddles of this team
-* `sort_by` - order returned huddles 
-  * `most_active` - sort by latest reply
-  * `oldest`
-  * `newest`
-* `created_by` - filter by creator _(uses access_token)_
-  * `team`
-  * `me`
-  * `roster`
-  * `any`
-* `skip`
-* `limit`
-
-**POST** - create new huddle
-* `team_profile_id`
-* `topic`
-* `content`
-* `include_teams`
-* `include_league`
-* `include_conference`
-
-## `/v1/huddles/[huddle_id]`
-**GET** - retrieves a huddle
-
-## `/v1/huddles/[huddle_id]/replies`
-**GET** - retrieves replies of a huddle
-* `limit` - limit replies returned
-* `skip` - skip replies
-* `reverse` - (true or false) determines the order, inverse skip sorts by descending
-
-**POST** - creates a new reply
-* `team_profile_id` - profile replying
-* `content` - content of the reply
-
-## `/v1/huddles/[huddle_id]/rating`
-**POST** - rates the reply
-* `team_profile_id` - profile rating
-* `rating` - 1-5 rating
-
-## `/v1/teams/[team_id]/groups`
-**GET** - returns groups of this team
-* `tags` _(optional)_ - tags to filter by
-* `skip` _(optional)_ - skips 'n' number of users
-* `limit` _(optional)_ - limits the number of users returned
-
-**POST** - creates a group for this team
-* `name` - name of the group
-* `tags` - tags to associate with the group
-
-## `/v1/groups/[group_id]`
-**GET** - gets a group by `_id`
-
-## `/v1/groups/[group_id]/teamprofiles`
-**POST** - adds a team profile to a group
-* `email` - email of the user to add
-
-## `/v1/leaderboard/users/[team_id]`
-**GET** - gets the overall leaderboard for a team
-   * `friends_of` _(optional)_ - restrict to only friends of a team_profile_id
-
-```javascript
-[ { _id: '5102b17168a0c8f70c000005',
-    name: 'Mike Testing',
-    points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } },
-  { _id: '5102b17168a0c8f70c000007',
-    name: 'Richard Testing',
-    points: { dedication: 3, passion: 2, knowledge: 1, overall: 5 } } ]
-```
-
-## `/v1/leaderboard/teams/[team_id]/conference`
-**GET** - gets leaderboard based on conference
-
-```javascript
-{ conference_name: 'Big 12 Conference',
-  teams: 
-   [ { _id: '5102b17168a0c8f70c000009',
-       location_name: 'Kansas',
-       mascot: 'Jayhawks',
-       full_name: 'Kansas Jayhawks',
-       points: [Object] },
-     { _id: '5102b17168a0c8f70c000008',
-       location_name: 'Kansas St.',
-       mascot: 'Wildcats',
-       full_name: 'Kansas St. Wildcats',
-       points: [Object] } ] }
-```
-
-## `/v1/leaderboard/teams/[team_id]/league`
-**GET** - gets leaderboard based on league
- 
-```javascript
-{ league_name: 'NCAA Men\'s Football Division 1A',
-  teams: 
-   [ { _id: '5102b17168a0c8f70c000009',
-       location_name: 'Kansas',
-       mascot: 'Jayhawks',
-       full_name: 'Kansas Jayhawks',
-       points: [Object] },
-     { _id: '5102b17168a0c8f70c000008',
-       location_name: 'Kansas St.',
-       mascot: 'Wildcats',
-       full_name: 'Kansas St. Wildcats',
-       points: [Object] } ] }
-```
-
-## `/v1/leaderboard/teams/[team_id]/breakdown`
-**GET** - gets points breakdown for this team 
-
-```javascript
-{ overall: 400, knowledge: 100, passion: 250, dedication: 50 }
-```
-
-## `/v1/leaderboard/teams/[team_id]/custom`
-**GET** - gets comparison between this team and another
-  * `team_id` - team to compare against
-
-```javascript
-[ { _id: '5102b17168a0c8f70c000008',
-    points: { dedication: 50, passion: 250, knowledge: 100, overall: 400 } },
-  { _id: '5102b17168a0c8f70c000009',
-    points: { dedication: 140, passion: 280, knowledge: 200, overall: 620 } } ]
-```
-
-## `/v1/sports`
-**GET** - lists available sports
-
-```javascript
-[ { sport_name: 'American Football', sport_key: '15003000' },
-  { sport_name: 'Ice Hockey', sport_key: '15031000' } ]
-```
-
-## `/v1/sports/[sport_key]/leagues`
-**GET** - lists available leagues for this sport
-
-```javascript
-[ { league_name: 'NCAA Men\'s Football Division 1A',
-    league_key: 'l.ncaa.org.mfoot' } ]
-```
-
-## `/v1/sports/[sport_key]/leagues/[league_key]/teams`
-**GET** - lists available teams for this league
-
-```javascript
-[ { abbreviation: 'Kansas',
-    nickname: 'Jayhawks',
-    team_key: 'l.ncaa.org.mfoot-t.521' },
-  { abbreviation: 'Kansas St.',
-    nickname: 'Wildcats',
-    team_key: 'l.ncaa.org.mfoot-t.522' } ]
-```
-
-## `/v1/sports/[sport_key]/teams`
-**GET** - searches available teams
-* q - query to search by
-* limit - number of teams to return
-* skip - teams to skip
-
-```javascript
-[ { _id: '5102b17168a0c8f70c000009',
-    location_name: 'Kansas',
-    name: 'Jayhawks',
-    full_name: 'Kansas Jayhawks' },
-  { _id: '5102b17168a0c8f70c000008',
-    location_name: 'Kansas St.',
-    name: 'Wildcats',
-    full_name: 'Kansas St. Wildcats' } ]
-```
-
-## `/v1/users/[user_id]` NOT IMPLEMENTED
-**GET** - Gets user
-* `is_friend_of` - user_id to check if this user is friends with
-
-## `/v1/users/[user_id]/invite`
-**POST** - Creates an invitation for specified user
-* `inviter_user_id` - inviter's user id
-
-```javascript
-{ status: 'success' }
-```
-
-## `/v1/users/[user_id]/verified`
-**PUT** - Creates an invitation for specified user
-* `verified` - verified value to set (leave `null` to remove verification)
-
-```javascript
-{ status: 'success' }
-```
-
-## `/v1/teamprofiles`
-**GET** - Gets most relevent team profile
-* `user_id` - user_id of the team profile to get
-* `friends_with` - **team_profile_id** of the user searching
-
-```javascript
-{ _id: '5102b17168a0c8f70c000021',
-  user_id: '5102b17168a0c8f70c000020',
-  name: 'Frank Testing',
-  team_id: '5102b17168a0c8f70c000008',
-  team_name: 'Kansas St. Wildcats',
-  profile_image_url: 'images/empty_profile.jpg',
-  team_image_url: 'images/empty_profile.jpg',
-  is_college: true,
-  friends: [],
-  points: { dedication: 17, passion: 3, knowledge: 20, overall: 40 } }
-```
-
-## `/v1/teamprofiles/[team_profile_id]`
-**GET** - Gets team profile
-* `is_friend_of` - team_profile_id to check if this team_profile is friends with
-
-```javascript
-{ _id: '5102b17168a0c8f70c000005',
-  user_id: '5102b17168a0c8f70c000002',
-  name: 'Mike Testing',
-  team_id: '5102b17168a0c8f70c000008',
-  team_name: 'Kansas St. Wildcats',
-  profile_image_url: 'images/empty_profile.jpg',
-  team_image_url: 'images/empty_profile.jpg',
-  is_college: true,
-  points: { dedication: 5, passion: 3, knowledge: 2, overall: 10 } }
-```
-
-## `/v1/teamprofiles/[team_profile_id]/events`
-**GET** - Gets events for team profile
-* `skip` - events to skip
-* `limit` - number of events to return
-
-```javascript
-[ { type: 'attendance_streak',
-    meta: 
-     { lat: '38.954229437679494',
-       lng: '-95.25254333959168',
-       checked_in: true },
-    _id: '512061c95659b50200000053',
-    points_earned: { dedication: 10 } },
-  { type: 'guess_the_score',
-    meta: { home_score: '71', away_score: '66', picked: true },
-    _id: '5119c7ea0fcd5c0200000007',
-    points_earned: { knowledge: 2 } },
-  { type: 'game_face',
-    meta: { face_on: true },
-    _id: '5119c7ea0fcd5c0200000006',
-    points_earned: { passion: 1 } } ]
-```
-
-## `/v1/images/me`
-**PUT** - Updates this user's profile image
-* `pull_twitter` - pull profile image from twitter
-
-## `/v1/images/me/[team_profile_id]`
-**PUT** - Updates the team image for this profile
-
-## `/v1/images/bing`
-**GET** - Search Bing for images
-   * q - query to search by
-   * limit - number of images to return
-   * skip - images to skip
-
-
-# Environmental Variables
-* MONGO_URL
-* REDIS_URL
-* REDIS_QUEUE_URL
+## REST Schema
+The full REST Schema can be found in the [wiki](https://github.com/Fannect/fannect-api/wiki).
+
+## Environmental Variables
+* MONGO_URL - primary database url
+* REDIS_URL - primary redis url, used for session
+* REDIS_QUEUE_URL - queue redis url, used for worker
 * CLOUDINARY_NAME
 * CLOUDINARY_KEY
 * CLOUDINARY_SECRET
@@ -467,7 +23,9 @@ This is the source for the Fannect core API.
 * PARSE_APP_ID
 * PARSE_API_KEY
 
-# Roles Levels
+## Roles Levels
+
+### User
 * rookie - all normal Fannect users
 * sub
 * starter
@@ -475,10 +33,13 @@ This is the source for the Fannect core API.
 * mvp
 * hof - Fannect team, required to upload teams doc
 
+### App
+* manager
+* owner - unused at this point
 
-# Steps to Verify User
+## Steps to Verify User
 
-## Get access token
+### Get access token
 First you will need to get an access_token for an account that has `hof` status (see above).
 
 Send a `POST` request to `https://fannect-login.herokuapp.com/v1/token` with the following forms:
@@ -487,13 +48,13 @@ Send a `POST` request to `https://fannect-login.herokuapp.com/v1/token` with the
 
 __Copy__ the `access_token` in the response into your clipboard.
 
-## Make request to verified endpoint
+### Make request to verified endpoint
 
 Send a `PUT` request to `http://api.fannect.me/v1/users/[user_id]/verified` with the following:
 * replace `[user_id]` with the user's mongo `_id`
 * `verified` - the users new verification status, to clear verification status do NOT include, determine the correct value using the run below
 
-### Determining Verified Status 
+#### Determining Verified Status 
 * prefix any players with `player_`
 * prefix any coach with `coach_`
 * prefix any sports authority with `authority_`

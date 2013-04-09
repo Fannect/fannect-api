@@ -209,7 +209,7 @@ describe "Fannect Core API", () ->
                body.shouts.length.should.equal(1)
                done()
 
-      describe "DELETE", () ->
+      describe.only "DELETE", () ->
          it "should set team profile to inactive", (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c000005"
@@ -228,7 +228,7 @@ describe "Fannect Core API", () ->
                   others: (done) ->
                      TeamProfile.find(friends: profile_id, "friends", done)
                   other: (done) ->
-                     TeamProfile.findById("5102b17168a0c8f70c000007","friends_count",done)
+                     TeamProfile.findById("5102b17168a0c8f70c000007","friends_count rank",done)
                   user: (done) ->
                      User.findById(user_id, "team_profiles", done)
                , (err, result) ->
@@ -236,6 +236,7 @@ describe "Fannect Core API", () ->
                   should.not.exist(result.profile)
                   result.others.should.be.empty
                   result.other.friends_count.should.equal(0)
+                  result.other.rank.should.equal(2)
                   result.user.team_profiles.should.not.include(profile_id)
                   done()
 
