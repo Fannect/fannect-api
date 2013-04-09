@@ -51,17 +51,23 @@ deleteTeamProfile = (req, res, next) ->
    profile_id = req.params.team_profile_id
    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
    
-   TeamProfile.update {_id: profile_id, user_id: req.user._id, is_active: true}
-   , {is_active: false}
-   , (err, result) ->
+   TeamProfile.findOne({_id: profile_id, user_id: req.user._id, is_active: true})
+   .select("team_id is_active rank")
+   .exec (err, profile) ->
       return next(new MongoError(err)) if err
-      return next(new InvalidArgumentError("Invalid: team_profile_id")) unless result == 1
-
+      return next(new InvalidArgumentError("Invalid: team_profile_id")) unless profile
+      profile.is_active = false
       async.parallel
+         profile: (done) -> profile.save(done)
          otherProfiles: (done) ->
             TeamProfile.update({ friends: profile_id }, { $pull: { friends: profile_id }, $inc: { friends_count: -1 }}, done)
          user: (done) ->
             User.update({ _id: req.user._id }, { $pull: { team_profiles: profile_id }}, done)
+         rank: (done) ->
+            TeamProfile.update { team_id: profile.team_id, rank:{$gt:profile.rank}}
+            , { $inc: { rank: -1 }}
+            , { multi: true }
+            , done
       , (err) ->
          return next(new MongoError(err)) if err
          res.json status: "success"
