@@ -8,7 +8,7 @@ This is the source for the Fannect core API.
   * [Steps to Verify User](#steps-to-verify-user)
 
 ## REST Schema
-The full REST Schema can be found in the [wiki](wiki).
+The full REST Schema can be found in the [wiki](https://github.com/Fannect/fannect-api/wiki).
 
 ## Environmental Variables
 * MONGO_URL - primary database url
