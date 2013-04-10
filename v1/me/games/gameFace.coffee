@@ -136,7 +136,7 @@ motivatorMeta = (info, status, next) ->
       parse.sendPushNotification 
          channels: ["user_#{info.profile.user_id}"]
          data: 
-            alert: "It's Game Day! #{info.meta.motivator.name} sent you a reminder to turn on your GameFace."
+            alert: "#{info.meta.motivator.name} is motivating you to turn on your GameFace!"
             event: "gameface"
             profileId: info.profile._id
             title: "Motivated"
