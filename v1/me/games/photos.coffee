@@ -12,19 +12,6 @@ GameStatus = require "../../../common/GameStatus/GameStatus"
 
 app = module.exports = express()
 
-# app.get "/v1/me/teams/:team_profile_id/games/gamedayPics", auth.rookieStatus, (req, res, next) ->
-#    profile_id = req.params.team_profile_id
-#    return next(new InvalidArgumentError("Invalid: team_profile_id")) if profile_id == "undefined"
-
-#    GameStatus
-#    .get(profile_id, "attendance_streak")
-#    .availability("tillEnd")
-#    .meta "raw",
-#       checked_in: false
-#    .exec (err, result) ->
-#       next(err) if err
-#       res.json result
-
 app.get "/v1/me/teams/:team_profile_id/games/photo_challenge", auth.rookieStatus, (req, res, next) ->
    Config.getPhotoChallenge (err, challenge) ->
       return next(new RestError("Failed to pull configuration data")) if err
