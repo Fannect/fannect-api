@@ -31,7 +31,7 @@ app.get "/v1/teams/:team_id/highlights", auth.rookieStatus, (req, res, next) ->
    else if created_by == "me" then query = Highlight.find({ owner_user_id: req.user._id })
    else query = Highlight.find({ team_id: team_id, game_type: created_by })
 
-   query = query.where("is_active", true)
+   query = query.where("is_active", true) unless created_by == "any"
 
    # Sort by
    if sort_by == "most_popular" then query = query.sort("-up_votes -_id")
