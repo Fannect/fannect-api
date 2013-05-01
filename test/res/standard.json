@@ -129,6 +129,7 @@
             "waiting_events": [
                 {
                     "type": "game_face",
+                    "event_key": "l.something.key",
                     "meta": {
                         "face_on": true,
                         "motivator": {
@@ -225,6 +226,11 @@
                 "knowledge": 100,
                 "passion": 250,
                 "dedication": 50
+            },
+            "schedule": {
+                "pregame": {
+                    "event_key": "l.something.key"   
+                }
             },
             "team_key": "l.ncaa.org.mfoot-t.522"
         }, {

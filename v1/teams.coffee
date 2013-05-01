@@ -6,6 +6,7 @@ RestError = require "../common/errors/RestError"
 MongoError = require "../common/errors/MongoError"
 TeamProfile = require "../common/models/TeamProfile"
 Team = require "../common/models/Team"
+async = require "async"
 
 app = module.exports = express()
 
@@ -85,25 +86,30 @@ app.get "/v1/teams/:team_id/users", auth.rookieStatus, (req, res, next) ->
    if content == "gameface"
       select += " waiting_events"
 
-   query
-   .skip(skip)
-   .limit(limit)
-   .sort("name")
-   .select(select)
-   .lean()
-   .exec (err, profiles) ->
+   async.parallel 
+      users: (done) ->
+         query
+         .skip(skip)
+         .limit(limit)
+         .sort("name")
+         .select(select)
+         .lean()
+         .exec(done)
+      team: (done) -> Team.findById(team_id, "schedule.pregame", done)
+   , (err, results) ->
       return next(new MongoError(err)) if err
-      # Transform for gameface
-      transform[content](profile) for profile in profiles if content
-      res.json profiles
+      if content
+         transform[content](profile, results.team.schedule.pregame) for profile in results.users 
+      
+      res.json results.users
 
 # Transforms to run on profiles
 transform =
    standard: () ->
-   gameface: (profile) ->
+   gameface: (profile, pregame) ->
       profile.gameface_on = false
       for event in profile.waiting_events
-         if event.type == "game_face"
+         if event.type == "game_face" and pregame.event_key == event.event_key
             profile.gameface_on = event.meta?.face_on or false
             profile.motivator = event.meta?.motivator or null
             break
