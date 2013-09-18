@@ -4,6 +4,7 @@ Team = require "../common/models/Team"
 MongoError = require "../common/errors/MongoError"
 InvalidArgumentError = require "../common/errors/InvalidArgumentError"
 
+
 app = module.exports = express()
 
 app.get "/v1/sports", auth.rookieStatus, (req, res, next) ->
@@ -17,9 +18,10 @@ app.get "/v1/sports", auth.rookieStatus, (req, res, next) ->
 
 app.get "/v1/sports/:sport_key/leagues", auth.rookieStatus, (req, res, next) ->
    sport_key = req.params.sport_key
+   excluded_keys = [ "l.ncaa.org.mfoot.div1.aa" ]
 
    Team
-   .aggregate { $match: { sport_key: sport_key }}
+   .aggregate { $match: { sport_key: sport_key, league_key: { $nin: excluded_keys } }}
    , { $group: { _id: "$league_key", league_name: { $first: "$league_name"}}}
    , { $sort: { league_name: 1 }}
    , { $project: { _id: 0, league_key: "$_id", league_name: 1 }}
@@ -48,9 +50,11 @@ app.get "/v1/sports/:sport_key/teams", auth.rookieStatus, (req, res, next) ->
 
    return res.json [] if q.length < 1 
 
+   regex = new RegExp("(|.*[\s]+)(#{q}).*", "i")
+
    Team
+   .find({ $or: [{ full_name: regex }, { aliases: regex }] })
    .where("sport_key", sport_key)
-   .where("full_name", new RegExp("(|.*[\s]+)(#{q}).*", "i"))
    .skip(skip)
    .limit(limit)
    .sort("full_name")

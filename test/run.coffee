@@ -209,7 +209,7 @@ describe "Fannect Core API", () ->
                body.shouts.length.should.equal(1)
                done()
 
-      describe.only "DELETE", () ->
+      describe "DELETE", () ->
          it "should set team profile to inactive", (done) ->
             context = @
             profile_id = "5102b17168a0c8f70c000005"
@@ -703,7 +703,7 @@ describe "Fannect Core API", () ->
       before prepMongo
       after emptyMongo
       describe "GET", () ->
-         it "should get users ", (done) ->
+         it "should get teams ", (done) ->
             context = @
             request
                url: "#{context.host}/v1/sports/15003000/teams?q=kansas"
