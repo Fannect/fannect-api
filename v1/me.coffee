@@ -4,6 +4,7 @@ mongoose = require "mongoose"
 User = require "../common/models/User"
 TeamProfile = require "../common/models/TeamProfile"
 Huddle = require "../common/models/Huddle"
+Survey = require "../common/models/Survey"
 auth = require "../common/middleware/authenticate"
 MongoError = require "../common/errors/MongoError"
 async = require "async"
@@ -96,6 +97,20 @@ app.post "/v1/me/verified", auth.rookieStatus, (req, res, next) ->
       html: html
    , (err) ->  
       return next(new RestError(err)) if err
+      res.json status: "success"
+
+app.post "/v1/me/survey", auth.rookieStatus, (req, res, next) ->
+   async.parallel [
+      (done) -> User.update { _id: req.user._id }, {taken_survey: true}, done
+      (done) -> auth.updateUser req.query.access_token, req.user, done
+      (done) ->
+         survey = new Survey()
+         survey.user_id = req.user._id
+         survey.response = req.body.response
+         survey.additional = req.body.additional
+         survey.save(done)
+   ], (err, data) ->
+      return next(new MongoError(err)) if err
       res.json status: "success"
 
 app.use require "./me/facebook"
